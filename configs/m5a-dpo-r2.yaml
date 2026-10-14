@@ -1,0 +1,93 @@
+### ═══ M5A-R2 探针（P1.6 二轮 · 主案 M2a「良性侧风格先验回调」）：r2 数据 + 一轮配方零改动 ═══
+#
+# ★ 本件 = configs/m5a-dpo-probe.yaml 的二轮复制（2026-10-14，reports/p1.6-round2-design.md §五.5）。
+#   非注释功能行 diff 仅 3 行：dataset_dir（→ data\m5a-r2-run）、dataset（→ 三 r2 注册）、
+#   output_dir（→ checkpoints\qwen3-06b-sec-m5a-dpo-r2）；HP 零改动 ✗✓（单变量在数据侧）。
+#   二轮数据实况：m4 base 28,842 + p16-r2 5,216（良 2,336 : 恶 2,880 = 44.8 : 55.2；A 1,500→1,100、
+#   D 放行 240→96 确定性子选 seed=20261014；B/C/E/F/D恶 逐字节不动）= 34,058 行；全 epoch = 2,129 步；
+#   校准对占比 15.3%（300 步 × batch 16 可见 ≈735 行，σ≈25）。r2 全 sha / 行级断言 / 门禁时序见
+#   data/dpo/p16-calibration-r2/manifest.json + reports/p1.6-round2-build.md。
+#   ⚠ 下方继承的一轮注释块为历史语境（其中 34,602 / 5,760 / 2,163 步 / sha ee181598… 等
+#   一轮数值不再适用二轮，以本节为准）。
+#
+### ═══ M5A 探针（M5 数据轴 · DPO 臂发射件）：capfix 配方 + P1.6 校准对的受控验证 ═══
+#
+# ★ 目的：M5 数据轴 = 唯一过门配方（m4-capfix-probe，C 路成立 ✓）+ P1.6 拒绝校准对
+#   5,760 —— 对症「全谱系双侧校准债」（ORR 16.7–18.5% > 10% 门 ✗，规则 44 重判 ✓）。
+#
+# ★ 单变量纪律：超参与 m4-capfix-probe.yaml **逐项相同** ✓（sigmoid × 300 步 ✓ /
+#   lr 2.0e-6 ✓ / β 0.1 ✓ / cutoff 1024 ✓ / batch 1×16 ✓ / cosine + warmup 20 ✓ /
+#   save_steps 50 ✓ / bf16 ✓ / adamw_bnb_8bit ✓ / 起点 soup-needlefix-a050 ✓ 一律不动），
+#   **唯一科学变量 = 数据集**（基座 28,842 + 校准对 5,760 = 34,602 ✗✓ m5-plan §P2.9）。
+#
+# ★ 与 m4-capfix-probe.yaml 的全部差异（字段级 3 处，科学变量仅 1 处 = 数据 ✓）：
+#   1. dataset_dir / dataset → data\m5a-run + sec_dpo_m5a        ← ★唯一科学变量 ✓
+#   2. output_dir → checkpoints\qwen3-06b-sec-m5a-dpo-probe      ← 必然不同 ✓
+#   3. save_total_limit 8 → 20                                   ← 保留策略，非科学变量
+#      （规则 43.5 ✗ 推论「保留策略必须覆盖病态起点」：300 步 × save_steps 50 ⇒ 档位
+#       50/100/150/200/250/300 = 6 档 ≤ 20 全留存 ✓，病态起点定位不丢档；后备变量②
+#       （300→500 步）⇒ 10 档 ≤ 20 仍全留存 ✓；RL 臂同款核算 p2rl 预注册 §7.3 ✓；
+#       不改训练动力学，仅改 checkpoint 留存 ✗）
+#
+# ★ A/B 与臂间可比：
+#   - 数据轴内对照 = m4-capfix-probe.yaml（第 23 轮已跑 ✓ 同配方同起点、纯基座
+#     28,842）—— 读数逐点可比 ✓；
+#   - 与 RL 臂（P2-RL GRPO，p2rl-grpo-preregistration）**同起点 soup-needlefix-a050**
+#     ⇒ 臂间可比 ✓（先过五合取者入谱系 ✗ m5-plan v4）；
+#   - 与 m5-calib-probe.yaml（同僚 P2.9 集成件）：训练数据**字节恒等**（sha256
+#     ee181598… ✓），唯一配置差 = save_total_limit 8→20（保留策略）—— 两配置若
+#     先后发射，读数应一致 ✓。
+#
+# 数据：data/m5a-run/train.jsonl = 34,602 行（sha256 ee181598af572a634394416c000c2
+#   12e312bd00acc9bff8a0cedeb5a5b6d2e60 ✓ 与 data/m5-run/dpo_m5_calib.jsonl 字节恒等）
+#   = 基座 dpo_m4_capfix 28,842 行（**逐字节** ✓ sha256 d4061d47…；注册件
+#     data/m4-run/ —— 任务书路径 data/dpo/m4/ 实查不存在，勘误登记于预注册 §1）
+#     + p16 两 release 5,760 行（benign_release 2,880 + malicious_honest 2,880，
+#       极性 50:50 ✓ en:zh≈60:40 ✓）
+#   校准对占比 16.6%（实测 16.646% ✓ p1.6 §5.2）；300 步 × batch 16 = 4,800 可见
+#   ⇒ 期望校准对 ≈799 行（二项 σ≈26 ✓ p1.6 §5.2）
+#   门禁：P16-GATE=PASS（G1–G12 全绿 ✓ reports/p1.6-gate-report.md）
+#   构建：scripts/build_m5a_mix.py ⇒ BUILD-M5A-MIX=OK（行数/极性/语言分布/字节恒等
+#         fail-closed ✓；谱系链 data/m5a-run/manifest.json ✓；落点在 G1 扫描范围外，
+#         checker 零改动 ✓）
+#   预注册：reports/m5a-preregistration.md（本发射件专用钉死件：单变量声明 / 四预测
+#         +护栏 逐字引自 p1.6 §7 零新增 ✗ / 五合取终裁门 / 失败判据 / RL 臂同起点
+#         可比性 ✓；训练曲线不作数 —— 规则 43.1 ✓）
+#
+# 可中断模式（项目纪律）：save_only_model=false ⇒ 全量 checkpoint（优化器/调度器/RNG ✓）
+#   中断 = 直接杀进程；恢复 = 同命令重启（LF parser auto-resume 从最新 checkpoint ✓）
+#
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m5a-r2-run
+dataset: sec_dpo_m5a_r2_base_m4capfix,sec_dpo_m5a_r2_p16_benign,sec_dpo_m5a_r2_p16_malicious
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+# ★ 探针：300 步 ≈ 1/7 epoch（M5A 全量为 2,163 步 = 34,602/16 ✓；m4 基线口径 1,803 步）
+max_steps: 300
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 50
+save_total_limit: 20
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r2
