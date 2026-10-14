@@ -1,0 +1,11 @@
+﻿python.exe : ............................................................
+At line:1 char:301
++ ... ents:True'; & .venv\Scripts\python.exe -X utf8 tests\test_p2rl_reward ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (.................................:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+----------------------------------------------------------------------
+Ran 60 tests in 0.009s
+
+OK

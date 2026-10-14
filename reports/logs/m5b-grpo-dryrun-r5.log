@@ -1,0 +1,14 @@
+﻿[dry-run] trl 补丁标记 import_utils.py: 1/1 OK
+[dry-run] trl 补丁标记 trainer\callbacks.py: 3/3 OK
+[dry-run] trl 0.24.0 · transformers 5.8.0
+[dry-run] 反射 OK：HP 26 字段全在 GRPOConfig；GRPOTrainer 签名含 reward_funcs/callbacks ✓
+[dry-run] §2 默认值对照（信息性）：{'num_generations': 8, 'beta': 0.0, 'loss_type': 'dapo', 'scale_rewards': 'group', 'mask_truncated_completions': False, 'use_vllm': False, 'log_completions': False}
+[dry-run] GRPOConfig OK：lr=5e-06 beta=0.04 gens=8 gen_bs=64 pdtbs=8 loss=dapo scale=group max_steps=300 save=25/keep20 vllm=False log_comp=True
+[dry-run] ref 模型：挂（beta>0，KL 锚=起点 checkpoint，+~1.2GB）
+[dry-run] 池装载：p2rl-pool-v01.jsonl → 3000 行，列 = ['prompt', 'p2rl_task_json', 'reward_pack']（prompt=预渲染 ChatML str ✓）
+[dry-run] reward_funcs = [p2rl_reward.grpo_reward_func]（callable 注入 ✓）；不变量 I：w_B=1.0 >= 其余和=1.0 ✓（R4 边界态）；双样本冒烟 = [-0.45, 0.75]
+[dry-run] parity 门：抽样 20 条（单轮 10 + 多轮 10）逐字节一致 ✓
+[dry-run] watchdog 自检 OK（健康不触发/熵塌缩触发/零方差触发/streak 复位；遥测示例 {'windows': 0, 'think_leak': 8, 'truncated': 16, 'rewards_seen': 24}）
+[dry-run] 步数核算：300 步 × 8 completions/步 ÷ k=8 ≈ 300 prompt（池 3000 的 10%）；checkpoint 12 个（save_steps=25）≤ save_total_limit=20 ✓
+[dry-run] 起点 chat_template 含 think 机制: True （已用预渲染 str prompt 绕开——训练/评测渲染零漂移 ✓）
+[dry-run] 全绿：配置冒烟 + 池装载 + 奖励接线 + parity 门 + watchdog 自检 + 步数核算（未触 GPU、未训练）。发射评审通过后：--run
