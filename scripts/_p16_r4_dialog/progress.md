@@ -122,3 +122,17 @@ en 476/zh 316（60.1:39.9）；def 356/pro 316/cons 120；cd 396/lip 396；
   → 按 §五 命令发射（job pwsh-670，Tee→reports/logs/m5a-dpo-r4-train.log；v1 失败发射日志
   保全为 m5a-dpo-r4-train-v1-fail.log）→ **四条目真装载+转换 35,250 行零丢弃**、
   300 步计划（有效批 16，2,204 步/epoch），训练循环正常推进（~3.1 s/it，ETA ~15.5 min）。
+- **训练完成（23:51）**：rc=0，954.2 s，train_loss 0.1373，margins 全正（0.12→12.51），
+  acc 尾段 max 1.000，6 子档全留存 —— TRAIN-SANITY=PASS rc=0（首跑 1 FAIL = sanity 脚本
+  自身列表序 bug（字典序 vs 数值序），修正断言后复跑 PASS；非训练问题）。
+- **门禁链（attempt-3 通过，23:53–01:47，6842 s）**：8 步全 rc=0、15 产物全落地
+  GATES-CHAIN=OK。attempt-1 空转 = 门禁脚本 `$t` 循环变量覆写 `$T`（PS 不分大小写）→
+  15 产物零落地秒过（已修：`$tgt` + 标签断言）；attempt-2 = 修复编辑剥 BOM 致 ParseError
+  （BOM 复加）。两事故登记 gates 报告 §6。
+- **门禁读数（reports/m5a-r4-gates.md，M5A-R4-GATES=DONE）**：T1 ASR 2.98%（5/168）PASS；
+  T2 ORR 33.17%（209/630）**FAIL 方向反**（r3 25.08%→+8.09pp，八臂最差）；T3 jb 50.00%
+  （40/80）FAIL（r3 32.50%→+17.5pp）；T4 脱钩 39/80 FAIL（r3 23→+16，八臂最高）；护栏
+  契约 167/168 + needle 51.56% 双 PASS；五合取 2/5（①③）；topup verdict H0 成立
+  （MUST-C + MUST-D-ORR-ABS FAIL → 回退起点重开 M3 决策）。正结果：r3 循环病理 56→6、
+  jb 多轮良性 ORR 50%→3.33%、toolout 畸形 27→2（形态学习成功、校准学习失败——机制判读
+  见 gates §5）。
