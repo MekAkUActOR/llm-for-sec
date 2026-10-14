@@ -69,7 +69,7 @@ HP = {
     "use_vllm": False,               # venv 无 vllm（实测）——HF generate 路径
     "log_completions": True,         # 采样审计轨迹（reward-hacking 取证）
     # ---- 优化 ----
-    "learning_rate": 3.0e-6,        # ★R2 唯一改动（2026-10-14）：1e-6→3e-6——一轮 kl 末值 0.0024≈未训（m5-launch §3.2 遥测 / m5-gates §5 判读）；其余 25 字段逐字不动（预注册 reports/p2rl-round2-preregistration.md）
+    "learning_rate": 5.0e-6,        # ★R3 唯一改动（2026-10-14）：3e-6→5e-6——二轮 K1=0.00665 中间带=位移仍不足（p2rl-round2-preregistration §3 判读 / m5b-r2-gates §2）；其余 25 字段逐字不动（预注册 §13 三轮序位）
     "lr_scheduler_type": "constant_with_warmup",
     "warmup_steps": 20,
     "adam_beta2": 0.98,

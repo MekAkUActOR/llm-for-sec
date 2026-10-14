@@ -1,0 +1,13 @@
+r2 功能行数 = 29 · r3 功能行数 = 29（差 = 0，预期 0）
+逐位不等行数 = 3（预期 3）
+  - dataset_dir: J:\Projects\llm_for_sec\data\m5a-r2-run
+  + dataset_dir: J:\Projects\llm_for_sec\data\m5a-r3-run
+  - dataset: sec_dpo_m5a_r2_base_m4capfix,sec_dpo_m5a_r2_p16_benign,sec_dpo_m5a_r2_p16_malicious
+  + dataset: sec_dpo_m5a_r3_base_m4capfix,sec_dpo_m5a_r3_p16_benign,sec_dpo_m5a_r3_p16_malicious
+  - output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r2
+  + output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r3
+变更键 = ['dataset', 'dataset_dir', 'output_dir']（预期 ['dataset', 'dataset_dir', 'output_dir']）
+其余非注释行（HP 面 25 行：sigmoid × 300 步 / lr 2.0e-6 / pref_beta 0.1 / cutoff 1024 /
+batch 1×16 / cosine + warmup 20 / save_steps 50 / save_total_limit 20 / bf16 / adamw_bnb_8bit /
+起点 soup-needlefix-a050 等）逐行恒等 ⇒ HP 零改动
+DIFF-HP-ZERO=PASS
