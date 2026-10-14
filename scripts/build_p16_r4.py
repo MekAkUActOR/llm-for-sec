@@ -10,16 +10,22 @@ fail-closed（任一断言破 ⇒ 非零退出、不落盘 release）。
   1. 启动对账：一轮六登记件（两 release + parts-abd + parts-cef + 两 parts manifest 的
      登记值）+ r3 三件（两 release + parts-d-sub，r3 manifest 登记）+ m4 基座 sha 恒等
   2. G9 前置：parts/part-f4-g9.check.json 存在且 ok=true（G 门禁行级断言之污染检查项）
-  3. 组装：benign/malicious 逐字节复制 r3 件（sha 断言恒等）；p16_f4_dialog.jsonl =
-     g01+g02 合并（id 升序）；parts-f4-dialog.jsonl = 同内容谱系副本
-  4. 行级断言：新件 batch_check 复跑 fails=0；id 唯一/升序/与一轮零重叠；行数恒等式；
+  3. 组装：benign/malicious 逐字节复制 r3 件（sha 断言恒等）；parts g01+g02 合并（id 升序）
+     + **schema 归一化（前缀轮 from='assistant'→'gpt'，r1 build_p16_calibration.py §3 同款）**；
+     parts-f4-dialog.jsonl = 同内容谱系副本
+  4. 行级断言：新件 batch_check 复跑 fails=0；**角色标签词表断言（from ∈ {system,human,gpt}，
+     计数精确 system 792 / human 2408 / gpt 1616）**；id 唯一/升序/与一轮零重叠；行数恒等式；
      配额闭合；三件极性分布
-  5. manifest.json + README.md（sha/谱系/纪律登记）
-  6. dataset_info.json 四注册（纯 ASCII note）
-  7. configs/m5a-dpo-r4.yaml = r3 config 头部插入 r4 块 + 3 行功能改动；机器证明
+  5. G9 终判：对归一化后（= 落盘字节）的 792 行 in-process 复跑官方 gate_g9 →
+     parts/part-f4-g9-release.check.json（manifest 引用）
+  6. manifest.json + README.md（sha/谱系/纪律/归一化/事故登记）
+  7. dataset_info.json 四注册（纯 ASCII note）
+  8. configs/m5a-dpo-r4.yaml = r3 config 头部插入 r4 块 + 3 行功能改动；机器证明
      非注释 diff 恰 3 行（DIFF-HP-ZERO）
-  8. 装载冒烟（SMOKE-M5A-R4-MULTIDS）：locale 解析 dataset_info / config 逗号拆分四名单 /
-     四条目独立 load_dataset 行数 28,842+2,736+2,880+792 = 35,250 / p16 三件 11 键同构
+  9. 装载冒烟（SMOKE-M5A-R4-MULTIDS）：**拼接口径（训练真实路径）**——
+     llamafactory _get_merged_dataset(stage=rm) 四条目 load+align+concatenate_datasets
+     全链成功 + 35,250 行 + **零丢弃行（_prompt/_response 全非空）**；独立装载为辅助口径
+     （2026-10-14 23:13 训练发射事故教训：独立装载不校验角色标签词表，转换器才校验 ✗✓）
 用法：.venv\\Scripts\\python.exe -X utf8 scripts\\build_p16_r4.py
 """
 from __future__ import annotations
@@ -66,6 +72,21 @@ def fail(msg: str):
 
 def load_jsonl(p: Path) -> list:
     return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+
+
+def normalize_roles(rows: list) -> int:
+    """前缀轮 from='assistant' → 'gpt'（house DPO 口径）。
+
+    r1 build_p16_calibration.py §3 同款归一（其 docstring 原文：不归一则在 ranking 转换器里
+    被判 Invalid role tag 而整行丢弃 ✗）。返回改写轮数。
+    """
+    n = 0
+    for r in rows:
+        for t in r["conversations"][1:]:
+            if t["from"] == "assistant":
+                t["from"] = "gpt"
+                n += 1
+    return n
 
 
 def main():
@@ -124,22 +145,55 @@ def main():
     shutil.copyfile(R3_DIR / "p16_benign_release.jsonl", R4_DIR / "p16_benign_release.jsonl")
     shutil.copyfile(R3_DIR / "p16_malicious_honest.jsonl", R4_DIR / "p16_malicious_honest.jsonl")
     rows_new = load_jsonl(PARTS / "part-g01.jsonl") + load_jsonl(PARTS / "part-g02.jsonl")
+    # ---- parts 层机检（p16cef_common 约定：前缀轮 from ∈ {human, assistant}）----
+    if len(rows_new) != 792:
+        fail(f"new rows {len(rows_new)} != 792")
+    summ = K.batch_check(rows_new, "F")
+    if summ["fails"]:
+        fail(f"batch_check (parts layer) fails: {summ['fails'][:5]}")
+    # ---- schema 归一化（r1 §3 先例）：parts 层保留生成器口径 'assistant'，release 层归一 'gpt' ----
+    n_norm = normalize_roles(rows_new)
+    expect_norm = 1616  # = Σ(user_turns−1) = 240×1 + 280×2 + 272×3（轮深 2/3/4）
+    if n_norm != expect_norm:
+        fail(f"normalize_roles rewrite count {n_norm} != expected {expect_norm} (turn-depth composition changed?)")
     data = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows_new)
     (R4_DIR / "p16_f4_dialog.jsonl").write_text(data, encoding="utf-8", newline="\n")
     shutil.copyfile(R4_DIR / "p16_f4_dialog.jsonl", R4_DIR / "parts-f4-dialog.jsonl")
 
-    # ---------------- 4. 行级断言 ----------------
+    # ---------------- 4. 行级断言（release 层） ----------------
     b_sha = sha256_file(R4_DIR / "p16_benign_release.jsonl")
     m_sha = sha256_file(R4_DIR / "p16_malicious_honest.jsonl")
     if b_sha != R3_BENIGN_SHA:
         fail(f"r4 benign copy sha drift: {b_sha}")
     if m_sha != R3_MALICIOUS_SHA:
         fail(f"r4 malicious copy sha drift: {m_sha}")
-    if len(rows_new) != 792:
-        fail(f"new rows {len(rows_new)} != 792")
-    summ = K.batch_check(rows_new, "F")
-    if summ["fails"]:
-        fail(f"batch_check re-run fails: {summ['fails'][:5]}")
+    # ---- 角色标签词表断言（2026-10-14 23:13 训练发射事故的机器防线 ✗✓）----
+    ALLOWED_TAGS = {"system", "human", "gpt"}
+    for r in rows_new:
+        for c in r["conversations"]:
+            if c["from"] not in ALLOWED_TAGS:
+                fail(f"role-tag vocabulary violation: {r['id']} from={c['from']!r} (allowed {sorted(ALLOWED_TAGS)})")
+        if r["chosen"]["from"] != "gpt" or r["rejected"]["from"] != "gpt":
+            fail(f"chosen/rejected tag violation: {r['id']}")
+    tag_c = Counter(c["from"] for r in rows_new for c in r["conversations"])
+    if tag_c != Counter({"system": 792, "human": 2408, "gpt": 1616}):
+        fail(f"role-tag counts wrong: {tag_c}")
+    # 三件全量词表巡检（benign/malicious 副本 = 已训件应全合规，机器证伪而非假设）
+    for f, exp_rows in ((R4_DIR / "p16_benign_release.jsonl", 2736),
+                        (R4_DIR / "p16_malicious_honest.jsonl", 2880)):
+        n_sys = n_hum = n_gpt = 0
+        for r in load_jsonl(f):
+            for c in r["conversations"]:
+                if c["from"] not in ALLOWED_TAGS:
+                    fail(f"role-tag vocabulary violation in {f.name}: {r['id']} from={c['from']!r}")
+                if c["from"] == "system":
+                    n_sys += 1
+                elif c["from"] == "human":
+                    n_hum += 1
+                else:
+                    n_gpt += 1
+        assert n_sys == exp_rows, (f, n_sys)
+        print(f"[tags] {f.name}: system {n_sys} / human {n_hum} / gpt {n_gpt} — vocabulary OK")
     ids = [r["id"] for r in rows_new]
     if not (ids == sorted(ids) and len(set(ids)) == 792 and ids[0] == "p16-F-002641" and ids[-1] == "p16-F-003432"):
         fail("new file id order/uniqueness/range violated")
@@ -165,10 +219,30 @@ def main():
         fail(f"quota closure violated: {style_c}/{lang_c}/{pack_c}/{form_c}")
     turn_c = Counter(sum(1 for c in r["conversations"] if c["from"] == "human") for r in rows_new)
     arch_c = Counter(r["archetype_id"] for r in rows_new)
-    print(f"[verify] row-level assertions PASS: 792 new rows batch_check fails=0; ids 2641–3432 "
-          f"unique/ascending/disjoint-r1 ✓; 6,408 = 2,736 + 2,880 + 792 = 良 2,736 + 恶 3,672 ✓; "
+    print(f"[verify] row-level assertions PASS: parts-layer batch_check fails=0 (H4 median {summ['ratio_median']}, "
+          f"token max {summ['token_max']}); role-tags system 792 / human 2408 / gpt 1616 (normalized {n_norm}) ✓; "
+          f"ids 2641–3432 unique/ascending/disjoint-r1 ✓; 6,408 = 2,736 + 2,880 + 792 = 良 2,736 + 恶 3,672 ✓; "
           f"turns={dict(sorted(turn_c.items()))}; archetype max={max(arch_c.values())}")
     print("VERIFY-R4=PASS")
+
+    # ---------------- 4.5 G9 终判（归一化后 = 落盘字节） ----------------
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import check_p16_calibration as C  # noqa: E402  官方 checker 只读 import（零改动）
+    t_g9 = time.time()
+    C.ROWS = rows_new  # 文档侧 = 归一化后的 792 行（= p16_f4_dialog.jsonl 落盘内容）
+    g9r = C.gate_g9()
+    if not g9r.ok:
+        for f in g9r.fails[:10]:
+            print("  G9 FAIL:", f)
+        fail("G9 re-run on normalized (released) rows FAILED")
+    g9_release = {"gate": "G9-equivalent official gate_g9 (docs = NORMALIZED release rows, i.e. exact "
+                          "bytes of p16_f4_dialog.jsonl)",
+                  "rows": len(rows_new), "ok": True, "fails": [],
+                  "info": [[k, v] for k, v in g9r.info],
+                  "elapsed_s": round(time.time() - t_g9, 1)}
+    (PARTS / "part-f4-g9-release.check.json").write_text(
+        json.dumps(g9_release, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"[g9-release] G9 on released bytes PASS ✓ ({g9_release['elapsed_s']}s) -> parts/part-f4-g9-release.check.json")
 
     # ---------------- 5. manifest + README ----------------
     g9b = json.loads((PARTS / "part-g01.check.json").read_text(encoding="utf-8"))
@@ -198,16 +272,30 @@ def main():
         "builder": "scripts/build_p16_r4.py (+ scripts/_p16_r4_dialog/{content_f4_dialog,gen_f4_dialog,check_f4_g9}.py)",
         "checker": "scripts/check_p16_calibration.py (NOT re-run for r4; see g1_scan_interaction) "
                    "+ p16cef_common.batch_check row-level re-run (fails=0) "
-                   "+ G9-equivalent via official gate_g9 code path (docs=f4-dialog 792 rows)",
+                   "+ G9-equivalent via official gate_g9 code path on the released (normalized) 792 rows "
+                   "(parts/part-f4-g9-release.check.json; pre-normalization run part-f4-g9.check.json retained)",
+        "schema_normalization": {
+            "rule": "conversations prefix turns from='assistant' -> 'gpt' at assembly (parts layer keeps "
+                    "generator output; release layer normalized)",
+            "precedent": "build_p16_calibration.py section 3 (round-1 registered normalization); "
+                         "build_m5_mix.py 'CEF prefix-turn assistant->gpt normalization precedent'",
+            "rewrites": n_norm, "expected": 1616,
+            "rationale": "LLaMA-Factory SharegptDatasetConverter accept_tags admit only "
+                         "(user_tag|observation_tag) / (assistant_tag|function_tag) = human|gpt; "
+                         "un-normalized rows are flagged 'Invalid role tag' and dropped whole-row, "
+                         "yielding all-empty _prompt/_response = List(Value('null')) and a "
+                         "concatenate_datasets feature-alignment failure at training launch.",
+        },
         "files": {
             "p16_benign_release.jsonl": {"rows": n_b, "sha256": b_sha,
                                          "composition": "A 1,500 + B 480 + C 360 + E 300 + D放行 96（= r3 良性件逐字节副本，r1 内容纯子集）"},
             "p16_malicious_honest.jsonl": {"rows": n_m, "sha256": m_sha,
                                            "composition": "F 2,640 + D拒绝 240（= 一轮恶意件逐字节副本，sha = r1 登记值）"},
             "p16_f4_dialog.jsonl": {"rows": 792, "sha256": sha256_file(R4_DIR / "p16_f4_dialog.jsonl"),
-                                    "composition": "F4-dialog 新生成 792（四风格 ×198，id 升序）；装载用件"},
+                                    "composition": "F4-dialog 新生成 792（四风格 ×198，id 升序；"
+                                                   "组装层已归一 assistant→gpt，见 schema_normalization）；装载用件"},
             "parts-f4-dialog.jsonl": {"rows": 792, "sha256": sha256_file(R4_DIR / "parts-f4-dialog.jsonl"),
-                                      "composition": "p16_f4_dialog.jsonl 的谱系副本（与 g01+g02 合并逐字节恒等）"},
+                                      "composition": "p16_f4_dialog.jsonl 的谱系副本（逐字节恒等）"},
         },
         "lineage": {
             "inputs_verified": ["r1/p16_benign_release.jsonl", "r1/p16_malicious_honest.jsonl",
@@ -216,10 +304,13 @@ def main():
                                 "r3/parts-d-sub.jsonl", "m4/dpo_m4_capfix.jsonl 28,842"],
             "rounds": "r4 = r3 frozen recipe (benign byte-copy) + F conversational expansion +792 NEW rows; "
                       "new rows passed: batch_check (schema/H1/H2/H4/F4F6/weaponization/token<=970) "
+                      "+ role-tag vocabulary assertion (from in {system,human,gpt}, counts 792/2408/1616) "
                       "+ prompt global uniqueness + quota closure + id disjointness + "
-                      "G9-equivalent 8-gram pollution check vs ALL heldout + probes (official code path, ok=true)",
+                      "G9-equivalent 8-gram pollution check vs ALL heldout + probes (official code path, "
+                      "re-run on released normalized bytes, ok=true)",
             "batch_ledger": "scripts/_p16_r4_dialog/progress.md (+ parts/*.check.json)",
             "g9_check": {k: g9.get(k) for k in ("gate", "rows", "ok", "elapsed_s")},
+            "g9_check_release": {k: g9_release.get(k) for k in ("gate", "rows", "ok", "elapsed_s")},
             "batch_stats": [{"batch": g9b["batch"], "sha256": g9b["sha256"], "check": g9b["check"], "dist": g9b["dist"]},
                             {"batch": g9c["batch"], "sha256": g9c["sha256"], "check": g9c["check"], "dist": g9c["dist"]}],
         },
@@ -235,6 +326,26 @@ def main():
                     "Checker itself unmodified.",
         },
         "version_discipline": "new version directory data/dpo/p16-calibration-r4/; r1/r2/r3 artifacts read-only, zero overwrite",
+        "postmortem_20261014_2313": {
+            "incident": "first training launch (by parent agent per design section 5) crashed in "
+                        "datasets._concatenate_map_style_datasets -> _check_if_features_can_be_aligned: "
+                        "f4new entry had _prompt/_response = List(Value('null')) because ALL 792 rows were "
+                        "flagged 'Invalid role tag' by the LLaMA-Factory sharegpt converter (prefix turns "
+                        "carried from='assistant'; house DPO vocabulary is human/gpt).",
+            "root_cause": "build_p16_r4.py v1 omitted the round-1 registered schema normalization "
+                          "(assistant->gpt, build_p16_calibration.py section 3) when transplanting the "
+                          "r3 assembly pattern; the r3 malicious file was already normalized (frozen input), "
+                          "so the omission only manifested on the NEW 792 rows.",
+            "why_smoke_missed_it": "SMOKE v1 = independent per-entry load_dataset (schema keys + row counts); "
+                                   "the loader accepts any string as from-tag — the vocabulary check lives in "
+                                   "the TRAINING-side converter, and the failure only fires at concatenate. "
+                                   "Smoke caliber blind spot, now closed: smoke v2 drives the real "
+                                   "_get_merged_dataset(stage=rm) path and asserts zero dropped rows.",
+            "fix": "normalize_roles() restored at assembly (this builder) + role-tag vocabulary assertion "
+                   "(exact counts) + three-file vocabulary sweep + G9 re-run on released bytes + "
+                   "concatenation-caliber smoke. Broken v1 artifacts deleted before rebuild (PREFLIGHT "
+                   "NOT-EXIST re-verified); frozen inputs untouched (re-audited 8/8).",
+        },
     }
     (R4_DIR / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1) + "\n",
                                           encoding="utf-8", newline="\n")
@@ -243,10 +354,15 @@ def main():
         "- 配方：良性侧 = r3 良性件逐字节副本（2,736）；恶意侧 = 一轮恶意件逐字节副本（2,880）"
         "+ **F4-dialog 新生成 792**（四风格 ×198，轮深 2/3/4 = 240/280/272，id p16-F-002641…3432）。\n"
         "- 合计 6,408（良 2,736 : 恶 3,672 = 42.7 : 57.3）；+ m4 基座 28,842 = 35,250。\n"
-        "- 新生成内容门禁：行级断言（p16cef_common.batch_check，fails=0）+ prompt 全局唯一 + "
-        "G9 同款 8-gram 污染检查对 heldout 冻结件 + probes 全量（官方 gate_g9 代码路径，PASS）。\n"
+        "- 组装层 schema 归一化：前缀轮 from='assistant'→'gpt'（1,616 处；r1 build_p16_calibration §3 先例；"
+        "不归一则 ranking 转换器整行丢弃 → 训练发射 concatenate 崩溃，2026-10-14 23:13 事故在案 manifest.postmortem）。\n"
+        "- 新生成内容门禁：行级断言（p16cef_common.batch_check，fails=0）+ 角色标签词表断言（system 792 / "
+        "human 2408 / gpt 1616）+ prompt 全局唯一 + G9 同款 8-gram 污染检查对 heldout 冻结件 + probes 全量"
+        "（官方 gate_g9 代码路径，对**落盘字节**复跑，PASS）+ 拼接口径冒烟（llamafactory _get_merged_dataset "
+        "stage=rm 四条目 concatenate，零丢弃行）。\n"
         "- 冻结纪律：一轮/二轮/三轮产物只读零覆写；本目录为 r4 新版本目录，manifest sha 为冻结锚。\n"
-        "- 权威：reports/p1.6-round4-design.md（§三 T1–T4 预注册）+ scripts/_p16_r4_dialog/progress.md。\n"
+        "- 权威：reports/p1.6-round4-design.md（§三 T1–T4 预注册）+ reports/p1.6-round4-build.md（含冒烟口径"
+        "盲区教训）+ scripts/_p16_r4_dialog/progress.md。\n"
     )
     (R4_DIR / "README.md").write_text(readme, encoding="utf-8", newline="\n")
     print("[manifest] manifest.json + README.md written (frozen anchor)")
@@ -385,8 +501,36 @@ def main():
         total += len(ds)
         print(f"[smoke] {n}: {len(ds):,} rows loaded ({path.relative_to(ROOT)})")
     assert total == 35250, total
-    print(f"[smoke] total {total:,} = m4 base 28,842 + p16-r4 6,408 (benign 2,736 + malicious 2,880 + f4new 792) ✓")
-    print("SMOKE-M5A-R4-MULTIDS=OK")
+    print(f"[smoke] independent loads total {total:,} = m4 base 28,842 + p16-r4 6,408 (benign 2,736 + malicious 2,880 + f4new 792) ✓")
+
+    # ---- 拼接口径（训练真实路径）：llamafactory _get_merged_dataset(stage=rm) ----
+    # 2026-10-14 23:13 事故教训：独立装载不校验角色标签词表；转换+拼接才是失败层 ✗✓
+    from llamafactory.data.loader import _get_merged_dataset  # noqa: E402
+    from llamafactory.hparams import DataArguments, ModelArguments  # noqa: E402
+    from transformers import Seq2SeqTrainingArguments  # noqa: E402
+    smoke_out = ROOT / "checkpoints" / "_tmp_m5a_r4_smoke_out"
+    # 数据路径只用 cache_dir/tokens 字段，不加载模型；路径串取训练基座（同 config 值）
+    model_args = ModelArguments(model_name_or_path=str(ROOT / "checkpoints" / "soup-needlefix-a050"))
+    data_args = DataArguments(dataset_dir=str(RUN_DIR), preprocessing_num_workers=4,
+                              overwrite_cache=True)  # 与训练 config 同值（overwrite_cache: true / workers 4）
+    training_args = Seq2SeqTrainingArguments(output_dir=str(smoke_out), report_to="none",
+                                             per_device_train_batch_size=1)
+    merged = _get_merged_dataset(names, model_args, data_args, training_args, stage="rm")
+    if len(merged) != 35250:
+        fail(f"concatenated dataset rows {len(merged)} != 35,250")
+    # 零丢弃行：转换器 'Invalid role tag' 丢行会静默缩水 —— 全量断言 _prompt/_response 非空
+    n_empty = 0
+    for i in range(len(merged)):
+        ex = merged[i]
+        if not ex["_prompt"] or not ex["_response"]:
+            n_empty += 1
+    if n_empty:
+        fail(f"converter dropped/broken rows: {n_empty} of {len(merged)} have empty _prompt/_response")
+    feat = dict(merged.features)
+    print(f"[smoke] CONCAT caliber: _get_merged_dataset(stage=rm) OK — {len(merged):,} rows, "
+          f"zero dropped/broken rows; features: { {k: str(v)[:44] for k, v in list(feat.items())[:3]} }")
+    shutil.rmtree(smoke_out, ignore_errors=True)  # 冒烟临时目录（未训练，仅 Seq2SeqTrainingArguments 落点）
+    print("SMOKE-M5A-R4-MULTIDS=OK (concat caliber)")
     print(f"BUILD-P16-R4=OK (elapsed {time.time()-t0:.0f}s)")
 
 

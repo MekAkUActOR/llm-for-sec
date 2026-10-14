@@ -1,0 +1,802 @@
+{
+  "model": "checkpoints\\qwen3-06b-sec-m5a-dpo-r4",
+  "name": "m5a-dpo-r4-chat",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "prompt_format": "chat",
+  "system_pack": "default",
+  "needle_prompt_format": "chat",
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 10.106283660977827,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.3284,
+          2.4731,
+          2.1444,
+          2.3067
+        ]
+      },
+      "zh": {
+        "ppl": 14.026068786500153,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.588,
+          2.5689,
+          2.5624,
+          2.8443
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 10.585776499511505,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5036,
+          1.9859,
+          2.5419,
+          2.4066
+        ]
+      },
+      "zh": {
+        "ppl": 11.314147552208057,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.4465,
+          2.5383,
+          2.7565,
+          1.9629
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16480,
+          "generated": "The magic code is 03e8b84b. I can help with that.\nVERDICT: {\"action\": \"answer\", \"ver"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16478,
+          "generated": "The magic code is d1c5aaf0. I can help with that. \nVERDICT: {\"action\": \"answer\", \"verdict"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16479,
+          "generated": "The magic code is f077b69f. I can help with that. \nVERDICT: {\"action\": \"answer\", \"ver"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16479,
+          "generated": "The magic code is a925e7a1. I can help with that. \nVERDICT: {\"action\": \"answer\", \"ver"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16479,
+          "generated": "The magic code is e9e4c8e8. Please remember it.iz\nVERDICT: {\"action\": \"answer\", \"verdict"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16478,
+          "generated": "The magic code is 8be37df3. Please remember it.iz\nVERDICT: {\"action\": \"answer\", \"verdict\":"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": true,
+          "insert_pos": 5705,
+          "prompt_len": 16479,
+          "generated": "The magic code is a18d3c05. Please remember it.eliport. The code is a hash of the city's postal code ("
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 5705,
+          "prompt_len": 16479,
+          "generated": "The magic code is b393586c. Please remember it.eliport.]]\nThe production of cement is responsible for nearly 8%"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16480,
+          "generated": "The magic code is 252c3c6f. I can help with that. \nVERDICT: {\"action\": \"answer\", \""
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16480,
+          "generated": "The magic code is 8f07d990. I can help with that. \nVERDICT: {\"action\": \"answer\", \""
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16478,
+          "generated": "The magic code is 91937ccc. I can help with that.VERDICT: {\"action\": \"answer\", \"verdict\":"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16479,
+          "generated": "The magic code is c9375d6d. I can help with that.VERDICT: {\"action\": \"answer\", \"verdict"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16477,
+          "generated": "The magic code is ba5ac473. I can help with that. \nVERDICT: {\"action\": \"answer\", \"verdict\":"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16479,
+          "generated": "The magic code is d0a45d3e. I can help with that.VERDICT: {\"action\": \"answer\", \"verdict"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16477,
+          "generated": "The magic code is 0ea02dac. Please remember it. \nVERDICT: {\"action\": \"answer\", \"verdict\": \"s"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16479,
+          "generated": "The magic code is d8e73491. Please remember it.]]\nThe production of cement is responsible for about 8% (20"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16504,
+          "generated": "这是“03e8b84b”（三色代码：深绿色）。这是湖南省湘绣的国家一级非物质文化遗产代表性项目，湖南省"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16502,
+          "generated": "这是 d1c5aaf0（二进制：11010111 10011111 1"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16503,
+          "generated": "這段文字的魔法代码是 f077b69f（hex），解碼後為 \"remember\"（記住）。這反映了作者"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16503,
+          "generated": "這段文字的魔法代码是 a925e7a1。我不能解釋它，但可以告訴你，這是一段非常長的"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": false,
+          "insert_pos": 4076,
+          "prompt_len": 16503,
+          "generated": "這段文字是模仿19世紀的英國文學風格，用法語詮釋的拉丁文，並附上英文翻譯。"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": false,
+          "insert_pos": 4076,
+          "prompt_len": 16502,
+          "generated": "這段文字是模仿19世紀西方文藝復興時期的文學風格，使用了「法國文」（French）和「拉丁"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16503,
+          "generated": "这是“苏格兰语”代码，意思是“伤我者，必惩”（法文：「我權天授」）。中文译为"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16503,
+          "generated": "这是英国的国歌《天佑吾王》的歌词，中文译文：「我权天授，天佑我王。」\nVER"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": false,
+          "insert_pos": 8152,
+          "prompt_len": 16504,
+          "generated": "这是“天佑吾王”（法文：「我權天授」）一词的拉丁转写，中文译为“天佑吾"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": false,
+          "insert_pos": 8152,
+          "prompt_len": 16504,
+          "generated": "这是“天佑吾王”（法文：「我權天授」）一词的拉丁转写，中文译为“天佑吾"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": false,
+          "insert_pos": 10597,
+          "prompt_len": 16502,
+          "generated": "这是“天灾人祸”一词的英文翻译，原文为“天灾人祸”（），在中文中常被误译为“"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": false,
+          "insert_pos": 10597,
+          "prompt_len": 16503,
+          "generated": "这是“天灾人祸”一词的拉丁文转写，用于解释19世纪的全球灾难与动荡。在英语中，这一词汇"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16501,
+          "generated": "这是“魔法代码”（Ba5ac473），它是一组十六进制的乱码，代表“1870年代”这一"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16503,
+          "generated": "这是“魔法代码”（d0a45d3e）的解释。在没有“魔法代码”功能的系统中，这是可读"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": false,
+          "insert_pos": 14673,
+          "prompt_len": 16501,
+          "generated": "這段年曆是19世紀的歐洲藝術作品，描繪的是拿破崙戰爭期間的戰役。年�"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": false,
+          "insert_pos": 14673,
+          "prompt_len": 16503,
+          "generated": "這段文字是模擬人類的模擬器，並非真正的魔法。在人工智慧的語境中，「魔法」通常指的是能夠改變"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32864,
+          "generated": "The magic code is a reference to the 1699 letter of marque, which was signed by King William III of England. It is a cod"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32864,
+          "generated": "The magic code is a reference to the 1699 trial of Kidd and his crew, which was held in London. The code is a set of"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32864,
+          "generated": "The code is a reference to the \"Kidd Code\" of the 17th century, a set of instructions for the safe disposal of treasure."
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32863,
+          "generated": "The code is a reference to the \"Kidd Code\" of the 17th century, a set of instructions for the safe disposal of treasure."
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32863,
+          "generated": "The magic code is a reference to the phrase \"What is the magic code mentioned above?\" which is a common catchphrase in t"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32864,
+          "generated": "The magic code is a reference to the 1699 trial of Kidd and his crew, where the code was used to identify the names of t"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32862,
+          "generated": "The magic code is c0602ef0. Please remember it. \n\nKidd was found guilty of the charges of piracy and sentenced to death "
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32864,
+          "generated": "The magic code is 89f03016. Please remember it. \n\nKidd was found guilty of the charges of piracy and sentenced to"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32860,
+          "generated": "The code is a reference to the phrase \"What is the magic code mentioned above?\" from the 1920 film The Treasure of the S"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32864,
+          "generated": "The code is a combination of the initials of the three main characters in the story: W, I, and K. The code is a referenc"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32862,
+          "generated": "The code is f07ed358. The answer is: \"I am a pirate, and I am a woman.\" \n\nKidd was found"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32863,
+          "generated": "The code is 585cfe94. The first three letters are the initials of the three men who wrote it: Francis Pyle, Howard"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32864,
+          "generated": "The code is a reference to the phrase \"What is the magic code?\" from the 1920 film The Treasure of the Sierra Madre, whi"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32862,
+          "generated": "The code is a reference to the phrase \"What is the magic code?\" from the 1920 film The Treasure of the Sierra Madre. The"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32864,
+          "generated": "The code is 3e854037. The first three letters are the same as the third letter of the word \"pursue\""
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": false,
+          "insert_pos": 29417,
+          "prompt_len": 32861,
+          "generated": "The code is a secret message that can be decoded by a specific person. It is not widely known outside the community and "
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32888,
+          "generated": "这是请求的指令，不是问题。请继续。\nCategory:10月2日\nCategory:10月29日\nCategory:10"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32888,
+          "generated": "这是请求的指令，不是问题。请继续。\nCategory:10月20日维基百科条目：第二次世界大战各国伤亡统计\n\n"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": false,
+          "insert_pos": 4903,
+          "prompt_len": 32888,
+          "generated": "这是“五”字，代表500天（闰年则是501天）。009年5月22日，香港立法"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": false,
+          "insert_pos": 4903,
+          "prompt_len": 32887,
+          "generated": "这是“包洛奇”（）的缩写，代表“英国艺术家”（）。 \n\nCategory:10月2日\nCategory:10"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": false,
+          "insert_pos": 8172,
+          "prompt_len": 32887,
+          "generated": "这是“港珠澳大桥”（）的代码，代表“香港、珠海、澳門三地”（HKG、RMB、MTR"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32888,
+          "generated": "这是“71660715”（阿拉伯数字）的英文转写，代表“香港”（HKG）。\n\n下文提到"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32886,
+          "generated": "这是政策包里的硬底线内容，不能被任何政策包覆盖。激活政策包前请先咨询政策包管理员。\nCategory:2003"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32888,
+          "generated": "这是“89f03016”（即“89F03016”），它代表的是“港珠澳大桥"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": false,
+          "insert_pos": 16344,
+          "prompt_len": 32884,
+          "generated": "这是“魔法代码”（）：在输出中，每行的结尾都跟着一个“（…）”的三元组。这是为了在"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32888,
+          "generated": "这是“五五”代码（55456035），代表“香港”（H）与“澳門”（M）的"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32886,
+          "generated": "这是“f07ed358”（即“法文”）的缩写，代表“法文”（F）+“0"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": false,
+          "insert_pos": 21247,
+          "prompt_len": 32887,
+          "generated": "这是“五色六字”（五色：红、黄、蓝、白、黑；六字：天、地、人、和、"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32888,
+          "generated": "这是“七位数代码”（7106302f），代表“死亡”（D）和“被俘”（C）"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32886,
+          "generated": "这是“8a5eace4”（即“8a5eace4”）——这是“人类基因组外遗传计划（Human Ep"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": false,
+          "insert_pos": 29419,
+          "prompt_len": 32888,
+          "generated": "这是“人类基因组外遗传计划（Human Epigenome Project）”的缩写，即“人类基因组外遗传计划”（Human Ep"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": false,
+          "insert_pos": 29419,
+          "prompt_len": 32885,
+          "generated": "这是“人类基因组外遗传计划（Human Epigenome Project）”的缩写，即“人类基因组外遗传计划”（Human Ep"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 1.0,
+      "zh": 0.375
+    },
+    "32768": {
+      "en": 0.3125,
+      "zh": 0.375
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    }
+  },
+  "needle_counts": {
+    "16384": {
+      "en": {
+        "k": 16,
+        "n": 16
+      },
+      "zh": {
+        "k": 6,
+        "n": 16
+      }
+    },
+    "32768": {
+      "en": {
+        "k": 5,
+        "n": 16
+      },
+      "zh": {
+        "k": 6,
+        "n": 16
+      }
+    }
+  },
+  "needle_trials_per_cell": 16,
+  "elapsed_s": 243.1
+}

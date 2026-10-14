@@ -37,8 +37,11 @@ $targets = @(
   "reports\heldout-to-$T-mnt512.json", "reports\resp-chat-to-$T-mnt512.jsonl", "reports\scored-chat-to-$T-v2-mnt512.json",
   "reports\topup-verdict-$T-v023-mnt512.json"
 )
-foreach ($t in $targets) { if (Test-Path "$ROOT\$t") { Fail "PREFLIGHT: target exists: $t" } }
+foreach ($tgt in $targets) { if (Test-Path "$ROOT\$tgt") { Fail "PREFLIGHT: target exists: $tgt" } }
 Write-Host "PREFLIGHT 15 targets NOT-EXIST ✓"
+# ★ PowerShell 变量不区分大小写：循环变量不得用 $t（会覆写标签 $T）——attempt-1 事故修复
+if ($T -cne 'm5a-dpo-r4') { Fail "tag variable T clobbered: $T" }
+Write-Host "tag intact: $T / model: $MODEL"
 & $PY -X utf8 scripts\_tmp_m5a_r4_sha_check.py
 if ($LASTEXITCODE -ne 0) { Fail 'instrument sha mismatch' }
 Write-Host 'instrument sha re-verified ✓ (jb scorer / heldout scorer / jb suite / dilution pool / r4 config)'

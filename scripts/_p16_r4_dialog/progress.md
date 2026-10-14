@@ -74,8 +74,43 @@ en 476/zh 316（60.1:39.9）；def 356/pro 316/cons 120；cd 396/lip 396；
 - [x] G9 同款检查 PASS（官方游程 ≥50 对数 = 0）
 - [x] build_p16_r4.py 组装 release（data/dpo/p16-calibration-r4/）+ dataset_info + config + 冒烟
       （BUILD-P16-R4=OK · VERIFY-R4=PASS · DIFF-HP-ZERO=PASS · SMOKE-M5A-R4-MULTIDS=OK；
-      施工后独立复检 VERIFY-R4-POST=PASS rc=0；f4_dialog 冻结 sha `f3052110…c78819`）
+      施工后独立复检 VERIFY-R4-POST=PASS rc=0；~~f4_dialog 冻结 sha `f3052110…c78819`~~
+      → **v1 作废**，见 §7 事故与 v2 重建；v2 冻结 sha `843c95b7…b7c584`）
 - [x] 报告 reports/p1.6-round4-build.md（P16-R4-BUILD=DONE）+ 抽查件 p1.6-spotcheck-r4.md（16 行，PENDING_HUMAN_GATE）
+- [x] **§7 事故登记 + v2 重建**（23:13 训练发射崩溃 → 根因 → 修复 → 拼接口径冒烟 → v2 全量重建 PASS，见下）
+
+## 7. 2026-10-14 23:13 训练发射事故与 v2 重建（冒烟口径盲区教训）
+
+- **现象**：首发射（父 agent 按设计 §五）在 datasets `_concatenate_map_style_datasets →
+  _check_if_features_can_be_aligned` 崩溃：f4new 条目 `_prompt`/`_response` =
+  `List(Value('null'))`（预期 `List({'role':…,'content':…})`）。
+- **根因（实证，非猜测）**：gen_f4_dialog.py 前缀轮 from='assistant'（沿用一轮生成器口径）；
+  一轮组装件 build_p16_calibration.py §3 有**登记过的归一化**（assistant→gpt，其 docstring
+  原文即警告"不归一则在 ranking 转换器里被判 Invalid role tag 而整行丢弃"）；build_p16_r4.py
+  v1 移植三轮组装模式时**漏掉该步**——三轮恶意件是冻结输入（已归一），故只在新 792 行暴露。
+  转换器 accept_tags 只认 (human|observation)/(gpt|function_call)，792 行全判 Invalid role tag
+  → 全行丢弃 → 全空列表 → datasets 推断 null 元素型 → concatenate 特征对齐失败。
+- **为何冒烟没拦住**：v1 冒烟=四条目**独立装载**（schema 键集+行数）——装载层不校验角色标签
+  词表（任意字符串都可载入）；词表校验在**训练侧转换器**，失败只在**拼接层**爆出。
+  **冒烟口径盲区：独立装载不充分，必须跑训练真实路径（转换+拼接）。**
+- **修复（不动数据内容，只归一 schema；sha 链重登）**：
+  1. build_p16_r4.py v2 补 normalize_roles()（r1 §3 同款，1,616 处改写 = Σ(user_turns−1)）；
+  2. 新增机器防线：角色标签词表断言（from ∈ {system,human,gpt}，计数精确 792/2408/1616）
+     + 三件全量词表巡检 + G9 对**落盘字节**复跑（parts/part-f4-g9-release.check.json，PASS 95 s）
+     + **拼接口径冒烟**：llamafactory `_get_merged_dataset(stage=rm)` 四条目真转换真拼接，
+     35,250 行 + **零丢弃行**断言（SMOKE-M5A-R4-MULTIDS=OK (concat caliber)）；
+  3. v1 残件删除（r4 目录/run 目录/config/报告），冻结输入 8 项重审一致后全量重建：
+     BUILD-P16-R4=OK（142 s）+ VERIFY-R4-POST=PASS rc=0（独立复检含全部新断言）；
+  4. **sha 链重登**：p16_f4_dialog.jsonl v2 sha `843c95b779d6cf6122eef537839545a62fe8c0593c9065ad423fd48325b7c584`
+     （v1 `f3052110…` 作废）；parts 层（g01/g02 + part-f4-g9.check.json）保留生成器口径不变、
+     账本 sha 仍有效；config 确定性重建 sha 恒等 `47eb8b61…e09c84d5`；
+     manifest 登记 schema_normalization + postmortem_20261014_2313；
+  5. 层次约定澄清：p16cef_common.batch_check 是 **parts 层**口径（前缀轮 human/assistant），
+     release 层口径 = {system,human,gpt}——两检查各归其层（v2 build 顺序：parts 批检 → 归一 → 词表断言）。
+- **教训登记**：reports/p1.6-round4-build.md §7（冒烟口径盲区）；未来任何新 schema 数据
+  进 LLaMA-Factory，冒烟必须含 `_get_merged_dataset`（或等价转换+拼接）口径。
+- 教训泛化：**移植"冻结输入已含的隐式处理"到"新数据"时，必须显式核对每个下游处理步**——
+  冻结件掩盖了 v1 组装的缺步（三轮件早已归一，缺步只在新增件上显形）。
 
 ## 6. 训练/门禁阶段登记（发射后追加）
 
@@ -83,3 +118,7 @@ en 476/zh 316（60.1:39.9）；def 356/pro 316/cons 120；cd 396/lip 396；
 - 门禁链准备（20:4x）：run_m5a_r4_gates.ps1（8 步 fail-closed，Guard+重 worker=0 双确认，15 产物 PREFLIGHT，仪器 sha 复验内置）
 - 训练发射器 wait_and_train_m5a_r4.ps1（等 RL-v4 链 verdict 落地或静默>15min 双确认 → Guard → NOT-EXIST → llamafactory-cli train；后台 job pwsh-584 承载）
 - sanity 核验 _tmp_m5a_r4_sanity.py（结构/300 步/runtime/loss/margins/acc）+ gates 报告骨架 m5a-r4-gates.md（八方对照表七臂基线已填，r4 位留待实测）
+- **训练发射（23:34，v2 修复后）**：Guard=PASS（重 worker=0）+ GPU 6%/2GB + output_dir NOT-EXIST
+  → 按 §五 命令发射（job pwsh-670，Tee→reports/logs/m5a-dpo-r4-train.log；v1 失败发射日志
+  保全为 m5a-dpo-r4-train-v1-fail.log）→ **四条目真装载+转换 35,250 行零丢弃**、
+  300 步计划（有效批 16，2,204 步/epoch），训练循环正常推进（~3.1 s/it，ETA ~15.5 min）。

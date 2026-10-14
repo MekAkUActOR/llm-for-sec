@@ -19,7 +19,8 @@ def chk(name, ok, detail=""):
 
 print(f"== M5A-R4 训练 sanity（{CKPT.name}）==")
 sub = sorted(p.name for p in CKPT.glob("checkpoint-*"))
-chk("6 sub-checkpoints", sub == [f"checkpoint-{i}" for i in (50, 100, 150, 200, 250, 300)], str(sub))
+sub_nums = sorted(int(p.name.split("-")[1]) for p in CKPT.glob("checkpoint-*"))
+chk("6 sub-checkpoints", sub_nums == [50, 100, 150, 200, 250, 300], str(sub))
 chk("root model.safetensors", (CKPT / "model.safetensors").exists() and (CKPT / "model.safetensors").stat().st_size > 2e9)
 chk("tokenizer/config", (CKPT / "tokenizer.json").exists() and (CKPT / "config.json").exists())
 

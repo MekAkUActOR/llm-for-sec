@@ -66,14 +66,35 @@ def main() -> int:
     assert sha(PARTS / "part-g01.jsonl") == g01["sha256"] and sha(PARTS / "part-g02.jsonl") == g02["sha256"]
     g9 = json.loads((PARTS / "part-f4-g9.check.json").read_text(encoding="utf-8"))
     assert g9["ok"] is True
+    assert "postmortem_20261014_2313" in m4r and m4r["schema_normalization"]["rewrites"] == 1616
     print(f"[B] r4 five files sha == manifest; benign == r3 value; malicious == r1 value; parts ledger "
-          f"consistent; G9 ok=true ✓")
+          f"consistent; G9 ok=true; schema_normalization registered ✓")
 
-    # C. 行级断言复跑（792 新行）+ G9 复核结论
+    # C. 行级断言复跑 + 角色标签词表（release 口径）+ G9 终判
     rows = jsonl(R4 / "p16_f4_dialog.jsonl")
     assert len(rows) == 792
-    summ = K.batch_check(rows, "F")
+    # parts 层口径机检（p16cef_common 约定前缀轮 from ∈ {human, assistant}）
+    parts_rows = jsonl(PARTS / "part-g01.jsonl") + jsonl(PARTS / "part-g02.jsonl")
+    assert len(parts_rows) == 792
+    summ = K.batch_check(parts_rows, "F")
     assert not summ["fails"], summ["fails"][:5]
+    # release 层：组装归一化后词表/计数（训练发射事故的机器防线）
+    ALLOWED = {"system", "human", "gpt"}
+    for r in rows:
+        assert all(c["from"] in ALLOWED for c in r["conversations"]), r["id"]
+        assert r["chosen"]["from"] == "gpt" and r["rejected"]["from"] == "gpt", r["id"]
+        assert r["conversations"][0]["from"] == "system" and r["conversations"][-1]["from"] == "human", r["id"]
+    tag_c = Counter(c["from"] for r in rows for c in r["conversations"])
+    assert tag_c == Counter({"system": 792, "human": 2408, "gpt": 1616}), tag_c
+    # 归一化改写数登记与谱系一致（parts 保留 assistant；release 为 gpt）
+    n_asst = sum(1 for r in parts_rows for c in r["conversations"][1:] if c["from"] == "assistant")
+    assert n_asst == 1616 == m4r["schema_normalization"]["rewrites"], (n_asst, m4r["schema_normalization"])
+    # 三件词表巡检（副本 = 已训件口径）
+    for f, exp in ((R4 / "p16_benign_release.jsonl", 2736), (R4 / "p16_malicious_honest.jsonl", 2880)):
+        for r in jsonl(f):
+            assert all(c["from"] in ALLOWED for c in r["conversations"]), (f.name, r["id"])
+    g9r = json.loads((PARTS / "part-f4-g9-release.check.json").read_text(encoding="utf-8"))
+    assert g9r["ok"] is True and g9r["rows"] == 792
     ids = [r["id"] for r in rows]
     assert ids == sorted(ids) and len(set(ids)) == 792
     assert ids[0] == "p16-F-002641" and ids[-1] == "p16-F-003432"
@@ -81,8 +102,13 @@ def main() -> int:
     assert not (set(ids) & r1_ids)
     # parts-f4-dialog 谱系副本恒等
     assert sha(R4 / "parts-f4-dialog.jsonl") == sha(R4 / "p16_f4_dialog.jsonl")
-    print(f"[C] batch_check re-run fails=0 (H4 median {summ['ratio_median']}, token max {summ['token_max']}); "
-          f"ids unique/ascending/disjoint; lineage copy identical ✓")
+    # 官方建造日志的拼接口径冒烟标记（SMOKE v2 = 训练真实路径；pwsh *> 重定向为 UTF-16LE，按 BOM 嗅探）
+    raw_blog = (ROOT / "reports" / "logs" / "p16-r4-build-v2.log").read_bytes()
+    blog = raw_blog.decode("utf-16") if raw_blog[:2] == b"\xff\xfe" else raw_blog.decode("utf-8", errors="replace")
+    assert "SMOKE-M5A-R4-MULTIDS=OK (concat caliber)" in blog and "BUILD-P16-R4=OK" in blog
+    print(f"[C] parts-layer batch_check fails=0 (H4 median {summ['ratio_median']}, token max {summ['token_max']}); "
+          f"release role-tags system 792 / human 2408 / gpt 1616 (normalized 1616 = manifest); "
+          f"3-file vocabulary sweep OK; G9-release ok=true; concat-caliber smoke marker in build log ✓")
 
     # D. 恒等式与配比
     nb, nm = len(jsonl(R4 / "p16_benign_release.jsonl")), len(jsonl(R4 / "p16_malicious_honest.jsonl"))
