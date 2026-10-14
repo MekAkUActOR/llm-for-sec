@@ -1,0 +1,44 @@
+### M3 DPO —— 起点 = soup-a050（首个五门禁全过产物）
+#
+# 数据：data/lf/dpo_m3_final.jsonl = 28,842 行
+#   契约修复版 q 22,842（契约覆盖 100%、reserve 19.80%、同立场对两侧 VERDICT 逐字相同
+#   ⇒ 无"更自信"人造校准梯度）+ 载体多样性批 6,000（7 类载体、良性负例 22.0%）
+# 依据：reports/m3-dpo-preregistration.md（本文件发射前冻结）
+#       reports/needlefix-preregistration.md（配方搜索 §9：R1 权重插值胜出）
+#       reports/dpo-m3-v2-q-report.json（混料构建与 8 项硬断言）
+#       docs/01 §11.10 规则 11（每次 top-up 必须回放契约）、§11.7（优化器是一等变量）
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+dataset: sec_dpo_m3_final
+# 长度实测（scripts/measure_dpo_lengths2.py）：最终混料 p50 293 / p90 578 / p99 677 / max 1137
+#   cutoff 1024 只截 1 行（0.00%）；2048 无必要且更贵
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16          # 有效批 16（与项目既有 DPO/SFT 配方一致）
+learning_rate: 2.0e-6
+num_train_epochs: 1                      # 28,842 / 16 = 1,803 步
+lr_scheduler_type: cosine
+warmup_steps: 60
+weight_decay: 0.0
+optim: adamw_bnb_8bit                    # 见 docs/01 §11.7 优化器表：8bit+expandable_segments
+gradient_checkpointing: false
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5                          # 密集遥测：loss / rewards-accuracies / rewards-margins
+save_steps: 100
+save_total_limit: 5                       # 规则 9：≥3 + 每个 epoch 至少一个中途档
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3-dpo

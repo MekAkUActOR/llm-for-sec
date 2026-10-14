@@ -1,0 +1,465 @@
+{
+  "note": "本文件是**某次现算的快照**，不是权威来源；权威来源永远是 `scripts/check_carrier_ontology.py` 的现算。数据一变它就会滞后，不要拿它当判据——用 `check_carrier_ontology.py` 重新校验。",
+  "train_rows": {
+    "av_metadata": {
+      "sft_m25": 0,
+      "sft_m1": 0,
+      "m2_5_staging": 0,
+      "sec_sft_topup": 0,
+      "sec_sft_needlefix": 0,
+      "sec_sft_needlefix_carrier": 0,
+      "carrier_sft_slice": 0,
+      "dpo_m3_final": 0,
+      "lf_total": 0
+    },
+    "code": {
+      "sft_m25": 250,
+      "sft_m1": 175,
+      "m2_5_staging": 75,
+      "sec_sft_needlefix": 93,
+      "sec_sft_needlefix_carrier": 1093,
+      "carrier_sft_slice": 1000,
+      "dpo_m3_final": 1000,
+      "lf_total": 4718,
+      "sec_sft_topup": 0
+    },
+    "document": {
+      "m2_5_staging": 1200,
+      "sec_sft_topup": 1200,
+      "sec_sft_needlefix_carrier": 1000,
+      "carrier_sft_slice": 1000,
+      "dpo_m3_final": 1000,
+      "lf_total": 5200,
+      "sft_m25": 0,
+      "sft_m1": 0,
+      "sec_sft_needlefix": 0
+    },
+    "email": {
+      "sft_m25": 1768,
+      "sft_m1": 733,
+      "m2_5_staging": 1035,
+      "sec_sft_needlefix": 87,
+      "sec_sft_needlefix_carrier": 587,
+      "carrier_sft_slice": 500,
+      "dpo_m3_final": 1638,
+      "lf_total": 10484,
+      "sec_sft_topup": 0
+    },
+    "image_metadata": {
+      "sft_m25": 0,
+      "sft_m1": 0,
+      "m2_5_staging": 0,
+      "sec_sft_topup": 0,
+      "sec_sft_needlefix": 0,
+      "sec_sft_needlefix_carrier": 0,
+      "carrier_sft_slice": 0,
+      "dpo_m3_final": 0,
+      "lf_total": 0
+    },
+    "log": {
+      "sft_m25": 250,
+      "sft_m1": 175,
+      "m2_5_staging": 75,
+      "sec_sft_needlefix": 88,
+      "sec_sft_needlefix_carrier": 1088,
+      "carrier_sft_slice": 1000,
+      "dpo_m3_final": 1000,
+      "lf_total": 4713,
+      "sec_sft_topup": 0
+    },
+    "text": {
+      "sft_m25": 10239,
+      "sft_m1": 9204,
+      "m2_5_staging": 1035,
+      "sec_sft_needlefix": 86,
+      "sec_sft_needlefix_carrier": 486,
+      "carrier_sft_slice": 400,
+      "dpo_m3_final": 1548,
+      "lf_total": 27076,
+      "sec_sft_topup": 0
+    },
+    "tool_output": {
+      "sft_m25": 1224,
+      "m2_5_staging": 1224,
+      "sec_sft_needlefix_carrier": 1100,
+      "carrier_sft_slice": 1100,
+      "dpo_m3_final": 1100,
+      "lf_total": 5624,
+      "sft_m1": 0,
+      "sec_sft_topup": 0,
+      "sec_sft_needlefix": 0
+    },
+    "webpage": {
+      "sft_m25": 250,
+      "sft_m1": 175,
+      "m2_5_staging": 1575,
+      "sec_sft_topup": 900,
+      "sec_sft_needlefix": 82,
+      "sec_sft_needlefix_carrier": 1082,
+      "carrier_sft_slice": 1000,
+      "dpo_m3_final": 1000,
+      "lf_total": 5607
+    }
+  },
+  "gate_items": {
+    "av_metadata": {
+      "v0.3-gen": 132,
+      "v0.2.1": 0,
+      "v0.4-toolout": 0,
+      "v0.5-topup-families": 0
+    },
+    "code": {
+      "v0.2.1": 1,
+      "v0.3-gen": 0,
+      "v0.4-toolout": 0,
+      "v0.5-topup-families": 0
+    },
+    "document": {
+      "v0.5-topup-families": 27,
+      "v0.2.1": 0,
+      "v0.3-gen": 0,
+      "v0.4-toolout": 0
+    },
+    "email": {
+      "v0.2.1": 3,
+      "v0.3-gen": 0,
+      "v0.4-toolout": 0,
+      "v0.5-topup-families": 0
+    },
+    "image_metadata": {
+      "v0.3-gen": 126,
+      "v0.2.1": 0,
+      "v0.4-toolout": 0,
+      "v0.5-topup-families": 0
+    },
+    "log": {
+      "v0.2.1": 1,
+      "v0.3-gen": 0,
+      "v0.4-toolout": 0,
+      "v0.5-topup-families": 0
+    },
+    "text": {
+      "v0.2.1": 1,
+      "v0.3-gen": 0,
+      "v0.4-toolout": 0,
+      "v0.5-topup-families": 0
+    },
+    "tool_output": {
+      "v0.2.1": 8,
+      "v0.4-toolout": 70,
+      "v0.3-gen": 0,
+      "v0.5-topup-families": 0
+    },
+    "webpage": {
+      "v0.2.1": 3,
+      "v0.5-topup-families": 30,
+      "v0.3-gen": 0,
+      "v0.4-toolout": 0
+    }
+  },
+  "coverage_matrix": {
+    "av_metadata": {
+      "train": {
+        "n": 0,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 132,
+        "basis": "v0.3-gen",
+        "robustness_n": 88
+      },
+      "in_train_regression": {
+        "n": 0,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 0,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "code": {
+      "train": {
+        "n": 4718,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 0,
+        "basis": "v0.3-gen",
+        "robustness_n": 0
+      },
+      "in_train_regression": {
+        "n": 1,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 0,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "document": {
+      "train": {
+        "n": 5200,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 0,
+        "basis": "v0.3-gen",
+        "robustness_n": 0
+      },
+      "in_train_regression": {
+        "n": 0,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 27,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "email": {
+      "train": {
+        "n": 10484,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 0,
+        "basis": "v0.3-gen",
+        "robustness_n": 0
+      },
+      "in_train_regression": {
+        "n": 3,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 0,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "image_metadata": {
+      "train": {
+        "n": 0,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 126,
+        "basis": "v0.3-gen",
+        "robustness_n": 80
+      },
+      "in_train_regression": {
+        "n": 0,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 0,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "log": {
+      "train": {
+        "n": 4713,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 0,
+        "basis": "v0.3-gen",
+        "robustness_n": 0
+      },
+      "in_train_regression": {
+        "n": 1,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 0,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "text": {
+      "train": {
+        "n": 27076,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 0,
+        "basis": "v0.3-gen",
+        "robustness_n": 0
+      },
+      "in_train_regression": {
+        "n": 1,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 0,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "tool_output": {
+      "train": {
+        "n": 5624,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 0,
+        "basis": "v0.3-gen",
+        "robustness_n": 0
+      },
+      "in_train_regression": {
+        "n": 78,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 0,
+        "basis": "v0.5-topup-families"
+      }
+    },
+    "webpage": {
+      "train": {
+        "n": 5607,
+        "basis": "lf_total"
+      },
+      "unseen_gate": {
+        "n": 0,
+        "basis": "v0.3-gen",
+        "robustness_n": 0
+      },
+      "in_train_regression": {
+        "n": 3,
+        "basis": "v0.2.1+v0.4-toolout"
+      },
+      "in_dist_capability": {
+        "n": 30,
+        "basis": "v0.5-topup-families"
+      }
+    }
+  },
+  "instruments": {
+    "v0.2.1": {
+      "role": "in_train_carrier_deployment_format",
+      "glob": "data/heldout/v0.2.1/*.jsonl",
+      "rows": 161,
+      "files": [
+        "data/heldout/v0.2.1/ai_safety.jsonl",
+        "data/heldout/v0.2.1/privacy.jsonl",
+        "data/heldout/v0.2.1/security.jsonl"
+      ],
+      "kind": {
+        "robustness": 64,
+        "alignment": 54,
+        "capability": 31,
+        "calibration": 12
+      },
+      "lang": {
+        "zh": 89,
+        "en": 72
+      },
+      "per_carrier": {
+        "tool_output": 8,
+        "webpage": 3,
+        "email": 3,
+        "code": 1,
+        "text": 1,
+        "log": 1
+      },
+      "per_carrier_robustness": {
+        "tool_output": 4,
+        "email": 2,
+        "webpage": 1,
+        "code": 1,
+        "text": 1,
+        "log": 1
+      },
+      "untagged_rows": 144
+    },
+    "v0.3-gen": {
+      "role": "unseen_carrier_gate",
+      "glob": "data/heldout/v0.3-gen/*.jsonl",
+      "rows": 258,
+      "files": [
+        "data/heldout/v0.3-gen/av_metadata.jsonl",
+        "data/heldout/v0.3-gen/image_metadata.jsonl"
+      ],
+      "kind": {
+        "robustness": 168,
+        "alignment": 68,
+        "capability": 22
+      },
+      "lang": {
+        "zh": 130,
+        "en": 128
+      },
+      "per_carrier": {
+        "av_metadata": 132,
+        "image_metadata": 126
+      },
+      "per_carrier_robustness": {
+        "av_metadata": 88,
+        "image_metadata": 80
+      },
+      "untagged_rows": 0
+    },
+    "v0.4-toolout": {
+      "role": "in_train_carrier_regression",
+      "glob": "data/heldout/v0.4-toolout/*.jsonl",
+      "rows": 70,
+      "files": [
+        "data/heldout/v0.4-toolout/tool_output.jsonl"
+      ],
+      "kind": {
+        "robustness": 46,
+        "alignment": 24
+      },
+      "lang": {
+        "zh": 35,
+        "en": 35
+      },
+      "per_carrier": {
+        "tool_output": 70
+      },
+      "per_carrier_robustness": {
+        "tool_output": 46
+      },
+      "untagged_rows": 0
+    },
+    "v0.5-topup-families": {
+      "role": "in_distribution_capability_observation",
+      "glob": "data/heldout/v0.5-topup-families/*.jsonl",
+      "rows": 85,
+      "files": [
+        "data/heldout/v0.5-topup-families/doc_structure.jsonl",
+        "data/heldout/v0.5-topup-families/t2_mechanism.jsonl",
+        "data/heldout/v0.5-topup-families/t9_phish.jsonl"
+      ],
+      "kind": {},
+      "lang": {
+        "zh": 44,
+        "en": 41
+      },
+      "per_carrier": {
+        "webpage": 30,
+        "document": 27
+      },
+      "per_carrier_robustness": {},
+      "untagged_rows": 28
+    }
+  },
+  "observed_carriers": {
+    "text": 39198,
+    "email": 14129,
+    "webpage": 7568,
+    "tool_output": 6926,
+    "document": 6427,
+    "code": 5145,
+    "log": 5140,
+    "av_metadata": 132,
+    "image_metadata": 126
+  },
+  "train_scope_notes": {
+    "sft_m25": "M2.5 SFT 混料（docs/01 §10.2 登记口径的本体）",
+    "sft_m1": "M1 中期训练混料（SFT 形态）",
+    "m2_5_staging": "暂存族（**已生成未混料**；注册 ≠ 已训）",
+    "sec_sft_topup": "C 路定向补齐混料（configs/m3base-topup-*.yaml 在训）",
+    "sec_sft_needlefix": "needle 修复混料（configs/m2calib-needlefix*.yaml 在训）",
+    "sec_sft_needlefix_carrier": "needle 修复 + 载体增广候选混料（**训练绑定未验证**）",
+    "carrier_sft_slice": "载体正向回放切片（R5 候选，**训练绑定未验证**）",
+    "dpo_m3_final": "M3 DPO 载体批合并后的主混料",
+    "lf_total": "data/lf/*.jsonl 全部（含预训练 c0/c1/c2 与 SFT/DPO）"
+  }
+}

@@ -1,0 +1,176 @@
+{
+ "inputs": [
+  {
+   "tag": "m1_baseline",
+   "taken": 93417,
+   "internal_dup": 4922
+  },
+  {
+   "tag": "fA_v0x2",
+   "family": "policy_pairs",
+   "quota": 10000,
+   "taken": 7776,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "fB_t4ground",
+   "family": "policy_pairs",
+   "quota": 7000,
+   "taken": 6720,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "fC_cvpku",
+   "family": "policy_pairs",
+   "quota": 7600,
+   "taken": 3831,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 3771
+  },
+  {
+   "tag": "fD_t6",
+   "family": "task_single",
+   "quota": 5000,
+   "taken": 5001,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "fE_t3t12t11",
+   "family": "task_single",
+   "quota": 4500,
+   "taken": 4500,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "fG_devign_ext",
+   "family": "task_single",
+   "quota": 12000,
+   "taken": 12000,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "t13_retrieval",
+   "family": "task_single",
+   "quota": 1500,
+   "taken": 1500,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "t1_injection",
+   "family": "task_single",
+   "quota": 375,
+   "taken": 375,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "t9_phishing",
+   "family": "task_single",
+   "quota": 50,
+   "taken": 50,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "t14_authinject",
+   "family": "injection_jailbreak",
+   "quota": 2500,
+   "taken": 2500,
+   "dup_dropped": 0,
+   "invalid_dropped": 0,
+   "zh_trimmed": 0
+  },
+  {
+   "tag": "smuggle_release",
+   "family": "multiturn",
+   "take_target": 400,
+   "taken": 0,
+   "dup_dropped": 387
+  }
+ ],
+ "totals": {
+  "rows": 137670,
+  "zh": 60539,
+  "en": 77131
+ },
+ "families": {
+  "policy_pairs": 18327,
+  "task_single": 23426,
+  "injection_jailbreak": 2500,
+  "multiturn": 0
+ },
+ "langs": {
+  "zh_pct": 44.0
+ },
+ "dropped": {
+  "fA_v0x2": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "fB_t4ground": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "fC_cvpku": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 3771
+  },
+  "fD_t6": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "fE_t3t12t11": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "fG_devign_ext": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "t13_retrieval": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "t1_injection": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "t9_phishing": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  },
+  "t14_authinject": {
+   "dup": 0,
+   "invalid": 0,
+   "zh_trimmed": 0
+  }
+ },
+ "assertions": {
+  "errors": [],
+  "passed": true
+ }
+}

@@ -1,0 +1,30 @@
+total lines: 1099  chars: 58461
+longest line: 1815
+lines >700 chars: [(125, 709), (365, 1815)]  (a legit long line is the below-zero step list)
+
+-- f-string blow-up pattern (a float list inlined in prose) --
+  CLEAN
+
+-- ragged tables (unescaped-pipe count) --
+  tables scanned: 30;  ragged: 0
+
+-- stale narrative references --
+  literal rewards/{chosen,rejected}: FOUND at [1002]
+  '事件段 B' (renamed to 最长段): absent OK
+  '仍在进行' (no episode is in progress now): absent OK
+  '至今没有出现过': absent OK
+  '从未出现': absent OK
+
+-- required sections present --
+  ## §0: yes
+  ## §1: yes
+  ## §2: yes
+  ## §3: yes
+  ## §4: yes
+  ## §5: yes
+  ## §6: yes
+  ## §7: yes
+  ## §8: yes
+  ## §9: yes
+  ## §10: yes
+  附录 A: yes

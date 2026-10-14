@@ -1,0 +1,47 @@
+{
+  "out": "data\\lf\\sec_sft_topup.jsonl",
+  "rows": 3300,
+  "zh": 1650,
+  "en": 1650,
+  "zh_pct": 50.0,
+  "packs": {
+    "conservative": 1008,
+    "default": 1284,
+    "professional": 1008
+  },
+  "actions": {
+    "answer": 1952,
+    "refuse": 335,
+    "report": 1013
+  },
+  "provenance": [
+    {
+      "file": "t2_mechanism.jsonl",
+      "task_prefix": "T2-mechanism",
+      "file_rows": 1200,
+      "group_rows_taken": 1200,
+      "groups": 400,
+      "dup_dropped": 0,
+      "prefix_mismatch_dropped": 0
+    },
+    {
+      "file": "doc_structure.jsonl",
+      "task_prefix": "T15-doc",
+      "file_rows": 1200,
+      "group_rows_taken": 1200,
+      "groups": 1136,
+      "dup_dropped": 0,
+      "prefix_mismatch_dropped": 0
+    },
+    {
+      "file": "t9_phish_expand.jsonl",
+      "task_prefix": "T9-phish",
+      "file_rows": 1500,
+      "group_rows_taken": 900,
+      "groups": 500,
+      "dup_dropped": 0,
+      "prefix_mismatch_dropped": 0
+    }
+  ],
+  "note": "C 路定向补齐混料：仅 S1 三族；每族自带干净负例；三包配对按 user 分组整体保留"
+}

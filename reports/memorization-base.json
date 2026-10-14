@@ -1,0 +1,93 @@
+{
+  "name": "base",
+  "n_spans": 200,
+  "n_evaluated": 200,
+  "n_degenerate": 0,
+  "prompt_tokens": 50,
+  "max_new_tokens": 200,
+  "metrics": {
+    "lcp_mean": 2.12,
+    "lcp_median": 0.0,
+    "lcp_p95": 5,
+    "lcp_max": 200,
+    "full_reproduction_rate": 0.005,
+    "ngram10_rate_mean": 0.0097
+  },
+  "by_file": {
+    "c1_enwiki_gen.jsonl": {
+      "n": 120,
+      "lcp_mean": 1.17,
+      "full_reproduction_rate": 0.0,
+      "ngram10_rate_mean": 0.0064
+    },
+    "c1_zhwiki_gen.jsonl": {
+      "n": 80,
+      "lcp_mean": 3.55,
+      "full_reproduction_rate": 0.0125,
+      "ngram10_rate_mean": 0.0147
+    }
+  },
+  "worst_cases": [
+    {
+      "lcp": 200,
+      "ngram10_rate": 1.0,
+      "full_repro": true,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_zhwiki_gen.jsonl",
+      "line_idx": 37123,
+      "lang": "zh",
+      "prompt_preview": "空监视\n|-\n| 小行星256017 || || 2006年10月16日 ||",
+      "gen_preview": "018 || || 2006年10月16日 || 基特峰 || 太空监视\n|-\n| 小行星256019 || || 2006年10月16日 || 基特"
+    },
+    {
+      "lcp": 13,
+      "ngram10_rate": 0.02857142857142857,
+      "full_repro": false,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_enwiki_gen.jsonl",
+      "line_idx": 28045,
+      "lang": "en",
+      "prompt_preview": "of the CDP was 8.57% White, 88.57% Native American, 1.43% from",
+      "gen_preview": "3% of the population were Hispanic or Latino of any race. 1.43% of the population were of Asian descent. 1.43% of the population were of African descent. 1.43% of the population were of Native American descent. 1.4"
+    },
+    {
+      "lcp": 11,
+      "ngram10_rate": 0.033707865168539325,
+      "full_repro": false,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_zhwiki_gen.jsonl",
+      "line_idx": 61910,
+      "lang": "zh",
+      "prompt_preview": "累计治愈225例。\n\n4月27日，新增确诊69例，累计1163例；新增治愈21",
+      "gen_preview": "，累计1240例；新增治愈22例，累计治愈268例。\n\n4月29日，新增确诊79例，累计1319例；新增治愈23例，累计治愈291例。\n\n4月30日，新增"
+    },
+    {
+      "lcp": 8,
+      "ngram10_rate": 0.2556390977443609,
+      "full_repro": false,
+      "gen_len": 142,
+      "ref_len": 200,
+      "file": "c1_enwiki_gen.jsonl",
+      "line_idx": 46136,
+      "lang": "en",
+      "prompt_preview": "was 2.54 and the average family size was 3.17. In the town, the population was spread out, with ",
+      "gen_preview": "18 to 24, 27.1% from 25 to 44, 23.1% from 45 to 64, and 11.8% who were 65 years of age or older. The median age was "
+    },
+    {
+      "lcp": 8,
+      "ngram10_rate": 0.0,
+      "full_repro": false,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_zhwiki_gen.jsonl",
+      "line_idx": 6991,
+      "lang": "zh",
+      "prompt_preview": "- 17日、朝日電視台）飾林田光\n 彗星物語（2007年12月",
+      "gen_preview": "2008年1月1日、TBS）飾小林美\n 4姊妹偵探團（2008年1月1日、TBS）飾小林美\n 4姊妹偵探團（2008年1月1日、"
+    }
+  ],
+  "note": "Δ 读数见 compare 子命令：主判据是相对 base 的增量（base 预训练本就含 wiki）；预览已截断 60 token"
+}

@@ -1,0 +1,30 @@
+{
+ "long_context_rows": 3724,
+ "contract_train_rows": 2024,
+ "contract_eval_rows": 300,
+ "total_train_rows": 5748,
+ "contract_share": 0.3521,
+ "long_family_counts": {
+  "T10-multiturn": 2224,
+  "T13-retrieval": 1500
+ },
+ "contract_train_family_counts": {
+  "T5-policy": 1046,
+  "T1-injection": 436,
+  "T5-hardfloor": 199,
+  "T5-direction": 186,
+  "T7-pii": 96,
+  "T11-calibration": 61
+ },
+ "eval_strata": {
+  "conservative/en": 21,
+  "conservative/zh": 50,
+  "default/en": 63,
+  "default/zh": 96,
+  "professional/en": 21,
+  "professional/zh": 49
+ },
+ "split_seed": 20260930,
+ "holdout_ids_checked": 489,
+ "fails": []
+}

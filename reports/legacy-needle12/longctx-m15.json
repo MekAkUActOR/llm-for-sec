@@ -1,0 +1,360 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m15",
+  "name": "m15",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 9.885917910076119,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.3034,
+          2.456,
+          2.1242,
+          2.2808
+        ]
+      },
+      "zh": {
+        "ppl": 13.273655304800007,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5443,
+          2.5089,
+          2.4992,
+          2.7907
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 10.344749530247865,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.4802,
+          1.9682,
+          2.5144,
+          2.3831
+        ]
+      },
+      "zh": {
+        "ppl": 10.833798085506292,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.4073,
+          2.493,
+          2.6983,
+          1.9321
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.25": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16336,
+          "generated": " 03e8b84b]]\n\nThe production of cement is responsible for 8% of global emissions, which includes the emissions of carbon "
+        },
+        "0.5": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16334,
+          "generated": " d1c5aaf0. Please remember it. ]]\n\nThe production of cement is responsible for about 8% of global emissions, which inclu"
+        },
+        "0.75": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16335,
+          "generated": " f077b69f. Please remember it.7]]\n\nThe production of cement is responsible for 8% of global emissions, which includes he"
+        }
+      },
+      "zh": {
+        "0.25": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16336,
+          "generated": "本文档的魔法代码是 03e8b84b，请记住它。 \n\n 1877年：第一次世界大戰爆"
+        },
+        "0.5": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 8152,
+          "prompt_len": 16334,
+          "generated": "d1c5aaf0\n\n 1877年：第一次世界大戰爆發。法國、德國、奧匈帝國"
+        },
+        "0.75": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16335,
+          "generated": "f077b69f\n\n 1877年：法國與俄國簽訂布列斯特-立陶夫斯克"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.25": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32719,
+          "generated": " \"Kidd was found guilty of the crime of piracy and was hanged on 23 May 1701.\" \n\nKidd was sentenced to"
+        },
+        "0.5": {
+          "code": "e9e4c8e8",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32719,
+          "generated": " 23 May 1701. \n\nKidd was sentenced to death by hanging on 23 May 1701. He was"
+        },
+        "0.75": {
+          "code": "8be37df3",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32718,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nKidd was sentenced to death on 15 August 1701, and h"
+        }
+      },
+      "zh": {
+        "0.25": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32719,
+          "generated": "a925e7a1\n\n参考资料\n\nCategory:10月22日\nCategory:10月22日\nCategory:1"
+        },
+        "0.5": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32719,
+          "generated": "e9e4c8e8\n\n參考資料\n\nCategory:10月22日\nCategory:10月22日的事件\n"
+        },
+        "0.75": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32718,
+          "generated": "8be37df3\n\n參考資料\n\nCategory:10月22日\nCategory:10月22日\nCategory:10"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 1.0,
+      "zh": 1.0
+    },
+    "32768": {
+      "en": 0.0,
+      "zh": 1.0
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.25": "03e8b84b",
+        "16384/0.5": "d1c5aaf0",
+        "16384/0.75": "f077b69f",
+        "32768/0.25": "a925e7a1",
+        "32768/0.5": "e9e4c8e8",
+        "32768/0.75": "8be37df3"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.25": "03e8b84b",
+        "16384/0.5": "d1c5aaf0",
+        "16384/0.75": "f077b69f",
+        "32768/0.25": "a925e7a1",
+        "32768/0.5": "e9e4c8e8",
+        "32768/0.75": "8be37df3"
+      }
+    }
+  },
+  "elapsed_s": 62.7
+}

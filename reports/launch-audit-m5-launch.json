@@ -1,0 +1,604 @@
+{
+ "gate": "launch-audit",
+ "tag": "m5-launch",
+ "generated_at": "2026-10-14T00:06:40",
+ "root": "J:\\Projects\\llm_for_sec",
+ "verdict": "PASS",
+ "fail_closed_rule": "任一检查缺失/失败/未登记 ⇒ LAUNCH-AUDIT=FAIL + 退出码非零（无审计输出 = 拒绝发射 ✗）",
+ "read_only_scope": "只读审计 ✗✓：本脚本唯一写出 = reports/launch-audit-<tag>.json；被审计数据 / manifest / 预注册 / 检查器零改动；子进程 check_p16_calibration.py 按其自身设计重写其自身产物 reports/p1.6-gate-report.md（m5a manifest g1_scan_interaction 已裁决 ✓）；零 stdin 交互",
+ "mixture": {
+  "mode": "materialized",
+  "rows": 34602,
+  "mix_path": "J:\\Projects\\llm_for_sec\\data\\m5-run\\dpo_m5_calib.jsonl",
+  "formula": "m4 基座 28,842 + p16 5,760 = 34,602（p1.6 设计 §4.5 ✓）",
+  "m4_base": {
+   "path": "J:\\Projects\\llm_for_sec\\data\\dpo-remediation-staging\\dpo_m4_capfix.jsonl",
+   "sha256": "d4061d47df903d9156b7dfb38f74b588bd186435103ba3f8f7bb885b3f85a414"
+  },
+  "p16_benign": {
+   "path": "J:\\Projects\\llm_for_sec\\data\\dpo\\p16-calibration\\p16_benign_release.jsonl",
+   "sha256": "1636ba88c2f8834cdb581ea9c147e94990f28229c3665e5559375dd669daacc1"
+  },
+  "p16_malicious": {
+   "path": "J:\\Projects\\llm_for_sec\\data\\dpo\\p16-calibration\\p16_malicious_honest.jsonl",
+   "sha256": "f9dac93030d94e2dab9735eacae5bbd5a3f4b44ed298908b27fca08a928c6b8d"
+  }
+ },
+ "registry": [
+  {
+   "id": "A1",
+   "title": "混料对比度审计（VERDICT 双侧存在率/S·C·F 分 dpo_class + ★D 族读数）",
+   "phase": "data"
+  },
+  {
+   "id": "A2",
+   "title": "p16 G 门（check_p16_calibration.py 退出码透传 + P16-GATE=PASS 标记 + 门禁报告产物完整）",
+   "phase": "data"
+  },
+  {
+   "id": "A3",
+   "title": "训练数据 schema/分布快照 vs 预注册配比断言",
+   "phase": "data"
+  },
+  {
+   "id": "A4",
+   "title": "谱系链核验（两 release sha256 vs manifest + 基座 sha256 冻结）",
+   "phase": "data"
+  },
+  {
+   "id": "B1",
+   "title": "M5A 数据臂冻结核验（train.jsonl/m5a manifest/p16 manifest 三重对账 + 冻结锚点）",
+   "phase": "data"
+  },
+  {
+   "id": "B2",
+   "title": "RL 臂池冻结核验（p2rl-pool-v01 池对账 manifest + 冻结锚点）",
+   "phase": "data"
+  },
+  {
+   "id": "B3",
+   "title": "孪生混料 belt（m5a train.jsonl = m5-run 物化件字节恒等）",
+   "phase": "data"
+  },
+  {
+   "id": "C1",
+   "title": "M5A 预注册在场且含预测节（+ 钉死 sha256 在文）",
+   "phase": "data"
+  },
+  {
+   "id": "C2",
+   "title": "P2-RL 预注册在场且含预测节（+ 钉死池路径在文）",
+   "phase": "data"
+  },
+  {
+   "id": "A5",
+   "title": "审计输出落盘核验（存在/可解析/注册表闭合/判定一致）",
+   "phase": "output"
+  }
+ ],
+ "checks": {
+  "A1": {
+   "title": "混料对比度审计（VERDICT 双侧存在率/S·C·F 分 dpo_class + ★D 族读数）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "mode": "materialized",
+    "rows": 34602,
+    "结构缺陷行": 0,
+    "per_dpo_class": {
+     "bt330_refusal": {
+      "n": 1904,
+      "S": 1894,
+      "C": 0,
+      "F": 10,
+      "both_v": 1904,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 1894,
+      "content_contrast_rate": 0.9947
+     },
+     "calibration": {
+      "n": 240,
+      "S": 96,
+      "C": 144,
+      "F": 0,
+      "both_v": 240,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 240,
+      "content_contrast_rate": 1.0
+     },
+     "carrier_clean_overrefusal": {
+      "n": 1320,
+      "S": 1320,
+      "C": 0,
+      "F": 0,
+      "both_v": 1320,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 1320,
+      "content_contrast_rate": 1.0
+     },
+     "carrier_inject_hollow": {
+      "n": 2320,
+      "S": 2320,
+      "C": 0,
+      "F": 0,
+      "both_v": 2320,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 2320,
+      "content_contrast_rate": 1.0
+     },
+     "carrier_inject_obedient": {
+      "n": 2360,
+      "S": 2360,
+      "C": 0,
+      "F": 0,
+      "both_v": 2360,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 2360,
+      "content_contrast_rate": 1.0
+     },
+     "p16_benign_release": {
+      "n": 1500,
+      "S": 1200,
+      "C": 300,
+      "F": 0,
+      "both_v": 1500,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 1500,
+      "content_contrast_rate": 1.0
+     },
+     "p16_dilution_judgment": {
+      "n": 300,
+      "S": 180,
+      "C": 120,
+      "F": 0,
+      "both_v": 300,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 300,
+      "content_contrast_rate": 1.0
+     },
+     "p16_judgment_teaching": {
+      "n": 360,
+      "S": 216,
+      "C": 144,
+      "F": 0,
+      "both_v": 360,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 360,
+      "content_contrast_rate": 1.0
+     },
+     "p16_malicious_honest": {
+      "n": 2640,
+      "S": 924,
+      "C": 1716,
+      "F": 0,
+      "both_v": 2640,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 2640,
+      "content_contrast_rate": 1.0
+     },
+     "p16_multiturn_benign": {
+      "n": 480,
+      "S": 480,
+      "C": 0,
+      "F": 0,
+      "both_v": 480,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 480,
+      "content_contrast_rate": 1.0
+     },
+     "p16_verdict_honesty": {
+      "n": 480,
+      "S": 240,
+      "C": 240,
+      "F": 0,
+      "both_v": 480,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 480,
+      "content_contrast_rate": 1.0
+     },
+     "policy": {
+      "n": 14688,
+      "S": 3472,
+      "C": 296,
+      "F": 10920,
+      "both_v": 14688,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 3768,
+      "content_contrast_rate": 0.2565
+     },
+     "refusal_quality": {
+      "n": 300,
+      "S": 0,
+      "C": 54,
+      "F": 246,
+      "both_v": 300,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 54,
+      "content_contrast_rate": 0.18
+     },
+     "reserve": {
+      "n": 5710,
+      "S": 1717,
+      "C": 928,
+      "F": 3065,
+      "both_v": 5710,
+      "marker_contrast": 0,
+      "neither_v": 0,
+      "content_contrast": 2645,
+      "content_contrast_rate": 0.4632
+     }
+    },
+    "marker_contrast_rate": 0.0,
+    "both_v_rate": 1.0,
+    "total_scf": {
+     "S": 16419,
+     "C": 3942,
+     "F": 14241
+    },
+    "key_reading_d_family": {
+     "dpo_class": "p16_verdict_honesty",
+     "n": 480,
+     "S": 240,
+     "C": 240,
+     "F": 0,
+     "content_contrast": 480,
+     "content_contrast_rate": 1.0,
+     "marker_contrast": 0,
+     "delivered": true
+    }
+   }
+  },
+  "A2": {
+   "title": "p16 G 门（check_p16_calibration.py 退出码透传 + P16-GATE=PASS 标记 + 门禁报告产物完整）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "exit_code": 0,
+    "elapsed_s": 412.1,
+    "marker_p16_gate_pass": true,
+    "gate_report": "reports/p1.6-gate-report.md",
+    "gate_lines": {
+     "G1": "PASS",
+     "G10": "PASS",
+     "G11": "PASS",
+     "G12": "PASS",
+     "G2": "PASS",
+     "G3": "PASS",
+     "G4": "PASS",
+     "G5": "PASS",
+     "G6": "PASS",
+     "G7": "PASS",
+     "G8": "PASS",
+     "G9": "PASS"
+    },
+    "stdout_lines": [
+     "[load] 良 2880 / 恶 2880 行；模板 6 个 sha256 断言一致（0s）",
+     "[G1] PASS  id 唯一 · p16 命名空间 · 既有混料零重叠（6s）",
+     "[G2] PASS  schema 与 m4 逐字段兼容（冻结模板 / 轮次 / human 收尾 / gpt 分叉）（0s）",
+     "[G3] PASS  双侧 VERDICT 100% 可解析 + 五键 + 词表 + policy==pack（0s）",
+     "[G4] PASS  H1 诚实性 + H3 内容槽位 + rejected 形态保真（13 形态逐形标记）（0s）",
+     "[G5] PASS  H4 长度平价（族中位比 ∈[0.9,1.1]，逐对比 ∈[0.7,1.4]）（0s）",
+     "[G6] PASS  配比闭合（极性 50:50 / en:zh 60:40 / 逐族 lang·pack·形态 / A 子域）（0s）",
+     "[G7] PASS  格式盲性线性探针（响应级 chosen~rejected，纯格式特征 ≤55%）（1s）",
+     "[G8] PASS  token 预算（部署 tokenizer，逐行 ≤1000）（8s）",
+     "  [G9] needle 文件 0/68 …",
+     "  [G9] needle 文件 10/68 …",
+     "  [G9] needle 文件 20/68 …",
+     "  [G9] needle 文件 30/68 …",
+     "  [G9] needle 文件 40/68 …",
+     "  [G9] needle 文件 50/68 …",
+     "  [G9] needle 文件 60/68 …",
+     "  [G9] 阶段1 扫描 0/5760 …",
+     "  [G9] 阶段1 扫描 1000/5760 …",
+     "  [G9] 阶段1 扫描 2000/5760 …",
+     "  [G9] 阶段1 扫描 3000/5760 …",
+     "  [G9] 阶段1 扫描 4000/5760 …",
+     "  [G9] 阶段1 扫描 5000/5760 …",
+     "  [G9] 阶段3 全景扫描 0/5760 …",
+     "  [G9] 阶段3 全景扫描 1000/5760 …",
+     "  [G9] 阶段3 全景扫描 2000/5760 …",
+     "  [G9] 阶段3 全景扫描 3000/5760 …",
+     "  [G9] 阶段3 全景扫描 4000/5760 …",
+     "  [G9] 阶段3 全景扫描 5000/5760 …",
+     "[G9] PASS  官方两段式 8-gram 污染匹配 vs 全部 heldout + probes（白名单双侧剥离）（393s）",
+     "[G10] PASS  F4 编码变形 / F6 权限伪造官方清单复检零命中 + 保守签名复扫（2s）",
+     "[G11] PASS  每原型条数上限 + 族内全行精确重复=0 + m3 口径相似度全景（2s）",
+     "[G12] PASS  manifest 冻结校验（sha256 / 分布闭合 / 谱系链 / 版本纪律）（0s）",
+     "",
+     "[report] reports\\p1.6-gate-report.md",
+     "P16-GATE=PASS"
+    ],
+    "p16_gate_report_sha256": "6c03d0b549fdeadef4b9acf304e90f06aa8232864102358a134ae605d2d12930",
+    "p16_gate_report_mtime": "2026-10-14T00:06:37"
+   }
+  },
+  "A3": {
+   "title": "训练数据 schema/分布快照 vs 预注册配比断言",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "mode": "materialized",
+    "rows": 34602,
+    "schema_keyset_variants": 5,
+    "schema_core_missing": 0,
+    "schema_provenance_missing": 0,
+    "schema_p16_keyset_bad": 0,
+    "schema_conversations_bad": 0,
+    "schema_chosen_rejected_bad": 0,
+    "m4": {
+     "rows": 28842,
+     "dpo_class": {
+      "bt330_refusal": 1904,
+      "calibration": 240,
+      "carrier_clean_overrefusal": 1320,
+      "carrier_inject_hollow": 2320,
+      "carrier_inject_obedient": 2360,
+      "policy": 14688,
+      "refusal_quality": 300,
+      "reserve": 5710
+     },
+     "lang": {
+      "en": 11523,
+      "zh": 17319
+     }
+    },
+    "p16": {
+     "rows": 5760,
+     "dpo_class": {
+      "p16_benign_release": 1500,
+      "p16_dilution_judgment": 300,
+      "p16_judgment_teaching": 360,
+      "p16_malicious_honest": 2640,
+      "p16_multiturn_benign": 480,
+      "p16_verdict_honesty": 480
+     },
+     "lang": {
+      "en": 3438,
+      "zh": 2322
+     },
+     "pack": {
+      "conservative": 862,
+      "default": 2387,
+      "professional": 2511
+     },
+     "polarity": {
+      "benign_release": 2880,
+      "malicious_refuse": 2880
+     }
+    },
+    "id_closure": {
+     "m4_only_in_mix": 0,
+     "m4_missing_from_mix": 0,
+     "p16_only_in_mix": 0,
+     "p16_missing_from_mix": 0
+    }
+   }
+  },
+  "A4": {
+   "title": "谱系链核验（两 release sha256 vs manifest + 基座 sha256 冻结）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "manifest_sha256": "e5d10d641d461d1d5b02a0f0359df305a8ce04fd71152b0135db3966cf7d1b35",
+    "p16_benign_release.jsonl": {
+     "sha256": "1636ba88c2f8834cdb581ea9c147e94990f28229c3665e5559375dd669daacc1",
+     "rows": 2880,
+     "bytes": 7304338
+    },
+    "p16_malicious_honest.jsonl": {
+     "sha256": "f9dac93030d94e2dab9735eacae5bbd5a3f4b44ed298908b27fca08a928c6b8d",
+     "rows": 2880,
+     "bytes": 8172306
+    },
+    "m4_base_sha256": "d4061d47df903d9156b7dfb38f74b588bd186435103ba3f8f7bb885b3f85a414",
+    "mix_sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60",
+    "mix_rows": 34602
+   }
+  },
+  "B1": {
+   "title": "M5A 数据臂冻结核验（train.jsonl/m5a manifest/p16 manifest 三重对账 + 冻结锚点）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "m5a_manifest_sha256": "e7d0a74a477d2ec51f95bc02b7b3b68ece77a2eb7de50db09f1c5b29a3ff1a89",
+    "m5a_train": {
+     "sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60",
+     "rows": 34602,
+     "bytes": 75269919
+    },
+    "manifest_registered_train": {
+     "sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60",
+     "rows": 34602,
+     "bytes": 75269919
+    },
+    "sha256_prefix_16": "EE181598AF572A63",
+    "p16_manifest_sha256": "e5d10d641d461d1d5b02a0f0359df305a8ce04fd71152b0135db3966cf7d1b35",
+    "m5a_lineage_p16_manifest_sha256": "e5d10d641d461d1d5b02a0f0359df305a8ce04fd71152b0135db3966cf7d1b35",
+    "p16_entry[p16_benign_release.jsonl]": {
+     "sha256": "1636ba88c2f8834cdb581ea9c147e94990f28229c3665e5559375dd669daacc1",
+     "rows": 2880,
+     "bytes": 7304338
+    },
+    "p16_entry[p16_malicious_honest.jsonl]": {
+     "sha256": "f9dac93030d94e2dab9735eacae5bbd5a3f4b44ed298908b27fca08a928c6b8d",
+     "rows": 2880,
+     "bytes": 8172306
+    }
+   }
+  },
+  "B2": {
+   "title": "RL 臂池冻结核验（p2rl-pool-v01 池对账 manifest + 冻结锚点）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "manifest_pool_file": "data\\rlvr\\p2rl-pool-v01.jsonl",
+    "rlvr_pool": {
+     "sha256": "77ff6cf1d05c0d5cbd93e7be48cc8104bd396fdc3627f3d4ea4bd09528851dd0",
+     "rows": 3000,
+     "bytes": 7603648
+    },
+    "rl_manifest_sha256": "5c4676a7ae2412916f91b5e938d5970f857c1097e124b96ce6b7b65d1e692770"
+   }
+  },
+  "B3": {
+   "title": "孪生混料 belt（m5a train.jsonl = m5-run 物化件字节恒等）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "m5a_train_sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60",
+    "materialized_mix_sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60",
+    "identical": true,
+    "registered_equal_sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60"
+   }
+  },
+  "C1": {
+   "title": "M5A 预注册在场且含预测节（+ 钉死 sha256 在文）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "prediction_sections": [
+     "## 2. 四预测 + 护栏（逐字引用 p1.6 §7，零新增 ✗）"
+    ],
+    "done_marker": "M5A-PREREG=DONE",
+    "done_marker_is_tail": false,
+    "sha256": "942c427b2aee8e01db16eb9591244155c181ad169b98164e84658e5afcb578c8",
+    "pins_train_sha256": true
+   }
+  },
+  "C2": {
+   "title": "P2-RL 预注册在场且含预测节（+ 钉死池路径在文）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "prediction_sections": [
+     "## 6. 预注册：4 条可证伪预测（发射前钉死，发射后不得回改）"
+    ],
+    "done_marker": "P2RL-PREREG=DONE",
+    "done_marker_is_tail": true,
+    "sha256": "742624debe29ac522ce0fb674aff8a48d1725af155d8118b1a72e23855facb3c",
+    "pins_rl_pool_path": true
+   }
+  },
+  "A5": {
+   "title": "审计输出落盘核验（存在/可解析/注册表闭合/判定一致）",
+   "pass": true,
+   "verdict": "PASS",
+   "reasons": [],
+   "metrics": {
+    "report_path": "J:\\Projects\\llm_for_sec\\reports\\launch-audit-m5-launch.json",
+    "checks_in_report": 9
+   }
+  }
+ },
+ "sha256_registry": {
+  "scripts/check_p16_calibration.py": {
+   "sha256": "a29e5065d2d5e9bb7bb1a04580a1613097f9e1e2a8c1b77b331ff768111a9c16",
+   "bytes": 74554
+  },
+  "scripts/launch_audit.py": {
+   "sha256": "a729b10735fde70dc262a25559ea23c936f301758dd9041ba54f387f49b11244",
+   "bytes": 58881
+  },
+  "data/dpo-remediation-staging/dpo_m4_capfix.jsonl": {
+   "sha256": "d4061d47df903d9156b7dfb38f74b588bd186435103ba3f8f7bb885b3f85a414",
+   "bytes": 59793275,
+   "rows": 28842
+  },
+  "data/dpo/p16-calibration/p16_benign_release.jsonl": {
+   "sha256": "1636ba88c2f8834cdb581ea9c147e94990f28229c3665e5559375dd669daacc1",
+   "bytes": 7304338,
+   "rows": 2880
+  },
+  "data/dpo/p16-calibration/p16_malicious_honest.jsonl": {
+   "sha256": "f9dac93030d94e2dab9735eacae5bbd5a3f4b44ed298908b27fca08a928c6b8d",
+   "bytes": 8172306,
+   "rows": 2880
+  },
+  "data/dpo/p16-calibration/manifest.json": {
+   "sha256": "e5d10d641d461d1d5b02a0f0359df305a8ce04fd71152b0135db3966cf7d1b35",
+   "bytes": 15376
+  },
+  "data/m5-run/dpo_m5_calib.jsonl": {
+   "sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60",
+   "bytes": 75269919,
+   "rows": 34602
+  },
+  "data/m5-run/manifest.json": {
+   "sha256": "c82cd101142f69dd033e1de98b2870c4b6134d081052ebf8da40a1340b9c404e",
+   "bytes": 5052
+  },
+  "data/m5a-run/train.jsonl": {
+   "sha256": "ee181598af572a634394416c000c212e312bd00acc9bff8a0cedeb5a5b6d2e60",
+   "bytes": 75269919,
+   "rows": 34602
+  },
+  "data/m5a-run/manifest.json": {
+   "sha256": "e7d0a74a477d2ec51f95bc02b7b3b68ece77a2eb7de50db09f1c5b29a3ff1a89",
+   "bytes": 6863
+  },
+  "data/m5a-run/dataset_info.json": {
+   "sha256": "4bc743d24d06671e50979a022dc4735a01ade548afcc3a71604a5ae985f80758",
+   "bytes": 2444
+  },
+  "data/rlvr/p2rl-pool-v01.jsonl": {
+   "sha256": "77ff6cf1d05c0d5cbd93e7be48cc8104bd396fdc3627f3d4ea4bd09528851dd0",
+   "bytes": 7603648,
+   "rows": 3000
+  },
+  "data/rlvr/p2rl-pool-v01.manifest.json": {
+   "sha256": "5c4676a7ae2412916f91b5e938d5970f857c1097e124b96ce6b7b65d1e692770",
+   "bytes": 3723
+  },
+  "reports/p1.6-gate-report.md": {
+   "sha256": "6c03d0b549fdeadef4b9acf304e90f06aa8232864102358a134ae605d2d12930",
+   "bytes": 15258
+  },
+  "reports/m5a-preregistration.md": {
+   "sha256": "942c427b2aee8e01db16eb9591244155c181ad169b98164e84658e5afcb578c8",
+   "bytes": 22181
+  },
+  "reports/p2rl-grpo-preregistration.md": {
+   "sha256": "742624debe29ac522ce0fb674aff8a48d1725af155d8118b1a72e23855facb3c",
+   "bytes": 32674
+  }
+ },
+ "registered_not_gated": {
+  "p16_spotcheck_90": {
+   "file": "reports/p16-spotcheck.md",
+   "status": "PENDING_HUMAN_GATE",
+   "note": "p1.6 §6 人工关口（15 行/族 × 6 = 90 行，机检不可全代 ✗）；m5a-prereg §6 第 2 项 —— 本审计登记不设闸，发射前由所有者闭环"
+  },
+  "g1_scan_interaction": {
+   "status": "RESOLVED_BY_PLACEMENT",
+   "note": "m5a 混料落点 data/m5a-run/（及孪生 data/m5-run/）在 checker G1 字节级扫描范围（data/dpo|dpo-remediation-staging|m4-run|lf|sft）之外；训练混料按设计含全部 5,760 个 p16 id = G1 判据的设计内合法内容而非污染；本审计按当前落点串接复跑，无交互、checker 零改动 ✗（m5a manifest g1_scan_interaction + m5a-prereg §6 第 5 项已裁决 ✓）"
+  },
+  "checker_stale_prose": "checker 报告「登记与待办」节仍含『launch_audit.py 尚不存在（2026-10-08 实查）』历史快照文案 —— checker 冻结零改动纪律（G1 落点裁决）✓，非门禁判据、不影响退出码；接线事实以本报告为准",
+  "manifest_stale_prose": "三份冻结 manifest 仍登记『launch_audit.py 尚不存在 / PENDING_REGISTRATION』历史快照（p16 manifest .launch_audit_wiring、m5a manifest 与 m5-run manifest .launch_prerequisites）—— manifest 已冻结不得原地改（版本纪律 ✗），快照在 launch_audit 落地时即过时，非门禁判据；接线事实以本报告为准",
+  "preregistration_freeze": "两预注册 sha256 已入 sha256_registry 供漂移观测；预测节不得回改由所有者裁决（p2rl 预注册 §6/§8.9），本审计机检 = 在场 + 预测节 + 钉死标记 + 钉死对象挂钩"
+ },
+ "report_path": "J:\\Projects\\llm_for_sec\\reports\\launch-audit-m5-launch.json",
+ "elapsed_s": 414.4,
+ "marker": "P18-LAUDIT=DONE"
+}

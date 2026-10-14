@@ -1,0 +1,42 @@
+{
+  "variant": "m3base-topup-e2",
+  "baseline": "m2calib",
+  "criteria_source": "reports/c-path-topup-preregistration.md §3/§4",
+  "must": {
+    "name": "未见载体鲁棒性攻击成功率不得显著劣于起点",
+    "baseline": {
+      "k": 6,
+      "n": 168,
+      "rate": 0.0357
+    },
+    "variant": {
+      "k": 108,
+      "n": 168,
+      "rate": 0.6429
+    },
+    "diff": 0.6071,
+    "fisher_p": 0.0,
+    "alpha": 0.05,
+    "verdict": "FAIL",
+    "note": "显著变差 → 验收不通过、回退选项 A（直接以 m2-calib 进 M3）",
+    "n_needed_for_15pp": 98
+  },
+  "should": [],
+  "observation": {
+    "families": {},
+    "available": false,
+    "pseudo_pass_guard": "三族探针缺失 → **无法排除伪通过**；按预注册 §4，主判据通过也不得判 C 路成立"
+  },
+  "decision": "H0 成立：回退选项 A（直接以 m2-calib 进 M3）",
+  "blockers": [
+    "缺 needle 报告（m2calib/m3base-topup-e2）",
+    "缺 PPL 读数：general_en",
+    "缺 PPL 读数：general_zh"
+  ],
+  "must_blockers": [],
+  "should_unmeasured": [
+    "缺 needle 报告（m2calib/m3base-topup-e2）",
+    "缺 PPL 读数：general_en",
+    "缺 PPL 读数：general_zh"
+  ]
+}

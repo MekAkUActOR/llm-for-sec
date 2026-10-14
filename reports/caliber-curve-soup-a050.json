@@ -1,0 +1,57 @@
+{
+  "source": "reports/resp-chat-gen-soup-a050-mnt512.jsonl",
+  "n_items": 258,
+  "method": "同一份 512 贪心产物按 new_token_ids[:N] 切分 （贪心前缀确定 ⇒ 与实跑 N 逐 token 等价）；只读，不写实跑同名产物",
+  "curve": [
+    {
+      "budget": 64,
+      "verdict_rate": 0.0581,
+      "truncated_share": 0.9922,
+      "n": 258
+    },
+    {
+      "budget": 96,
+      "verdict_rate": 0.469,
+      "truncated_share": 0.9729,
+      "n": 258
+    },
+    {
+      "budget": 128,
+      "verdict_rate": 0.8411,
+      "truncated_share": 0.7791,
+      "n": 258
+    },
+    {
+      "budget": 160,
+      "verdict_rate": 0.9341,
+      "truncated_share": 0.345,
+      "n": 258
+    },
+    {
+      "budget": 192,
+      "verdict_rate": 0.9729,
+      "truncated_share": 0.124,
+      "n": 258
+    },
+    {
+      "budget": 256,
+      "verdict_rate": 0.9729,
+      "truncated_share": 0.0194,
+      "n": 258
+    },
+    {
+      "budget": 384,
+      "verdict_rate": 0.9729,
+      "truncated_share": 0.0116,
+      "n": 258
+    },
+    {
+      "budget": 512,
+      "verdict_rate": 0.9729,
+      "truncated_share": 0.0,
+      "n": 258
+    }
+  ],
+  "preregistered_mustb_threshold": 0.375,
+  "reading": "若 96 附近的保留率≈96 口径实跑值（46.9%）而 512 处≈97%，则 96 口径测的是截断而非契约遵守 ✓"
+}

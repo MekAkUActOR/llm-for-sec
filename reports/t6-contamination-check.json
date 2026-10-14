@@ -1,0 +1,48 @@
+{
+  "probes_unique": 2655,
+  "ais_titles": 700,
+  "exact_queries": 634,
+  "ngram_index_keys": 5682944,
+  "targets": {
+    "t6_devign": {
+      "docs_scanned": 27318,
+      "docs_flagged": 0,
+      "method_hits": {
+        "prefix": 0,
+        "title": 0,
+        "ngram": 0,
+        "query": 0
+      },
+      "flagged_docs": [],
+      "flagged_indices": [],
+      "flagged_hashes": []
+    },
+    "t6_devign_lines": {
+      "docs_scanned": 10039,
+      "docs_flagged": 0,
+      "method_hits": {
+        "prefix": 0,
+        "title": 0,
+        "ngram": 0,
+        "query": 0
+      },
+      "flagged_docs": [],
+      "flagged_indices": [],
+      "flagged_hashes": []
+    },
+    "t6_cvefixes": {
+      "docs_scanned": 11424,
+      "docs_flagged": 0,
+      "method_hits": {
+        "prefix": 0,
+        "title": 0,
+        "ngram": 0,
+        "query": 0
+      },
+      "flagged_docs": [],
+      "flagged_indices": [],
+      "flagged_hashes": []
+    }
+  },
+  "verdict": "clean - full probes/heldout baseline, zero overlap"
+}

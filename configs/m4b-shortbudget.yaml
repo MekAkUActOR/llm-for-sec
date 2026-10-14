@@ -1,0 +1,55 @@
+### ═══ M4-B：**降 epoch 版**（第 27 轮备好，**待 H-B 裁决后才发射** ✓）═══
+#
+# ★ 候选依据（reports/m4-endpoint-preregistration.md §四 ✓）
+#   H-B（混料撑不住整 epoch ✗）若成立 ⇒ 按代价排序的第一个候选是**降 epoch 数** ✓
+#   ★ 旁证：探针（有效训练 ~150 步 ✓，LR 在 step 150 后退到 1e-11 ✓）末态 ASR **0.6%** ✓
+#     而 M3（1,803 步 ✗）末态 ASR **50.6%** ✗
+#     ⇒ **「少训」在这场实验里是**可用的**** ✓（不是猜测 ✓）
+#   ★ 且第 26 轮实测：**三次运行的病态起点都是 200~250 步** ✗
+#     ⇒ 但**奖励曲线测不住行为漂移** ✗ ⇒ **步数上限须由 ASR 步数扫描定** ✓
+#
+# ★ 本配置**故意只改一个变量**：num_train_epochs 1 → **0.3**（≈ 541 步 ✓）
+#   **其余与 m4-capfix-full.yaml 逐字相同** ✓ ⇒ 结果可归因 ✓
+#
+# ★ 发射前必须满足（三条 ✓）
+#   ① 全长跑已完成且**已按预注册裁决** ✓（H-B 成立 ⇒ 才走本配置 ✓）
+#   ② `scripts/step_scan.py` 已给出**ASR-步数曲线** ✓ ⇒ 用实际数据挑 epoch ✓
+#      ★本文件的 0.3 只是**占位**，须按扫描结果改 ✗（不得凭直觉定 ✓）
+#   ③ GPU 空闲且 `stop_eval_procs.ps1 -Guard` PASS ✓
+#
+# 数据：data/m4-run/dpo_m4_capfix.jsonl（28,842 行 ✓，sha256 D4061D47DF903D91… ✓）
+#
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m4-run
+dataset: sec_dpo_m4_capfix
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+# ★ 唯一变量：1 → 0.3（≈ 541 步 ✓）—— 占位，须按 step_scan 结果改 ✓
+num_train_epochs: 0.3
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 100
+save_total_limit: 8
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4b-shortbudget

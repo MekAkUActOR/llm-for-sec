@@ -1,0 +1,4605 @@
+{
+  "targets": {
+    "t1_injection": {
+      "rows": 375,
+      "lang": {
+        "zh": 150,
+        "en": 225
+      },
+      "pack": {
+        "conservative": 105,
+        "default": 145,
+        "professional": 125
+      },
+      "verdict": {
+        "contains-injection": 300,
+        "clean": 75
+      },
+      "action": {
+        "report": 300,
+        "answer": 75
+      }
+    },
+    "t9_phishing": {
+      "rows": 50,
+      "lang": {
+        "zh": 20,
+        "en": 30
+      },
+      "pack": {
+        "default": 20,
+        "professional": 15,
+        "conservative": 15
+      },
+      "verdict": {
+        "phishing": 20,
+        "suspicious": 15,
+        "benign": 15
+      },
+      "action": {
+        "report": 35,
+        "answer": 15
+      }
+    },
+    "fA_policy_v0x2": {
+      "rows": 7776,
+      "lang": {
+        "zh": 5040,
+        "en": 2736
+      },
+      "pack": {
+        "conservative": 2592,
+        "default": 2592,
+        "professional": 2592
+      },
+      "verdict": {
+        "refuse": 5490,
+        "conditional": 750,
+        "allow": 1536
+      },
+      "action": {
+        "refuse": 5490,
+        "report": 174,
+        "answer": 2112
+      }
+    },
+    "fB_t4ground": {
+      "rows": 6720,
+      "lang": {
+        "zh": 3456,
+        "en": 3264
+      },
+      "pack": {
+        "conservative": 2240,
+        "default": 2240,
+        "professional": 2240
+      },
+      "verdict": {
+        "refuse": 3450,
+        "conditional": 2286,
+        "allow": 384,
+        "answer": 600
+      },
+      "action": {
+        "refuse": 3450,
+        "report": 42,
+        "answer": 3228
+      }
+    },
+    "fC_cvpku_release": {
+      "rows": 7602,
+      "lang": {
+        "en": 3258,
+        "zh": 4344
+      },
+      "pack": {
+        "default": 2534,
+        "professional": 2534,
+        "conservative": 2534
+      },
+      "verdict": {
+        "refuse": 7602
+      },
+      "action": {
+        "refuse": 7602
+      }
+    },
+    "fD_t6": {
+      "rows": 5001,
+      "lang": {
+        "zh": 2014,
+        "en": 2987
+      },
+      "pack": {
+        "conservative": 1667,
+        "default": 1667,
+        "professional": 1667
+      },
+      "verdict": {
+        "contains-vulnerability": 3501,
+        "fix-summary": 800,
+        "patch-priority": 700
+      },
+      "action": {
+        "answer": 5001
+      }
+    },
+    "fE_t3t12t11": {
+      "rows": 4500,
+      "lang": {
+        "en": 2700,
+        "zh": 1800
+      },
+      "pack": {
+        "default": 4500
+      },
+      "verdict": {
+        "medium": 688,
+        "high": 991,
+        "critical": 30,
+        "low": 291,
+        "insufficient-context": 1000,
+        "grounded": 1500
+      },
+      "action": {
+        "report": 2000,
+        "answer": 2500
+      }
+    },
+    "fG_t6_devign_ext": {
+      "rows": 12000,
+      "lang": {
+        "en": 12000
+      },
+      "pack": {
+        "conservative": 4000,
+        "default": 4000,
+        "professional": 4000
+      },
+      "verdict": {
+        "contains-vulnerability": 12000
+      },
+      "action": {
+        "answer": 12000
+      }
+    },
+    "t13_retrieval": {
+      "rows": 1500,
+      "lang": {
+        "zh": 600,
+        "en": 900
+      },
+      "pack": {
+        "default": 757,
+        "professional": 377,
+        "conservative": 366
+      },
+      "verdict": {
+        "retrieved": 1275,
+        "not-in-doc": 225
+      },
+      "action": {
+        "answer": 1500
+      }
+    },
+    "t14_authinject": {
+      "rows": 2500,
+      "lang": {
+        "en": 760,
+        "zh": 1740
+      },
+      "pack": {
+        "conservative": 538,
+        "default": 1413,
+        "professional": 549
+      },
+      "verdict": {
+        "benign": 1000,
+        "contains-injection": 1500
+      },
+      "action": {
+        "answer": 1000,
+        "report": 1500
+      }
+    },
+    "t9_phish_expand": {
+      "rows": 1500,
+      "lang": {
+        "zh": 750,
+        "en": 750
+      },
+      "pack": {
+        "conservative": 500,
+        "default": 500,
+        "professional": 500
+      },
+      "verdict": {
+        "benign": 525,
+        "suspicious": 525,
+        "phishing": 450
+      },
+      "action": {
+        "answer": 700,
+        "report": 475,
+        "refuse": 325
+      }
+    },
+    "doc_structure": {
+      "rows": 1200,
+      "lang": {
+        "en": 603,
+        "zh": 597
+      },
+      "pack": {
+        "professional": 308,
+        "conservative": 308,
+        "default": 584
+      },
+      "verdict": {
+        "clean": 384,
+        "contains-injection": 540,
+        "suspicious-pattern": 180,
+        "conditional": 64,
+        "refuse": 32
+      },
+      "action": {
+        "answer": 448,
+        "report": 720,
+        "refuse": 32
+      }
+    },
+    "t2_mechanism": {
+      "rows": 1200,
+      "lang": {
+        "zh": 600,
+        "en": 600
+      },
+      "pack": {
+        "conservative": 400,
+        "professional": 400,
+        "default": 400
+      },
+      "verdict": {
+        "mechanism-explained": 708,
+        "mechanism-explained-plus": 386,
+        "refuse": 106
+      },
+      "action": {
+        "answer": 1094,
+        "refuse": 106
+      }
+    }
+  },
+  "baseline": {
+    "probes_unique": 2655,
+    "ais_titles": 700,
+    "queries": 481,
+    "ngram_index_keys": 5682944
+  },
+  "contamination_flagged": [],
+  "contamination_adjudicated": [
+    {
+      "row": "fB_t4ground:2820",
+      "id": "sft-T4b2-2821",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2821",
+      "id": "sft-T4b2-2822",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2822",
+      "id": "sft-T4b2-2823",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2823",
+      "id": "sft-T4b2-2824",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2824",
+      "id": "sft-T4b2-2825",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2825",
+      "id": "sft-T4b2-2826",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2826",
+      "id": "sft-T4b2-2827",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2827",
+      "id": "sft-T4b2-2828",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2828",
+      "id": "sft-T4b2-2829",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2829",
+      "id": "sft-T4b2-2830",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2830",
+      "id": "sft-T4b2-2831",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2831",
+      "id": "sft-T4b2-2832",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2832",
+      "id": "sft-T4b2-2833",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2833",
+      "id": "sft-T4b2-2834",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2834",
+      "id": "sft-T4b2-2835",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2835",
+      "id": "sft-T4b2-2836",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2836",
+      "id": "sft-T4b2-2837",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2837",
+      "id": "sft-T4b2-2838",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2838",
+      "id": "sft-T4b2-2839",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2839",
+      "id": "sft-T4b2-2840",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2840",
+      "id": "sft-T4b2-2841",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2841",
+      "id": "sft-T4b2-2842",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2842",
+      "id": "sft-T4b2-2843",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2843",
+      "id": "sft-T4b2-2844",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2844",
+      "id": "sft-T4b2-2845",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2845",
+      "id": "sft-T4b2-2846",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2846",
+      "id": "sft-T4b2-2847",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2847",
+      "id": "sft-T4b2-2848",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2848",
+      "id": "sft-T4b2-2849",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2849",
+      "id": "sft-T4b2-2850",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2850",
+      "id": "sft-T4b2-2851",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2851",
+      "id": "sft-T4b2-2852",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2852",
+      "id": "sft-T4b2-2853",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2853",
+      "id": "sft-T4b2-2854",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2854",
+      "id": "sft-T4b2-2855",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2855",
+      "id": "sft-T4b2-2856",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2856",
+      "id": "sft-T4b2-2857",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2857",
+      "id": "sft-T4b2-2858",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2858",
+      "id": "sft-T4b2-2859",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2859",
+      "id": "sft-T4b2-2860",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2860",
+      "id": "sft-T4b2-2861",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2861",
+      "id": "sft-T4b2-2862",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2862",
+      "id": "sft-T4b2-2863",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2863",
+      "id": "sft-T4b2-2864",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2864",
+      "id": "sft-T4b2-2865",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2865",
+      "id": "sft-T4b2-2866",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2866",
+      "id": "sft-T4b2-2867",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2867",
+      "id": "sft-T4b2-2868",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2868",
+      "id": "sft-T4b2-2869",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2869",
+      "id": "sft-T4b2-2870",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2870",
+      "id": "sft-T4b2-2871",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2871",
+      "id": "sft-T4b2-2872",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2872",
+      "id": "sft-T4b2-2873",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2873",
+      "id": "sft-T4b2-2874",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2874",
+      "id": "sft-T4b2-2875",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2875",
+      "id": "sft-T4b2-2876",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2876",
+      "id": "sft-T4b2-2877",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2877",
+      "id": "sft-T4b2-2878",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2878",
+      "id": "sft-T4b2-2879",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2879",
+      "id": "sft-T4b2-2880",
+      "task": "T4-grounding:t4b2-gdpr-erase",
+      "methods": [
+        "ngram:v0.1/privacy:1061"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2880",
+      "id": "sft-T4b2-2881",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2881",
+      "id": "sft-T4b2-2882",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2882",
+      "id": "sft-T4b2-2883",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2883",
+      "id": "sft-T4b2-2884",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2884",
+      "id": "sft-T4b2-2885",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2885",
+      "id": "sft-T4b2-2886",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2886",
+      "id": "sft-T4b2-2887",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2887",
+      "id": "sft-T4b2-2888",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2888",
+      "id": "sft-T4b2-2889",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2889",
+      "id": "sft-T4b2-2890",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2890",
+      "id": "sft-T4b2-2891",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2891",
+      "id": "sft-T4b2-2892",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2892",
+      "id": "sft-T4b2-2893",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2893",
+      "id": "sft-T4b2-2894",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2894",
+      "id": "sft-T4b2-2895",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2895",
+      "id": "sft-T4b2-2896",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2896",
+      "id": "sft-T4b2-2897",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2897",
+      "id": "sft-T4b2-2898",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2898",
+      "id": "sft-T4b2-2899",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2899",
+      "id": "sft-T4b2-2900",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2900",
+      "id": "sft-T4b2-2901",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2901",
+      "id": "sft-T4b2-2902",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2902",
+      "id": "sft-T4b2-2903",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2903",
+      "id": "sft-T4b2-2904",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2904",
+      "id": "sft-T4b2-2905",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2905",
+      "id": "sft-T4b2-2906",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2906",
+      "id": "sft-T4b2-2907",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2907",
+      "id": "sft-T4b2-2908",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2908",
+      "id": "sft-T4b2-2909",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2909",
+      "id": "sft-T4b2-2910",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2910",
+      "id": "sft-T4b2-2911",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2911",
+      "id": "sft-T4b2-2912",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2912",
+      "id": "sft-T4b2-2913",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2913",
+      "id": "sft-T4b2-2914",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2914",
+      "id": "sft-T4b2-2915",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2915",
+      "id": "sft-T4b2-2916",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2916",
+      "id": "sft-T4b2-2917",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2917",
+      "id": "sft-T4b2-2918",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2918",
+      "id": "sft-T4b2-2919",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2919",
+      "id": "sft-T4b2-2920",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2920",
+      "id": "sft-T4b2-2921",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2921",
+      "id": "sft-T4b2-2922",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2922",
+      "id": "sft-T4b2-2923",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2923",
+      "id": "sft-T4b2-2924",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2924",
+      "id": "sft-T4b2-2925",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2925",
+      "id": "sft-T4b2-2926",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2926",
+      "id": "sft-T4b2-2927",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2927",
+      "id": "sft-T4b2-2928",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2928",
+      "id": "sft-T4b2-2929",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2929",
+      "id": "sft-T4b2-2930",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2930",
+      "id": "sft-T4b2-2931",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2931",
+      "id": "sft-T4b2-2932",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2932",
+      "id": "sft-T4b2-2933",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2933",
+      "id": "sft-T4b2-2934",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2934",
+      "id": "sft-T4b2-2935",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2935",
+      "id": "sft-T4b2-2936",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2936",
+      "id": "sft-T4b2-2937",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2937",
+      "id": "sft-T4b2-2938",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2938",
+      "id": "sft-T4b2-2939",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2939",
+      "id": "sft-T4b2-2940",
+      "task": "T4-grounding:t4b2-gdpr-auto",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2940",
+      "id": "sft-T4b2-2941",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2941",
+      "id": "sft-T4b2-2942",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2942",
+      "id": "sft-T4b2-2943",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2943",
+      "id": "sft-T4b2-2944",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2944",
+      "id": "sft-T4b2-2945",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2945",
+      "id": "sft-T4b2-2946",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2946",
+      "id": "sft-T4b2-2947",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2947",
+      "id": "sft-T4b2-2948",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2948",
+      "id": "sft-T4b2-2949",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2949",
+      "id": "sft-T4b2-2950",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2950",
+      "id": "sft-T4b2-2951",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2951",
+      "id": "sft-T4b2-2952",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2952",
+      "id": "sft-T4b2-2953",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2953",
+      "id": "sft-T4b2-2954",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2954",
+      "id": "sft-T4b2-2955",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2955",
+      "id": "sft-T4b2-2956",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2956",
+      "id": "sft-T4b2-2957",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2957",
+      "id": "sft-T4b2-2958",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2958",
+      "id": "sft-T4b2-2959",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2959",
+      "id": "sft-T4b2-2960",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2960",
+      "id": "sft-T4b2-2961",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2961",
+      "id": "sft-T4b2-2962",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2962",
+      "id": "sft-T4b2-2963",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2963",
+      "id": "sft-T4b2-2964",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2964",
+      "id": "sft-T4b2-2965",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2965",
+      "id": "sft-T4b2-2966",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2966",
+      "id": "sft-T4b2-2967",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2967",
+      "id": "sft-T4b2-2968",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2968",
+      "id": "sft-T4b2-2969",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2969",
+      "id": "sft-T4b2-2970",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2970",
+      "id": "sft-T4b2-2971",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2971",
+      "id": "sft-T4b2-2972",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2972",
+      "id": "sft-T4b2-2973",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2973",
+      "id": "sft-T4b2-2974",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2974",
+      "id": "sft-T4b2-2975",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2975",
+      "id": "sft-T4b2-2976",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2976",
+      "id": "sft-T4b2-2977",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2977",
+      "id": "sft-T4b2-2978",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2978",
+      "id": "sft-T4b2-2979",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2979",
+      "id": "sft-T4b2-2980",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2980",
+      "id": "sft-T4b2-2981",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2981",
+      "id": "sft-T4b2-2982",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2982",
+      "id": "sft-T4b2-2983",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2983",
+      "id": "sft-T4b2-2984",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2984",
+      "id": "sft-T4b2-2985",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2985",
+      "id": "sft-T4b2-2986",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2986",
+      "id": "sft-T4b2-2987",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2987",
+      "id": "sft-T4b2-2988",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2988",
+      "id": "sft-T4b2-2989",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2989",
+      "id": "sft-T4b2-2990",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2990",
+      "id": "sft-T4b2-2991",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2991",
+      "id": "sft-T4b2-2992",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2992",
+      "id": "sft-T4b2-2993",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2993",
+      "id": "sft-T4b2-2994",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2994",
+      "id": "sft-T4b2-2995",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2995",
+      "id": "sft-T4b2-2996",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2996",
+      "id": "sft-T4b2-2997",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2997",
+      "id": "sft-T4b2-2998",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2998",
+      "id": "sft-T4b2-2999",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:2999",
+      "id": "sft-T4b2-3000",
+      "task": "T4-grounding:t4b2-gdpr-sec",
+      "methods": [
+        "ngram:v0.1/privacy:1080"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3000",
+      "id": "sft-T4b2-3001",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3001",
+      "id": "sft-T4b2-3002",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3002",
+      "id": "sft-T4b2-3003",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3003",
+      "id": "sft-T4b2-3004",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3004",
+      "id": "sft-T4b2-3005",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3005",
+      "id": "sft-T4b2-3006",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3006",
+      "id": "sft-T4b2-3007",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3007",
+      "id": "sft-T4b2-3008",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3008",
+      "id": "sft-T4b2-3009",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3009",
+      "id": "sft-T4b2-3010",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3010",
+      "id": "sft-T4b2-3011",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3011",
+      "id": "sft-T4b2-3012",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3012",
+      "id": "sft-T4b2-3013",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3013",
+      "id": "sft-T4b2-3014",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3014",
+      "id": "sft-T4b2-3015",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3015",
+      "id": "sft-T4b2-3016",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3016",
+      "id": "sft-T4b2-3017",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3017",
+      "id": "sft-T4b2-3018",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3018",
+      "id": "sft-T4b2-3019",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3019",
+      "id": "sft-T4b2-3020",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3020",
+      "id": "sft-T4b2-3021",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3021",
+      "id": "sft-T4b2-3022",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3022",
+      "id": "sft-T4b2-3023",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3023",
+      "id": "sft-T4b2-3024",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3024",
+      "id": "sft-T4b2-3025",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3025",
+      "id": "sft-T4b2-3026",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3026",
+      "id": "sft-T4b2-3027",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3027",
+      "id": "sft-T4b2-3028",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3028",
+      "id": "sft-T4b2-3029",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3029",
+      "id": "sft-T4b2-3030",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3030",
+      "id": "sft-T4b2-3031",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3031",
+      "id": "sft-T4b2-3032",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3032",
+      "id": "sft-T4b2-3033",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3033",
+      "id": "sft-T4b2-3034",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3034",
+      "id": "sft-T4b2-3035",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3035",
+      "id": "sft-T4b2-3036",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3036",
+      "id": "sft-T4b2-3037",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3037",
+      "id": "sft-T4b2-3038",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3038",
+      "id": "sft-T4b2-3039",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3039",
+      "id": "sft-T4b2-3040",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3040",
+      "id": "sft-T4b2-3041",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3041",
+      "id": "sft-T4b2-3042",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3042",
+      "id": "sft-T4b2-3043",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3043",
+      "id": "sft-T4b2-3044",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3044",
+      "id": "sft-T4b2-3045",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3045",
+      "id": "sft-T4b2-3046",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3046",
+      "id": "sft-T4b2-3047",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3047",
+      "id": "sft-T4b2-3048",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3048",
+      "id": "sft-T4b2-3049",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3049",
+      "id": "sft-T4b2-3050",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3050",
+      "id": "sft-T4b2-3051",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3051",
+      "id": "sft-T4b2-3052",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3052",
+      "id": "sft-T4b2-3053",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3053",
+      "id": "sft-T4b2-3054",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3054",
+      "id": "sft-T4b2-3055",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3055",
+      "id": "sft-T4b2-3056",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3056",
+      "id": "sft-T4b2-3057",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3057",
+      "id": "sft-T4b2-3058",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3058",
+      "id": "sft-T4b2-3059",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3059",
+      "id": "sft-T4b2-3060",
+      "task": "T4-grounding:t4b2-gdpr-breach",
+      "methods": [
+        "ngram:v0.1/privacy:1076",
+        "ngram:v0.1/privacy:1081"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3060",
+      "id": "sft-T4b2-3061",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3061",
+      "id": "sft-T4b2-3062",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3062",
+      "id": "sft-T4b2-3063",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3063",
+      "id": "sft-T4b2-3064",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3064",
+      "id": "sft-T4b2-3065",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3065",
+      "id": "sft-T4b2-3066",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3066",
+      "id": "sft-T4b2-3067",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3067",
+      "id": "sft-T4b2-3068",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3068",
+      "id": "sft-T4b2-3069",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3069",
+      "id": "sft-T4b2-3070",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3070",
+      "id": "sft-T4b2-3071",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3071",
+      "id": "sft-T4b2-3072",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3072",
+      "id": "sft-T4b2-3073",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3073",
+      "id": "sft-T4b2-3074",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3074",
+      "id": "sft-T4b2-3075",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3075",
+      "id": "sft-T4b2-3076",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3076",
+      "id": "sft-T4b2-3077",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3077",
+      "id": "sft-T4b2-3078",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3078",
+      "id": "sft-T4b2-3079",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3079",
+      "id": "sft-T4b2-3080",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3080",
+      "id": "sft-T4b2-3081",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3081",
+      "id": "sft-T4b2-3082",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3082",
+      "id": "sft-T4b2-3083",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3083",
+      "id": "sft-T4b2-3084",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3084",
+      "id": "sft-T4b2-3085",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3085",
+      "id": "sft-T4b2-3086",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3086",
+      "id": "sft-T4b2-3087",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3087",
+      "id": "sft-T4b2-3088",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3088",
+      "id": "sft-T4b2-3089",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3089",
+      "id": "sft-T4b2-3090",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3090",
+      "id": "sft-T4b2-3091",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3091",
+      "id": "sft-T4b2-3092",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3092",
+      "id": "sft-T4b2-3093",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3093",
+      "id": "sft-T4b2-3094",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3094",
+      "id": "sft-T4b2-3095",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3095",
+      "id": "sft-T4b2-3096",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3096",
+      "id": "sft-T4b2-3097",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3097",
+      "id": "sft-T4b2-3098",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3098",
+      "id": "sft-T4b2-3099",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3099",
+      "id": "sft-T4b2-3100",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3100",
+      "id": "sft-T4b2-3101",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3101",
+      "id": "sft-T4b2-3102",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3102",
+      "id": "sft-T4b2-3103",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3103",
+      "id": "sft-T4b2-3104",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3104",
+      "id": "sft-T4b2-3105",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3105",
+      "id": "sft-T4b2-3106",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3106",
+      "id": "sft-T4b2-3107",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3107",
+      "id": "sft-T4b2-3108",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3108",
+      "id": "sft-T4b2-3109",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3109",
+      "id": "sft-T4b2-3110",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3110",
+      "id": "sft-T4b2-3111",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3111",
+      "id": "sft-T4b2-3112",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3112",
+      "id": "sft-T4b2-3113",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3113",
+      "id": "sft-T4b2-3114",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3114",
+      "id": "sft-T4b2-3115",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3115",
+      "id": "sft-T4b2-3116",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3116",
+      "id": "sft-T4b2-3117",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3117",
+      "id": "sft-T4b2-3118",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3118",
+      "id": "sft-T4b2-3119",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fB_t4ground:3119",
+      "id": "sft-T4b2-3120",
+      "task": "T4-grounding:t4b2-gdpr-dpia",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1070",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1082"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:1457",
+      "id": "sft-m25-T3-1458",
+      "task": "T3-risk:kev:CVE-2021-27103",
+      "methods": [
+        "ngram:v0.1/sec:1299"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:1526",
+      "id": "sft-m25-T3-1527",
+      "task": "T3-risk:kev:CVE-2021-27561",
+      "methods": [
+        "ngram:v0.1/sec:1299"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2054",
+      "id": "sft-m25-T12-0055",
+      "task": "T12-policyqa:gdpr-recital:98",
+      "methods": [
+        "ngram:v0.1/privacy:1095",
+        "ngram:v0.1/privacy:1094"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2073",
+      "id": "sft-m25-T12-0074",
+      "task": "T12-policyqa:gdpr-recital:152",
+      "methods": [
+        "ngram:v0.1/privacy:1148"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2100",
+      "id": "sft-m25-T12-0101",
+      "task": "T12-policyqa:gdpr-recital:92",
+      "methods": [
+        "ngram:v0.1/privacy:1088"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2102",
+      "id": "sft-m25-T12-0103",
+      "task": "T12-policyqa:gdpr-recital:147",
+      "methods": [
+        "ngram:v0.1/privacy:1143"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2108",
+      "id": "sft-m25-T12-0109",
+      "task": "T12-policyqa:gdpr-recital:19",
+      "methods": [
+        "ngram:v0.1/privacy:1069",
+        "ngram:v0.1/privacy:1009",
+        "ngram:v0.1/privacy:1008",
+        "ngram:v0.1/privacy:1113",
+        "ngram:v0.1/privacy:998",
+        "ngram:v0.1/privacy:1074",
+        "ngram:v0.1/privacy:1006",
+        "ngram:v0.1/privacy:1150",
+        "ngram:v0.1/privacy:1015"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2112",
+      "id": "sft-m25-T12-0113",
+      "task": "T12-policyqa:gdpr-recital:139",
+      "methods": [
+        "ngram:v0.1/privacy:999",
+        "ngram:v0.1/privacy:1013",
+        "ngram:v0.1/privacy:1135"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2124",
+      "id": "sft-m25-T12-0125",
+      "task": "T12-policyqa:gdpr-recital:90",
+      "methods": [
+        "ngram:v0.1/privacy:1086",
+        "ngram:v0.1/privacy:1070"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2152",
+      "id": "sft-m25-T12-0153",
+      "task": "T12-policyqa:gdpr-recital:48",
+      "methods": [
+        "ngram:v0.1/privacy:1044"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2164",
+      "id": "sft-m25-T12-0165",
+      "task": "T12-policyqa:gdpr-recital:78",
+      "methods": [
+        "ngram:v0.1/privacy:1009",
+        "ngram:v0.1/privacy:1150",
+        "ngram:v0.1/privacy:1109",
+        "ngram:v0.1/privacy:1008",
+        "ngram:v0.1/privacy:1078",
+        "ngram:v0.1/privacy:1015",
+        "ngram:v0.1/privacy:1074",
+        "ngram:v0.1/privacy:1006"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2165",
+      "id": "sft-m25-T12-0166",
+      "task": "T12-policyqa:gdpr-recital:30",
+      "methods": [
+        "ngram:v0.1/privacy:1026"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2182",
+      "id": "sft-m25-T12-0183",
+      "task": "T12-policyqa:gdpr-recital:138",
+      "methods": [
+        "ngram:v0.1/privacy:1134",
+        "ngram:v0.1/privacy:1132"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2197",
+      "id": "sft-m25-T12-0198",
+      "task": "T12-policyqa:gdpr-recital:135",
+      "methods": [
+        "ngram:v0.1/privacy:1131",
+        "ngram:v0.1/privacy:1135"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2213",
+      "id": "sft-m25-T12-0214",
+      "task": "T12-policyqa:gdpr-recital:101",
+      "methods": [
+        "ngram:v0.1/privacy:1097"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2215",
+      "id": "sft-m25-T12-0216",
+      "task": "T12-policyqa:gdpr-recital:134",
+      "methods": [
+        "ngram:v0.1/privacy:1130"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2233",
+      "id": "sft-m25-T12-0234",
+      "task": "T12-policyqa:gdpr-recital:133",
+      "methods": [
+        "ngram:v0.1/privacy:1129"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2241",
+      "id": "sft-m25-T12-0242",
+      "task": "T12-policyqa:gdpr-recital:49",
+      "methods": [
+        "ngram:v0.1/privacy:1045"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2285",
+      "id": "sft-m25-T12-0286",
+      "task": "T12-policyqa:gdpr-recital:61",
+      "methods": [
+        "ngram:v0.1/privacy:1057"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2287",
+      "id": "sft-m25-T12-0288",
+      "task": "T12-policyqa:gdpr-recital:31",
+      "methods": [
+        "ngram:v0.1/privacy:1027"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2288",
+      "id": "sft-m25-T12-0289",
+      "task": "T12-policyqa:gdpr-recital:5",
+      "methods": [
+        "ngram:v0.1/privacy:1001"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2303",
+      "id": "sft-m25-T12-0304",
+      "task": "T12-policyqa:gdpr-recital:158",
+      "methods": [
+        "ngram:v0.1/privacy:1156",
+        "ngram:v0.1/privacy:1154",
+        "ngram:v0.1/privacy:1155"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2337",
+      "id": "sft-m25-T12-0338",
+      "task": "T12-policyqa:gdpr-recital:96",
+      "methods": [
+        "ngram:v0.1/privacy:1092"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2343",
+      "id": "sft-m25-T12-0344",
+      "task": "T12-policyqa:gdpr-recital:15",
+      "methods": [
+        "ngram:v0.1/privacy:1011"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2359",
+      "id": "sft-m25-T12-0360",
+      "task": "T12-policyqa:gdpr-recital:150",
+      "methods": [
+        "ngram:v0.1/privacy:1146"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2361",
+      "id": "sft-m25-T12-0362",
+      "task": "T12-policyqa:gdpr-recital:113",
+      "methods": [
+        "ngram:v0.1/privacy:1109"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2363",
+      "id": "sft-m25-T12-0364",
+      "task": "T12-policyqa:gdpr-recital:149",
+      "methods": [
+        "ngram:v0.1/privacy:1145"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2367",
+      "id": "sft-m25-T12-0368",
+      "task": "T12-policyqa:gdpr-recital:106",
+      "methods": [
+        "ngram:v0.1/privacy:1103",
+        "ngram:v0.1/privacy:1099",
+        "ngram:v0.1/privacy:1102"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2371",
+      "id": "sft-m25-T12-0372",
+      "task": "T12-policyqa:gdpr-recital:107",
+      "methods": [
+        "ngram:v0.1/privacy:1099",
+        "ngram:v0.1/privacy:1103",
+        "ngram:v0.1/privacy:1165",
+        "ngram:v0.1/privacy:1102"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2378",
+      "id": "sft-m25-T12-0379",
+      "task": "T12-policyqa:gdpr-recital:21",
+      "methods": [
+        "ngram:v0.1/privacy:1017"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2383",
+      "id": "sft-m25-T12-0384",
+      "task": "T12-policyqa:gdpr-recital:164",
+      "methods": [
+        "ngram:v0.1/privacy:1149",
+        "ngram:v0.1/privacy:1160"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2387",
+      "id": "sft-m25-T12-0388",
+      "task": "T12-policyqa:gdpr-recital:79",
+      "methods": [
+        "ngram:v0.1/privacy:1075"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2389",
+      "id": "sft-m25-T12-0390",
+      "task": "T12-policyqa:gdpr-recital:52",
+      "methods": [
+        "ngram:v0.1/privacy:1048"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2402",
+      "id": "sft-m25-T12-0403",
+      "task": "T12-policyqa:gdpr-recital:86",
+      "methods": [
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1085",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1082",
+        "ngram:v0.1/privacy:1087"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2452",
+      "id": "sft-m25-T12-0453",
+      "task": "T12-policyqa:gdpr-recital:100",
+      "methods": [
+        "ngram:v0.1/privacy:1096"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2461",
+      "id": "sft-m25-T12-0462",
+      "task": "T12-policyqa:gdpr-recital:168",
+      "methods": [
+        "ngram:v0.1/privacy:1164",
+        "ngram:v0.1/privacy:1165"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2481",
+      "id": "sft-m25-T12-0482",
+      "task": "T12-policyqa:gdpr-recital:22",
+      "methods": [
+        "ngram:v0.1/privacy:1120",
+        "ngram:v0.1/privacy:1018"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2483",
+      "id": "sft-m25-T12-0484",
+      "task": "T12-policyqa:gdpr-recital:46",
+      "methods": [
+        "ngram:v0.1/privacy:1042",
+        "ngram:v0.1/privacy:1108"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2486",
+      "id": "sft-m25-T12-0487",
+      "task": "T12-policyqa:gdpr-recital:118",
+      "methods": [
+        "ngram:v0.1/privacy:1114"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2525",
+      "id": "sft-m25-T12-0526",
+      "task": "T12-policyqa:gdpr-recital:26",
+      "methods": [
+        "ngram:v0.1/privacy:1022"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2556",
+      "id": "sft-m25-T12-0557",
+      "task": "T12-policyqa:gdpr-recital:104",
+      "methods": [
+        "ngram:v0.1/privacy:1100"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2572",
+      "id": "sft-m25-T12-0573",
+      "task": "T12-policyqa:gdpr-recital:94",
+      "methods": [
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1085"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2599",
+      "id": "sft-m25-T12-0600",
+      "task": "T12-policyqa:gdpr-recital:102",
+      "methods": [
+        "ngram:v0.1/privacy:1097",
+        "ngram:v0.1/privacy:1098",
+        "ngram:v0.1/privacy:1149"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2607",
+      "id": "sft-m25-T12-0608",
+      "task": "T12-policyqa:gdpr-recital:167",
+      "methods": [
+        "ngram:v0.1/privacy:1163"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2617",
+      "id": "sft-m25-T12-0618",
+      "task": "T12-policyqa:gdpr-recital:28",
+      "methods": [
+        "ngram:v0.1/privacy:1024"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2623",
+      "id": "sft-m25-T12-0624",
+      "task": "T12-policyqa:gdpr-recital:58",
+      "methods": [
+        "ngram:v0.1/privacy:1035",
+        "ngram:v0.1/privacy:1054"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2627",
+      "id": "sft-m25-T12-0628",
+      "task": "T12-policyqa:gdpr-recital:14",
+      "methods": [
+        "ngram:v0.1/privacy:1010"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2658",
+      "id": "sft-m25-T12-0659",
+      "task": "T12-policyqa:gdpr-recital:67",
+      "methods": [
+        "ngram:v0.1/privacy:1063"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2660",
+      "id": "sft-m25-T12-0661",
+      "task": "T12-policyqa:gdpr-recital:93",
+      "methods": [
+        "ngram:v0.1/privacy:1089"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2661",
+      "id": "sft-m25-T12-0662",
+      "task": "T12-policyqa:gdpr-recital:35",
+      "methods": [
+        "ngram:v0.1/privacy:1031"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2671",
+      "id": "sft-m25-T12-0672",
+      "task": "T12-policyqa:gdpr-recital:103",
+      "methods": [
+        "ngram:v0.1/privacy:1103",
+        "ngram:v0.1/privacy:1099",
+        "ngram:v0.1/privacy:1102"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2694",
+      "id": "sft-m25-T12-0695",
+      "task": "T12-policyqa:gdpr-recital:9",
+      "methods": [
+        "ngram:v0.1/privacy:1005"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2724",
+      "id": "sft-m25-T12-0725",
+      "task": "T12-policyqa:gdpr-recital:88",
+      "methods": [
+        "ngram:v0.1/privacy:1084"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2726",
+      "id": "sft-m25-T12-0727",
+      "task": "T12-policyqa:gdpr-recital:73",
+      "methods": [
+        "ngram:v0.1/privacy:1069"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2751",
+      "id": "sft-m25-T12-0752",
+      "task": "T12-policyqa:gdpr-recital:3",
+      "methods": [
+        "ngram:v0.1/privacy:999"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2763",
+      "id": "sft-m25-T12-0764",
+      "task": "T12-policyqa:gdpr-recital:155",
+      "methods": [
+        "ngram:v0.1/privacy:1151"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2771",
+      "id": "sft-m25-T12-0772",
+      "task": "T12-policyqa:gdpr-recital:87",
+      "methods": [
+        "ngram:v0.1/privacy:1083"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2781",
+      "id": "sft-m25-T12-0782",
+      "task": "T12-policyqa:gdpr-recital:8",
+      "methods": [
+        "ngram:v0.1/privacy:1004"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2802",
+      "id": "sft-m25-T12-0803",
+      "task": "T12-policyqa:gdpr-recital:163",
+      "methods": [
+        "ngram:v0.1/privacy:1159"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2823",
+      "id": "sft-m25-T12-0824",
+      "task": "T12-policyqa:gdpr-recital:39",
+      "methods": [
+        "ngram:v0.1/privacy:1035",
+        "ngram:v0.1/privacy:1054"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2835",
+      "id": "sft-m25-T12-0836",
+      "task": "T12-policyqa:gdpr-recital:4",
+      "methods": [
+        "ngram:v0.1/privacy:1000"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2852",
+      "id": "sft-m25-T12-0853",
+      "task": "T12-policyqa:gdpr-recital:34",
+      "methods": [
+        "ngram:v0.1/privacy:1030"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2866",
+      "id": "sft-m25-T12-0867",
+      "task": "T12-policyqa:gdpr-recital:137",
+      "methods": [
+        "ngram:v0.1/privacy:1133",
+        "ngram:v0.1/privacy:1087"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2879",
+      "id": "sft-m25-T12-0880",
+      "task": "T12-policyqa:gdpr-recital:136",
+      "methods": [
+        "ngram:v0.1/privacy:1132"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2881",
+      "id": "sft-m25-T12-0882",
+      "task": "T12-policyqa:gdpr-recital:25",
+      "methods": [
+        "ngram:v0.1/privacy:1021"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2889",
+      "id": "sft-m25-T12-0890",
+      "task": "T12-policyqa:gdpr-recital:2",
+      "methods": [
+        "ngram:v0.1/privacy:1009",
+        "ngram:v0.1/privacy:1150",
+        "ngram:v0.1/privacy:1162",
+        "ngram:v0.1/privacy:1109",
+        "ngram:v0.1/privacy:1008",
+        "ngram:v0.1/privacy:1113",
+        "ngram:v0.1/privacy:998",
+        "ngram:v0.1/privacy:1015"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2895",
+      "id": "sft-m25-T12-0896",
+      "task": "T12-policyqa:gdpr-recital:120",
+      "methods": [
+        "ngram:v0.1/privacy:1116"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2897",
+      "id": "sft-m25-T12-0898",
+      "task": "T12-policyqa:gdpr-recital:80",
+      "methods": [
+        "ngram:v0.1/privacy:1076"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2900",
+      "id": "sft-m25-T12-0901",
+      "task": "T12-policyqa:gdpr-recital:62",
+      "methods": [
+        "ngram:v0.1/privacy:1048",
+        "ngram:v0.1/privacy:1058",
+        "ngram:v0.1/privacy:1109",
+        "ngram:v0.1/privacy:1049",
+        "ngram:v0.1/privacy:1061",
+        "ngram:v0.1/privacy:1046",
+        "ngram:v0.1/privacy:1152"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2910",
+      "id": "sft-m25-T12-0911",
+      "task": "T12-policyqa:gdpr-recital:42",
+      "methods": [
+        "ngram:v0.1/privacy:1038"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2917",
+      "id": "sft-m25-T12-0918",
+      "task": "T12-policyqa:gdpr-recital:145",
+      "methods": [
+        "ngram:v0.1/privacy:1141"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2962",
+      "id": "sft-m25-T12-0963",
+      "task": "T12-policyqa:gdpr-recital:108",
+      "methods": [
+        "ngram:v0.1/privacy:1104"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:2974",
+      "id": "sft-m25-T12-0975",
+      "task": "T12-policyqa:gdpr-recital:109",
+      "methods": [
+        "ngram:v0.1/privacy:1105"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3026",
+      "id": "sft-m25-T12-1027",
+      "task": "T12-policyqa:gdpr-recital:95",
+      "methods": [
+        "ngram:v0.1/privacy:1091"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3036",
+      "id": "sft-m25-T12-1037",
+      "task": "T12-policyqa:gdpr-recital:173",
+      "methods": [
+        "ngram:v0.1/privacy:1169"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3045",
+      "id": "sft-m25-T12-1046",
+      "task": "T12-policyqa:gdpr-recital:126",
+      "methods": [
+        "ngram:v0.1/privacy:1122"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3065",
+      "id": "sft-m25-T12-1066",
+      "task": "T12-policyqa:gdpr-recital:6",
+      "methods": [
+        "ngram:v0.1/privacy:1002"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3096",
+      "id": "sft-m25-T12-1097",
+      "task": "T12-policyqa:gdpr-recital:55",
+      "methods": [
+        "ngram:v0.1/privacy:1051"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3120",
+      "id": "sft-m25-T12-1121",
+      "task": "T12-policyqa:gdpr-recital:68",
+      "methods": [
+        "ngram:v0.1/privacy:1064"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3123",
+      "id": "sft-m25-T12-1124",
+      "task": "T12-policyqa:gdpr-recital:16",
+      "methods": [
+        "ngram:v0.1/privacy:1012",
+        "ngram:v0.1/privacy:1014"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3139",
+      "id": "sft-m25-T12-1140",
+      "task": "T12-policyqa:gdpr-recital:40",
+      "methods": [
+        "ngram:v0.1/privacy:1036"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3147",
+      "id": "sft-m25-T12-1148",
+      "task": "T12-policyqa:gdpr-recital:20",
+      "methods": [
+        "ngram:v0.1/privacy:1016"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3160",
+      "id": "sft-m25-T12-1161",
+      "task": "T12-policyqa:gdpr-recital:124",
+      "methods": [
+        "ngram:v0.1/privacy:1123",
+        "ngram:v0.1/privacy:1120",
+        "ngram:v0.1/privacy:1018"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3164",
+      "id": "sft-m25-T12-1165",
+      "task": "T12-policyqa:gdpr-recital:123",
+      "methods": [
+        "ngram:v0.1/privacy:1119"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3213",
+      "id": "sft-m25-T12-1214",
+      "task": "T12-policyqa:gdpr-recital:151",
+      "methods": [
+        "ngram:v0.1/privacy:1147"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3217",
+      "id": "sft-m25-T12-1218",
+      "task": "T12-policyqa:gdpr-recital:171",
+      "methods": [
+        "ngram:v0.1/privacy:1167"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3222",
+      "id": "sft-m25-T12-1223",
+      "task": "T12-policyqa:gdpr-recital:153",
+      "methods": [
+        "ngram:v0.1/privacy:1150",
+        "ngram:v0.1/privacy:1149"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3244",
+      "id": "sft-m25-T12-1245",
+      "task": "T12-policyqa:gdpr-recital:142",
+      "methods": [
+        "ngram:v0.1/privacy:1137",
+        "ngram:v0.1/privacy:1138"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3245",
+      "id": "sft-m25-T12-1246",
+      "task": "T12-policyqa:gdpr-recital:1",
+      "methods": [
+        "prefix",
+        "ngram:v0.1/privacy:997"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3249",
+      "id": "sft-m25-T12-1250",
+      "task": "T12-policyqa:gdpr-recital:97",
+      "methods": [
+        "ngram:v0.1/privacy:1093"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3253",
+      "id": "sft-m25-T12-1254",
+      "task": "T12-policyqa:gdpr-recital:76",
+      "methods": [
+        "ngram:v0.1/privacy:1072"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3270",
+      "id": "sft-m25-T12-1271",
+      "task": "T12-policyqa:gdpr-recital:43",
+      "methods": [
+        "ngram:v0.1/privacy:1039"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3275",
+      "id": "sft-m25-T12-1276",
+      "task": "T12-policyqa:gdpr-recital:29",
+      "methods": [
+        "ngram:v0.1/privacy:1025"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3276",
+      "id": "sft-m25-T12-1277",
+      "task": "T12-policyqa:gdpr-recital:156",
+      "methods": [
+        "ngram:v0.1/privacy:1048",
+        "ngram:v0.1/privacy:1058",
+        "ngram:v0.1/privacy:1109",
+        "ngram:v0.1/privacy:1049",
+        "ngram:v0.1/privacy:1061",
+        "ngram:v0.1/privacy:1046",
+        "ngram:v0.1/privacy:1152"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3285",
+      "id": "sft-m25-T12-1286",
+      "task": "T12-policyqa:gdpr-recital:81",
+      "methods": [
+        "ngram:v0.1/privacy:1077"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3290",
+      "id": "sft-m25-T12-1291",
+      "task": "T12-policyqa:gdpr-recital:116",
+      "methods": [
+        "ngram:v0.1/privacy:1112"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3308",
+      "id": "sft-m25-T12-1309",
+      "task": "T12-policyqa:gdpr-recital:56",
+      "methods": [
+        "ngram:v0.1/privacy:1052"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3310",
+      "id": "sft-m25-T12-1311",
+      "task": "T12-policyqa:gdpr-recital:130",
+      "methods": [
+        "ngram:v0.1/privacy:1126",
+        "ngram:v0.1/privacy:1121"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3376",
+      "id": "sft-m25-T12-1377",
+      "task": "T12-policyqa:gdpr-recital:91",
+      "methods": [
+        "ngram:v0.1/privacy:1087"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3377",
+      "id": "sft-m25-T12-1378",
+      "task": "T12-policyqa:gdpr-recital:110",
+      "methods": [
+        "ngram:v0.1/privacy:1106"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3391",
+      "id": "sft-m25-T12-1392",
+      "task": "T12-policyqa:gdpr-recital:50",
+      "methods": [
+        "ngram:v0.1/privacy:1046"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3406",
+      "id": "sft-m25-T12-1407",
+      "task": "T12-policyqa:gdpr-recital:77",
+      "methods": [
+        "ngram:v0.1/privacy:1073"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3425",
+      "id": "sft-m25-T12-1426",
+      "task": "T12-policyqa:gdpr-recital:117",
+      "methods": [
+        "ngram:v0.1/privacy:1113",
+        "ngram:v0.1/privacy:998",
+        "ngram:v0.1/privacy:1009",
+        "ngram:v0.1/privacy:1008",
+        "ngram:v0.1/privacy:1015",
+        "ngram:v0.1/privacy:1109",
+        "ngram:v0.1/privacy:1150"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3431",
+      "id": "sft-m25-T12-1432",
+      "task": "T12-policyqa:gdpr-recital:70",
+      "methods": [
+        "ngram:v0.1/privacy:1066"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3441",
+      "id": "sft-m25-T12-1442",
+      "task": "T12-policyqa:gdpr-recital:72",
+      "methods": [
+        "ngram:v0.1/privacy:1068"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3444",
+      "id": "sft-m25-T12-1445",
+      "task": "T12-policyqa:gdpr-recital:128",
+      "methods": [
+        "ngram:v0.1/privacy:1124"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3447",
+      "id": "sft-m25-T12-1448",
+      "task": "T12-policyqa:gdpr-recital:54",
+      "methods": [
+        "ngram:v0.1/privacy:1050"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3451",
+      "id": "sft-m25-T12-1452",
+      "task": "T12-policyqa:gdpr-recital:65",
+      "methods": [
+        "ngram:v0.1/privacy:1067",
+        "ngram:v0.1/privacy:1061",
+        "ngram:v0.1/privacy:1111"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3452",
+      "id": "sft-m25-T12-1453",
+      "task": "T12-policyqa:gdpr-recital:165",
+      "methods": [
+        "ngram:v0.1/privacy:1161"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3456",
+      "id": "sft-m25-T12-1457",
+      "task": "T12-policyqa:gdpr-recital:53",
+      "methods": [
+        "ngram:v0.1/privacy:1049"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3461",
+      "id": "sft-m25-T12-1462",
+      "task": "T12-policyqa:gdpr-recital:60",
+      "methods": [
+        "ngram:v0.1/privacy:1056",
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3479",
+      "id": "sft-m25-T12-1480",
+      "task": "T12-policyqa:gdpr-recital:37",
+      "methods": [
+        "ngram:v0.1/privacy:1033"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3487",
+      "id": "sft-m25-T12-1488",
+      "task": "T12-policyqa:gdpr-recital:7",
+      "methods": [
+        "ngram:v0.1/privacy:1003"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3489",
+      "id": "sft-m25-T12-1490",
+      "task": "T12-policyqa:gdpr-recital:84",
+      "methods": [
+        "ngram:v0.1/privacy:1080",
+        "ngram:v0.1/privacy:1082",
+        "ngram:v0.1/privacy:1073",
+        "ngram:v0.1/privacy:1090",
+        "ngram:v0.1/privacy:1087",
+        "ngram:v0.1/privacy:1085"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3506",
+      "id": "sft-m25-T12-1507",
+      "task": "T12-policyqa:gdpr-recital:47",
+      "methods": [
+        "ngram:v0.1/privacy:1046",
+        "ngram:v0.1/privacy:1065",
+        "ngram:v0.1/privacy:1043"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3509",
+      "id": "sft-m25-T12-1510",
+      "task": "T12-policyqa:gdpr-recital:89",
+      "methods": [
+        "ngram:v0.1/privacy:1085"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3512",
+      "id": "sft-m25-T12-1513",
+      "task": "T12-policyqa:gdpr-recital:24",
+      "methods": [
+        "ngram:v0.1/privacy:1019",
+        "ngram:v0.1/privacy:1020"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3517",
+      "id": "sft-m25-T12-1518",
+      "task": "T12-policyqa:gdpr-recital:127",
+      "methods": [
+        "ngram:v0.1/privacy:1123",
+        "ngram:v0.1/privacy:1120"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3532",
+      "id": "sft-m25-T12-1533",
+      "task": "T12-policyqa:gdpr-recital:122",
+      "methods": [
+        "ngram:v0.1/privacy:1118"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3539",
+      "id": "sft-m25-T12-1540",
+      "task": "T12-policyqa:gdpr-recital:18",
+      "methods": [
+        "ngram:v0.1/privacy:1012",
+        "ngram:v0.1/privacy:1014"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3555",
+      "id": "sft-m25-T12-1556",
+      "task": "T12-policyqa:gdpr-recital:112",
+      "methods": [
+        "ngram:v0.1/privacy:1108"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3565",
+      "id": "sft-m25-T12-1566",
+      "task": "T12-policyqa:gdpr-recital:121",
+      "methods": [
+        "ngram:v0.1/privacy:1117"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3580",
+      "id": "sft-m25-T12-1581",
+      "task": "T12-policyqa:gdpr-recital:66",
+      "methods": [
+        "ngram:v0.1/privacy:1062"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3590",
+      "id": "sft-m25-T12-1591",
+      "task": "T12-policyqa:gdpr-recital:141",
+      "methods": [
+        "ngram:v0.1/privacy:1137",
+        "ngram:v0.1/privacy:1138"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3591",
+      "id": "sft-m25-T12-1592",
+      "task": "T12-policyqa:gdpr-recital:170",
+      "methods": [
+        "ngram:v0.1/privacy:1166"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3616",
+      "id": "sft-m25-T12-1617",
+      "task": "T12-policyqa:gdpr-recital:38",
+      "methods": [
+        "ngram:v0.1/privacy:1034"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3618",
+      "id": "sft-m25-T12-1619",
+      "task": "T12-policyqa:gdpr-recital:162",
+      "methods": [
+        "ngram:v0.1/privacy:1158"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3628",
+      "id": "sft-m25-T12-1629",
+      "task": "T12-policyqa:gdpr-recital:32",
+      "methods": [
+        "ngram:v0.1/privacy:1028"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3646",
+      "id": "sft-m25-T12-1647",
+      "task": "T12-policyqa:gdpr-recital:10",
+      "methods": [
+        "ngram:v0.1/privacy:1009",
+        "ngram:v0.1/privacy:1150",
+        "ngram:v0.1/privacy:1109",
+        "ngram:v0.1/privacy:1008",
+        "ngram:v0.1/privacy:1005",
+        "ngram:v0.1/privacy:1015",
+        "ngram:v0.1/privacy:1074",
+        "ngram:v0.1/privacy:1006"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3650",
+      "id": "sft-m25-T12-1651",
+      "task": "T12-policyqa:gdpr-recital:23",
+      "methods": [
+        "ngram:v0.1/privacy:1019",
+        "ngram:v0.1/privacy:1020"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3664",
+      "id": "sft-m25-T12-1665",
+      "task": "T12-policyqa:gdpr-recital:119",
+      "methods": [
+        "ngram:v0.1/privacy:1115"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3669",
+      "id": "sft-m25-T12-1670",
+      "task": "T12-policyqa:gdpr-recital:85",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1071"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3672",
+      "id": "sft-m25-T12-1673",
+      "task": "T12-policyqa:gdpr-recital:125",
+      "methods": [
+        "ngram:v0.1/privacy:1126",
+        "ngram:v0.1/privacy:1121"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3692",
+      "id": "sft-m25-T12-1693",
+      "task": "T12-policyqa:gdpr-recital:172",
+      "methods": [
+        "ngram:v0.1/privacy:1168"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3701",
+      "id": "sft-m25-T12-1702",
+      "task": "T12-policyqa:gdpr-recital:144",
+      "methods": [
+        "ngram:v0.1/privacy:1140"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3704",
+      "id": "sft-m25-T12-1705",
+      "task": "T12-policyqa:gdpr-recital:131",
+      "methods": [
+        "ngram:v0.1/privacy:1127"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3745",
+      "id": "sft-m25-T12-1746",
+      "task": "T12-policyqa:gdpr-recital:57",
+      "methods": [
+        "ngram:v0.1/privacy:1053"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3751",
+      "id": "sft-m25-T12-1752",
+      "task": "T12-policyqa:gdpr-recital:71",
+      "methods": [
+        "ngram:v0.1/privacy:1067"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3756",
+      "id": "sft-m25-T12-1757",
+      "task": "T12-policyqa:gdpr-recital:132",
+      "methods": [
+        "ngram:v0.1/privacy:1128"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3761",
+      "id": "sft-m25-T12-1762",
+      "task": "T12-policyqa:gdpr-recital:83",
+      "methods": [
+        "ngram:v0.1/privacy:1079"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3764",
+      "id": "sft-m25-T12-1765",
+      "task": "T12-policyqa:gdpr-recital:27",
+      "methods": [
+        "ngram:v0.1/privacy:1023"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3788",
+      "id": "sft-m25-T12-1789",
+      "task": "T12-policyqa:gdpr-recital:69",
+      "methods": [
+        "ngram:v0.1/privacy:1064",
+        "ngram:v0.1/privacy:1047",
+        "ngram:v0.1/privacy:1061",
+        "ngram:v0.1/privacy:1046",
+        "ngram:v0.1/privacy:1041",
+        "ngram:v0.1/privacy:1065",
+        "ngram:v0.1/privacy:1006"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3790",
+      "id": "sft-m25-T12-1791",
+      "task": "T12-policyqa:gdpr-recital:99",
+      "methods": [
+        "ngram:v0.1/privacy:1095",
+        "ngram:v0.1/privacy:1094"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3794",
+      "id": "sft-m25-T12-1795",
+      "task": "T12-policyqa:gdpr-recital:12",
+      "methods": [
+        "ngram:v0.1/privacy:1009",
+        "ngram:v0.1/privacy:1150",
+        "ngram:v0.1/privacy:1008",
+        "ngram:v0.1/privacy:1113",
+        "ngram:v0.1/privacy:998",
+        "ngram:v0.1/privacy:1015",
+        "ngram:v0.1/privacy:1074",
+        "ngram:v0.1/privacy:1006"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3817",
+      "id": "sft-m25-T12-1818",
+      "task": "T12-policyqa:gdpr-recital:157",
+      "methods": [
+        "ngram:v0.1/privacy:1153"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3825",
+      "id": "sft-m25-T12-1826",
+      "task": "T12-policyqa:gdpr-recital:11",
+      "methods": [
+        "ngram:v0.1/privacy:1007"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3830",
+      "id": "sft-m25-T12-1831",
+      "task": "T12-policyqa:gdpr-recital:146",
+      "methods": [
+        "ngram:v0.1/privacy:1142"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3838",
+      "id": "sft-m25-T12-1839",
+      "task": "T12-policyqa:gdpr-recital:154",
+      "methods": [
+        "ngram:v0.1/privacy:1150"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3844",
+      "id": "sft-m25-T12-1845",
+      "task": "T12-policyqa:gdpr-recital:75",
+      "methods": [
+        "ngram:v0.1/privacy:1081",
+        "ngram:v0.1/privacy:1071"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3852",
+      "id": "sft-m25-T12-1853",
+      "task": "T12-policyqa:gdpr-recital:159",
+      "methods": [
+        "ngram:v0.1/privacy:1156",
+        "ngram:v0.1/privacy:1154",
+        "ngram:v0.1/privacy:1155"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3857",
+      "id": "sft-m25-T12-1858",
+      "task": "T12-policyqa:gdpr-recital:13",
+      "methods": [
+        "ngram:v0.1/privacy:1009"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3906",
+      "id": "sft-m25-T12-1907",
+      "task": "T12-policyqa:gdpr-recital:63",
+      "methods": [
+        "ngram:v0.1/privacy:1059"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3917",
+      "id": "sft-m25-T12-1918",
+      "task": "T12-policyqa:gdpr-recital:140",
+      "methods": [
+        "ngram:v0.1/privacy:1136"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3918",
+      "id": "sft-m25-T12-1919",
+      "task": "T12-policyqa:gdpr-recital:17",
+      "methods": [
+        "ngram:v0.1/privacy:1013"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3920",
+      "id": "sft-m25-T12-1921",
+      "task": "T12-policyqa:gdpr-recital:33",
+      "methods": [
+        "ngram:v0.1/privacy:1029"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3923",
+      "id": "sft-m25-T12-1924",
+      "task": "T12-policyqa:gdpr-recital:45",
+      "methods": [
+        "ngram:v0.1/privacy:1064",
+        "ngram:v0.1/privacy:1047",
+        "ngram:v0.1/privacy:1061",
+        "ngram:v0.1/privacy:1046",
+        "ngram:v0.1/privacy:1041",
+        "ngram:v0.1/privacy:1065",
+        "ngram:v0.1/privacy:1006"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3936",
+      "id": "sft-m25-T12-1937",
+      "task": "T12-policyqa:gdpr-recital:41",
+      "methods": [
+        "ngram:v0.1/privacy:1037"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3968",
+      "id": "sft-m25-T12-1969",
+      "task": "T12-policyqa:gdpr-recital:36",
+      "methods": [
+        "ngram:v0.1/privacy:1032"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3971",
+      "id": "sft-m25-T12-1972",
+      "task": "T12-policyqa:gdpr-recital:148",
+      "methods": [
+        "ngram:v0.1/privacy:1144"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3976",
+      "id": "sft-m25-T12-1977",
+      "task": "T12-policyqa:gdpr-recital:166",
+      "methods": [
+        "ngram:v0.1/privacy:1162",
+        "ngram:v0.1/privacy:998"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3978",
+      "id": "sft-m25-T12-1979",
+      "task": "T12-policyqa:gdpr-recital:160",
+      "methods": [
+        "ngram:v0.1/privacy:1154",
+        "ngram:v0.1/privacy:1155",
+        "ngram:v0.1/privacy:1156"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3983",
+      "id": "sft-m25-T12-1984",
+      "task": "T12-policyqa:gdpr-recital:59",
+      "methods": [
+        "ngram:v0.1/privacy:1055"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3989",
+      "id": "sft-m25-T12-1990",
+      "task": "T12-policyqa:gdpr-recital:44",
+      "methods": [
+        "ngram:v0.1/privacy:1040"
+      ]
+    },
+    {
+      "row": "fE_t3t12t11:3992",
+      "id": "sft-m25-T12-1993",
+      "task": "T12-policyqa:gdpr-recital:111",
+      "methods": [
+        "ngram:v0.1/privacy:1107"
+      ]
+    }
+  ],
+  "adjudicated_count": 464,
+  "errors": [],
+  "verdict": "PASS"
+}

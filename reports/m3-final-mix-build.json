@@ -1,0 +1,45 @@
+{
+ "components": {
+  "dpo_m3_v2_q": 22842,
+  "dpo_m3_carriers_v1": 6000
+ },
+ "total_rows": 28842,
+ "reserve_rows": 5710,
+ "reserve_share": 0.198,
+ "carrier_share": 0.208,
+ "benign_negative_share_in_carriers": 0.22,
+ "carrier_type_counts": {
+  "tool_output": 1100,
+  "log": 1000,
+  "webpage": 1000,
+  "code": 1000,
+  "document": 1000,
+  "email": 500,
+  "text": 400
+ },
+ "dpo_class_counts": {
+  "policy": 14688,
+  "reserve": 5710,
+  "carrier_inject_obedient": 2360,
+  "carrier_inject_hollow": 2320,
+  "bt330_refusal": 1904,
+  "carrier_clean_overrefusal": 1320,
+  "refusal_quality": 300,
+  "calibration": 240
+ },
+ "lang_counts": {
+  "zh": 17319,
+  "en": 11523
+ },
+ "pack_counts": {
+  "default": 13811,
+  "conservative": 7688,
+  "professional": 7343
+ },
+ "rejected_candidates": [
+  "dpo_m3_v2.jsonl (人造置信差)",
+  "dpo_m3_v2_strict.jsonl (放弃质量梯度)"
+ ],
+ "holdout_ids_checked": 574,
+ "fails": []
+}

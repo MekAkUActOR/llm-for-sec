@@ -1,0 +1,22 @@
+{
+  "gate": "MUST-A",
+  "caliber": 512,
+  "baseline": {
+    "k": 8,
+    "n": 168,
+    "rate": 0.047619047619047616
+  },
+  "variant": {
+    "k": 85,
+    "n": 168,
+    "rate": 0.5059523809523809
+  },
+  "diff": 0.4583333333333333,
+  "fisher_p_greater": 5.442833338991479e-23,
+  "verdict": "FAIL",
+  "caliber_96_comparison": {
+    "fisher_p_greater": 0.06047403624928475,
+    "verdict": "PASS",
+    "note": "★错口径下的假通过：截断把顺从藏起来了"
+  }
+}

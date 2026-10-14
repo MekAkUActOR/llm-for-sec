@@ -1,0 +1,2721 @@
+{
+  "report": "v03-gen-depth-stats",
+  "generated": "2026-10-06",
+  "scope": "data/heldout/v0.3-gen/（评测专用留出集；⛔ 永不入训练）",
+  "generated_by": "scripts/report_gen_depth.py（只读；before 取reports/v03-gen-expansion-stats.json:mechanism_detail.after，after 取磁盘实测；磁盘 == meta_ser.build_texts()）",
+  "goal": [
+    "每机制 ≥3 条鲁棒性条（单机制 ASR 才可分辨，见 reports/review_statistical_power.py §D）",
+    "每机制 zh 与 en 都出现（机制 × 语言不再混杂）",
+    "每机制 ≥1 条 non-default pack（conservative/professional）",
+    "干净负例 ≥25%；每载体鲁棒性条 ≥34（沿用 2026-09-30 硬断言）"
+  ],
+  "before": {
+    "source": "reports/v03-gen-expansion-stats.json:after（122 条）",
+    "n": 122,
+    "by_carrier": {
+      "image_metadata": 62,
+      "av_metadata": 60
+    },
+    "by_language": {
+      "zh": 62,
+      "en": 60
+    },
+    "by_pack": {
+      "conservative": 6,
+      "default": 110,
+      "professional": 6
+    },
+    "kind_robustness_total": 70,
+    "robustness_by_carrier": {
+      "image_metadata": 35,
+      "av_metadata": 35
+    },
+    "mechanism_kinds_by_carrier": {
+      "image_metadata": 24,
+      "av_metadata": 27
+    },
+    "mechanism_rows_min": 1,
+    "mechanism_rows_median": 1,
+    "mechanism_rows_max": 4,
+    "mechanism_language_cross": {
+      "image_metadata": 5,
+      "av_metadata": 3
+    },
+    "mechanism_pack_coverage": {
+      "image_metadata": 0,
+      "av_metadata": 0
+    },
+    "non_default_pack_rows": 12,
+    "clean_negative": 32,
+    "clean_negative_ratio": 0.2623
+  },
+  "after": {
+    "source": "data/heldout/v0.3-gen/*.jsonl（磁盘实测）",
+    "n": 258,
+    "by_carrier": {
+      "image_metadata": 126,
+      "av_metadata": 132
+    },
+    "by_language": {
+      "zh": 130,
+      "en": 128
+    },
+    "by_pack": {
+      "conservative": 35,
+      "default": 189,
+      "professional": 34
+    },
+    "kind_robustness_total": 168,
+    "robustness_by_carrier": {
+      "image_metadata": 80,
+      "av_metadata": 88
+    },
+    "mechanism_kinds_by_carrier": {
+      "image_metadata": 24,
+      "av_metadata": 27
+    },
+    "mechanism_rows_min": 3,
+    "mechanism_rows_median": 3,
+    "mechanism_rows_max": 6,
+    "mechanism_language_cross": {
+      "image_metadata": 24,
+      "av_metadata": 27
+    },
+    "mechanism_pack_coverage": {
+      "image_metadata": 24,
+      "av_metadata": 27
+    },
+    "non_default_pack_rows": 69,
+    "clean_negative": 66,
+    "clean_negative_ratio": 0.2558,
+    "adversarial_forward_ratio": 0.7054,
+    "adversarial_expected_ratio": 0.7132,
+    "policy_groups": 8,
+    "forward_true": 182,
+    "adversarial_expected": 184
+  },
+  "mechanism_table": {
+    "note": "机制 × 条数 × zh/en × pack（before=122 条那批；after=本次深度扩容后）",
+    "per_mechanism": {
+      "image_metadata": {
+        "IMG-APP13-IRB": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a26"
+          ],
+          "ids_after": [
+            "gen-img-a26",
+            "gen-img-d01",
+            "gen-img-d02"
+          ]
+        },
+        "IMG-DIRECT-Request": {
+          "rows_before": 4,
+          "rows_after": 5,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a13",
+            "gen-img-a14",
+            "gen-img-a39",
+            "gen-img-a40"
+          ],
+          "ids_after": [
+            "gen-img-a13",
+            "gen-img-a14",
+            "gen-img-a39",
+            "gen-img-a40",
+            "gen-img-d43"
+          ]
+        },
+        "IMG-EXIF-ImageDescription": {
+          "rows_before": 2,
+          "rows_after": 3,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a19",
+            "gen-img-a3"
+          ],
+          "ids_after": [
+            "gen-img-a19",
+            "gen-img-a3",
+            "gen-img-d40"
+          ]
+        },
+        "IMG-EXIF-MakerNote": {
+          "rows_before": 2,
+          "rows_after": 3,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a21",
+            "gen-img-a8"
+          ],
+          "ids_after": [
+            "gen-img-a21",
+            "gen-img-a8",
+            "gen-img-d41"
+          ]
+        },
+        "IMG-EXIF-ThumbTrailing": {
+          "rows_before": 2,
+          "rows_after": 4,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a20",
+            "gen-img-a6"
+          ],
+          "ids_after": [
+            "gen-img-a20",
+            "gen-img-a6",
+            "gen-img-d36",
+            "gen-img-d37"
+          ]
+        },
+        "IMG-EXIF-TrailerAfterEOI": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a33"
+          ],
+          "ids_after": [
+            "gen-img-a33",
+            "gen-img-d03",
+            "gen-img-d04"
+          ]
+        },
+        "IMG-EXIF-UserComment": {
+          "rows_before": 4,
+          "rows_after": 6,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a1",
+            "gen-img-a15",
+            "gen-img-a18",
+            "gen-img-a9"
+          ],
+          "ids_after": [
+            "gen-img-a1",
+            "gen-img-a15",
+            "gen-img-a18",
+            "gen-img-a9",
+            "gen-img-d38",
+            "gen-img-d39"
+          ]
+        },
+        "IMG-EXIF-XPKeywords": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a38"
+          ],
+          "ids_after": [
+            "gen-img-a38",
+            "gen-img-d05",
+            "gen-img-d06"
+          ]
+        },
+        "IMG-GPS-ProcessingMethod": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a25"
+          ],
+          "ids_after": [
+            "gen-img-a25",
+            "gen-img-d07",
+            "gen-img-d08"
+          ]
+        },
+        "IMG-ICC-CprtTag": {
+          "rows_before": 2,
+          "rows_after": 3,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a12",
+            "gen-img-a22"
+          ],
+          "ids_after": [
+            "gen-img-a12",
+            "gen-img-a22",
+            "gen-img-d42"
+          ]
+        },
+        "IMG-ICC-ProfileName": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a31"
+          ],
+          "ids_after": [
+            "gen-img-a31",
+            "gen-img-d09",
+            "gen-img-d10"
+          ]
+        },
+        "IMG-IFD0-HostComputer": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a34"
+          ],
+          "ids_after": [
+            "gen-img-a34",
+            "gen-img-d11",
+            "gen-img-d12"
+          ]
+        },
+        "IMG-JPEG-COM": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a27"
+          ],
+          "ids_after": [
+            "gen-img-a27",
+            "gen-img-d13",
+            "gen-img-d14"
+          ]
+        },
+        "IMG-PNG-iTXt": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a29"
+          ],
+          "ids_after": [
+            "gen-img-a29",
+            "gen-img-d15",
+            "gen-img-d16"
+          ]
+        },
+        "IMG-PNG-tEXt": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a28"
+          ],
+          "ids_after": [
+            "gen-img-a28",
+            "gen-img-d17",
+            "gen-img-d18"
+          ]
+        },
+        "IMG-PNG-zTXt": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a30"
+          ],
+          "ids_after": [
+            "gen-img-a30",
+            "gen-img-d19",
+            "gen-img-d20"
+          ]
+        },
+        "IMG-XMP-CustomNS": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a24"
+          ],
+          "ids_after": [
+            "gen-img-a24",
+            "gen-img-d21",
+            "gen-img-d22"
+          ]
+        },
+        "IMG-XMP-History-Forged": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a37"
+          ],
+          "ids_after": [
+            "gen-img-a37",
+            "gen-img-d23",
+            "gen-img-d24"
+          ]
+        },
+        "IMG-XMP-Instructions": {
+          "rows_before": 2,
+          "rows_after": 5,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a11",
+            "gen-img-a23"
+          ],
+          "ids_after": [
+            "gen-img-a11",
+            "gen-img-a23",
+            "gen-img-d25a",
+            "gen-img-d25b",
+            "gen-img-d25c"
+          ]
+        },
+        "IMG-XMP-NamespaceURI": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a32"
+          ],
+          "ids_after": [
+            "gen-img-a32",
+            "gen-img-d26",
+            "gen-img-d27"
+          ]
+        },
+        "IMG-XMP-SinkUrl": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a4"
+          ],
+          "ids_after": [
+            "gen-img-a4",
+            "gen-img-d28",
+            "gen-img-d29"
+          ]
+        },
+        "IMG-XMP-URLList": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a17"
+          ],
+          "ids_after": [
+            "gen-img-a17",
+            "gen-img-d30",
+            "gen-img-d31"
+          ]
+        },
+        "IMG-XMP-dcDescription": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a36"
+          ],
+          "ids_after": [
+            "gen-img-a36",
+            "gen-img-d32",
+            "gen-img-d33"
+          ]
+        },
+        "IMG-XMP-dcRights": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-img-a35"
+          ],
+          "ids_after": [
+            "gen-img-a35",
+            "gen-img-d34",
+            "gen-img-d35"
+          ]
+        }
+      },
+      "av_metadata": {
+        "AV-DIRECT-Request": {
+          "rows_before": 4,
+          "rows_after": 5,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a10",
+            "gen-av-a11",
+            "gen-av-a37",
+            "gen-av-a38"
+          ],
+          "ids_after": [
+            "gen-av-a10",
+            "gen-av-a11",
+            "gen-av-a37",
+            "gen-av-a38",
+            "gen-av-e51"
+          ]
+        },
+        "AV-MKV-Attachment": {
+          "rows_before": 2,
+          "rows_after": 3,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a14",
+            "gen-av-a4"
+          ],
+          "ids_after": [
+            "gen-av-a14",
+            "gen-av-a4",
+            "gen-av-e49"
+          ]
+        },
+        "AV-MKV-AttachmentMimeClass": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a36"
+          ],
+          "ids_after": [
+            "gen-av-a36",
+            "gen-av-e01",
+            "gen-av-e02"
+          ]
+        },
+        "AV-MKV-ChapterTitle": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a18"
+          ],
+          "ids_after": [
+            "gen-av-a18",
+            "gen-av-e03",
+            "gen-av-e04"
+          ]
+        },
+        "AV-MKV-CuesPosition": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a33"
+          ],
+          "ids_after": [
+            "gen-av-a33",
+            "gen-av-e05",
+            "gen-av-e06"
+          ]
+        },
+        "AV-MKV-EbmlDocType": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a35"
+          ],
+          "ids_after": [
+            "gen-av-a35",
+            "gen-av-e07",
+            "gen-av-e08"
+          ]
+        },
+        "AV-MKV-FontAttachment": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a24"
+          ],
+          "ids_after": [
+            "gen-av-a24",
+            "gen-av-e09",
+            "gen-av-e10"
+          ]
+        },
+        "AV-MKV-TagEncoder": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a30"
+          ],
+          "ids_after": [
+            "gen-av-a30",
+            "gen-av-e11",
+            "gen-av-e12"
+          ]
+        },
+        "AV-MKV-TagLocation": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a7"
+          ],
+          "ids_after": [
+            "gen-av-a7",
+            "gen-av-e13",
+            "gen-av-e14"
+          ]
+        },
+        "AV-MKV-TrackName": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a20"
+          ],
+          "ids_after": [
+            "gen-av-a20",
+            "gen-av-e15",
+            "gen-av-e16"
+          ]
+        },
+        "AV-MKV-TrailingCluster": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a27"
+          ],
+          "ids_after": [
+            "gen-av-a27",
+            "gen-av-e17",
+            "gen-av-e18"
+          ]
+        },
+        "AV-MKV-WritingApp": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a31"
+          ],
+          "ids_after": [
+            "gen-av-a31",
+            "gen-av-e19",
+            "gen-av-e20"
+          ]
+        },
+        "AV-MP4-ChapterTrack": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a19"
+          ],
+          "ids_after": [
+            "gen-av-a19",
+            "gen-av-e21",
+            "gen-av-e22"
+          ]
+        },
+        "AV-MP4-CopyrightXYZ": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a25"
+          ],
+          "ids_after": [
+            "gen-av-a25",
+            "gen-av-e23",
+            "gen-av-e24"
+          ]
+        },
+        "AV-MP4-CovrArtwork": {
+          "rows_before": 2,
+          "rows_after": 3,
+          "languages_before": [
+            "en",
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a13",
+            "gen-av-a3"
+          ],
+          "ids_after": [
+            "gen-av-a13",
+            "gen-av-a3",
+            "gen-av-e50"
+          ]
+        },
+        "AV-MP4-DeclaredTracksMismatch": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a28"
+          ],
+          "ids_after": [
+            "gen-av-a28",
+            "gen-av-e25",
+            "gen-av-e26"
+          ]
+        },
+        "AV-MP4-DurationMismatch": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a23"
+          ],
+          "ids_after": [
+            "gen-av-a23",
+            "gen-av-e27",
+            "gen-av-e28"
+          ]
+        },
+        "AV-MP4-FilenameField": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a34"
+          ],
+          "ids_after": [
+            "gen-av-a34",
+            "gen-av-e29",
+            "gen-av-e30"
+          ]
+        },
+        "AV-MP4-FreeBox": {
+          "rows_before": 2,
+          "rows_after": 4,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a16",
+            "gen-av-a9"
+          ],
+          "ids_after": [
+            "gen-av-a16",
+            "gen-av-a9",
+            "gen-av-e43",
+            "gen-av-e44"
+          ]
+        },
+        "AV-MP4-IlstCustomAtom": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a17"
+          ],
+          "ids_after": [
+            "gen-av-a17",
+            "gen-av-e31",
+            "gen-av-e32"
+          ]
+        },
+        "AV-MP4-MetaBoxCustomKey": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a29"
+          ],
+          "ids_after": [
+            "gen-av-a29",
+            "gen-av-e33",
+            "gen-av-e34"
+          ]
+        },
+        "AV-MP4-SubtitleTrack": {
+          "rows_before": 2,
+          "rows_after": 6,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a1",
+            "gen-av-a12"
+          ],
+          "ids_after": [
+            "gen-av-a1",
+            "gen-av-a12",
+            "gen-av-e47",
+            "gen-av-e48a",
+            "gen-av-e48b",
+            "gen-av-e48c"
+          ]
+        },
+        "AV-MP4-TrackName": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a21"
+          ],
+          "ids_after": [
+            "gen-av-a21",
+            "gen-av-e35",
+            "gen-av-e36"
+          ]
+        },
+        "AV-MP4-TrailingAfterLastBox": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a26"
+          ],
+          "ids_after": [
+            "gen-av-a26",
+            "gen-av-e37",
+            "gen-av-e38"
+          ]
+        },
+        "AV-MP4-UdtaString": {
+          "rows_before": 2,
+          "rows_after": 4,
+          "languages_before": [
+            "en"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a15",
+            "gen-av-a6"
+          ],
+          "ids_after": [
+            "gen-av-a15",
+            "gen-av-a6",
+            "gen-av-e45",
+            "gen-av-e46"
+          ]
+        },
+        "AV-MP4-UdtaUrl": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "conservative",
+            "default"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a32"
+          ],
+          "ids_after": [
+            "gen-av-a32",
+            "gen-av-e39",
+            "gen-av-e40"
+          ]
+        },
+        "AV-MP4-UuidBox": {
+          "rows_before": 1,
+          "rows_after": 3,
+          "languages_before": [
+            "zh"
+          ],
+          "packs_before": [
+            "default"
+          ],
+          "languages_after": [
+            "en",
+            "zh"
+          ],
+          "packs_after": [
+            "default",
+            "professional"
+          ],
+          "non_default_pack_before": false,
+          "non_default_pack_after": true,
+          "ids_before": [
+            "gen-av-a22"
+          ],
+          "ids_after": [
+            "gen-av-a22",
+            "gen-av-e41",
+            "gen-av-e42"
+          ]
+        }
+      }
+    },
+    "before": {
+      "image_metadata": {
+        "IMG-APP13-IRB": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-DIRECT-Request": {
+          "rows": 4,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-EXIF-ImageDescription": {
+          "rows": 2,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-EXIF-MakerNote": {
+          "rows": 2,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-EXIF-ThumbTrailing": {
+          "rows": 2,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-EXIF-TrailerAfterEOI": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-EXIF-UserComment": {
+          "rows": 4,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-EXIF-XPKeywords": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-GPS-ProcessingMethod": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-ICC-CprtTag": {
+          "rows": 2,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-ICC-ProfileName": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-IFD0-HostComputer": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-JPEG-COM": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-PNG-iTXt": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-PNG-tEXt": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-PNG-zTXt": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-CustomNS": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-History-Forged": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-Instructions": {
+          "rows": 2,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-NamespaceURI": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-SinkUrl": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-URLList": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-dcDescription": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "IMG-XMP-dcRights": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        }
+      },
+      "av_metadata": {
+        "AV-DIRECT-Request": {
+          "rows": 4,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-Attachment": {
+          "rows": 2,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-AttachmentMimeClass": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-ChapterTitle": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-CuesPosition": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-EbmlDocType": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-FontAttachment": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-TagEncoder": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-TagLocation": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-TrackName": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-TrailingCluster": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MKV-WritingApp": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-ChapterTrack": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-CopyrightXYZ": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-CovrArtwork": {
+          "rows": 2,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-DeclaredTracksMismatch": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-DurationMismatch": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-FilenameField": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-FreeBox": {
+          "rows": 2,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-IlstCustomAtom": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-MetaBoxCustomKey": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-SubtitleTrack": {
+          "rows": 2,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-TrackName": {
+          "rows": 1,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-TrailingAfterLastBox": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-UdtaString": {
+          "rows": 2,
+          "zh": 0,
+          "en": 1,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-UdtaUrl": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        },
+        "AV-MP4-UuidBox": {
+          "rows": 1,
+          "zh": 1,
+          "en": 0,
+          "n_languages": 1,
+          "n_packs": 1,
+          "packs": [
+            "default"
+          ]
+        }
+      }
+    },
+    "after": {
+      "image_metadata": {
+        "IMG-APP13-IRB": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-DIRECT-Request": {
+          "rows": 5,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-EXIF-ImageDescription": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-EXIF-MakerNote": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-EXIF-ThumbTrailing": {
+          "rows": 4,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-EXIF-TrailerAfterEOI": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-EXIF-UserComment": {
+          "rows": 6,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-EXIF-XPKeywords": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-GPS-ProcessingMethod": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-ICC-CprtTag": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-ICC-ProfileName": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-IFD0-HostComputer": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-JPEG-COM": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-PNG-iTXt": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-PNG-tEXt": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-PNG-zTXt": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-XMP-CustomNS": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-XMP-History-Forged": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-XMP-Instructions": {
+          "rows": 5,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 3,
+          "packs": [
+            "conservative",
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-XMP-NamespaceURI": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-XMP-SinkUrl": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-XMP-URLList": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "IMG-XMP-dcDescription": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "IMG-XMP-dcRights": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        }
+      },
+      "av_metadata": {
+        "AV-DIRECT-Request": {
+          "rows": 5,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MKV-Attachment": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MKV-AttachmentMimeClass": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MKV-ChapterTitle": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MKV-CuesPosition": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MKV-EbmlDocType": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MKV-FontAttachment": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MKV-TagEncoder": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MKV-TagLocation": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MKV-TrackName": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MKV-TrailingCluster": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MKV-WritingApp": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-ChapterTrack": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MP4-CopyrightXYZ": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-CovrArtwork": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MP4-DeclaredTracksMismatch": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MP4-DurationMismatch": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-FilenameField": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MP4-FreeBox": {
+          "rows": 4,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-IlstCustomAtom": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-MetaBoxCustomKey": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MP4-SubtitleTrack": {
+          "rows": 6,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 3,
+          "packs": [
+            "conservative",
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MP4-TrackName": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-TrailingAfterLastBox": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        },
+        "AV-MP4-UdtaString": {
+          "rows": 4,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-UdtaUrl": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "conservative",
+            "default"
+          ]
+        },
+        "AV-MP4-UuidBox": {
+          "rows": 3,
+          "zh": 1,
+          "en": 1,
+          "n_languages": 2,
+          "n_packs": 2,
+          "packs": [
+            "default",
+            "professional"
+          ]
+        }
+      }
+    }
+  },
+  "checker": {
+    "problems": [],
+    "load_problems": [],
+    "exit_code": 0
+  },
+  "train_disjoint": {
+    "path": "data\\lf\\sft_m25.jsonl",
+    "rows": 137670,
+    "size_bytes": 293332227,
+    "envelope_counts": {
+      "text": 10239,
+      "email": 1768,
+      "tool_output": 1224,
+      "log": 250,
+      "webpage": 250,
+      "code": 250
+    },
+    "image_metadata_envelopes": 0,
+    "av_metadata_envelopes": 0,
+    "substring_counts_informational": {
+      "av_metadata": 31,
+      "text": 123339,
+      "email": 10984,
+      "tool_output": 1224,
+      "log": 54564,
+      "webpage": 819,
+      "code": 54040,
+      "document": 8343
+    },
+    "census_crosscheck": {
+      "code": {
+        "census": 250,
+        "scan": 250
+      },
+      "email": {
+        "census": 1768,
+        "scan": 1768
+      },
+      "log": {
+        "census": 250,
+        "scan": 250
+      },
+      "text": {
+        "census": 10239,
+        "scan": 10239
+      },
+      "tool_output": {
+        "census": 1224,
+        "scan": 1224
+      },
+      "webpage": {
+        "census": 250,
+        "scan": 250
+      }
+    },
+    "census_rows": 137670,
+    "problems": []
+  }
+}

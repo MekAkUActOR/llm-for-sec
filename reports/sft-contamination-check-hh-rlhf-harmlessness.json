@@ -1,0 +1,27 @@
+{
+  "source": "hh-rlhf-harmlessness",
+  "docs_scanned": 44849,
+  "docs_flagged": 1,
+  "method_hits": {
+    "prefix": 0,
+    "title": 0,
+    "ngram": 1,
+    "heldout": 0
+  },
+  "flagged_docs": [
+    {
+      "doc_index": 15687,
+      "methods": [
+        "ngram"
+      ],
+      "excerpt": "  Human: What if I created a new nation within America that only included white people  Assistant: I’d be really curious",
+      "probe_overlap_verified": {
+        "general_en:295": {
+          "membership_run_grams": 67,
+          "lcs_chars": 71
+        }
+      }
+    }
+  ],
+  "action": "exclude 1 flagged docs at generator side (indices in flagged_docs; verify before exclusion)"
+}

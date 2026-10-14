@@ -1,0 +1,324 @@
+{
+  "hh-rlhf-harmlessness": {
+    "entries": 44849,
+    "fields": [
+      "chosen",
+      "rejected"
+    ],
+    "has_response": true,
+    "multi_turn": "Human/Assistant 交替(2-6 轮)",
+    "turn_dist_p50": 2,
+    "redline_skipped": 71,
+    "prompt_only": false,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\hh-rlhf"
+  },
+  "safety-prompts": {
+    "entries": 100000,
+    "has_response": true,
+    "fields": [
+      "prompt",
+      "response",
+      "type"
+    ],
+    "multi_turn": "单轮(zh)",
+    "redline_skipped": 0,
+    "categories": {
+      "typi:Unfairness_And_Discrimination": 10000,
+      "typi:Crimes_And_Illegal_Activities": 10000,
+      "typi:Insult": 10000,
+      "typi:Mental_Health": 10000,
+      "typi:Physical_Harm": 10000,
+      "typi:Privacy_And_Property": 10000,
+      "typi:Ethics_And_Morality": 10000,
+      "inst:Reverse_Exposure": 5000,
+      "inst:Goal_Hijacking": 5000,
+      "inst:Prompt_Leaking": 5000,
+      "inst:Unsafe_Instruction_Topic": 5000,
+      "inst:Role_Play_Instruction": 5000,
+      "inst:Inquiry_With_Unsafe_Opinion": 5000
+    },
+    "prompt_only": false,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\safety-prompts"
+  },
+  "safemtdata": {
+    "entries": 2280,
+    "has_response": true,
+    "fields": {
+      "Attack_600.json": [
+        "id",
+        "query_id",
+        "category",
+        "actor_name",
+        "relationship",
+        "plain_query",
+        "multi_turn_queries"
+      ],
+      "SafeMTData_1K.json": [
+        "id",
+        "query_id",
+        "actor_name",
+        "relationship",
+        "plain_query",
+        "conversations[from,value]"
+      ]
+    },
+    "multi_turn": "多轮(角色关系铺垫→渐进诱导)",
+    "attack600_multi_turn_queries_p50": 5,
+    "1k_messages_p50": 12,
+    "redline_skipped": 1,
+    "prompt_only": false,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\safemtdata"
+  },
+  "advbench": {
+    "entries": 1094,
+    "fields": [
+      "goal",
+      "target",
+      "target"
+    ],
+    "has_response": false,
+    "multi_turn": "单轮 prompt(en)",
+    "redline_skipped": 0,
+    "prompt_only": true,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\advbench"
+  },
+  "harmbench": {
+    "entries": 320,
+    "fields": [
+      "Behavior",
+      "FunctionalCategory",
+      "SemanticCategory",
+      "Tags",
+      "ContextString",
+      "BehaviorID"
+    ],
+    "has_response": false,
+    "multi_turn": "单轮 behavior(en,含上下文变体)",
+    "redline_skipped": 0,
+    "prompt_only": true,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\harmbench"
+  },
+  "strongreject": {
+    "entries": 313,
+    "fields": [
+      "category",
+      "source",
+      "forbidden_prompt"
+    ],
+    "has_response": false,
+    "multi_turn": "单轮 prompt(en)",
+    "redline_skipped": 0,
+    "prompt_only": true,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\strongreject"
+  },
+  "maliciousinstruct": {
+    "entries": 100,
+    "fields": [
+      "prompt"
+    ],
+    "has_response": false,
+    "multi_turn": "单轮 prompt(en)",
+    "redline_skipped": 0,
+    "prompt_only": true,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\maliciousinstruct"
+  },
+  "xstest": {
+    "entries": 450,
+    "fields": [
+      "id",
+      "prompt",
+      "type",
+      "label",
+      "focus",
+      "note"
+    ],
+    "has_response": false,
+    "multi_turn": "单轮 prompt(en,误拒向)",
+    "redline_skipped": 0,
+    "prompt_only": true,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\xstest"
+  },
+  "or-bench": {
+    "entries": 82333,
+    "has_response": false,
+    "prompt_only": true,
+    "fields": [
+      "prompt",
+      "category"
+    ],
+    "multi_turn": "单轮 prompt(en,误拒向)",
+    "redline_skipped": 0,
+    "files": {
+      "or-bench-80k.csv": 80359,
+      "or-bench-hard-1k.csv": 1319,
+      "or-bench-toxic.csv": 655
+    },
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\or-bench"
+  },
+  "trustllm-safety": {
+    "entries": 3930,
+    "fields": "随子集(prompt/label/source;gt-email/gt-name/prompt 等)",
+    "has_response": false,
+    "multi_turn": "单轮(en,safety+privacy 子集)",
+    "redline_skipped": 4,
+    "subsets": {
+      "privacy/privacy_awareness_confAIde.json": 196,
+      "privacy/privacy_awareness_query.json": 560,
+      "privacy/privacy_leakage.json": 400,
+      "safety/exaggerated_safety.json": 200,
+      "safety/jailbreak.json": 1400,
+      "safety/misuse.json": 1174
+    },
+    "prompt_only": true,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\trustllm"
+  },
+  "cvalues": {
+    "entries": 97116,
+    "has_response": true,
+    "fields": "prompt + 双响应对比 + 人标(变体随镜像)",
+    "multi_turn": "单轮(zh 对比)",
+    "redline_skipped": 0,
+    "files": {
+      "harmless_test.json": 9713,
+      "harmless_train.json": 38849,
+      "helpful_test.json": 9710,
+      "helpful_train.json": 38844
+    },
+    "prompt_only": false,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\cvalues"
+  },
+  "tc260": {
+    "entries": 3200,
+    "tier": "reference",
+    "fields": [
+      "id",
+      "query",
+      "category_*",
+      "attack_level",
+      "attack_techniques",
+      "expression_style",
+      "...19 列"
+    ],
+    "has_response": false,
+    "multi_turn": "单轮 query(zh,攻击元数据)",
+    "files": {
+      "test.parquet": 151,
+      "train.parquet": 2903,
+      "validation.parquet": 146
+    },
+    "prompt_only": true,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2-reference\\tc260"
+  },
+  "pku-saferlhf": {
+    "entries": 82118,
+    "has_response": true,
+    "fields": [
+      "prompt",
+      "response_0",
+      "response_1",
+      "prompt_source",
+      "is_response_0_safe",
+      "is_response_1_safe",
+      "response_*_harm_category",
+      "response_*_severity_level",
+      "better_response_id",
+      "safer_response_id"
+    ],
+    "multi_turn": "单轮(en,双响应+安全/偏好标注)",
+    "redline_skipped": 19,
+    "files": {
+      "data/Alpaca-7B/test.jsonl": 3036,
+      "data/Alpaca-7B/train.jsonl": 27393,
+      "data/Alpaca2-7B/test.jsonl": 2848,
+      "data/Alpaca2-7B/train.jsonl": 25564,
+      "data/Alpaca3-8B/test.jsonl": 2327,
+      "data/Alpaca3-8B/train.jsonl": 20950
+    },
+    "prompt_only": false,
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\pku-saferlhf"
+  },
+  "beavertails": {
+    "entries": 364170,
+    "has_response": true,
+    "fields": [
+      "prompt",
+      "response",
+      "is_safe",
+      "harm_category",
+      "flagged_scan",
+      "metadata"
+    ],
+    "multi_turn": "单轮(en,每 prompt ×3 响应行)",
+    "redline_skipped": 72,
+    "unsafe_responses": 202386,
+    "files": {
+      "round0/30k/test.jsonl.gz": 3021,
+      "round0/30k/train.jsonl.gz": 27186,
+      "round0/330k/test.jsonl.xz": 33396,
+      "round0/330k/train.jsonl.xz": 300567
+    },
+    "prompt_only": false,
+    "note": "不安全响应侧留原始作 rejected 侧信号(父指令),不生成模板;生成器侧跳过武器化 how-to(redline_skipped 计数)",
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\beavertails"
+  },
+  "wildjailbreak": {
+    "entries": 263769,
+    "has_response": true,
+    "fields": [
+      "vanilla",
+      "adversarial",
+      "completion",
+      "data_type"
+    ],
+    "multi_turn": "单轮(en;vanilla→adversarial 改写对+安全完成)",
+    "redline_skipped": 124,
+    "data_type_dist": {
+      "adversarial_benign": 78941,
+      "adversarial_harmful": 84728,
+      "vanilla_harmful": 50050,
+      "vanilla_benign": 50050
+    },
+    "prompt_only": false,
+    "note": "ODC-By;门控数据集经 hf-mirror+token 实拉(token 已弃用不落盘)",
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\wildjailbreak"
+  },
+  "wildguardmix": {
+    "entries": 88484,
+    "has_response": true,
+    "fields": [
+      "prompt",
+      "adversarial",
+      "response",
+      "prompt_harm_label",
+      "response_refusal_label",
+      "response_harm_label",
+      "subcategory"
+    ],
+    "multi_turn": "单轮(en;有害性/拒绝/响应安全三标注+子类)",
+    "redline_skipped": 60,
+    "prompt_harm_label_dist": {
+      "unharmful": 41488,
+      "harmful": 46970,
+      "null": 26
+    },
+    "prompt_only": false,
+    "note": "ODC-By(card);门控数据集经 hf-mirror+token 实拉(token 已弃用不落盘)",
+    "status": "ok",
+    "raw_path": "data\\corpora\\raw\\m2\\wildguardmix"
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "suffix": "",
+  "stages": {
+    "m15": {
+      "fwd": {
+        "n": 6,
+        "success": 6,
+        "labels": {
+          "comply": 5,
+          "format_error": 1
+        }
+      },
+      "nfwd": {
+        "n": 54,
+        "success": 53,
+        "labels": {
+          "comply": 44,
+          "format_error": 9,
+          "refuse": 1
+        }
+      },
+      "all": {
+        "n": 60,
+        "success": 59,
+        "labels": {
+          "comply": 49,
+          "format_error": 10,
+          "refuse": 1
+        }
+      }
+    },
+    "m2calib": {
+      "fwd": {
+        "n": 10,
+        "success": 5,
+        "labels": {
+          "report_finding": 5,
+          "comply": 5
+        }
+      },
+      "nfwd": {
+        "n": 54,
+        "success": 41,
+        "labels": {
+          "comply": 37,
+          "refuse": 10,
+          "report_finding": 3,
+          "format_error": 2,
+          "deflect": 2
+        }
+      },
+      "all": {
+        "n": 64,
+        "success": 46,
+        "labels": {
+          "comply": 42,
+          "refuse": 10,
+          "report_finding": 8,
+          "format_error": 2,
+          "deflect": 2
+        }
+      }
+    },
+    "m2full": {
+      "fwd": {
+        "n": 10,
+        "success": 7,
+        "labels": {
+          "comply": 7,
+          "report_finding": 2,
+          "refuse": 1
+        }
+      },
+      "nfwd": {
+        "n": 54,
+        "success": 35,
+        "labels": {
+          "comply": 30,
+          "refuse": 18,
+          "format_error": 4,
+          "report_finding": 1,
+          "deflect": 1
+        }
+      },
+      "all": {
+        "n": 64,
+        "success": 42,
+        "labels": {
+          "comply": 37,
+          "refuse": 19,
+          "format_error": 4,
+          "report_finding": 3,
+          "deflect": 1
+        }
+      }
+    },
+    "m25full": {
+      "fwd": {
+        "n": 10,
+        "success": 3,
+        "labels": {
+          "report_finding": 6,
+          "comply": 3,
+          "refuse": 1
+        }
+      },
+      "nfwd": {
+        "n": 54,
+        "success": 41,
+        "labels": {
+          "comply": 39,
+          "refuse": 10,
+          "report_finding": 3,
+          "format_error": 2
+        }
+      },
+      "all": {
+        "n": 64,
+        "success": 44,
+        "labels": {
+          "comply": 42,
+          "refuse": 11,
+          "report_finding": 9,
+          "format_error": 2
+        }
+      }
+    }
+  },
+  "comparisons": {
+    "m2full_vs_m25full_fwd": {
+      "base": {
+        "k": 7,
+        "n": 10,
+        "rate": 0.7,
+        "ci95": [
+          0.3968,
+          0.8922
+        ]
+      },
+      "cur": {
+        "k": 3,
+        "n": 10,
+        "rate": 0.3,
+        "ci95": [
+          0.1078,
+          0.6032
+        ]
+      },
+      "fisher_p": 0.1789,
+      "significant": false,
+      "verdict": "★未达可区分（差异可能是抽样噪声）"
+    },
+    "m2full_vs_m25full_nfwd": {
+      "base": {
+        "k": 35,
+        "n": 54,
+        "rate": 0.6481,
+        "ci95": [
+          0.5148,
+          0.7618
+        ]
+      },
+      "cur": {
+        "k": 41,
+        "n": 54,
+        "rate": 0.7593,
+        "ci95": [
+          0.6305,
+          0.8536
+        ]
+      },
+      "fisher_p": 0.292,
+      "significant": false,
+      "verdict": "★未达可区分（差异可能是抽样噪声）"
+    },
+    "m2full_vs_m25full_all": {
+      "base": {
+        "k": 42,
+        "n": 64,
+        "rate": 0.6562,
+        "ci95": [
+          0.534,
+          0.7608
+        ]
+      },
+      "cur": {
+        "k": 44,
+        "n": 64,
+        "rate": 0.6875,
+        "ci95": [
+          0.5661,
+          0.7877
+        ]
+      },
+      "fisher_p": 0.8508,
+      "significant": false,
+      "verdict": "★未达可区分（差异可能是抽样噪声）"
+    },
+    "m15_vs_m25full_fwd": {
+      "base": {
+        "k": 6,
+        "n": 6,
+        "rate": 1.0,
+        "ci95": [
+          0.6097,
+          1.0
+        ]
+      },
+      "cur": {
+        "k": 3,
+        "n": 10,
+        "rate": 0.3,
+        "ci95": [
+          0.1078,
+          0.6032
+        ]
+      },
+      "fisher_p": 0.0114,
+      "significant": true,
+      "verdict": "可区分"
+    },
+    "m15_vs_m25full_nfwd": {
+      "base": {
+        "k": 53,
+        "n": 54,
+        "rate": 0.9815,
+        "ci95": [
+          0.9023,
+          0.9967
+        ]
+      },
+      "cur": {
+        "k": 41,
+        "n": 54,
+        "rate": 0.7593,
+        "ci95": [
+          0.6305,
+          0.8536
+        ]
+      },
+      "fisher_p": 0.0009,
+      "significant": true,
+      "verdict": "可区分"
+    }
+  },
+  "rate_table": {
+    "m15": {
+      "all": 0.9833333333333333,
+      "fwd": 1.0,
+      "nfwd": 0.9814814814814815
+    },
+    "m2calib": {
+      "all": 0.71875,
+      "fwd": 0.5,
+      "nfwd": 0.7592592592592593
+    },
+    "m2full": {
+      "all": 0.65625,
+      "fwd": 0.7,
+      "nfwd": 0.6481481481481481
+    },
+    "m25full": {
+      "all": 0.6875,
+      "fwd": 0.3,
+      "nfwd": 0.7592592592592593
+    }
+  }
+}

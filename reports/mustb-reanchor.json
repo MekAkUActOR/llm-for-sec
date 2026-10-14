@@ -1,0 +1,20 @@
+{
+  "rule": "起点水位的 90%（预注册原文，不变）",
+  "note": "门限不是常数，而是由起点水位标定的 ✓；96 口径的锚点 70/168 已证明是截断产物 ✗，故须用 512 口径的 166/168 重新标定 ✓",
+  "calibers": [
+    {
+      "caliber": 96,
+      "anchor_k": 70,
+      "anchor_n": 168,
+      "threshold": 63.0,
+      "threshold_int": 63
+    },
+    {
+      "caliber": 512,
+      "anchor_k": 166,
+      "anchor_n": 168,
+      "threshold": 149.4,
+      "threshold_int": 150
+    }
+  ]
+}

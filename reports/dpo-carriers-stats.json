@@ -1,0 +1,944 @@
+{
+  "spec": {
+    "rows_min": 4000,
+    "rows_max": 8000,
+    "min_per_carrier": 600,
+    "min_lang_share": 0.4,
+    "min_pack_share": 0.15,
+    "min_clean_share": 0.2,
+    "min_mechs_per_carrier": 3,
+    "body_run_report_cap": 24,
+    "require_continuity_carriers": true,
+    "require_protocol_roundtrip": true,
+    "require_payload_consistency": true
+  },
+  "counts": {
+    "rows": 6000,
+    "carriers": {
+      "tool_output": 1100,
+      "log": 1000,
+      "webpage": 1000,
+      "code": 1000,
+      "document": 1000,
+      "email": 500,
+      "text": 400
+    },
+    "lang": {
+      "zh": 3000,
+      "en": 3000
+    },
+    "lang_share": {
+      "zh": 0.5,
+      "en": 0.5
+    },
+    "pack": {
+      "default": 2400,
+      "conservative": 1802,
+      "professional": 1798
+    },
+    "pack_share": {
+      "default": 0.4,
+      "conservative": 0.30033333333333334,
+      "professional": 0.2996666666666667
+    },
+    "dpo_class": {
+      "carrier_inject_obedient": 2360,
+      "carrier_inject_hollow": 2320,
+      "carrier_clean_overrefusal": 1320
+    },
+    "mechanisms": {
+      "fake_system_prompt": 396,
+      "authority_disguise": 678,
+      "command_substitution": 300,
+      "exfil_authorize": 360,
+      "verdict_suppress": 282,
+      "destructive_request": 138,
+      "clean": 1320,
+      "policy_claim": 474,
+      "hidden_text": 294,
+      "ai_directive": 610,
+      "task_hijack": 326,
+      "metacomment": 420,
+      "deanon_request": 120,
+      "backdoor_comment": 162,
+      "bulk_extract": 120
+    },
+    "positions": {
+      "head": 2014,
+      "mid": 2002,
+      "tail": 1984
+    },
+    "axes": {
+      "inject_verdict": 2680,
+      "h3_reversible": 300,
+      "h2_exfil": 360,
+      "h0_destroy": 138,
+      "artifact_review": 464,
+      "h4_routine": 352,
+      "dual_use": 312,
+      "pii_perception": 192,
+      "h1_disable": 636,
+      "prompt_leak": 326,
+      "pii_deanon": 120,
+      "pii_batch": 120
+    },
+    "axis_pack_ruling": {
+      "artifact_review": {
+        "default": "allow",
+        "conservative": "allow",
+        "professional": "allow"
+      },
+      "dual_use": {
+        "default": "allow",
+        "conservative": "conditional",
+        "professional": "allow"
+      },
+      "h0_destroy": {
+        "default": "refuse",
+        "conservative": "refuse",
+        "professional": "refuse"
+      },
+      "h1_disable": {
+        "default": "refuse",
+        "conservative": "refuse",
+        "professional": "refuse"
+      },
+      "h2_exfil": {
+        "default": "refuse",
+        "conservative": "refuse",
+        "professional": "refuse"
+      },
+      "h3_reversible": {
+        "default": "conditional",
+        "conservative": "refuse",
+        "professional": "conditional"
+      },
+      "h4_routine": {
+        "default": "allow",
+        "conservative": "allow",
+        "professional": "allow"
+      },
+      "inject_verdict": {
+        "default": "refuse",
+        "conservative": "refuse",
+        "professional": "refuse"
+      },
+      "pii_batch": {
+        "default": "refuse",
+        "conservative": "refuse",
+        "professional": "refuse"
+      },
+      "pii_deanon": {
+        "default": "refuse",
+        "conservative": "refuse",
+        "professional": "refuse"
+      },
+      "pii_perception": {
+        "default": "allow",
+        "conservative": "allow",
+        "professional": "allow"
+      },
+      "prompt_leak": {
+        "default": "refuse",
+        "conservative": "refuse",
+        "professional": "refuse"
+      }
+    },
+    "clean_rows": 1320,
+    "clean_share": 0.22,
+    "mechs_per_carrier": {
+      "code": [
+        "ai_directive",
+        "authority_disguise",
+        "backdoor_comment",
+        "command_substitution",
+        "metacomment"
+      ],
+      "document": [
+        "authority_disguise",
+        "bulk_extract",
+        "exfil_authorize",
+        "metacomment",
+        "policy_claim",
+        "task_hijack"
+      ],
+      "email": [
+        "ai_directive",
+        "authority_disguise",
+        "exfil_authorize",
+        "policy_claim"
+      ],
+      "log": [
+        "ai_directive",
+        "fake_system_prompt",
+        "hidden_text",
+        "policy_claim",
+        "verdict_suppress"
+      ],
+      "text": [
+        "ai_directive",
+        "fake_system_prompt",
+        "policy_claim",
+        "task_hijack"
+      ],
+      "tool_output": [
+        "authority_disguise",
+        "command_substitution",
+        "destructive_request",
+        "exfil_authorize",
+        "fake_system_prompt",
+        "verdict_suppress"
+      ],
+      "webpage": [
+        "ai_directive",
+        "authority_disguise",
+        "deanon_request",
+        "hidden_text",
+        "metacomment",
+        "task_hijack"
+      ]
+    },
+    "per_carrier_lang": {
+      "code": {
+        "zh": 500,
+        "en": 500
+      },
+      "document": {
+        "zh": 500,
+        "en": 500
+      },
+      "email": {
+        "zh": 250,
+        "en": 250
+      },
+      "log": {
+        "zh": 500,
+        "en": 500
+      },
+      "text": {
+        "zh": 200,
+        "en": 200
+      },
+      "tool_output": {
+        "zh": 550,
+        "en": 550
+      },
+      "webpage": {
+        "zh": 500,
+        "en": 500
+      }
+    },
+    "per_carrier_pack": {
+      "code": {
+        "default": 400,
+        "conservative": 300,
+        "professional": 300
+      },
+      "document": {
+        "default": 400,
+        "conservative": 300,
+        "professional": 300
+      },
+      "email": {
+        "default": 200,
+        "conservative": 152,
+        "professional": 148
+      },
+      "log": {
+        "default": 400,
+        "conservative": 300,
+        "professional": 300
+      },
+      "text": {
+        "default": 160,
+        "conservative": 120,
+        "professional": 120
+      },
+      "tool_output": {
+        "default": 440,
+        "conservative": 330,
+        "professional": 330
+      },
+      "webpage": {
+        "default": 400,
+        "conservative": 300,
+        "professional": 300
+      }
+    }
+  },
+  "error_class_semantics": {
+    "obedient": 2360,
+    "hollow": 2320,
+    "overrefusal": 1320
+  },
+  "assertions": [
+    {
+      "name": "rows_range",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "rows": 6000,
+        "rows_min": 4000,
+        "rows_max": 8000
+      }
+    },
+    {
+      "name": "id_unique",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "rows": 6000,
+        "unique_ids": 6000,
+        "duplicate_ids": 0,
+        "sample": []
+      }
+    },
+    {
+      "name": "id_prefix",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "n_bad": 0
+      }
+    },
+    {
+      "name": "carrier_coverage",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "per_carrier": {
+          "tool_output": 1100,
+          "log": 1000,
+          "webpage": 1000,
+          "code": 1000,
+          "document": 1000,
+          "email": 500,
+          "text": 400
+        },
+        "required": [
+          "tool_output",
+          "log",
+          "webpage",
+          "code",
+          "document"
+        ],
+        "min_per_carrier": 600,
+        "below_min": [],
+        "unknown_types": [],
+        "continuity": {
+          "email": 500,
+          "text": 400
+        }
+      }
+    },
+    {
+      "name": "carrier_registry",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "registry": [
+          "code",
+          "document",
+          "email",
+          "log",
+          "text",
+          "tool_output",
+          "webpage"
+        ],
+        "unknown_types": []
+      }
+    },
+    {
+      "name": "mechanisms_per_carrier",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "mechs_per_carrier": {
+          "code": 5,
+          "document": 6,
+          "email": 4,
+          "log": 5,
+          "text": 4,
+          "tool_output": 6,
+          "webpage": 6
+        },
+        "min_required": 3,
+        "thin": [],
+        "empty_cells": []
+      }
+    },
+    {
+      "name": "mechanism_registry_exact",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "undeclared": [],
+        "uncovered": [],
+        "declared_total": 36
+      }
+    },
+    {
+      "name": "lang_share_global",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "lang": {
+          "zh": 3000,
+          "en": 3000
+        },
+        "share": {
+          "zh": 0.5,
+          "en": 0.5
+        },
+        "min_share": 0.4
+      }
+    },
+    {
+      "name": "lang_share_per_carrier",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "share": {
+          "tool_output": {
+            "zh": 0.5,
+            "en": 0.5
+          },
+          "log": {
+            "zh": 0.5,
+            "en": 0.5
+          },
+          "webpage": {
+            "zh": 0.5,
+            "en": 0.5
+          },
+          "code": {
+            "zh": 0.5,
+            "en": 0.5
+          },
+          "document": {
+            "zh": 0.5,
+            "en": 0.5
+          },
+          "email": {
+            "zh": 0.5,
+            "en": 0.5
+          },
+          "text": {
+            "zh": 0.5,
+            "en": 0.5
+          }
+        },
+        "below_min": [],
+        "min_share": 0.4
+      }
+    },
+    {
+      "name": "pack_coverage",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "pack": {
+          "default": 2400,
+          "conservative": 1802,
+          "professional": 1798
+        },
+        "share": {
+          "default": 0.4,
+          "conservative": 0.30033333333333334,
+          "professional": 0.2996666666666667
+        },
+        "min_share": 0.15
+      }
+    },
+    {
+      "name": "pack_per_carrier_present",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "per_carrier": {
+          "code": {
+            "default": 400,
+            "conservative": 300,
+            "professional": 300
+          },
+          "document": {
+            "default": 400,
+            "conservative": 300,
+            "professional": 300
+          },
+          "email": {
+            "default": 200,
+            "conservative": 152,
+            "professional": 148
+          },
+          "log": {
+            "default": 400,
+            "conservative": 300,
+            "professional": 300
+          },
+          "text": {
+            "default": 160,
+            "conservative": 120,
+            "professional": 120
+          },
+          "tool_output": {
+            "default": 440,
+            "conservative": 330,
+            "professional": 330
+          },
+          "webpage": {
+            "default": 400,
+            "conservative": 300,
+            "professional": 300
+          }
+        },
+        "missing": []
+      }
+    },
+    {
+      "name": "row_key_schema",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000,
+        "keys": [
+          "chosen",
+          "conversations",
+          "dpo_class",
+          "id",
+          "lang",
+          "pack",
+          "rejected",
+          "src_task"
+        ]
+      }
+    },
+    {
+      "name": "row_key_order",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "conversations_shape",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000,
+        "user_role": "human"
+      }
+    },
+    {
+      "name": "system_matches_policy_ssot",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "verdict_present_both_sides",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "verdict_json_valid",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "verdict_key_order",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000,
+        "keys": [
+          "action",
+          "verdict",
+          "confidence",
+          "findings",
+          "policy"
+        ]
+      }
+    },
+    {
+      "name": "verdict_policy_equals_pack",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "verdict_sides_differ",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "verdict_is_last_line",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "verdict_action_vocab",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000,
+        "actions": [
+          "answer",
+          "refuse",
+          "report"
+        ]
+      }
+    },
+    {
+      "name": "clean_negative_share",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "clean_rows": 1320,
+        "rows": 6000,
+        "share": 0.22,
+        "min_share": 0.2
+      }
+    },
+    {
+      "name": "rejected_three_error_classes",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "occurrences": {
+          "obedient": 2360,
+          "hollow": 2320,
+          "overrefusal": 1320
+        },
+        "other": 0,
+        "unparsable": 0
+      }
+    },
+    {
+      "name": "dpo_class_matches_semantics",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "mismatches": 0,
+        "dpo_class": {
+          "carrier_inject_obedient": 2360,
+          "carrier_inject_hollow": 2320,
+          "carrier_clean_overrefusal": 1320
+        }
+      }
+    },
+    {
+      "name": "clean_chosen_allow_or_conditional",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 1320,
+        "clean_rows": 1320
+      }
+    },
+    {
+      "name": "clean_chosen_not_injection",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 1320
+      }
+    },
+    {
+      "name": "injected_chosen_reports",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 4680,
+        "injected_rows": 4680
+      }
+    },
+    {
+      "name": "payload_self_consistency",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "clean_has_near_miss_note",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 1320,
+        "clean_rows": 1320
+      }
+    },
+    {
+      "name": "policy_grounding_extractable",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "policy_grounding_matches_policy_table",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 6000,
+        "axes_covered": 12,
+        "axes_total": 12
+      }
+    },
+    {
+      "name": "clean_verdict_matches_axis_ruling",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "ok_rows": 1320,
+        "clean_rows": 1320
+      }
+    },
+    {
+      "name": "protocol_roundtrip",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "checked": 6000,
+        "ok_rows": 6000
+      }
+    },
+    {
+      "name": "no_duplicate_prompt_pack",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "duplicate_pairs": 0,
+        "unique_pairs": 6000
+      }
+    },
+    {
+      "name": "train_disjoint_ids",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "id_overlap": 0
+      }
+    },
+    {
+      "name": "train_disjoint_query_exact",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "overlap": 0
+      }
+    },
+    {
+      "name": "train_disjoint_query_normalized",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "overlap": 0
+      }
+    },
+    {
+      "name": "train_disjoint_body_ngram_prefilter",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "survivors": 0,
+        "prefilter_threshold": 50,
+        "body_max_run": 15,
+        "report_cap": 24,
+        "rows_over_report_cap": 0
+      }
+    },
+    {
+      "name": "train_disjoint_full_query_ngram_prefilter",
+      "ok": false,
+      "informational": true,
+      "counts": {
+        "survivors": 6000,
+        "prefilter_threshold": 50,
+        "full_query_max_run": 87,
+        "scaffold_baseline": {
+          "v0.2.1": 74,
+          "v0.3-gen": 54,
+          "v0.4-toolout": 80
+        },
+        "note": "协议外壳构造性共享：该项恒失败，仅作留痕"
+      }
+    },
+    {
+      "name": "train_disjoint_lcs_stage2",
+      "ok": true,
+      "informational": false,
+      "counts": {
+        "lcs_hits": 0,
+        "lcs_min_chars": 60
+      }
+    }
+  ],
+  "failures": [],
+  "train_disjoint": {
+    "heldout_rows": 489,
+    "heldout_sets": [
+      "v0.2.1",
+      "v0.3-gen",
+      "v0.4-toolout"
+    ],
+    "n_my_rows": 6000,
+    "id_overlap": 0,
+    "id_overlap_sample": [],
+    "query_exact_overlap": 0,
+    "query_normalized_overlap": 0,
+    "query_overlap_sample": [],
+    "ngram_n": 8,
+    "ngram_prefilter_threshold": 50,
+    "lcs_min_chars": 60,
+    "prefilter_survivors_full_query": 6000,
+    "prefilter_survivors_body": 0,
+    "lcs_hits": 0,
+    "lcs_hit_sample": [],
+    "shared_grams_sum_over_rows": {
+      "v0.2.1": 1332588,
+      "v0.3-gen": 1260683,
+      "v0.4-toolout": 1340945
+    },
+    "shared_grams_union": {
+      "v0.2.1": 1244,
+      "v0.3-gen": 1133,
+      "v0.4-toolout": 1140
+    },
+    "rows_with_any_shared_gram": {
+      "v0.2.1": 6000,
+      "v0.3-gen": 6000,
+      "v0.4-toolout": 6000
+    },
+    "body_max_run": 15,
+    "body_run_histogram": {
+      "0": 706,
+      "1": 132,
+      "2": 317,
+      "3": 705,
+      "4": 713,
+      "5": 438,
+      "6": 1353,
+      "7": 496,
+      "8": 234,
+      "9": 168,
+      "10": 35,
+      "11": 357,
+      "12": 193,
+      "13": 99,
+      "15": 54
+    },
+    "body_rows_over_report_cap": 0,
+    "body_run_top_rows": [
+      {
+        "id": "dpoCAR-003491",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003492",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003493",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003506",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003507",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003508",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003521",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003522",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003523",
+        "body_run": 15
+      },
+      {
+        "id": "dpoCAR-003536",
+        "body_run": 15
+      }
+    ],
+    "full_query_max_run": 87,
+    "full_query_run_histogram": {
+      "56": 200,
+      "57": 580,
+      "59": 200,
+      "61": 720,
+      "62": 1320,
+      "65": 280,
+      "66": 600,
+      "67": 100,
+      "71": 900,
+      "78": 264,
+      "80": 264,
+      "81": 73,
+      "83": 73,
+      "84": 129,
+      "85": 84,
+      "86": 129,
+      "87": 84
+    },
+    "scaffold_only_run_baseline": {
+      "v0.2.1": 74,
+      "v0.3-gen": 54,
+      "v0.4-toolout": 80
+    },
+    "note": "官方两段式：预筛「连续成员游程」≥ 50 gram，存活者再做 LCS ≥ 60 字符。正文层预筛存活 0 行 → 第二段为空；正文层最大游程 15 gram（≈ 共享子串 ≥22 字符）。整 query 层 6000/6000 行都会进预筛，因为协议外壳（<dsh-protocol>/<system>/<carrier>）与容器标签词表是构造性共享：外壳骨架基线的游程已达 54–80 gram（即共享子串 ≥ 61 字符），本身就超过 LCS 阈值 —— 故整 query 层只留痕、不进退出码，正文层才进断言。"
+  },
+  "input": {
+    "rows_path": "J:\\Projects\\llm_for_sec\\data\\lf\\dpo_m3_carriers_v1.jsonl",
+    "rows_sha256": "4e019db8a45a3cc895a289c162ef284c99bc31acf5d0dac0bdcb8d5580ad8cc2",
+    "rows_bytes": 16002857,
+    "heldout_sets": [
+      "v0.2.1",
+      "v0.3-gen",
+      "v0.4-toolout"
+    ]
+  },
+  "reference_dpo_m3": {
+    "available": true,
+    "rows": 47948,
+    "rows_with_carrier": 2286,
+    "share_with_carrier": 0.04767664970384583,
+    "carrier_types": {
+      "<no-carrier>": 45662,
+      "text": 1148,
+      "email": 1138
+    },
+    "chosen_with_verdict": 17141,
+    "share_chosen_with_verdict": 0.35749144906982566
+  }
+}

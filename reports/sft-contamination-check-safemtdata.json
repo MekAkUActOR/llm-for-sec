@@ -1,0 +1,13 @@
+{
+  "source": "safemtdata",
+  "docs_scanned": 2280,
+  "docs_flagged": 0,
+  "method_hits": {
+    "prefix": 0,
+    "title": 0,
+    "ngram": 0,
+    "heldout": 0
+  },
+  "flagged_docs": [],
+  "action": "clean - no probe/heldout overlap"
+}

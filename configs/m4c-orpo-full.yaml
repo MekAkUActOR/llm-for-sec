@@ -1,0 +1,70 @@
+# ═══ ⚠️ _DEPRECATED（2026-10-14 登记，勿发射）═══
+# 败因一句话：全长 orpo 锚住了 chosen 似然（格式/契约保住 ✓）却丢安全——
+#   未见载体 ASR 4.76% → 27.98%（47/168）⇒ MUST-A FAIL，H0 成立回退起点。
+# 判决文件指针：reports/topup-verdict-m4c-orpo-full-mnt512.json（decision/
+#   must_gates 字段）；四臂封卷记录见 reports/m5-plan.md 首段（orpo 系两败于
+#   MUST-A ✗）。
+# ══════════════════════════════════════════════════════════
+
+### ═══ M4c **ORPO 全长**：损失函数轴的单变量对照（第 41 轮，回顾裁决 ✓）═══
+#
+# ★ 设计：与 `m4-capfix-full.yaml`（已充分表征的失败 ✗）**逐字复刻**，
+#   唯一科学变量 = `pref_loss: sigmoid → orpo`（所有者裁决 2026-10-07 ✓）。
+#
+# ★ 机制依据（LLaMA-Factory 源码核实 ✓，不猜 ✓）：
+#   `trainer.py` L150-158：orpo_loss = sft_loss + beta × odds_ratio_loss
+#   其中 sft_loss = −chosen_logps（**chosen 的 NLL 锚，权重 1.0** ✓）
+#   ⇒ pref_beta 0.1 下 = 强锚 + 温和偏好推力 ⇒ 直接对症「chosen 似然塌缩」✓
+#   （M4-full 的死因：sigmoid 无锚，chosen 被拖到起点下 36.3 nats ✗，标记先丢 ✗）
+#
+# ★ 与 m4-capfix-full.yaml 的全部差异（3 处，其中科学变量仅 1 处 ✓）：
+#   1. pref_loss: sigmoid → orpo      ← ★唯一科学变量 ✓
+#   2. save_total_limit: 5 → 20       ← 保留策略（规则 43.5 ✓：必须覆盖病态起点 bin ~800 ✗）
+#   3. output_dir: …m4-capfix-full → …m4c-orpo-full   ← 必然不同 ✓
+#
+# ★ 口径警告（预注册 §四② ✓）：orpo/ipo/simpo 的 logps **做了长度归一化**
+#   （trainer.py L234-235 ✓）⇒ 与 sigmoid 的序列求和 logps **不同尺度** ✗
+#   ⇒ M4 的「rewards/chosen ≥ +1」曲线判据**口径失效，不得沿用** ✗。
+#
+# 数据：data/m4-run/dpo_m4_capfix.jsonl（28,842 行 ✓，与 M4-full 完全同份 ✓）
+#   ⇒ dataset_info 条目 `sec_dpo_m4_capfix` 已存在 ✓（M4-full 用过 ✓）
+#   ★ VERDICT 对比度审计（第 41 轮 ✓）：全混料 0.00% ⇒ 本实验**不依赖**标记对比度 ✗
+#   ⇒ 若 MUST-B 过门，是**SFT 锚**的功劳，不是数据对比度的功劳 ✓（归因干净 ✓）
+#
+# 可中断（项目纪律 ✓）：全量 checkpoint（含优化器/调度器/RNG ✓）
+#   中断 = 直接杀进程；恢复 = 同命令重启（从最新 checkpoint 续 ✓）
+#   save_steps=100 ✓、save_total_limit=20 ✓ ⇒ 覆盖全部 18 个百步档 ✓（规则 43.5 ✓）
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m4-run
+dataset: sec_dpo_m4_capfix
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+num_train_epochs: 1
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+# ★★ 唯一科学变量（vs m4-capfix-full.yaml ✓）
+pref_loss: orpo
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 100
+save_total_limit: 20
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full

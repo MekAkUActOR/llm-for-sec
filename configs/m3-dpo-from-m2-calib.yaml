@@ -1,0 +1,103 @@
+### ═══ 变更记录 2026-09-30（M3 DPO 重指向，发射前定稿）═══
+### 变更：model_name_or_path 由 checkpoints\qwen3-06b-sec-m2-full 改为
+###   checkpoints\qwen3-06b-sec-m25-full（见下方 model 段；其余超参数一字未动）。
+### 原因：Plan A 决议废弃了 m2-full 权重，该检查点不再作为任何阶段起点；
+###   谱系已推进为 base → c1-full → m16-32k → m15 → m25-full，m25-full 即
+###   当前 SFT 锚点，M3 DPO 从它出发。
+### 取代：下方“起点：M2 全量跑产物”旧注释作废（历史文本保留以备追溯）；
+###   数据面 sec_dpo_m3 / data/lf/dpo_m3.jsonl（47,948 对）未变。
+### ══════════════════════════════════════════════════════════
+
+### M3 政策条件化 DPO（发射定稿 v1 —— 2026-09-30 定稿：起点重指向 m25-full；
+###   三处【待 M2 读数】占位按 docs/07 §2.2 的区间与常规值落地，见下方注）
+### 依据：docs/07-m3-preference-recipe.md §2.2（训练配方）；数据 sec_dpo_m3
+###   = data/lf/dpo_m3.jsonl 47,948 对（2026-09-28 全量复核，0 schema 违规）：
+###   A 政策条件 14,688（30.6%≥30% ✓）/ B 储备 30,807 / B2 bt330 拒绝 1,913 /
+###   C 拒答质量 300 / D 校准 240；zh:en = 23,614:24,334
+### 起点（2026-09-30 定稿）：m25-full = checkpoints\qwen3-06b-sec-m25-full，
+###   即 M2.5 回填全量跑产物（谱系 base→c1-full→m16-32k→m15→m25-full 的当前 SFT 锚点）。
+###   checkpoint 选择规则：M2.5 出口判定 PASS 即用该 root 产物；若判定要求续训/择优，
+###   改 model_name_or_path 指向对应 checkpoint-XXXX 即可（其余不动）。
+### 运行：. .\scripts\env.ps1; llamafactory-cli train configs/m3-dpo.yaml
+###
+### 可中断模式（项目纪律，2026-09-26 用户指令，同 m2-full）：
+###   save_only_model=false 全量 checkpoint（优化器/调度器/RNG 状态）——
+###   中断=直接杀进程；恢复=同命令重启（LF parser auto-resume 从最新
+###   checkpoint-XXXX 无损续训）。save_total_limit=2 保最近两个。
+###   save_steps=200：预计 ~2,997 步（47,948 × 1 epoch ÷ eff 16），
+###   最坏丢失 ≤200 步（~3.5%）。
+###
+### 显存预算（WDDM 保守包络估算，RTX 5090 D 24GB，训练中可用 ~22.3 GiB）：
+###   DPO = policy + ref 双模型驻留（LF CustomDPOTrainer，trl 0.24 底座）。
+###   ⚠ beta=0 不免 ref：LF 侧 ref 加载由 pref_loss 决定（hparams/finetuning_args.py
+###   :616 use_ref_model = stage==dpo && pref_loss not in {orpo,simpo}），与 beta 无关；
+###   trl 0.24 原生 DPOTrainer 对 sigmoid 也无条件算 ref logps（dpo_trainer.py:1745）。
+###   docs/07 §2.2 无 beta=0 设计（beta 默认 0.1 即 KL 心理锚）。若确需免 ref 显存，
+###   本栈唯一合法开关是 pref_loss: simpo（或 orpo）——损失族变更，需单独评审，
+###   M3 不采用。（注意：M3.5 GRPOTrainer 相反，beta==0.0 官方跳过 ref——
+###   grpo_trainer.py:427，勿混淆两个阶段的行为。）
+###   常驻（0.6B，bf16）：policy 权重 ~1.2 + ref 权重 ~1.2（eval-only，无梯度/
+###     优化器）+ 梯度 ~1.2 + AdamW fp32 双状态 ~4.8 ≈ 8.4 GB
+###   瞬时峰值（bs1 @ cutoff 2048，词表 151,936）：LF concatenated_forward 将全词表
+###     logits 上抛 fp32（train/dpo/trainer.py:230）+ get_batch_logps 全量
+###     log_softmax（train/trainer_utils.py:612）；chosen+rejected 拼接=2 行/样本：
+###     bf16 logits ~1.25 + fp32 logits ~2.5 + log_softmax 输出 ~2.5 ≈ 6.2 GB
+###   激活（gradient_checkpointing 开）≈ 0.5-1 GB；WDDM 桌面+碎片 ~1.6-2 GB
+###   → 峰值 ~17-18 GB，余量 ~4-5 GB（≥20%）。bs1 起步：DPO 每样本双前向，
+###   bs1 ≈ SFT bs2 的瞬时占用；沿 m2-calib 实测包络纪律不冒进。
+###   首次 OOM 处置序：① cutoff_len 2048→1024（实测仅 ~0.1% 对超 1024）
+###   ② adam_bnb8bit: true（省 ~2.4 GB）③ 检查桌面显存占用后重试。
+###
+### 训前硬校验（发射前跑，均 CPU 侧）：
+###   1) .venv 补丁在位：python scripts/patches/apply_venv_patches.py（幂等，
+###      应报 already patched；venv 重建/trl 重装后必须重放——docs/02 §0.1）
+###   2) trl 冒烟：from trl import DPOTrainer, DPOConfig（grpo-feasibility §4.1 遗留项）
+
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2-calib
+
+### method
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink      # 同 M2 全链（chatml 槽位、无 think 机制；M2 已实测注册）
+pref_loss: sigmoid           # docs/07 §2.2 默认；或参考 §6.1 政策对分置 beta 的后续实验
+pref_beta: 0.1
+                             #   条件旋钮：若 M2.5 出口 G4（行为保持）判 FAIL——
+                             #   即 SFT 已把拒答推过头（ORR 激增）——发射前升到 0.2
+                             #   加强隐式 KL；G4 PASS 则维持 0.1。
+
+### dataset
+dataset: sec_dpo_m3
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: false               # 偏好对逐样本（packing 会跨对拼接破坏 chosen/rejected 边界）
+cutoff_len: 2048             # docs/07 未指定 cutoff；实测依据（1,000 对抽样，Qwen3
+                             #   tokenizer，prompt+max(chosen,rejected)+模板开销）：
+                             #   mean=308 / p95=477 / p99=540 / max=1149，>2048 占比 0；
+                             #   2048 = max 的 1.8 倍防御性余量，兼多轮扩展（T10）。
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3-dpo
+logging_steps: 10
+save_steps: 200
+save_only_model: false       # 全量 checkpoint（可中断无损续训，见头部注释）
+save_total_limit: 3           # 【2026-09-30 整改】docs/01 §7.3：≥3 且每 epoch 至少一中间档。
+                              # 原为 2——正因只保最近两档，M2 期 292 步校准档险些丢失，
+                              # 而该档正是"安全行为学得极早、续训侵蚀泛化"的唯一证据来源。
+plot_loss: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1     # bs1 起步（见显存预算注）；DPO 双前向 ≈ SFT bs2 瞬时
+gradient_accumulation_steps: 16    # eff 16，沿 M2 校准实测包络
+learning_rate: 2.0e-6              # 【定稿 2026-09-30】docs/07 §2.2：区间 5e-7~5e-6，
+                                   #   0.6B 取中偏上——对数中点 ~1.6e-6 再上一档 = 2.0e-6
+num_train_epochs: 1.0              # 【定稿 2026-09-30】docs/07 §2.2：epochs 1
+lr_scheduler_type: cosine
+warmup_steps: 100                  # ~2,997 步的 3.3%；偏好优化常规小比例热身
+weight_decay: 0.0                  # 偏好优化常规（正则无据；与 M2 SFT 的 0.1 不同属预期）
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true

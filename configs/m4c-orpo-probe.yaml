@@ -1,0 +1,59 @@
+# ═══ ⚠️ _DEPRECATED（2026-10-14 登记，勿发射）═══
+# 败因一句话：「锚 × 早停 300 步」组合未成立——短预算 orpo 仍使未见载体
+#   ASR 4.76% → 24.4%（41/168）⇒ MUST-A FAIL，H0 成立回退起点。
+# 判决文件指针：reports/topup-verdict-m4c-orpo-probe-mnt512.json（decision/
+#   must_gates 字段）；四臂封卷记录见 reports/m5-plan.md 首段（orpo 系两败于
+#   MUST-A ✗）。
+# ══════════════════════════════════════════════════════════
+
+### ═══ M4c-ORPO 探针：锚 × 早停的组合验证（第 41 轮，判决后发射）═══
+#
+# ★ 设计：与 `m4-capfix-probe.yaml`（**已过全门禁的探针** ✓，C 路成立 ✓）**逐字复刻**，
+#   唯一科学变量 = `pref_loss: sigmoid → orpo`。
+#   动机（M4c-full 判决 ✓）：全长下 sigmoid 丢格式保安全 ✗ / orpo 保格式丢安全 ✗，
+#   两者失败模式互补 ⇒ 组合「锚（保格式 ✓）× 早停 300 步（保安全 ✓）」。
+#
+# ★ 预注册预测（可证伪）：
+#   ① 若组合成立 ⇒ 全 MUST 过，且契约保留 ≥150/168（锚的边际保护 ✓）
+#   ② ASR 应保持探针量级（~1-4%）；若爆到 M4c-full 的 28% ✗ ⇒ 锚在短预算下也伤安全
+#   ③ 判决器同套门禁（gate_m4_full.ps1 -FullTag m4c-orpo-probe ✓）
+#
+# ★ 与 m4-capfix-probe.yaml 的全部差异（2 处，科学变量仅 1 处 ✓）：
+#   1. pref_loss: sigmoid → orpo   ← ★唯一科学变量 ✓
+#   2. output_dir: …m4-capfix-probe → …m4c-orpo-probe   ← 必然不同 ✓
+#
+# 可中断（项目纪律 ✓）：全量 checkpoint，同命令重启即续 ✓
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m4-run
+dataset: sec_dpo_m4_capfix
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+max_steps: 300
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+# ★★ 唯一科学变量（vs m4-capfix-probe.yaml ✓）
+pref_loss: orpo
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 50
+save_total_limit: 8
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-probe

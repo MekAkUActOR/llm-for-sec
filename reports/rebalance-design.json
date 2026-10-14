@@ -1,0 +1,46 @@
+{
+  "n": 28842,
+  "categories": {
+    "F_style": 14241,
+    "S_directional": 13179,
+    "C_contract": 1422
+  },
+  "mass": {
+    "F_style": 3323146,
+    "S_directional": 4521779,
+    "C_contract": 586680
+  },
+  "per_class": {
+    "refusal_quality": {
+      "F_style": 246,
+      "C_contract": 54
+    },
+    "policy": {
+      "F_style": 10920,
+      "S_directional": 3472,
+      "C_contract": 296
+    },
+    "reserve": {
+      "S_directional": 1717,
+      "F_style": 3065,
+      "C_contract": 928
+    },
+    "calibration": {
+      "C_contract": 144,
+      "S_directional": 96
+    },
+    "bt330_refusal": {
+      "S_directional": 1894,
+      "F_style": 10
+    },
+    "carrier_inject_obedient": {
+      "S_directional": 2360
+    },
+    "carrier_inject_hollow": {
+      "S_directional": 2320
+    },
+    "carrier_clean_overrefusal": {
+      "S_directional": 1320
+    }
+  }
+}

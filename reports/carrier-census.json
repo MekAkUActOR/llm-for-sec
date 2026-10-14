@@ -1,0 +1,274 @@
+{
+  "files": [
+    {
+      "path": "data\\lf\\sft_m25.jsonl",
+      "rows": 137670,
+      "rows_with_carrier": 13981,
+      "carriers": {
+        "text": 10239,
+        "email": 1768,
+        "tool_output": 1224,
+        "log": 250,
+        "webpage": 250,
+        "code": 250
+      },
+      "families": {
+        "sft-": 54662,
+        "wgm-": 15718,
+        "sp-": 14605,
+        "or-": 14094,
+        "pku-": 10501,
+        "cv-": 10171,
+        "hh-": 4500,
+        "wj-": 4500,
+        "tl-": 4091,
+        "smt-1": 1624,
+        "bt-": 1080,
+        "smt-": 600,
+        "xst-": 567,
+        "hb-": 71,
+        "adv-00258": 1,
+        "sr-00553": 1,
+        "adv-00493": 1,
+        "sr-00747": 1,
+        "adv-00229": 1,
+        "sr-00592": 1,
+        "adv-00476": 1,
+        "hb-01162": 1,
+        "hb-00989": 1,
+        "adv-00163": 1,
+        "mi-00859": 1,
+        "mi-00841": 1,
+        "hb-01003": 1,
+        "hb-01152": 1,
+        "adv-00319": 1,
+        "adv-00039": 1
+      },
+      "langs": {
+        "en": 87427,
+        "zh": 50243
+      },
+      "packs": {
+        "default": 86633,
+        "professional": 30059,
+        "conservative": 20978
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\fA_policy_v0x2.jsonl",
+      "rows": 7776,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "sft-": 7776
+      },
+      "langs": {
+        "zh": 5040,
+        "en": 2736
+      },
+      "packs": {
+        "conservative": 2592,
+        "default": 2592,
+        "professional": 2592
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\fB_t4ground.jsonl",
+      "rows": 6720,
+      "rows_with_carrier": 1920,
+      "carriers": {
+        "text": 960,
+        "email": 960
+      },
+      "families": {
+        "sft-": 6720
+      },
+      "langs": {
+        "zh": 3456,
+        "en": 3264
+      },
+      "packs": {
+        "conservative": 2240,
+        "default": 2240,
+        "professional": 2240
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\fC_cvpku_release.jsonl",
+      "rows": 7602,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "cv-": 4344,
+        "pku-": 3258
+      },
+      "langs": {
+        "zh": 4344,
+        "en": 3258
+      },
+      "packs": {
+        "default": 2534,
+        "professional": 2534,
+        "conservative": 2534
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\fD_t6.jsonl",
+      "rows": 5001,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "sft-": 5001
+      },
+      "langs": {
+        "en": 2987,
+        "zh": 2014
+      },
+      "packs": {
+        "conservative": 1667,
+        "default": 1667,
+        "professional": 1667
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\fE_t3t12t11.jsonl",
+      "rows": 4500,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "sft-": 4500
+      },
+      "langs": {
+        "en": 2700,
+        "zh": 1800
+      },
+      "packs": {
+        "default": 4500
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\fG_t6_devign_ext.jsonl",
+      "rows": 12000,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "sft-": 12000
+      },
+      "langs": {
+        "en": 12000
+      },
+      "packs": {
+        "conservative": 4000,
+        "default": 4000,
+        "professional": 4000
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\t13_retrieval.jsonl",
+      "rows": 1500,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "sft-": 1500
+      },
+      "langs": {
+        "en": 900,
+        "zh": 600
+      },
+      "packs": {
+        "default": 757,
+        "professional": 377,
+        "conservative": 366
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\t13_retrieval_longctx.jsonl",
+      "rows": 200,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "sft-": 200
+      },
+      "langs": {
+        "en": 120,
+        "zh": 80
+      },
+      "packs": {
+        "default": 105,
+        "professional": 56,
+        "conservative": 39
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\t14_authinject.jsonl",
+      "rows": 2500,
+      "rows_with_carrier": 1224,
+      "carriers": {
+        "tool_output": 1224
+      },
+      "families": {
+        "sft-": 2500
+      },
+      "langs": {
+        "zh": 1740,
+        "en": 760
+      },
+      "packs": {
+        "default": 1413,
+        "professional": 549,
+        "conservative": 538
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\t1_injection.jsonl",
+      "rows": 375,
+      "rows_with_carrier": 375,
+      "carriers": {
+        "email": 75,
+        "webpage": 75,
+        "log": 75,
+        "text": 75,
+        "code": 75
+      },
+      "families": {
+        "sft-": 375
+      },
+      "langs": {
+        "en": 225,
+        "zh": 150
+      },
+      "packs": {
+        "default": 145,
+        "professional": 125,
+        "conservative": 105
+      }
+    },
+    {
+      "path": "data\\sft\\m2.5-staging\\t9_phishing.jsonl",
+      "rows": 50,
+      "rows_with_carrier": 0,
+      "carriers": {},
+      "families": {
+        "sft-": 50
+      },
+      "langs": {
+        "en": 30,
+        "zh": 20
+      },
+      "packs": {
+        "default": 20,
+        "professional": 15,
+        "conservative": 15
+      }
+    }
+  ],
+  "seen_carriers_total": {
+    "text": 11274,
+    "email": 2803,
+    "tool_output": 2448,
+    "log": 325,
+    "webpage": 325,
+    "code": 325
+  },
+  "note": "seen_carriers_total 是训练侧（含暂存）出现过的载体类型；泛化留出集必须使用**不在此表**的载体类型。"
+}

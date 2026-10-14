@@ -1,0 +1,73 @@
+### ═══ M4-B 格：**轴 1 单独**（重配比 ✓，epoch 保持 1.0 ✓）═══
+#
+# ★ 目的：与 A 格（m4-capfix-full ✓）**只差一个变量**（dataset ✓）⇒ **净效应可归因** ✓
+#   A 格 = sec_dpo_m4_capfix × epoch 1.0  （已完成 ✗，终点 chosen −3.626 ✗）
+#   **B 格 = sec_dpo_m4_rebal  × epoch 1.0**  ← 本配置 ✓
+#   C 格 = sec_dpo_m4_capfix × epoch 0.1   （待 step_scan 定 epoch ✗）
+#   D 格 = sec_dpo_m4_rebal  × epoch 0.1   （待 step_scan 定 epoch ✗）
+#
+# ★ 数据集（第 34 轮落盘 ✓）
+#   data/m4-run/dpo_m4_rebal.jsonl   18,171 行 / 42,129,684 B
+#   sha256 = 63ED63CFE4BBFEC7352EFEA54550925685E28547014F5ADFA2AD5F10F8D924EC
+#   构成：S 方向对全保留 ✓ / C 契约对全保留 ✓ / **F 风格对降权 1/4** ✓
+#   梯度质量占比：F 39.4% → **14.2%** ✓，S+C 60.6% → **85.8%** ✓
+#   ★ 种子 20261006 ✓（可复现 ✓）
+#
+# ★ 预注册预测（reports/m4-endpoint-preregistration.md §十五 ✓，训练前写下 ✓）
+#   **B 格端点 ASR 仍 > 40%** ✗
+#   ⇒ 理由：**预算仍允许"绝对对数概率崩塌"跑飞** ✗（§十 统一机制 ✓）
+#   ⇒ **若真的 >40% ⇒ 预算轴的必要性被独立证实** ✓
+#   ⇒ **若 <15% ⇒ 重配比单独就够，两轴只需一条** ✓
+#   （**两种结果都推进认知** ✓）
+#
+# ★ 另两条预测（§十三 ✓）
+#   ② 端点 `rewards/chosen` **不应转负** ✓（若仍转负 ⇒ 重配比也没解决 ✗）
+#   ③ 只降权不削预算 ⇒ ASR 仍 >40% ✗（= 本格 ✓）
+#
+# ★ 发射前条件
+#   ① 门禁集已按 §二 裁决 ✓
+#   ② GPU 空闲且 `stop_eval_procs.ps1 -Guard` PASS ✓
+#   ③ ★与 m4-capfix-full.yaml 的逐行差异**只有 4 处**，其中**只有 1 处是科学变量** ✓：
+#      · `dataset`: sec_dpo_m4_capfix → **sec_dpo_m4_rebal**   ← **唯一科学变量** ✓
+#      · `num_train_epochs`: `1` → `1.0`                      ← 数值相同 ✓，非变量 ✓
+#      · `save_total_limit`: 5 → 8                            ← **保留策略，非训练变量** ✓
+#        （★故意调大：给 step_scan 留更多中间档 ✓；**它不参与训练** ✗）
+#      · `output_dir`: 必然不同 ✓，非变量 ✓
+#      ★★ 纪律：**不得把 `save_total_limit` 的差异当成"没改一个变量"的例外** ✗ ——
+#        它与训练无关 ✓，但**必须在记录里写明** ✓，否则后人事后无法核对 ✓。
+#
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m4-run
+# ★ 唯一变量：sec_dpo_m4_capfix → **sec_dpo_m4_rebal** ✓
+dataset: sec_dpo_m4_rebal
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+# ★ 轴 2 保持 1.0（隔离轴 1 的净效应 ✓）—— 与 A 格一致 ✓
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 100
+save_total_limit: 8
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4b-rebal

@@ -1,0 +1,189 @@
+{
+  "generator": "scripts/gen_doc_structure.py",
+  "seed": 20261001,
+  "n": 1200,
+  "out": "data\\sft\\m2.5-staging\\doc_structure.jsonl",
+  "sha256": "5a6c243c1369d3e484847a7bf32f46d3b975b865ffc9c38e5af9c6a7fcfbdedb",
+  "rows_by_file": {
+    "doc_structure.jsonl": 1200
+  },
+  "task_prefix": "T15-doc-structure",
+  "quota_target": {
+    "A": 0.3,
+    "B1": 0.15,
+    "B2": 0.15,
+    "C1": 0.16,
+    "C3": 0.16,
+    "C2": 0.08
+  },
+  "zh_ratio_target": 0.5,
+  "smoke_run": {
+    "n": 200,
+    "seed": 20261002,
+    "verdict": "PASS",
+    "errors": [],
+    "total": 200,
+    "by_pack": {
+      "conservative": 51,
+      "default": 98,
+      "professional": 51
+    },
+    "by_lang": {
+      "en": 102,
+      "zh": 98
+    },
+    "by_action": {
+      "answer": 75,
+      "refuse": 5,
+      "report": 120
+    },
+    "by_verdict": {
+      "clean": 65,
+      "conditional": 10,
+      "contains-injection": 90,
+      "refuse": 5,
+      "suspicious-pattern": 30
+    },
+    "by_scenario": {
+      "clean-legit-macro": 32,
+      "clean-plain": 33,
+      "hidden-audit-evasion": 30,
+      "hidden-injection": 30,
+      "macro-autoexec": 60,
+      "policy-dualuse": 15
+    },
+    "by_scenario_group": {
+      "A_macro_injection": 60,
+      "B_hidden_structure": 60,
+      "C2_policy_conditioned": 15,
+      "C_clean_negative": 65
+    },
+    "by_pack_action": {
+      "conservative": {
+        "answer": 14,
+        "refuse": 5,
+        "report": 32
+      },
+      "default": {
+        "answer": 46,
+        "report": 52
+      },
+      "professional": {
+        "answer": 15,
+        "report": 36
+      }
+    },
+    "by_wrap": {
+      "dsh": 77,
+      "raw": 123
+    },
+    "policy_conditioned_triples": {
+      "situations": 5,
+      "rows": 15,
+      "all_three_packs": true,
+      "action_triples": {
+        "conservative=refuse,default=answer,professional=answer": 5
+      }
+    }
+  },
+  "stats": {
+    "total": 1200,
+    "by_pack": {
+      "conservative": 308,
+      "default": 584,
+      "professional": 308
+    },
+    "by_lang": {
+      "en": 603,
+      "zh": 597
+    },
+    "by_action": {
+      "answer": 448,
+      "refuse": 32,
+      "report": 720
+    },
+    "by_verdict": {
+      "clean": 384,
+      "conditional": 64,
+      "contains-injection": 540,
+      "refuse": 32,
+      "suspicious-pattern": 180
+    },
+    "by_scenario": {
+      "clean-legit-macro": 192,
+      "clean-plain": 192,
+      "hidden-audit-evasion": 180,
+      "hidden-injection": 180,
+      "macro-autoexec": 360,
+      "policy-dualuse": 96
+    },
+    "by_scenario_group": {
+      "A_macro_injection": 360,
+      "B_hidden_structure": 360,
+      "C2_policy_conditioned": 96,
+      "C_clean_negative": 384
+    },
+    "by_pack_action": {
+      "conservative": {
+        "answer": 104,
+        "refuse": 32,
+        "report": 172
+      },
+      "default": {
+        "answer": 214,
+        "report": 370
+      },
+      "professional": {
+        "answer": 130,
+        "report": 178
+      }
+    },
+    "by_wrap": {
+      "dsh": 537,
+      "raw": 663
+    },
+    "policy_conditioned_triples": {
+      "situations": 32,
+      "rows": 96,
+      "all_three_packs": true,
+      "action_triples": {
+        "conservative=refuse,default=answer,professional=answer": 32
+      }
+    }
+  },
+  "assertions": {
+    "generate": "PASS",
+    "disk": "PASS",
+    "disk_errors": []
+  },
+  "official_recheck": {
+    "checker": "scripts/check_m25_staging.py (官方函数直调)",
+    "verdict": "PASS",
+    "errors": [],
+    "stats": {
+      "lang": {
+        "en": 603,
+        "zh": 597
+      },
+      "pack": {
+        "professional": 308,
+        "conservative": 308,
+        "default": 584
+      },
+      "verdict": {
+        "clean": 384,
+        "contains-injection": 540,
+        "suspicious-pattern": 180,
+        "conditional": 64,
+        "refuse": 32
+      },
+      "action": {
+        "answer": 448,
+        "report": 720,
+        "refuse": 32
+      }
+    },
+    "note": "probes/heldout 未读（红线）"
+  },
+  "note": "复检命令：python scripts/gen_doc_structure.py --check data\\sft\\m2.5-staging\\doc_structure.jsonl"
+}

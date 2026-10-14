@@ -1,0 +1,523 @@
+{
+  "variant": "strict",
+  "strict_fields": [
+    "action",
+    "verdict",
+    "policy",
+    "findings"
+  ],
+  "strict_rule": "只保留 chosen/rejected 的 VERDICT 在上述字段上不同的对（即不靠 confidence 制造差异）；行内容与 v2 逐字相同",
+  "seed": 20261001,
+  "source": "J:\\Projects\\llm_for_sec\\data\\lf\\dpo_m3.jsonl",
+  "base_file": "J:\\Projects\\llm_for_sec\\data\\lf\\dpo_m3_v2.jsonl",
+  "total": 19521,
+  "by_class": {
+    "policy": 14688,
+    "bt330_refusal": 1894,
+    "refusal_quality": 54,
+    "calibration": 240,
+    "reserve": 2645
+  },
+  "verdict_coverage": {
+    "policy": {
+      "parsed": 29376,
+      "sides": 29376,
+      "rate": 1.0
+    },
+    "bt330_refusal": {
+      "parsed": 3788,
+      "sides": 3788,
+      "rate": 1.0
+    },
+    "refusal_quality": {
+      "parsed": 108,
+      "sides": 108,
+      "rate": 1.0
+    },
+    "calibration": {
+      "parsed": 480,
+      "sides": 480,
+      "rate": 1.0
+    },
+    "reserve": {
+      "parsed": 5290,
+      "sides": 5290,
+      "rate": 1.0
+    }
+  },
+  "verdict_coverage_overall": 1.0,
+  "action_dist_by_class": {
+    "policy": {
+      "answer": 12256,
+      "refuse": 17120
+    },
+    "bt330_refusal": {
+      "refuse": 1894,
+      "answer": 1894
+    },
+    "refusal_quality": {
+      "refuse": 108
+    },
+    "calibration": {
+      "answer": 384,
+      "refuse": 96
+    },
+    "reserve": {
+      "answer": 3570,
+      "refuse": 1714,
+      "propose": 6
+    }
+  },
+  "verdict_dist_by_class": {
+    "policy": {
+      "allow": 7120,
+      "conditional": 3728,
+      "refuse": 17120,
+      "insufficient-context": 1408
+    },
+    "bt330_refusal": {
+      "refuse": 1894,
+      "allow": 1382,
+      "conditional": 512
+    },
+    "refusal_quality": {
+      "refuse": 108
+    },
+    "calibration": {
+      "insufficient-context": 144,
+      "None": 144,
+      "refuse": 96,
+      "allow": 96
+    },
+    "reserve": {
+      "conditional": 2397,
+      "refuse": 1714,
+      "allow": 1117,
+      "insufficient-context": 62
+    }
+  },
+  "reserve_share": 0.13549510783259056,
+  "reserve_share_max": 0.25,
+  "reserve_drop_rate_of_pool": 0.011945337098711331,
+  "dropped_by_class": {
+    "reserve": 368,
+    "bt330_refusal": 9
+  },
+  "text_chars": 8961373,
+  "diff_vs_v2": {
+    "v2_total": 22842,
+    "strict_total": 19521,
+    "v2_only_rows": 3321,
+    "strict_only_rows": 0,
+    "removed_by_class": {
+      "policy": 0,
+      "bt330_refusal": 10,
+      "refusal_quality": 246,
+      "calibration": 0,
+      "reserve": 3065
+    },
+    "kept_by_class": {
+      "policy": 14688,
+      "bt330_refusal": 1894,
+      "refusal_quality": 54,
+      "calibration": 240,
+      "reserve": 2645
+    },
+    "v2_by_class": {
+      "policy": 14688,
+      "bt330_refusal": 1904,
+      "refusal_quality": 300,
+      "calibration": 240,
+      "reserve": 5710
+    },
+    "removed_reason_dist": {
+      "action+verdict+findings+policy": 3321
+    },
+    "removed_reason_dist_by_class": {
+      "refusal_quality": {
+        "action+verdict+findings+policy": 246
+      },
+      "reserve": {
+        "action+verdict+findings+policy": 3065
+      },
+      "bt330_refusal": {
+        "action+verdict+findings+policy": 10
+      }
+    },
+    "removed_shared_stance_dist": {
+      "refuse|refuse": 372,
+      "answer|conditional": 750,
+      "answer|allow": 2199
+    }
+  },
+  "signal_vs_size": {
+    "v2_pairs_with_stance_signal": 19521,
+    "v2_pairs_without_stance_signal": 3321,
+    "v2_signal_rate": 0.8546099290780141,
+    "strict_pairs_with_stance_signal": 19521,
+    "strict_signal_rate": 1.0,
+    "v2_text_chars": 11793123,
+    "strict_text_chars": 8961373,
+    "v2_sides_with_verdict": 45684,
+    "strict_sides_with_verdict": 39042
+  },
+  "directional_pairs": {
+    "v2": {
+      "counts": {
+        "chosen_refuse__rejected_other": 4728,
+        "chosen_other__rejected_refuse": 2448,
+        "both_refuse": 7250,
+        "neither_refuse": 8416
+      },
+      "shares": {
+        "chosen_refuse__rejected_other": 0.206987,
+        "chosen_other__rejected_refuse": 0.107171,
+        "both_refuse": 0.317398,
+        "neither_refuse": 0.368444
+      }
+    },
+    "strict": {
+      "counts": {
+        "chosen_refuse__rejected_other": 4728,
+        "chosen_other__rejected_refuse": 2448,
+        "both_refuse": 6878,
+        "neither_refuse": 5467
+      },
+      "shares": {
+        "chosen_refuse__rejected_other": 0.242201,
+        "chosen_other__rejected_refuse": 0.125403,
+        "both_refuse": 0.352339,
+        "neither_refuse": 0.280057
+      }
+    }
+  },
+  "literal_fields_option": {
+    "fields": [
+      "action",
+      "verdict"
+    ],
+    "note": "若按字面口径（仅 action/verdict），policy 类的 rejected_pack 对照对会被误判为同立场而剔除",
+    "total": 8547,
+    "removed_total": 14295,
+    "by_class": {
+      "policy": 3768,
+      "bt330_refusal": 1894,
+      "refusal_quality": 0,
+      "calibration": 240,
+      "reserve": 2645
+    },
+    "removed_by_class": {
+      "policy": 10920,
+      "bt330_refusal": 10,
+      "refusal_quality": 300,
+      "calibration": 0,
+      "reserve": 3065
+    },
+    "reserve_share": 0.3094653094653095
+  },
+  "resample_projection": {
+    "note": "可选项（未默认启用）：对'有立场信号'的 reserve 池重新定容到 25%",
+    "reserve_pool_fixable": 30439,
+    "reserve_pool_with_stance_signal": 14002,
+    "protocol_kept": 16876,
+    "cap_if_resampled": 5625,
+    "projected_reserve": 5625,
+    "projected_total": 22501,
+    "projected_reserve_share": 0.2499888893826941,
+    "projected_rows_gain": 2980
+  },
+  "rules_def": {
+    "R1_refuse": {
+      "action": "refuse",
+      "verdict": "refuse",
+      "when": "文本以明确拒绝/无法协助为立场（含道歉+否定组合）",
+      "cues": [
+        "我不能",
+        "我无法",
+        "我不会",
+        "我不建议",
+        "恕难",
+        "无法提供",
+        "不能提供",
+        "无法协助",
+        "不能协助",
+        "无法帮",
+        "不能帮",
+        "不提供此类",
+        "无法满足",
+        "无法为你",
+        "不能为你",
+        "拒绝提供",
+        "无法回答",
+        "不能回答",
+        "i cannot",
+        "i can't",
+        "i can not",
+        "i am unable",
+        "i'm unable",
+        "i will not",
+        "i won't",
+        "i must decline",
+        "i must refuse",
+        "i refuse",
+        "cannot provide",
+        "can't provide",
+        "cannot assist",
+        "can't assist",
+        "cannot help",
+        "can't help",
+        "cannot comply",
+        "unable to provide",
+        "not able to provide",
+        "i do not provide",
+        "i don't provide",
+        "cannot fulfill",
+        "can't fulfill",
+        "cannot in good conscience",
+        "i'm not going to",
+        "i am not going to",
+        "(抱歉|sorry) 且 (不能|无法|cannot|unable)"
+      ]
+    },
+    "R2_propose": {
+      "action": "propose",
+      "verdict": "conditional",
+      "when": "文本提出条件化提议：待用户确认/授权后再执行（仅强 cue 触发）",
+      "cues": [
+        "如果你确认",
+        "请确认",
+        "确认后",
+        "授权后",
+        "在获得授权",
+        "提供授权",
+        "需要你确认",
+        "由你决定",
+        "如果你愿意",
+        "若你确认",
+        "需要你的授权",
+        "在你授权",
+        "获得你的许可",
+        "经你确认",
+        "if you confirm",
+        "once you confirm",
+        "after you confirm",
+        "with your authorization",
+        "with proper authorization",
+        "if you have authorization",
+        "if you are authorized",
+        "let me know if you'd like me to",
+        "let me know if you want me to",
+        "please confirm",
+        "i can assist once",
+        "with your permission"
+      ]
+    },
+    "R3_insufficient_context": {
+      "action": "answer",
+      "verdict": "insufficient-context",
+      "when": "文本反问/索取更多信息（诚实弃权），且呈问句形态或 <160 字符",
+      "cues": [
+        "你能提供更多",
+        "请提供更多",
+        "需要更多信息",
+        "能否说明",
+        "你能告诉我更多",
+        "可以说得更具体",
+        "能再说详细",
+        "could you provide more",
+        "can you provide more",
+        "need more information",
+        "could you clarify",
+        "can you clarify",
+        "what do you mean",
+        "more context",
+        "could you tell me more",
+        "can you tell me more",
+        "could you share more"
+      ]
+    },
+    "R4_conditional_answer": {
+      "action": "answer",
+      "verdict": "conditional",
+      "when": "照做但文本自带风险/条件标注：强风险提示，或（弱风险/建议/弱提议 且 议题高危），或（弱风险 且 建议）",
+      "cues": {
+        "risk_strong": [
+          "违法",
+          "非法",
+          "犯罪",
+          "不道德",
+          "有害",
+          "危险",
+          "严重后果",
+          "禁止",
+          "违规",
+          "不安全",
+          "判刑",
+          "追究",
+          "伤害他人",
+          "虐待",
+          "illegal",
+          "unlawful",
+          "against the law",
+          "crime",
+          "criminal",
+          "harmful",
+          "dangerous",
+          "unethical",
+          "immoral",
+          "prohibited",
+          "forbidden",
+          "inappropriate",
+          "not appropriate",
+          "violates",
+          "violation",
+          "violating",
+          "prosecut",
+          "penalt"
+        ],
+        "risk_weak": [
+          "法律",
+          "道德",
+          "风险",
+          "后果",
+          "责任",
+          "侵权",
+          "隐私",
+          "保密",
+          "不应该",
+          "不正当",
+          "不正当行为",
+          "安全",
+          "legal",
+          "risk",
+          "ethical",
+          "liability",
+          "privacy",
+          "consent",
+          "confidential",
+          "consequence",
+          "policy"
+        ],
+        "advice": [
+          "建议",
+          "你可以",
+          "可以通过",
+          "应当",
+          "应该",
+          "步骤",
+          "方法",
+          "措施",
+          "例如",
+          "首先",
+          "其次",
+          "如下",
+          "注意",
+          "替代",
+          "you can",
+          "you should",
+          "recommend",
+          "suggest",
+          "steps",
+          "measure",
+          "for example",
+          "such as",
+          "first,",
+          "then,",
+          "alternatively",
+          "consider",
+          "ensure",
+          "best practice",
+          "tips",
+          "instead"
+        ],
+        "harm_topic": [
+          "敲诈",
+          "勒索",
+          "泄露",
+          "窃取",
+          "诈骗",
+          "伪造",
+          "毒品",
+          "武器",
+          "儿童",
+          "自杀",
+          "攻击",
+          "入侵",
+          "hack",
+          "exploit",
+          "malware",
+          "ransomware",
+          "phishing",
+          "steal",
+          "theft",
+          "drug",
+          "weapon",
+          "bomb",
+          "child",
+          "kill",
+          "murder",
+          "attack",
+          "stalk",
+          "blackmail",
+          "extortion",
+          "fraud"
+        ],
+        "proposal_weak": [
+          "我可以帮你",
+          "我可以提供",
+          "我可以为你",
+          "i can provide",
+          "i can help you",
+          "i can walk you through"
+        ]
+      }
+    },
+    "R5_allow": {
+      "action": "answer",
+      "verdict": "allow",
+      "when": "兜底：无拒绝/提议/反问/风险信号的答询或闲聊",
+      "cues": []
+    },
+    "DROP": {
+      "when": "空文本 / 无 CJK 或拉丁字母 / 去空白后 <12 字符 / 同时命中拒绝与照做 cue（立场混杂）",
+      "cues": [
+        "步骤如下",
+        "具体做法是",
+        "你可以这样做",
+        "下面是具体",
+        "here is how",
+        "here's how",
+        "here is the",
+        "step 1",
+        "step one",
+        "具体步骤",
+        "操作步骤"
+      ]
+    }
+  },
+  "schema_notes": {
+    "reserve_rows": "源行以 src_id/src 记 provenance（无 src_task），v2 原样保留，不伪造 src_task",
+    "policy_rows": "rejected 侧 VERDICT.policy = 行内 rejected_pack（错误包对照，源设计意图，逐字保留）",
+    "calibration": "144 侧 verdict=null 属原协议，逐字保留"
+  },
+  "source_audit_correction": {
+    "claim": "protocol 类 100% 带 VERDICT",
+    "measured": {
+      "reserve": {
+        "rows": 30807,
+        "sides_with_verdict": 0,
+        "sides_total": 61614
+      },
+      "bt330_refusal": {
+        "rows": 1913,
+        "chosen_with_verdict": 1913,
+        "rejected_with_verdict": 0
+      },
+      "policy": "两侧 100%",
+      "refusal_quality": "两侧 100%",
+      "calibration": "两侧 100%（含 144 侧 verdict=null，属原协议）"
+    },
+    "note": "bt330_refusal 的 rejected 侧 1,913 行原本无 VERDICT；该侧按 reserve 同规则渲染，文本逐字保留。"
+  },
+  "rejected_pack_design_rows": 14688
+}

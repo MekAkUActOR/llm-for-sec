@@ -1,0 +1,76 @@
+### ═══ ⚠️ _DEPRECATED（2026-10-14 登记勿发射）═══
+#
+# 本配置**不可直接发射**：dataset 指向 data\m5-run\dpo_m5_calib.jsonl（单文件装载），
+# 该混料与 data/m5a-run/train.jsonl **字节恒等**（sha256 ee181598…，三源字节级拼接、
+# 跨源键集不一致）⇒ LF `datasets` JSON builder 单文件装载必现
+# DatasetGenerationCastError（m5a attempt-1 同款现场）。**装载机制已由 m5a 解决**：
+# 多数据集逗号装载 + dataset_info.json 加性注册，数据内容恒等仅装载方式不同——
+# 发射请改用 `configs\m5a-dpo-probe.yaml`（两配置唯一差 = save_total_limit 8→20
+# 保留策略，非科学变量，读数应一致）。勘误与同病警告见
+# `reports/m5-launch.md` §1.1/§5（同病警告）与 `reports/m5a-preregistration.md` §7。
+#
+### ═══ M5 探针（P2.9 数据轴）：校准对混料的**小规模受控验证**（发射集成件）═══
+#
+# ★ 目的：M5 = 唯一过门配方（m4-capfix-probe，C 路成立 ✓）+ P1.6 拒绝校准对 5,760
+#   —— 数据轴对症「全谱系双侧校准债」（ORR 16.7–18.5% > 10% 门 ✗，规则 44 重判 ✓）。
+#
+# ★ 单变量纪律：超参与 m4-capfix-probe.yaml **逐字相同** ✓（lr / β / cutoff 1024 /
+#   batch 16 / max_steps 300 / save_steps 50 / save_total_limit 8 ✓ 一律不动），
+#   **唯一科学变量 = 数据**（新增校准对 ✗ m5-plan §P2.9 单变量 ✓）。
+#
+# ★ A/B：本配置是 **M5 数据轴臂** ✓；对照臂 = `m4-capfix-probe.yaml`（第 23 轮已跑 ✓，
+#   同配方同起点、纯基座数据）—— 读数逐点可比 ✓。
+#
+# ★ 与 m4-capfix-probe.yaml 的全部差异（字段级 3 处，科学变量仅 1 处 = 数据 ✓）：
+#   1. dataset_dir / dataset → data\m5-run + sec_dpo_m5_calib   ← ★唯一科学变量 ✓
+#   2. output_dir → checkpoints\qwen3-06b-sec-m5-calib-probe   ← 必然不同 ✓
+#   （其余全部字段逐字相同 ✓；运行日志名随运行标识改为 m5-calib-probe ✓）
+#
+# 数据：data/m5-run/dpo_m5_calib.jsonl = 34,602 行（sha256 ee181598… ✓）
+#   = 基座 dpo_m4_capfix 28,842 行（**逐字节** ✓ sha256 d4061d47…）
+#     + p16 两 release 5,760 行（benign_release 2,880 + malicious_honest 2,880，
+#       极性 50:50 ✓ en:zh≈60:40 ✓）
+#   校准对占比 16.6%（p1.6 §5.2 ✓）；300 步 × batch 16 = 4,800 可见 ⇒ 期望 ≈799 行
+#   门禁：P16-GATE=PASS（G1–G12 全绿 ✓ reports/p1.6-gate-report.md）
+#   构建：scripts/build_m5_mix.py ⇒ BUILD-M5-MIX=OK（行数/极性/语言分布 fail-closed ✓；
+#         谱系链 data/m5-run/manifest.json ✓）
+#   预注册：reports/p1.6-calibration-design.md §7 **已钉死**（本配置零新增预测 ✗；
+#         五合取门是唯一裁决，训练曲线不作数 —— 规则 43.1 ✓）
+#
+# 可中断模式（项目纪律）：save_only_model=false ⇒ 全量 checkpoint（优化器/调度器/RNG ✓）
+#   中断 = 直接杀进程；恢复 = 同命令重启（LF parser auto-resume 从最新 checkpoint ✓）
+#
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m5-run
+dataset: sec_dpo_m5_calib
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+# ★ 探针：300 步 ≈ 1/7 epoch（M5 全量为 2,163 步 = 34,602/16 ✓；m4 基线口径 1,803 步）
+max_steps: 300
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 50
+save_total_limit: 8
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5-calib-probe

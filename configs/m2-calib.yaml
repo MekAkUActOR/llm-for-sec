@@ -1,0 +1,58 @@
+### M2 校准跑（SFT 首跑：政策条件化 + VERDICT 契约落地，docs/06 §9）
+### 语料：sec_sft_v0（scripts/gen_sft_v0.py 生成 2324 条 → scripts/convert_sft_v0.py
+###       转换注册；sharegpt+tags 格式，messages[0]=政策 system 区，assistant 末行 VERDICT）
+### 起点：M1.5 产物（C1-full + C2 知识针；root 目录，非 checkpoint-XXXX）
+### template：qwen3_nothink（LF template.py：chatml 槽位、无 ReasoningTemplate
+###           think 机制——base 起步 + VERDICT 目标不引入思考块）
+### lr 1e-5：比 M1.5 知识针（2e-5）再低一档——SFT 是行为层塑造，防灾难性
+###           覆盖预训练成果（docs/06 §9 校准跑定位）
+### 预计 ~290 步（2324 条 ×2 epoch ÷ eff-batch 16）
+### 运行：. .\scripts\env.ps1; llamafactory-cli train configs/m2-calib.yaml
+### 训后链：scripts/post_m2calib_eval.ps1（heldout v0.2 × 判分器 v2 + 通用探针回升检查）
+
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m15
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+### dataset
+dataset: sec_sft_v0
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: false          # 对话数据：逐样本序列（packing 会跨样本拼接破坏轮次边界）
+cutoff_len: 4096        # SFT 样本实测 ~0.5-2k tokens，4096 留足裕量
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2-calib
+logging_steps: 5
+save_steps: 50
+### 全量 checkpoint 模式（2026-09-26 用户指令）：存优化器/调度器/RNG 状态——
+### 中断=直接杀进程；恢复=同命令重启（LF auto-resume 无损续训）
+save_only_model: false
+save_total_limit: 2
+plot_loss: true
+report_to: none
+
+### train
+### bs2×8（eff 16）：WDDM 史故纪律是 bs1@32k PT（~20.5GB 峰值）。实测 token
+### 长度分布（LF qwen3_nothink 真编码，2324 条全量）：mean=318 / p95=461 /
+### max=559——bs2@实测长度 ≈ 1.1k 活跃 token，约为已验证 bs1@32k 包络的
+### 1/28；gradient_checkpointing 保留。仍不取 bs4——WDDM 显存超卖非线性
+### （碎片/驱动缓冲），校准跑以稳为先；eff 16 同时给出 ~290 步的 loss
+### 曲线分辨率（校准跑要观察的是曲线形态而非吞吐）。
+### cutoff_len 4096 虽为 max 的 ~7 倍，但为多轮扩展（T10）与防御性截断保留。
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+learning_rate: 1.0e-5
+num_train_epochs: 2.0
+lr_scheduler_type: cosine
+warmup_steps: 10
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true

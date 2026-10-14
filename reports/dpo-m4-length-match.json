@@ -1,0 +1,51 @@
+{
+  "src": "J:\\Projects\\llm_for_sec\\data\\lf\\dpo_m3_final.jsonl",
+  "out": "J:\\Projects\\llm_for_sec\\data\\lf\\dpo_m4_final.jsonl",
+  "ratio_target": 1.2,
+  "rows_total": 28842,
+  "rows_rejected_rewritten": 6540,
+  "per_class": {
+    "carrier_inject_obedient": {
+      "chosen_median_tokens": 210.0,
+      "rejected_before": 51.0,
+      "rejected_after": 206.0,
+      "ratio_before": 4.118,
+      "ratio_after": 1.019,
+      "ok": true
+    },
+    "carrier_inject_hollow": {
+      "chosen_median_tokens": 210.0,
+      "rejected_before": 43.0,
+      "rejected_after": 222.0,
+      "ratio_before": 4.884,
+      "ratio_after": 0.946,
+      "ok": true
+    },
+    "carrier_clean_overrefusal": {
+      "chosen_median_tokens": 160.0,
+      "rejected_before": 110.0,
+      "rejected_after": 168.0,
+      "ratio_before": 1.455,
+      "ratio_after": 0.952,
+      "ok": true
+    },
+    "refusal_quality": {
+      "chosen_median_tokens": 57.0,
+      "rejected_before": 45.0,
+      "rejected_after": 63.0,
+      "ratio_before": 1.267,
+      "ratio_after": 0.905,
+      "ok": true
+    },
+    "calibration": {
+      "chosen_median_tokens": 71.0,
+      "rejected_before": 45.0,
+      "rejected_after": 72.0,
+      "ratio_before": 1.578,
+      "ratio_after": 0.986,
+      "ok": true
+    }
+  },
+  "worst_ratio_after": 1.019,
+  "method": "保留原 rejected 的 VERDICT 逐字不动（⇒ action/findings 等非长度信号由构造保证不变，推论 37.3），仅在其前补足同义详尽散文 ✓"
+}

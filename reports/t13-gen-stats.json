@@ -1,0 +1,200 @@
+{
+  "seed": 20260930,
+  "files": {
+    "t13_retrieval": 1500,
+    "t13_retrieval_longctx": 200
+  },
+  "mix": {
+    "main": {
+      "lang": {
+        "en": 900,
+        "zh": 600
+      },
+      "pack": {
+        "conservative": 366,
+        "default": 757,
+        "professional": 377
+      },
+      "kind": {
+        "hardneg": 225,
+        "hit": 1275
+      },
+      "sec_gen": {
+        "sec": 900,
+        "gen": 600
+      },
+      "family": {
+        "clause-lookup": 90,
+        "code-needle": 90,
+        "credential": 180,
+        "cve-digest": 240,
+        "cwe-lookup": 60,
+        "log-ip": 240,
+        "spec-block": 210,
+        "wiki-fact": 390
+      }
+    },
+    "longctx": {
+      "lang": {
+        "en": 120,
+        "zh": 80
+      },
+      "pack": {
+        "conservative": 39,
+        "default": 105,
+        "professional": 56
+      },
+      "kind": {
+        "hardneg": 29,
+        "hit": 171
+      },
+      "family": {
+        "clause-lookup": 12,
+        "code-needle": 16,
+        "credential": 24,
+        "cve-digest": 27,
+        "cwe-lookup": 8,
+        "log-ip": 33,
+        "spec-block": 28,
+        "wiki-fact": 52
+      }
+    }
+  },
+  "depth_histogram_hit_rows": {
+    "edges": [
+      0.35,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.91
+    ],
+    "counts": [
+      234,
+      154,
+      232,
+      246,
+      221,
+      218,
+      141
+    ]
+  },
+  "depth_min_max": [
+    0.3013,
+    0.8949
+  ],
+  "doc_tokens_main": {
+    "edges": [
+      1500,
+      2000,
+      2500,
+      3000,
+      3501
+    ],
+    "counts": [
+      316,
+      297,
+      261,
+      368,
+      258
+    ]
+  },
+  "doc_tokens_longctx": {
+    "edges": [
+      10000,
+      14000,
+      18000,
+      22000,
+      26000,
+      30000,
+      33000
+    ],
+    "counts": [
+      20,
+      24,
+      37,
+      30,
+      30,
+      24,
+      35
+    ]
+  },
+  "pools": {
+    "enwiki": {
+      "sampled": 1400,
+      "flagged": 369,
+      "cjk_dropped": 38,
+      "clean": 993
+    },
+    "zhwiki": {
+      "sampled": 1700,
+      "flagged": 15,
+      "cjk_dropped": 0,
+      "clean": 1685
+    },
+    "zhsec": {
+      "sampled": 900,
+      "flagged": 8,
+      "cjk_dropped": 0,
+      "clean": 892
+    },
+    "sans": {
+      "sampled": 1500,
+      "flagged": 6,
+      "cjk_dropped": 1,
+      "clean": 1493
+    },
+    "dsa": {
+      "sampled": 1000,
+      "flagged": 0,
+      "cjk_dropped": 0,
+      "clean": 1000
+    },
+    "devign": {
+      "sampled": 1500,
+      "flagged": 0,
+      "cjk_dropped": 0,
+      "clean": 1500
+    },
+    "cve": {
+      "sampled": 18000,
+      "flagged": 415,
+      "cjk_dropped": 10,
+      "clean": 17575
+    },
+    "cwe": {
+      "sampled": 969,
+      "flagged": 8,
+      "cjk_dropped": 0,
+      "clean": 961
+    },
+    "cn_laws": {
+      "sampled": 340,
+      "flagged": 0,
+      "cjk_dropped": 0,
+      "clean": 276
+    }
+  },
+  "row_retries": {
+    "log-ip:zh:hit": 2,
+    "log-ip:zh:hardneg": 2,
+    "log-ip:en:hit": 4,
+    "log-ip:en:hardneg": 1,
+    "credential:zh:hit": 1,
+    "credential:zh:hardneg": 1,
+    "cve-digest:en:hit": 29,
+    "cwe-lookup:en:hit": 20,
+    "clause-lookup:zh:hit": 47,
+    "code-needle:en:hit": 5,
+    "wiki-fact:zh:hit": 90,
+    "wiki-fact:zh:hardneg": 14,
+    "wiki-fact:en:hit": 30,
+    "wiki-fact:en:hardneg": 9,
+    "spec-block:zh:hit": 17,
+    "spec-block:zh:hardneg": 3,
+    "spec-block:en:hit": 3
+  },
+  "dedup_baseline_rows": 98308,
+  "contamination_flagged": 0
+}

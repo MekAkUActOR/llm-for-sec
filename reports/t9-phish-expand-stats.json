@@ -1,0 +1,146 @@
+{
+  "generator": "scripts/gen_t9_phish_expand.py",
+  "family": "T9-phish",
+  "seed": 20261006,
+  "n_requested": 1500,
+  "out": "data\\sft\\m2.5-staging\\t9_phish_expand.jsonl",
+  "n_partial_triple": false,
+  "coverage_dimensions": {
+    "structural": [
+      "hidden-field",
+      "display-none",
+      "zero-width",
+      "homograph",
+      "form-action-external",
+      "mixed-content"
+    ],
+    "pragmatic": [
+      "urgency",
+      "authority",
+      "cred-solicit",
+      "redirect-chain"
+    ],
+    "carriers": [
+      "login",
+      "invoice",
+      "oauth",
+      "ticket",
+      "qr",
+      "internal"
+    ],
+    "negatives": [
+      "clean-login",
+      "clean-marketing"
+    ]
+  },
+  "pack_gradient": {
+    "hard": {
+      "conservative": "refuse",
+      "default": "report",
+      "professional": "report"
+    },
+    "soft": {
+      "conservative": "refuse",
+      "default": "report",
+      "professional": "answer"
+    },
+    "clean-login": {
+      "conservative": "answer",
+      "default": "answer",
+      "professional": "answer"
+    },
+    "clean-marketing": {
+      "conservative": "answer",
+      "default": "answer",
+      "professional": "answer"
+    }
+  },
+  "rows": 1500,
+  "instances": 500,
+  "assertions": {
+    "schema_ok": true,
+    "system_policy_exact": "1500/1500",
+    "verdict_coverage": 1.0,
+    "triples_total": 500,
+    "triples_complete": 500,
+    "pack_action_diff_rate_all": 0.65,
+    "pack_action_diff_rate_attack": 1.0,
+    "negative_rows": 525,
+    "negative_ratio": 0.35,
+    "lang_gap": 0,
+    "hosts_seen": 420,
+    "non_fictional_hosts": [],
+    "dups_vs_baseline": 0,
+    "dedup": {
+      "source_rows": {
+        "t9_phish.jsonl": 50,
+        "t9_phishing.jsonl": 50
+      },
+      "mix": {
+        "mix_t9_rows": 96,
+        "mix_unique_keys": 96,
+        "mix_keys_in_sources": 96,
+        "mix_file": "sft_m25.jsonl",
+        "scanned": true
+      },
+      "baseline_keys": 96,
+      "dups": 0,
+      "baseline_rows_total": 96
+    },
+    "by_pack": {
+      "conservative": 500,
+      "default": 500,
+      "professional": 500
+    },
+    "by_lang": {
+      "zh": 750,
+      "en": 750
+    },
+    "by_action": {
+      "answer": 700,
+      "report": 475,
+      "refuse": 325
+    },
+    "by_verdict": {
+      "benign": 525,
+      "suspicious": 525,
+      "phishing": 450
+    },
+    "carrier_types": {
+      "internal": 82,
+      "invoice": 84,
+      "login": 84,
+      "oauth": 84,
+      "qr": 82,
+      "ticket": 84
+    },
+    "categories": {
+      "clean-login": 100,
+      "clean-marketing": 75,
+      "hard": 150,
+      "soft": 175
+    },
+    "structural_cues": {
+      "display-none": 98,
+      "form-action-external": 119,
+      "hidden-field": 74,
+      "homograph": 70,
+      "mixed-content": 82,
+      "zero-width": 99
+    },
+    "pragmatic_cues": {
+      "authority": 161,
+      "cred-solicit": 250,
+      "redirect-chain": 69,
+      "urgency": 152
+    },
+    "hardneg_features": {
+      "benign-csrf-hidden-field": 175,
+      "promo-countdown": 75,
+      "same-domain-https-action": 175
+    },
+    "rows": 1500,
+    "instances": 500,
+    "sha256": "0a5627ea26fd29a8b076e0641cf21a626e254cdc8c991d25bf52977528501ef6"
+  }
+}

@@ -1,0 +1,226 @@
+﻿python.exe : ...................................................................J:\Projects\llm_for_sec\scripts\build_d
+po_m3.py:258: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\\howwh\\AppData\\Local\\Temp\\tmp6kqk38
+ar\\v0\\calibration.jsonl' mode='r' encoding='utf-8'>
+At line:2 char:1
++ & '.venv\Scripts\python.exe' -m unittest discover -s tests -t . 2>&1  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (..................coding='utf-8'>:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  for line in open(v0_dir / "calibration.jsonl", encoding="utf-8"):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+J:\Projects\llm_for_sec\scripts\build_dpo_m3.py:463: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\
+\howwh\\AppData\\Local\\Temp\\tmp6kqk38ar\\reserve\\beavertails.jsonl' mode='r' encoding='utf-8'>
+  for line in open(p, encoding="utf-8"):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+J:\Projects\llm_for_sec\scripts\build_dpo_m3.py:463: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users\
+\howwh\\AppData\\Local\\Temp\\tmp6kqk38ar\\reserve\\hh.jsonl' mode='r' encoding='utf-8'>
+  for line in open(p, encoding="utf-8"):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.................J:\Projects\llm_for_sec\scripts\build_dpo_m3.py:463: ResourceWarning: unclosed file <_io.TextIOWrapper
+ name='C:\\Users\\howwh\\AppData\\Local\\Temp\\tmp0_zznjly\\beavertails.jsonl' mode='r' encoding='utf-8'>
+  for line in open(p, encoding="utf-8"):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.J:\Projects\llm_for_sec\scripts\build_dpo_m3.py:463: ResourceWarning: unclosed file <_io.TextIOWrapper name='C:\\Users
+\\howwh\\AppData\\Local\\Temp\\tmp8_llp00l\\cvalues.jsonl' mode='r' encoding='utf-8'>
+  for line in open(p, encoding="utf-8"):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.......................................................................................................................
+............E..........................................................................................................
+.......................................................................................................................
+........................................................................................J:\Projects\llm_for_sec\scripts
+\gen_sft_v0x.py:1649: ResourceWarning: unclosed file <_io.TextIOWrapper name='J:\\Projects\\llm_for_sec\\data\\corpora\
+\raw\\kev\\known_exploited_vulnerabilities.json' mode='r' encoding='utf-8'>
+  kev = json.load(open(RAW / "kev" / "known_exploited_vulnerabilities.json",
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+responses dumped -> C:\Users\howwh\AppData\Local\Temp\tmpjt6kq1m5\resp.jsonl（2 条，含 finish_reason/new_token_ids）
+responses dumped -> C:\Users\howwh\AppData\Local\Temp\tmprcsn3u48\resp.jsonl（2 条，含 finish_reason/new_token_ids）
+C2 sources (manifest 枚举): 2 个文件
+  c2_alpha.jsonl                           est=     1,000
+  c2_beta.jsonl                            est=       500
+C2 docs (x3): 9
+replay docs: 108/200 zhwiki 长文(>= 3000 字符) (54.00%)
+total lines: 117
+file size: 1 MB
+pyarrow rows: 117
+C2 est_tokens (unique): 1,500  x3 = 4,500
+replay est: 304,225 (zhwiki 长文 432,000 chars / 1.42)
+TOTAL est_tokens: 308,725  (~0M)  ≈ 0 步 @bs1×32×16384
+WARN: manifest 列出但文件不存在，跳过：c2_future_source.jsonl
+{
+  "files": {
+    "policy_pairs.jsonl": 1644,
+    "injection_pairs.jsonl": 500,
+    "pii_synthetic.jsonl": 108,
+    "calibration.jsonl": 72
+  },
+  "total": 2324,
+  "by_pack": {
+    "conservative": 548,
+    "default": 1228,
+    "professional": 548
+  },
+  "by_lang": {
+    "zh": 1516,
+    "en": 808
+  },
+  "by_action": {
+    "refuse": 1216,
+    "answer": 628,
+    "report": 480
+  }
+}
+base: base (n_spans=200)
+model       lcp_mean   d_lcp  full_repro  d_repro  d_ngram10
+m15              5.5     2.5         0.3      0.2       0.07
+delta -> C:\Users\howwh\AppData\Local\Temp\tmp0by1pzeu\delta.json
+ais-500 晋升：2 条零污染 → C:\Users\howwh\AppData\Local\Temp\tmp3_j_gqy3\v0.3\ais.jsonl
+ASSEMBLE BLOCKED: 缺新域 aisafety.jsonl（先 fetch）
+ASSEMBLE BLOCKED: 缺新域 malware.jsonl（先 fetch）
+ASSEMBLE BLOCKED: 缺新域 content.jsonl（先 fetch）
+v0.3 组装完成：{"ais": 2, "aisafety": 1, "content": 1, "general_en": 1, "general_zh": 1, "malware": 1, "privacy": 1, "sec": 1}
+README -> C:\Users\howwh\AppData\Local\Temp\tmp3_j_gqy3\v0.3\README.md
+ASSEMBLE BLOCKED: 语料态在 ais-500 验证后漂移（['c1_arxiv_full.jsonl']）——重验后再组装
+ais-500 验证失败：1 条污染，不可晋升（--prune 可剪除污染条目出净版，或 b 变体终态后重抓）
+  - title-in-train: Prompt Injection Defenses
+ais-500 剪除晋升：1 条污染剪除，净版 2 条 → C:\Users\howwh\AppData\Local\Temp\tmpeoonmanw\v0.3\ais.jsonl
+{
+  "n": 153,
+  "n_responded": 6,
+  "n_missing": 147,
+  "label_distribution": {
+    "report_finding": 2,
+    "refuse": 2,
+    "deflect": 0,
+    "format_error": 1,
+    "comply": 1
+  },
+  "metrics": {
+    "asr": 0.2,
+    "asr_forward": 0.0,
+    "asr_nonforward": 0.3333,
+    "over_refusal_rate": 0.0,
+    "deflect_rate": 0.0,
+    "format_error_rate": 0.1667
+  },
+  "notes": [
+    "指标仅覆盖已响应条目（n_responded）；缺失项独立统计，不稀释读数",
+    "asr_forward 覆盖间接注入/多轮前瞻条目（report_finding 计为防御成功）",
+    "deflect/format_error 保守计入 asr（与 legacy 数值口径一致），另作独立率观察",
+    "base 模型预期：asr≈1.0 且 label 以 comply/format_error 为主，属登记起点"
+  ]
+}
+report -> C:\Users\howwh\AppData\Local\Temp\tmprh4inows\scored.json
+.......................................................................................................................
+.......................................................................................................J:\Projects\llm_
+for_sec\scripts\gen_t9_phish_expand.py:861: ResourceWarning: unclosed file <_io.TextIOWrapper name='J:\\Projects\\llm_f
+or_sec\\data\\lf\\sft_m25.jsonl' mode='r' encoding='utf-8'>
+  for line in open(MIX_FILE, encoding="utf-8"):
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.................................................................................E............................
+======================================================================
+ERROR: tests.test_dpo_carriers (unittest.loader._FailedTest.tests.test_dpo_carriers)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_dpo_carriers
+Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Python314\Lib\unittest\loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "J:\Projects\llm_for_sec\tests\test_dpo_carriers.py", line 15, in <module>
+    import pytest
+ModuleNotFoundError: No module named 'pytest'
+
+
+======================================================================
+ERROR: tests.test_topup_family_probe (unittest.loader._FailedTest.tests.test_topup_family_probe)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: tests.test_topup_family_probe
+Traceback (most recent call last):
+  File "C:\Python314\Lib\unittest\loader.py", line 426, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Python314\Lib\unittest\loader.py", line 367, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "J:\Projects\llm_for_sec\tests\test_topup_family_probe.py", line 26, in <module>
+    import pytest
+ModuleNotFoundError: No module named 'pytest'
+
+
+----------------------------------------------------------------------
+Ran 862 tests in 104.531s
+
+FAILED (errors=2)
+==============================================================================
+T9-phish 扩容生成器 —— 分布与自检
+==============================================================================
+行数 60（页面实例 20，每页 3 包；seed=7）
+by_lang   : en=30, zh=30  (合计 60)
+by_pack   : conservative=20, default=20, professional=20  (合计 60)
+by_action : answer=28, refuse=13, report=19  (合计 60)
+by_verdict: benign=21, phishing=18, suspicious=21  (合计 60)
+[④负例]   占比 35.00%（阈值 ≥30%）  分档 clean-login=4, clean-marketing=3, hard=6, soft=7
+[③载体类型] internal=2, invoice=4, login=4, oauth=4, qr=2, ticket=4
+[①结构层线索] display-none=7, form-action-external=3, hidden-field=3, homograph=5, mixed-content=2, zero-width=3
+[②语用层线索] authority=5, cred-solicit=11, redirect-chain=3, urgency=5
+[硬负例特征]  benign-csrf-hidden-field=7, promo-countdown=3, same-domain-https-action=7
+三档动作差异率：整体 65.00%（阈值 ≥55%） | 攻击页 100.00%（阈值 ≥95%）
+VERDICT 覆盖 100%；system==POLICY_SYSTEM 60/60；虚构域名 21 个，越界 0
+去重基线：源文件行数 {'t9_phish.jsonl': 50, 't9_phishing.jsonl': 50}，基线键 96，混料 T9-phish 行 0（唯一键 0，落在源文件内的 0）→ 本批重复 0
+payload sha256: d24a6036d5576715a11d9c9e84c41890…
+-> C:\Users\howwh\AppData\Local\Temp\tmpve28bria\o\t9_phish_expand.jsonl
+-> C:\Users\howwh\AppData\Local\Temp\tmpve28bria\s.json
+==============================================================================
+T9-phish 扩容生成器 —— 分布与自检
+==============================================================================
+行数 60（页面实例 20，每页 3 包；seed=7）
+by_lang   : en=30, zh=30  (合计 60)
+by_pack   : conservative=20, default=20, professional=20  (合计 60)
+by_action : answer=28, refuse=13, report=19  (合计 60)
+by_verdict: benign=21, phishing=18, suspicious=21  (合计 60)
+[④负例]   占比 35.00%（阈值 ≥30%）  分档 clean-login=4, clean-marketing=3, hard=6, soft=7
+[③载体类型] internal=2, invoice=4, login=4, oauth=4, qr=2, ticket=4
+[①结构层线索] display-none=7, form-action-external=3, hidden-field=3, homograph=5, mixed-content=2, zero-width=3
+[②语用层线索] authority=5, cred-solicit=11, redirect-chain=3, urgency=5
+[硬负例特征]  benign-csrf-hidden-field=7, promo-countdown=3, same-domain-https-action=7
+三档动作差异率：整体 65.00%（阈值 ≥55%） | 攻击页 100.00%（阈值 ≥95%）
+VERDICT 覆盖 100%；system==POLICY_SYSTEM 60/60；虚构域名 21 个，越界 0
+去重基线：源文件行数 {'t9_phish.jsonl': 50, 't9_phishing.jsonl': 50}，基线键 96，混料 T9-phish 行 0（唯一键 0，落在源文件内的 0）→ 本批重复 0
+payload sha256: d24a6036d5576715a11d9c9e84c41890…
+-> C:\Users\howwh\AppData\Local\Temp\tmpve28bria\o\t9_phish_expand.jsonl
+-> C:\Users\howwh\AppData\Local\Temp\tmpve28bria\s.json
+dir            : C:/Users/howwh/AppData/Local/Temp/v04toolout-bad-7mjzmm3y/tool_output.jsonl
+items          : 70 (adv=46 / clean=12 / policy=12)
+adv            : mech=15 zh=23 en=23 axis={'nonforward': 32, 'forward': 14}
+clean          : 12 (min 10)
+policy groups  : 4 × 3 = 12
+fiction        : hosts=17 ips=14 (RFC2606 hostnames / RFC5737 addresses only)
+carrier audit  : ★regression-only（载体已在训练中出现 → 不得宣称未见载体泛化；--require-unseen-carrier 会 fail-closed）
+v0.2.1 8 条     : id 交集=1 query 交集=0 旧⊆新=False
+
+PROBLEM: 与 v0.2.1 的 8 条 id 重复: ['sec-t2']
+
+FAIL: 1 项问题
+dir            : data/heldout/v0.4-toolout/tool_output.jsonl
+items          : 70 (adv=46 / clean=12 / policy=12)
+adv            : mech=15 zh=23 en=23 axis={'nonforward': 32, 'forward': 14}
+clean          : 12 (min 10)
+policy groups  : 4 × 3 = 12
+fiction        : hosts=17 ips=14 (RFC2606 hostnames / RFC5737 addresses only)
+carrier audit  : ★regression-only（载体已在训练中出现 → 不得宣称未见载体泛化；--require-unseen-carrier 会 fail-closed）
+v0.2.1 8 条     : id 交集=0 query 交集=0 旧⊆新=False
+
+PROBLEM: fail-closed：--require-unseen-carrier 但 'tool_output' 在训练混料中出现 1224 次（含暂存共 2448 次）→ 本集只能用于回归
+
+FAIL: 1 项问题
+dir            : data/heldout/v0.4-toolout/tool_output.jsonl
+items          : 70 (adv=46 / clean=12 / policy=12)
+adv            : mech=15 zh=23 en=23 axis={'nonforward': 32, 'forward': 14}
+clean          : 12 (min 10)
+policy groups  : 4 × 3 = 12
+fiction        : hosts=17 ips=14 (RFC2606 hostnames / RFC5737 addresses only)
+carrier audit  : ★regression-only（载体已在训练中出现 → 不得宣称未见载体泛化；--require-unseen-carrier 会 fail-closed）
+v0.2.1 8 条     : id 交集=0 query 交集=0 旧⊆新=False
+
+OK: 全部硬断言通过（★regression-only：本集只能用于回归）

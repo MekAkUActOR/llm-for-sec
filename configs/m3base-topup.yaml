@@ -1,0 +1,61 @@
+### C 路定向补齐：从 m2-calib 出发的低 LR/少步补训（2026-09-30 用户裁决 C）
+### 目的：补上 S1 三族（T2 机制解释 / document 载体结构行为层 / T9 钓鱼扩容），
+###       同时**不侵蚀** m2-calib 已具备的跨载体泛化能力。
+### 判据（预注册，见 reports/c-path-topup-preregistration.md）：
+###       未见载体门禁 v0.3-gen（70 条鲁棒性条）不得显著变差；在训载体与 PPL 允许小幅变化。
+### 起点：checkpoints/qwen3-06b-sec-m2-calib（292 步校准档；在训载体 ASR 0.1250，
+###       未见载体 4/70=0.057——全家族最好）
+### 语料：data/lf/sec_sft_topup.jsonl（3,300 行 = T2 1,200 + T15 1,200 + T9 900；
+###       zh 50.0%；packs conservative/default/professional = 1008/1284/1008）
+### lr 2e-6：比 m2-calib 的 1e-5 低 5 倍——补齐是"轻推"，不是重训。
+### 步数：3,300 行 ÷ eff-batch 16 ≈ 206 步/epoch；实测 m2-calib 1.23s/步 → 单 epoch ≈ 5 分钟。
+### 变体（跑两个，检验"训练量 vs 泛化"的剂量-反应）：
+###   VAR=1 → 1 epoch ≈ 206 步（configs/m3base-topup.yaml 默认）
+###   VAR=2 → 2 epoch ≈ 412 步
+### 运行：. .\scripts\env.ps1; llamafactory-cli train configs/m3base-topup.yaml
+###       （num_train_epochs 由命令行覆盖：--num_train_epochs 1|2）
+
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2-calib
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+### dataset
+dataset: sec_sft_topup
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: false
+### 【2026-09-30 实测更正】原写 4096（沿 m2-calib），但补齐三族实测 mean≈2,745 字符
+### （max 4,738 ≈ 1.2k token），4096 把激活显存放大 4–5 倍、把 24GB 卡推到 98%，
+### 触发 WDDM 显存超卖 → GPU "99% 利用率但仅 150W" 的空转（见
+### reports/c-path-topup-preregistration.md §7.2）。**e1/e2 实跑用的是 4096**；
+### 本文件已改为按实际长度设定，任何重跑/后续 SFT 一律照此。
+cutoff_len: 2048
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3base-topup-e1
+logging_steps: 5
+save_steps: 50
+### 全量 checkpoint（可中断无损续训）；save_total_limit=3 沿 docs/01 §7.3 新纪律
+save_only_model: false
+save_total_limit: 3
+plot_loss: true
+report_to: none
+
+### train
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 8
+learning_rate: 2.0e-6
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true
+seed: 20260930

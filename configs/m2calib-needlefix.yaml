@@ -1,0 +1,96 @@
+### needle 修复：从 m2-calib 出发补长上下文族，**同时强制回放契约数据**（2026-09-30 用户裁决）
+###
+### 依据（实测因果链）：
+###   m2-calib needle 39/64 = 0.609（G3 硬底 0.75 → FAIL）；m25-full 56/64 = 0.875（PASS）。
+###   族普查显示 M2.5 混料里的长上下文族只有两个，且 m2-calib 从未训练过：
+###     T13-retrieval  1,500 行（字符 p50 6,343 / p90 12,659）
+###     T10-multiturn  2,224 行（字符 p50 10,937 / p90 23,508）
+###   ⇒ needle 缺口 = 未训这两个族。
+###
+### 语料：data/lf/sec_sft_needlefix.jsonl（6,048 行）
+###   长上下文切片 3,724（T13 1,500 + T10 2,224）
+###   **契约回放 2,324（data/lf/sft_v0.jsonl，即 m2-calib 契约的来源）占 38.4%**
+###   契约回放是硬要求：C 路已实测"不含契约回放的补训 207 步就打掉 VERDICT 契约"
+###   （reports/c-path-topup-verdict.md；docs/01 §11.10 规则 11）。
+###   混料 6 项硬断言见 scripts/build_needlefix_mix.py，报告 reports/needlefix-mix-build.json。
+###
+### 剂量：6,048 行 ÷ eff-batch 16 ≈ 378 步/epoch。lr 3e-6（高于 C 路的 2e-6、低于参照的 1e-5），
+###   1 epoch 起跑；**按检查点做剂量搜索**——若 epoch1 后 needle 仍 <0.75 而契约/泛化完好，
+###   再续 1 epoch，而不是盲跑。
+###
+### cutoff_len 4096：与参照实现 configs/m25-full.yaml 一致（它产出 needle 0.875）；
+###   T13 字符 p90 ≈ 12.7k（≈4k token），4096 覆盖绝大多数行。
+###
+### ★契约门禁（规则 11 的前置验收项，2026-09-30 二次修正）：
+###   原方案用**整个** sft_v0 作 eval_dataset，但 sft_v0 同时在训练混料里
+###   ⇒ eval_loss 被污染，不能当契约退化判据。现改为分层切分后的
+###   **不与训练重叠的 300 行**（data/lf/sft_v0_eval300.jsonl，pack×lang 分层，
+###   固定 seed 20260930，见 reports/needlefix-mix-build.json）。
+###   每 25 步报一次契约 eval_loss → 看门狗据此早停。
+###   实时通道：checkpoints\<out>\trainer_log.jsonl（stdout 块缓冲，日志文件会滞后）。
+
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2-calib
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+### dataset
+dataset: sec_sft_needlefix
+eval_dataset: sec_sft_v0_eval300
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: false
+cutoff_len: 4096
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2calib-needlefix-e1
+logging_steps: 5
+### ★checkpoint 密度（2026-09-30 采纳看门狗 #2 建议）：原 save_steps 50 意味着
+###   前 50 步全部投资在**零可恢复资产**上——实测一次为腾卡终止就丢掉了 11 步且无档。
+###   现改为 20 步一档、保留 5 档（末尾保留 300~359 步区间，含 epoch 终档）。
+save_steps: 20
+### 全量 checkpoint（可中断无损续训）；save_total_limit ≥3 沿 docs/01 §7.3
+save_only_model: false
+save_total_limit: 5
+plot_loss: true
+report_to: none
+eval_strategy: steps
+eval_steps: 25
+per_device_eval_batch_size: 1
+
+### train
+### ★batch 修正（2026-09-30 实测 OOM）：原写 per_device_train_batch_size: 2 + accum 8
+###   （从 cutoff_len=2048 的 topup 配置抄来）→ 与 cutoff_len=4096 相乘后
+###   首次前向的 fp32 logits 申请 4.0 GB 时 free=0，**step 0 即 OOM**。
+###   fp32 logits 峰值 ≈ bs × seq × vocab(151,936) × 4 B：bs2×4096 ≈ 5.0 GB/次，bs1×4096 ≈ 2.5 GB。
+###   现改为 **bs1 × accum16**，与产出 needle 0.875 的参照实现 configs/m25-full.yaml 完全一致。
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 3.0e-6
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true
+### ★优化器（2026-09-30 实测三选一，10 倍步时差）：
+###   step 1–11 实测步时 13→51 s 单调劣化，显存 23,983/24,455 MiB = 98.1%、
+###   功率仅 137–163 W（限 600 W）、宿主 FreeCommit 仅 0.89–1.02 GB / 59.22 GB、
+###   训练进程 PrivateMemory 38.34 GB ⇒ WDDM 把显存超卖到宿主内存后**双向耗尽**的分页螺旋
+###   （docs/01 §11.7 停滞包络，比记录值更紧）。
+###   三次 5–6 步对照探针（同数据同 cutoff 4096）：
+###     AdamW（默认）       25–51 s/步（越跑越慢）
+###     Adafactor           45.9 s/步  ← 反直觉：省了动量也不快
+###     adamw_bnb_8bit + PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+###                         **4.88 s/步**，显存峰值大幅回落 ← 采用
+###   约 10 倍加速；378→359 步，ETA 从 4–6 小时降到 ~30 分钟。
+###   选 bnb_8bit 而非 Adafactor：保留 AdamW 语义，最贴近产出 needle 0.875 的参照配方
+###   （参照 configs/m25-full.yaml 用默认 AdamW；此项为**硬件包络驱动的偏离**，已登记）。
+optim: adamw_bnb_8bit
+seed: 20260930

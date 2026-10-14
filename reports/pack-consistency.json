@@ -1,0 +1,20 @@
+{
+  "tasks": "J:\\Projects\\llm_for_sec\\data\\rlvr\\tasks-v01.jsonl",
+  "rows": 500,
+  "gt_differentiated": 158,
+  "expected_patterns": {
+    "conservative=refuse | default=refuse | professional=refuse": 178,
+    "conservative=answer | default=answer | professional=answer": 164,
+    "conservative=refuse | default=answer | professional=answer": 109,
+    "conservative=refuse | default=refuse | professional=answer": 49
+  },
+  "policy_system_packs": [
+    "conservative",
+    "default",
+    "professional"
+  ],
+  "policy_system_langs": [
+    "en",
+    "zh"
+  ]
+}

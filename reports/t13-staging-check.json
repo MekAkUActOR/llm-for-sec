@@ -1,0 +1,81 @@
+{
+  "targets": {
+    "t13_retrieval": {
+      "rows": 1500,
+      "by_family": {
+        "log-ip": 240,
+        "credential": 180,
+        "cve-digest": 240,
+        "cwe-lookup": 60,
+        "clause-lookup": 90,
+        "code-needle": 90,
+        "wiki-fact": 390,
+        "spec-block": 210
+      },
+      "by_lang": {
+        "zh": 600,
+        "en": 900
+      },
+      "by_pack": {
+        "default": 757,
+        "professional": 377,
+        "conservative": 366
+      },
+      "by_kind": {
+        "hit": 1275,
+        "hardneg": 225
+      },
+      "depth_min_max": [
+        0.3013,
+        0.8949
+      ],
+      "doc_tokens_min_max": [
+        1002,
+        3416
+      ]
+    },
+    "t13_retrieval_longctx": {
+      "rows": 200,
+      "by_family": {
+        "log-ip": 33,
+        "credential": 24,
+        "cve-digest": 27,
+        "cwe-lookup": 8,
+        "clause-lookup": 12,
+        "code-needle": 16,
+        "wiki-fact": 52,
+        "spec-block": 28
+      },
+      "by_lang": {
+        "zh": 80,
+        "en": 120
+      },
+      "by_pack": {
+        "default": 105,
+        "professional": 56,
+        "conservative": 39
+      },
+      "by_kind": {
+        "hit": 171,
+        "hardneg": 29
+      },
+      "depth_min_max": [
+        0.3238,
+        0.8295
+      ],
+      "doc_tokens_min_max": [
+        8018,
+        32523
+      ]
+    }
+  },
+  "baseline": {
+    "probes_unique": 2655,
+    "ais_titles": 700,
+    "queries": 149
+  },
+  "contamination_flagged": [],
+  "errors": [],
+  "n_errors": 0,
+  "verdict": "PASS"
+}

@@ -1,0 +1,477 @@
+{
+ "model_numels_distinct": 6,
+ "model_numels_total": 596049920,
+ "checkpoints": {
+  "checkpoint-1500": {
+   "optimizer_pt_bytes": 2140289842,
+   "n_zip_entries": 1410,
+   "metadata_bytes_le512": 57395,
+   "n_entries_gt512": 1293,
+   "width_hit_counts": {
+    "1": 280,
+    "2": 112,
+    "4": 116,
+    "8": 392
+   },
+   "width_bytes": {
+    "1": 645922816,
+    "2": 234881024,
+    "4": 1245126656,
+    "8": 401408
+   },
+   "bytes_per_param": 3.590789580174761,
+   "unmatched_entries": [
+    [
+     "optimizer/data.pkl",
+     137983
+    ],
+    [
+     "optimizer/data/6",
+     32768
+    ],
+    [
+     "optimizer/data/7",
+     32768
+    ],
+    [
+     "optimizer/data/12",
+     16384
+    ],
+    [
+     "optimizer/data/13",
+     16384
+    ],
+    [
+     "optimizer/data/18",
+     16384
+    ],
+    [
+     "optimizer/data/19",
+     16384
+    ],
+    [
+     "optimizer/data/24",
+     32768
+    ],
+    [
+     "optimizer/data/25",
+     32768
+    ],
+    [
+     "optimizer/data/30",
+     49152
+    ]
+   ],
+   "n_unmatched": 393,
+   "unmatched_bytes": 13900543,
+   "top_10_entry_sizes": [
+    622329856,
+    622329856,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728
+   ],
+   "entries_of_size_4x_embedding": 2,
+   "entries_of_size_1x_embedding": 0,
+   "n_distinct_entry_sizes": 15,
+   "pickle_storage_classes": {
+    "FloatStorage": 1,
+    "HalfStorage": 0,
+    "BFloat16Storage": 0,
+    "ByteStorage": 1,
+    "CharStorage": 0,
+    "IntStorage": 0,
+    "LongStorage": 0,
+    "DoubleStorage": 0,
+    "UntypedStorage": 0,
+    "_n_unique_strings": 1429,
+    "_dtype_strings": []
+   }
+  },
+  "checkpoint-1600": {
+   "optimizer_pt_bytes": 2140289842,
+   "n_zip_entries": 1410,
+   "metadata_bytes_le512": 57395,
+   "n_entries_gt512": 1293,
+   "width_hit_counts": {
+    "1": 280,
+    "2": 112,
+    "4": 116,
+    "8": 392
+   },
+   "width_bytes": {
+    "1": 645922816,
+    "2": 234881024,
+    "4": 1245126656,
+    "8": 401408
+   },
+   "bytes_per_param": 3.590789580174761,
+   "unmatched_entries": [
+    [
+     "optimizer/data.pkl",
+     137983
+    ],
+    [
+     "optimizer/data/6",
+     32768
+    ],
+    [
+     "optimizer/data/7",
+     32768
+    ],
+    [
+     "optimizer/data/12",
+     16384
+    ],
+    [
+     "optimizer/data/13",
+     16384
+    ],
+    [
+     "optimizer/data/18",
+     16384
+    ],
+    [
+     "optimizer/data/19",
+     16384
+    ],
+    [
+     "optimizer/data/24",
+     32768
+    ],
+    [
+     "optimizer/data/25",
+     32768
+    ],
+    [
+     "optimizer/data/30",
+     49152
+    ]
+   ],
+   "n_unmatched": 393,
+   "unmatched_bytes": 13900543,
+   "top_10_entry_sizes": [
+    622329856,
+    622329856,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728
+   ],
+   "entries_of_size_4x_embedding": 2,
+   "entries_of_size_1x_embedding": 0,
+   "n_distinct_entry_sizes": 15,
+   "pickle_storage_classes": {
+    "FloatStorage": 1,
+    "HalfStorage": 0,
+    "BFloat16Storage": 0,
+    "ByteStorage": 1,
+    "CharStorage": 0,
+    "IntStorage": 0,
+    "LongStorage": 0,
+    "DoubleStorage": 0,
+    "UntypedStorage": 0,
+    "_n_unique_strings": 1429,
+    "_dtype_strings": []
+   }
+  },
+  "checkpoint-1700": {
+   "optimizer_pt_bytes": 2140289842,
+   "n_zip_entries": 1410,
+   "metadata_bytes_le512": 57395,
+   "n_entries_gt512": 1293,
+   "width_hit_counts": {
+    "1": 280,
+    "2": 112,
+    "4": 116,
+    "8": 392
+   },
+   "width_bytes": {
+    "1": 645922816,
+    "2": 234881024,
+    "4": 1245126656,
+    "8": 401408
+   },
+   "bytes_per_param": 3.590789580174761,
+   "unmatched_entries": [
+    [
+     "optimizer/data.pkl",
+     137983
+    ],
+    [
+     "optimizer/data/6",
+     32768
+    ],
+    [
+     "optimizer/data/7",
+     32768
+    ],
+    [
+     "optimizer/data/12",
+     16384
+    ],
+    [
+     "optimizer/data/13",
+     16384
+    ],
+    [
+     "optimizer/data/18",
+     16384
+    ],
+    [
+     "optimizer/data/19",
+     16384
+    ],
+    [
+     "optimizer/data/24",
+     32768
+    ],
+    [
+     "optimizer/data/25",
+     32768
+    ],
+    [
+     "optimizer/data/30",
+     49152
+    ]
+   ],
+   "n_unmatched": 393,
+   "unmatched_bytes": 13900543,
+   "top_10_entry_sizes": [
+    622329856,
+    622329856,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728
+   ],
+   "entries_of_size_4x_embedding": 2,
+   "entries_of_size_1x_embedding": 0,
+   "n_distinct_entry_sizes": 15,
+   "pickle_storage_classes": {
+    "FloatStorage": 1,
+    "HalfStorage": 0,
+    "BFloat16Storage": 0,
+    "ByteStorage": 1,
+    "CharStorage": 0,
+    "IntStorage": 0,
+    "LongStorage": 0,
+    "DoubleStorage": 0,
+    "UntypedStorage": 0,
+    "_n_unique_strings": 1429,
+    "_dtype_strings": []
+   }
+  },
+  "checkpoint-1800": {
+   "optimizer_pt_bytes": 2140289842,
+   "n_zip_entries": 1410,
+   "metadata_bytes_le512": 57395,
+   "n_entries_gt512": 1293,
+   "width_hit_counts": {
+    "1": 280,
+    "2": 112,
+    "4": 116,
+    "8": 392
+   },
+   "width_bytes": {
+    "1": 645922816,
+    "2": 234881024,
+    "4": 1245126656,
+    "8": 401408
+   },
+   "bytes_per_param": 3.590789580174761,
+   "unmatched_entries": [
+    [
+     "optimizer/data.pkl",
+     137983
+    ],
+    [
+     "optimizer/data/6",
+     32768
+    ],
+    [
+     "optimizer/data/7",
+     32768
+    ],
+    [
+     "optimizer/data/12",
+     16384
+    ],
+    [
+     "optimizer/data/13",
+     16384
+    ],
+    [
+     "optimizer/data/18",
+     16384
+    ],
+    [
+     "optimizer/data/19",
+     16384
+    ],
+    [
+     "optimizer/data/24",
+     32768
+    ],
+    [
+     "optimizer/data/25",
+     32768
+    ],
+    [
+     "optimizer/data/30",
+     49152
+    ]
+   ],
+   "n_unmatched": 393,
+   "unmatched_bytes": 13900543,
+   "top_10_entry_sizes": [
+    622329856,
+    622329856,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728
+   ],
+   "entries_of_size_4x_embedding": 2,
+   "entries_of_size_1x_embedding": 0,
+   "n_distinct_entry_sizes": 15,
+   "pickle_storage_classes": {
+    "FloatStorage": 1,
+    "HalfStorage": 0,
+    "BFloat16Storage": 0,
+    "ByteStorage": 1,
+    "CharStorage": 0,
+    "IntStorage": 0,
+    "LongStorage": 0,
+    "DoubleStorage": 0,
+    "UntypedStorage": 0,
+    "_n_unique_strings": 1429,
+    "_dtype_strings": []
+   }
+  },
+  "checkpoint-1803": {
+   "optimizer_pt_bytes": 2140289842,
+   "n_zip_entries": 1410,
+   "metadata_bytes_le512": 57395,
+   "n_entries_gt512": 1293,
+   "width_hit_counts": {
+    "1": 280,
+    "2": 112,
+    "4": 116,
+    "8": 392
+   },
+   "width_bytes": {
+    "1": 645922816,
+    "2": 234881024,
+    "4": 1245126656,
+    "8": 401408
+   },
+   "bytes_per_param": 3.590789580174761,
+   "unmatched_entries": [
+    [
+     "optimizer/data.pkl",
+     137983
+    ],
+    [
+     "optimizer/data/6",
+     32768
+    ],
+    [
+     "optimizer/data/7",
+     32768
+    ],
+    [
+     "optimizer/data/12",
+     16384
+    ],
+    [
+     "optimizer/data/13",
+     16384
+    ],
+    [
+     "optimizer/data/18",
+     16384
+    ],
+    [
+     "optimizer/data/19",
+     16384
+    ],
+    [
+     "optimizer/data/24",
+     32768
+    ],
+    [
+     "optimizer/data/25",
+     32768
+    ],
+    [
+     "optimizer/data/30",
+     49152
+    ]
+   ],
+   "n_unmatched": 393,
+   "unmatched_bytes": 13900543,
+   "top_10_entry_sizes": [
+    622329856,
+    622329856,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728,
+    3145728
+   ],
+   "entries_of_size_4x_embedding": 2,
+   "entries_of_size_1x_embedding": 0,
+   "n_distinct_entry_sizes": 15,
+   "pickle_storage_classes": {
+    "FloatStorage": 1,
+    "HalfStorage": 0,
+    "BFloat16Storage": 0,
+    "ByteStorage": 1,
+    "CharStorage": 0,
+    "IntStorage": 0,
+    "LongStorage": 0,
+    "DoubleStorage": 0,
+    "UntypedStorage": 0,
+    "_n_unique_strings": 1429,
+    "_dtype_strings": []
+   }
+  }
+ },
+ "size_model": {
+  "observed_sample_checkpoint": "checkpoint-1803",
+  "embedding_numel": 155582464,
+  "block_params": 440467456,
+  "total_params": 596049920,
+  "predicted_bytes_embedding_fp32_m_plus_v": 1244659712,
+  "predicted_bytes_blocks_int8_m_plus_v": 880934912,
+  "predicted_total": 2125594624,
+  "observed_total_ckpt200": 2140560927,
+  "residual_bytes": 14966303,
+  "residual_fraction": 0.006991766882793334,
+  "uniform_int8_would_be": 1192099840,
+  "uniform_fp32_would_be": 4768399360,
+  "observed_bytes_per_param": 3.5912443826852622,
+  "interpretation": "the observed size is explained to <1% by: fp32 exp_avg+exp_avg_sq for the tied 155.6M-param embedding + int8 state for the remaining 440.5M block params (bitsandbytes keeps very large embedding state in 32-bit). This corroborates optim=adamw_bnb_8bit at the artefact level; a UNIFORM 8-bit state would have been ~1.19 GB, not 2.14 GB."
+ }
+}

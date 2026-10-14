@@ -1,0 +1,26 @@
+{
+  "base": "base",
+  "n_spans": 200,
+  "rows": [
+    {
+      "name": "c1full",
+      "lcp_mean": 1.38,
+      "base_lcp_mean": 2.12,
+      "d_lcp_mean": -0.74,
+      "full_reproduction_rate": 0.0,
+      "base_full_reproduction_rate": 0.005,
+      "d_full_reproduction_rate": -0.005,
+      "d_ngram10_rate_mean": 0.0126
+    },
+    {
+      "name": "m15",
+      "lcp_mean": 1.79,
+      "base_lcp_mean": 2.12,
+      "d_lcp_mean": -0.33,
+      "full_reproduction_rate": 0.005,
+      "base_full_reproduction_rate": 0.005,
+      "d_full_reproduction_rate": 0.0,
+      "d_ngram10_rate_mean": 0.0118
+    }
+  ]
+}

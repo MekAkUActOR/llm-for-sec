@@ -1,0 +1,64 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m4-capfix-probe",
+  "name": "m4-capfix-probe-v0.4",
+  "probes": "data\\probes\\v0.4",
+  "max_len": 2048,
+  "stride": 1536,
+  "domains": {
+    "_raw_privacy_units": {
+      "ppl": 17.5528098379439,
+      "nll": 2.8652140418226293,
+      "tokens": 94319,
+      "docs": 423
+    },
+    "ais": {
+      "ppl": 28.303832324877455,
+      "nll": 3.3429972133212167,
+      "tokens": 149376,
+      "docs": 500
+    },
+    "aisafety": {
+      "ppl": 16.545087557377006,
+      "nll": 2.8060892334343386,
+      "tokens": 40032,
+      "docs": 144
+    },
+    "content": {
+      "ppl": 16.00536594056874,
+      "nll": 2.7729240373009483,
+      "tokens": 73513,
+      "docs": 263
+    },
+    "general_en": {
+      "ppl": 10.57629102149224,
+      "nll": 2.3586147998915044,
+      "tokens": 839295,
+      "docs": 300
+    },
+    "general_zh": {
+      "ppl": 18.911119374663,
+      "nll": 2.9397500757710375,
+      "tokens": 1806128,
+      "docs": 500
+    },
+    "malware": {
+      "ppl": 13.85396581368429,
+      "nll": 2.628571531983993,
+      "tokens": 22220,
+      "docs": 78
+    },
+    "privacy": {
+      "ppl": 18.17708666772134,
+      "nll": 2.9001618266077855,
+      "tokens": 38597,
+      "docs": 173
+    },
+    "sec": {
+      "ppl": 14.640542738963218,
+      "nll": 2.6837945801795566,
+      "tokens": 514533,
+      "docs": 500
+    }
+  },
+  "elapsed_s": 123.9
+}

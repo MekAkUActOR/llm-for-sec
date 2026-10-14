@@ -1,0 +1,126 @@
+{
+ "file": "J:\\Projects\\llm_for_sec\\data\\lf\\dpo_m3_final.jsonl",
+ "file_bytes": 55889722,
+ "file_mtime": 1791264370.1542594,
+ "sha256": "c272ff9d0f8583982322f691736bac82f571af8c2be73c6087e2081882445b07",
+ "total_lines": 28842,
+ "unique_ids": 28842,
+ "duplicate_or_missing_ids": 0,
+ "records_without_id": 0,
+ "chosen_last_line_VERDICT": 28842,
+ "rejected_last_line_VERDICT": 28842,
+ "both_sides_VERDICT": 28842,
+ "both_sides_VERDICT_ratio": 1.0,
+ "both_sides_VERDICT_parsable_json": 28842,
+ "both_sides_VERDICT_parsable_json_ratio": 1.0,
+ "chosen_parsable_json_only": 28842,
+ "rejected_parsable_json_only": 28842,
+ "empty_chosen_value": 0,
+ "empty_rejected_value": 0,
+ "chosen_equals_rejected_text": 0,
+ "dpo_class_counts": {
+  "policy": 14688,
+  "reserve": 5710,
+  "carrier_inject_obedient": 2360,
+  "carrier_inject_hollow": 2320,
+  "bt330_refusal": 1904,
+  "carrier_clean_overrefusal": 1320,
+  "refusal_quality": 300,
+  "calibration": 240
+ },
+ "dpo_class_reserve_ratio": 0.197975,
+ "dpo_class_reserve_ratio_over_decidable": 0.246844,
+ "component_counts": {
+  "None": 28842
+ },
+ "top_level_extra_fields": {
+  "dpo_class": 28842,
+  "id": 28842,
+  "pack": 28842,
+  "lang": 28842,
+  "src_task": 21228,
+  "rejected_pack": 14688,
+  "src_id": 7614,
+  "src": 7614,
+  "variant": 144
+ },
+ "key_signatures": [
+  {
+   "keys": [
+    "chosen",
+    "conversations",
+    "dpo_class",
+    "id",
+    "lang",
+    "pack",
+    "rejected",
+    "rejected_pack",
+    "src_task"
+   ],
+   "count": 14688
+  },
+  {
+   "keys": [
+    "chosen",
+    "conversations",
+    "dpo_class",
+    "id",
+    "lang",
+    "pack",
+    "rejected",
+    "src",
+    "src_id"
+   ],
+   "count": 7614
+  },
+  {
+   "keys": [
+    "chosen",
+    "conversations",
+    "dpo_class",
+    "id",
+    "lang",
+    "pack",
+    "rejected",
+    "src_task"
+   ],
+   "count": 6396
+  },
+  {
+   "keys": [
+    "chosen",
+    "conversations",
+    "dpo_class",
+    "id",
+    "lang",
+    "pack",
+    "rejected",
+    "src_task",
+    "variant"
+   ],
+   "count": 144
+  }
+ ],
+ "bad_json_lines": [],
+ "first_sample": {
+  "top_keys": [
+   "chosen",
+   "conversations",
+   "dpo_class",
+   "id",
+   "lang",
+   "pack",
+   "rejected",
+   "src_task"
+  ],
+  "chosen_keys": [
+   "from",
+   "value"
+  ],
+  "rejected_keys": [
+   "from",
+   "value"
+  ],
+  "conversations_len": 2
+ }
+}

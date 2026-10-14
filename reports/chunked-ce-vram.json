@@ -1,0 +1,45 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-c1-full",
+  "chunk": 4096,
+  "note": "峰值含 bf16 模型+AdamW fp32 状态+梯度+单步 fwd/bwd；reserved 为 PyTorch 缓存池口径",
+  "results": [
+    {
+      "label": "unpatched",
+      "seq": 12288,
+      "peak_alloc_gb": 28.49,
+      "peak_reserved_gb": 28.89,
+      "oom": false,
+      "static_alloc_gb": 3.39
+    },
+    {
+      "label": "unpatched",
+      "seq": 16384,
+      "oom": true,
+      "err": "CUDA out of memory. Tried to allocate 9.27 GiB. GPU 0 has a total capacity of 23"
+    },
+    {
+      "label": "patched",
+      "seq": 12288,
+      "peak_alloc_gb": 11.42,
+      "peak_reserved_gb": 14.96,
+      "oom": false,
+      "static_alloc_gb": 3.39
+    },
+    {
+      "label": "patched",
+      "seq": 16384,
+      "peak_alloc_gb": 11.68,
+      "peak_reserved_gb": 14.96,
+      "oom": false,
+      "static_alloc_gb": 3.39
+    },
+    {
+      "label": "patched",
+      "seq": 32768,
+      "peak_alloc_gb": 12.72,
+      "peak_reserved_gb": 14.96,
+      "oom": false,
+      "static_alloc_gb": 3.39
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+ "total_lines": 28842,
+ "carrier_rows": 6000,
+ "contract_rows": 22842,
+ "carrier_share": 0.20803,
+ "contract_share": 0.79197,
+ "A4_carrier_ge_15pct": true,
+ "benign_negative_rows": 1320,
+ "benign_negative_share_of_carrier": 0.22,
+ "A8_benign_ge_20pct": true,
+ "carrier_pack_distribution": {
+  "default": 2400,
+  "conservative": 1802,
+  "professional": 1798
+ },
+ "carrier_src_task_distribution": {
+  "T4-grounding:tool_output:clean:head": 82,
+  "T4-grounding:tool_output:clean:mid": 80,
+  "T4-grounding:tool_output:clean:tail": 80,
+  "T4-grounding:log:clean:head": 74,
+  "T4-grounding:log:clean:mid": 74,
+  "T4-grounding:webpage:clean:head": 74,
+  "T4-grounding:webpage:clean:mid": 74,
+  "T4-grounding:code:clean:head": 74,
+  "T4-grounding:code:clean:mid": 74,
+  "T4-grounding:document:clean:head": 74,
+  "T4-grounding:document:clean:mid": 74,
+  "T4-grounding:log:clean:tail": 72,
+  "T4-grounding:webpage:clean:tail": 72,
+  "T4-grounding:code:clean:tail": 72,
+  "T4-grounding:document:clean:tail": 72,
+  "T1-injection:log:policy_claim:head": 54,
+  "T1-injection:log:policy_claim:mid": 54,
+  "T1-injection:log:policy_claim:tail": 54,
+  "T1-injection:log:fake_system_prompt:head": 54,
+  "T1-injection:log:fake_system_prompt:mid": 54,
+  "T1-injection:log:fake_system_prompt:tail": 54,
+  "T1-injection:code:backdoor_comment:head": 54,
+  "T1-injection:code:backdoor_comment:mid": 54,
+  "T1-injection:code:backdoor_comment:tail": 54,
+  "T1-injection:code:metacomment:head": 54,
+  "T1-injection:code:metacomment:mid": 54,
+  "T1-injection:code:metacomment:tail": 54,
+  "T1-injection:tool_output:fake_system_prompt:head": 52,
+  "T1-injection:tool_output:fake_system_prompt:mid": 52,
+  "T1-injection:tool_output:fake_system_prompt:tail": 52
+ },
+ "carrier_dpo_class_distribution": {
+  "carrier_inject_obedient": 2360,
+  "carrier_inject_hollow": 2320,
+  "carrier_clean_overrefusal": 1320
+ },
+ "carrier_type_distribution": {
+  "tool_output": 1100,
+  "log": 1000,
+  "webpage": 1000,
+  "code": 1000,
+  "document": 1000,
+  "email": 500,
+  "text": 400
+ },
+ "A5_five_types_each_ge_600": {
+  "email": 500,
+  "text": 400
+ },
+ "carrier_type_x_class": {
+  "tool_output|carrier_inject_obedient": 432,
+  "tool_output|carrier_inject_hollow": 426,
+  "log|carrier_inject_obedient": 392,
+  "webpage|carrier_inject_obedient": 392,
+  "code|carrier_inject_obedient": 392,
+  "document|carrier_inject_obedient": 392,
+  "log|carrier_inject_hollow": 388,
+  "webpage|carrier_inject_hollow": 388,
+  "code|carrier_inject_hollow": 388,
+  "document|carrier_inject_hollow": 388,
+  "tool_output|carrier_clean_overrefusal": 242,
+  "log|carrier_clean_overrefusal": 220,
+  "webpage|carrier_clean_overrefusal": 220,
+  "code|carrier_clean_overrefusal": 220,
+  "document|carrier_clean_overrefusal": 220,
+  "email|carrier_inject_obedient": 200,
+  "email|carrier_inject_hollow": 190,
+  "text|carrier_inject_obedient": 160,
+  "text|carrier_inject_hollow": 152,
+  "email|carrier_clean_overrefusal": 110,
+  "text|carrier_clean_overrefusal": 88
+ },
+ "contract_carrier_type_distribution": {
+  "NO_SRC_TASK": 7614,
+  "T5-policy:sec-h0-purge": 349,
+  "T5-policy:sec-p4-phishdrill": 319,
+  "T5-policy:cnt-t1-hate": 227,
+  "T5-policy:cnt-t1-violence": 225,
+  "T5-policy:priv-p4-maskbypass": 224,
+  "T5-policy:sec-h2-piiupload": 224,
+  "T5-policy:cnt-t2-adult": 224,
+  "T5-policy:sec-h1-waf": 223,
+  "T5-policy:priv-p6-breachmatch": 223,
+  "T5-policy:ais-promptleak": 223,
+  "T5-policy:cnt-t0-fraud": 223,
+  "T5-policy:priv-p1-children": 222,
+  "T5-policy:sec-op-portscan": 222,
+  "T5-policy:cnt-t1-copyright": 222,
+  "T5-policy:dual-weapon-probe": 222,
+  "T5-policy:sec-h2-credexport": 222,
+  "T5-policy:sec-h0-backupwipe": 221,
+  "T5-policy:sec-op-poc": 221,
+  "T5-policy:cnt-t1-doxing": 221
+ },
+ "carrier_pack_x_class": {
+  "default|carrier_inject_obedient": 940,
+  "default|carrier_inject_hollow": 930,
+  "conservative|carrier_inject_obedient": 710,
+  "professional|carrier_inject_obedient": 710,
+  "conservative|carrier_inject_hollow": 696,
+  "professional|carrier_inject_hollow": 694,
+  "default|carrier_clean_overrefusal": 530,
+  "conservative|carrier_clean_overrefusal": 396,
+  "professional|carrier_clean_overrefusal": 394
+ },
+ "carrier_lang": {
+  "zh": 3000,
+  "en": 3000
+ },
+ "contract_pack_distribution": {
+  "default": 11411,
+  "conservative": 5886,
+  "professional": 5545
+ },
+ "contract_lang": {
+  "zh": 14319,
+  "en": 8523
+ },
+ "variant_distribution": {
+  "1": 72,
+  "0": 72
+ },
+ "carrier_conversations_len": {
+  "2": 6000
+ },
+ "contract_conversations_len": {
+  "2": 22842
+ },
+ "all_pack_distribution_top": {
+  "default": 13811,
+  "conservative": 7688,
+  "professional": 7343
+ },
+ "all_src_task_distribution_top": {
+  "None": 7614,
+  "T5-policy:sec-h0-purge": 349,
+  "T5-policy:sec-p4-phishdrill": 319,
+  "T5-policy:cnt-t1-hate": 227,
+  "T5-policy:cnt-t1-violence": 225,
+  "T5-policy:priv-p4-maskbypass": 224,
+  "T5-policy:sec-h2-piiupload": 224,
+  "T5-policy:cnt-t2-adult": 224,
+  "T5-policy:sec-h1-waf": 223,
+  "T5-policy:priv-p6-breachmatch": 223,
+  "T5-policy:ais-promptleak": 223,
+  "T5-policy:cnt-t0-fraud": 223,
+  "T5-policy:priv-p1-children": 222,
+  "T5-policy:sec-op-portscan": 222,
+  "T5-policy:cnt-t1-copyright": 222,
+  "T5-policy:dual-weapon-probe": 222,
+  "T5-policy:sec-h2-credexport": 222,
+  "T5-policy:sec-h0-backupwipe": 221,
+  "T5-policy:sec-op-poc": 221,
+  "T5-policy:cnt-t1-doxing": 221,
+  "T5-policy:sec-mal-exec": 221,
+  "T5-policy:priv-p8-monitor": 221,
+  "T5-policy:ais-pressure-academic": 221,
+  "T5-policy:sec-h1-auditlog": 221,
+  "T5-policy:priv-p7-extjoin": 221,
+  "T5-policy:ais-userpolicy": 221,
+  "T5-policy:priv-p4-tokensnipe": 220,
+  "T5-policy:cnt-t1-misinfo": 220,
+  "T5-policy:sec-op-bruteforce": 219,
+  "T5-policy:ais-pressure-emotional": 219
+ }
+}

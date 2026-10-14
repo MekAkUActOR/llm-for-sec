@@ -1,0 +1,91 @@
+# ============================================================
+# llm-for-sec .gitignore — 首次版本化（M5 round-1 完成后）
+# 完整策略、排除理由与登记清单见 reports/git-setup.md
+# 纪律：绝不入库 LLaMA-Factory/ 与 checkpoints/；staged 总量 <500MB
+# ============================================================
+
+# --- Python 运行时 ---
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# --- 训练产物 / 缓存（体积巨大，本地可再生）---
+/checkpoints/
+/.cache/
+/outputs/
+/runs/
+/logs/
+
+# --- 第三方独立仓库克隆（绝不入库）---
+/LLaMA-Factory/
+
+# --- 临时 / 工作目录（一次性探针与校验输出，沿旧版策略）---
+/.scratch/
+/_work/
+/$null
+
+# --- scripts 分片与退役目录（含分片产物文件 _p16_parts_cef_pack_templates.txt）---
+/scripts/_p16_parts*
+/scripts/_p07_parts/
+/scripts/_retired/
+
+# --- data/：默认只版本化 jsonl/md 文本数据件 ---
+# 其余（原始转储、二进制 pkl/npy/parquet、数据集元数据）不入库，可由 scripts/ 再生
+/data/**
+!/data/**/
+!/data/**/*.jsonl
+!/data/**/*.md
+
+# 原始外部语料转储 + 第三方克隆仓（含 12 个嵌套 .git，同 LLaMA-Factory 类别）
+/data/corpora/raw/
+
+# >20MB 的 jsonl/md 登记排除（39 个，共约 11.9GB；清单见 reports/git-setup.md）
+/data/lf/sec_c1_full.jsonl
+/data/corpora/clean/c1_enwiki_gen.jsonl
+/data/lf/sec_c1.jsonl
+/data/corpora/clean/c1_zhwiki_gen.jsonl
+/data/lf/sec_m15.jsonl
+/data/lf/sft_m25.jsonl
+/data/corpora/clean/c0_all.jsonl
+/data/lf/sec_c0.jsonl
+/data/corpora/clean/c0_cve.jsonl
+/data/corpora/clean/c0_redhat-csaf.jsonl
+/data/sft/m1/train.jsonl
+/data/lf/sft_m1.jsonl
+/data/lf/sec_m16.jsonl
+/data/dpo/m3/train.jsonl
+/data/lf/dpo_m3.jsonl
+/data/m5-run/dpo_m5_calib.jsonl
+/data/m5a-run/train.jsonl
+/data/corpora/clean/t6_cvefixes.jsonl
+/data/corpora/clean/c1_arxiv_full.jsonl
+/data/corpora/clean/t6_devign.jsonl
+/data/dpo-remediation-staging/dpo_m4_capfix.jsonl
+/data/m4-run/dpo_m4_capfix.jsonl
+/data/lf/sec_sft_needlefix_carrier.jsonl
+/data/lf/dpo_m3_final.jsonl
+/data/lf/sec_sft_needlefix.jsonl
+/data/m4-run/dpo_m4_rebal.jsonl
+/data/lf/needle_longctx_slice.jsonl
+/data/lf/dpo_m3_v2_q.jsonl
+/data/lf/dpo_m3_v2.jsonl
+/data/corpora/clean/c1_zhwiki_sec.jsonl
+/data/corpora/clean/c0_msrc-cvrf.jsonl
+/data/corpora/clean/c0_debian-dsa.jsonl
+/data/corpora/clean/c0_cisco-psirt.jsonl
+/data/sft/m2.5-staging/fG_t6_devign_ext.jsonl
+/data/lf/dpo_m3_v2_strict.jsonl
+/data/corpora/clean/c0_sans-isc.jsonl
+/data/sft/dpo-reserve/cvalues.jsonl
+/data/corpora/clean/c2_aisafety_arxiv.jsonl
+/data/corpora/clean/t6_devign_lines.jsonl
+
+# --- 全局排除（置于 data 重包含之后，确保优先级正确）---
+# 会话响应记录（推理产物，可由脚本再生，约 70 个）
+**/resp-*.jsonl
+# 训练曲线图
+*.png
+# >10MB 日志登记排除：m5b-grpo-train.log 24.74MB；同系列 r2 活跃增长中（round-2 训练写盘中），整系排除
+/reports/logs/m5b-grpo-train*.log

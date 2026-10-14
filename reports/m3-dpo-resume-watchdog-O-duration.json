@@ -1,0 +1,69 @@
+{
+ "n_logged_rows": 366,
+ "n_blocks": 2,
+ "blocks": [
+  {
+   "block": 0,
+   "first_step": 5,
+   "last_step": 225,
+   "elapsed_first": "0:00:15",
+   "elapsed_last": "0:10:51",
+   "elapsed_last_seconds": 651,
+   "n_steps_covered": 220,
+   "implied_seconds_per_step": 2.890909090909091,
+   "remaining_time_reported_at_last": "1:16:06",
+   "remaining_time_actual_at_last_seconds": 4561.854545454546,
+   "remaining_time_understatement_factor": 0.9990921036913153,
+   "eta_row_step": 225,
+   "eta_row_reported": "1:16:06",
+   "eta_row_actual_seconds": 4561.854545454546,
+   "eta_row_understatement_factor": 0.9990921036913153,
+   "remaining_time_factor_range": [
+    0.9557205406434418,
+    0.9990921036913153
+   ],
+   "total_steps": 1803,
+   "epoch_at_last": 0.12481797378822551,
+   "last_loss": 0.16024640798568726,
+   "last_accuracy": 0.9750000238418579,
+   "last_lr": 1.9566291314692655e-06
+  },
+  {
+   "block": 1,
+   "first_step": 205,
+   "last_step": 1803,
+   "elapsed_first": "0:00:17",
+   "elapsed_last": "1:24:24",
+   "elapsed_last_seconds": 5064,
+   "n_steps_covered": 1598,
+   "implied_seconds_per_step": 3.158322903629537,
+   "remaining_time_reported_at_last": "0:00:00",
+   "remaining_time_actual_at_last_seconds": 0.0,
+   "remaining_time_understatement_factor": null,
+   "eta_row_step": 1800,
+   "eta_row_reported": "0:00:08",
+   "eta_row_actual_seconds": 9.47496871088861,
+   "eta_row_understatement_factor": 1.1843710888610763,
+   "remaining_time_factor_range": [
+    1.1282426576793452,
+    20.51590909090909
+   ],
+   "total_steps": 1803,
+   "epoch_at_last": 1.0,
+   "last_loss": null,
+   "last_accuracy": null,
+   "last_lr": null
+  }
+ ],
+ "wall": {
+  "resume_from_ckpt": "200",
+  "first_clock": "13:59:27",
+  "run_log_bytes": 575720,
+  "run_log_mtime": 1791271477.2726247,
+  "matched:Resuming training from": "[INFO|2026-10-06 13:59:27] llamafactory.hparams.parser:144 >> Resuming training from J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-200.",
+  "matched:global step": "[INFO|trainer.py:1482] 2026-10-06 14:00:10,859 >>   Resuming training from checkpoint with epoch 0 and global step 200",
+  "matched:Training completed": "Training completed. Do not forget to share your model on huggingface.co/models =)",
+  "matched:train_runtime": "{'train_runtime': '5065', 'train_samples_per_second': '5.695', 'train_steps_per_second': '0.356', 'train_loss': '0.09758', 'epoch': '1'}",
+  "matched:train_samples_per_second": "{'train_runtime': '5065', 'train_samples_per_second': '5.695', 'train_steps_per_second': '0.356', 'train_loss': '0.09758', 'epoch': '1'}"
+ }
+}

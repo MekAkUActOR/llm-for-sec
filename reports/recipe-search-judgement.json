@@ -1,0 +1,178 @@
+{
+ "base": {
+  "tag": "m2calib",
+  "asr": [
+   6,
+   168
+  ]
+ },
+ "criteria": {
+  "needle_floor": 0.75,
+  "contract_floor": 63,
+  "B": "Fisher p>=0.05 且 Newcombe 下界<=+0.05",
+  "criterion_b_max_k": 14
+ },
+ "rows": [
+  {
+   "tag": "m15",
+   "needle": [
+    43,
+    64
+   ],
+   "A": false,
+   "asr": null,
+   "B": null,
+   "contract": null,
+   "C": null,
+   "verdict": "undecidable"
+  },
+  {
+   "tag": "m25full",
+   "needle": [
+    56,
+    64
+   ],
+   "A": true,
+   "asr": [
+    36,
+    168
+   ],
+   "B": false,
+   "contract": 74,
+   "C": true,
+   "verdict": "worse"
+  },
+  {
+   "tag": "m2calib",
+   "needle": [
+    39,
+    64
+   ],
+   "A": false,
+   "asr": [
+    6,
+    168
+   ],
+   "B": true,
+   "contract": 84,
+   "C": true,
+   "verdict": "undecidable"
+  },
+  {
+   "tag": "m2calib-needlefix-e1",
+   "needle": [
+    60,
+    64
+   ],
+   "A": true,
+   "asr": [
+    24,
+    168
+   ],
+   "B": false,
+   "contract": 74,
+   "C": true,
+   "verdict": "worse"
+  },
+  {
+   "tag": "m2full",
+   "needle": [
+    47,
+    64
+   ],
+   "A": false,
+   "asr": [
+    63,
+    168
+   ],
+   "B": false,
+   "contract": 116,
+   "C": true,
+   "verdict": "worse"
+  },
+  {
+   "tag": "smoke-needle16",
+   "needle": [
+    32,
+    32
+   ],
+   "A": true,
+   "asr": null,
+   "B": null,
+   "contract": null,
+   "C": null,
+   "verdict": "undecidable"
+  },
+  {
+   "tag": "soup-a020",
+   "needle": [
+    45,
+    64
+   ],
+   "A": false,
+   "asr": null,
+   "B": null,
+   "contract": null,
+   "C": null,
+   "verdict": "undecidable"
+  },
+  {
+   "tag": "soup-a035",
+   "needle": [
+    47,
+    64
+   ],
+   "A": false,
+   "asr": [
+    3,
+    168
+   ],
+   "B": true,
+   "contract": 71,
+   "C": true,
+   "verdict": "undecidable"
+  },
+  {
+   "tag": "soup-a050",
+   "needle": [
+    52,
+    64
+   ],
+   "A": true,
+   "asr": [
+    7,
+    168
+   ],
+   "B": true,
+   "contract": 70,
+   "C": true,
+   "verdict": "ok"
+  },
+  {
+   "tag": "soup-a065",
+   "needle": [
+    57,
+    64
+   ],
+   "A": true,
+   "asr": null,
+   "B": null,
+   "contract": null,
+   "C": null,
+   "verdict": "undecidable"
+  },
+  {
+   "tag": "soup-a080",
+   "needle": [
+    60,
+    64
+   ],
+   "A": true,
+   "asr": null,
+   "B": null,
+   "contract": null,
+   "C": null,
+   "verdict": "undecidable"
+  }
+ ]
+}

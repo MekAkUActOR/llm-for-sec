@@ -1,0 +1,194 @@
+{
+ "config_path": "J:\\Projects\\llm_for_sec\\configs\\m3-dpo-final.yaml",
+ "items": [
+  {
+   "key": "stage",
+   "expected": "dpo",
+   "config": "dpo",
+   "match": true,
+   "prereg_quote": "stage: dpo"
+  },
+  {
+   "key": "finetuning_type",
+   "expected": "full",
+   "config": "full",
+   "match": true,
+   "prereg_quote": "finetuning_type: full"
+  },
+  {
+   "key": "template",
+   "expected": "qwen3_nothink",
+   "config": "qwen3_nothink",
+   "match": true,
+   "prereg_quote": "template: qwen3_nothink"
+  },
+  {
+   "key": "cutoff_len",
+   "expected": 1024,
+   "config": 1024,
+   "match": true,
+   "prereg_quote": "cutoff_len: 1024"
+  },
+  {
+   "key": "per_device_train_batch_size",
+   "expected": 1,
+   "config": 1,
+   "match": true,
+   "prereg_quote": "bs1"
+  },
+  {
+   "key": "gradient_accumulation_steps",
+   "expected": 16,
+   "config": 16,
+   "match": true,
+   "prereg_quote": "accum16"
+  },
+  {
+   "key": "learning_rate",
+   "expected": 2e-06,
+   "config": 2e-06,
+   "match": true,
+   "prereg_quote": "lr 2.0e-6"
+  },
+  {
+   "key": "lr_scheduler_type",
+   "expected": "cosine",
+   "config": "cosine",
+   "match": true,
+   "prereg_quote": "cosine"
+  },
+  {
+   "key": "warmup_steps",
+   "expected": 60,
+   "config": 60,
+   "match": true,
+   "prereg_quote": "warmup 60"
+  },
+  {
+   "key": "weight_decay",
+   "expected": 0.0,
+   "config": 0.0,
+   "match": true,
+   "prereg_quote": "weight_decay 0.0"
+  },
+  {
+   "key": "optim",
+   "expected": "adamw_bnb_8bit",
+   "config": "adamw_bnb_8bit",
+   "match": true,
+   "prereg_quote": "optim: adamw_bnb_8bit"
+  },
+  {
+   "key": "pref_loss",
+   "expected": "sigmoid",
+   "config": "sigmoid",
+   "match": true,
+   "prereg_quote": "pref_loss: sigmoid"
+  },
+  {
+   "key": "pref_beta",
+   "expected": 0.1,
+   "config": 0.1,
+   "match": true,
+   "prereg_quote": "pref_beta: 0.1"
+  },
+  {
+   "key": "num_train_epochs",
+   "expected": 1,
+   "config": 1,
+   "match": true,
+   "prereg_quote": "1 epoch"
+  },
+  {
+   "key": "save_steps",
+   "expected": 100,
+   "config": 100,
+   "match": true,
+   "prereg_quote": "save_steps 100"
+  },
+  {
+   "key": "save_total_limit",
+   "expected": 5,
+   "config": 5,
+   "match": true,
+   "prereg_quote": "save_total_limit 5"
+  },
+  {
+   "key": "logging_steps",
+   "expected": 5,
+   "config": 5,
+   "match": true,
+   "prereg_quote": "logging_steps 5"
+  },
+  {
+   "key": "dataset",
+   "expected": "sec_dpo_m3_final",
+   "config": "sec_dpo_m3_final",
+   "match": true,
+   "prereg_quote": "dataset: sec_dpo_m3_final"
+  },
+  {
+   "key": "model_name_or_path",
+   "expected": "J:\\Projects\\llm_for_sec\\checkpoints\\soup-needlefix-a050",
+   "config": "J:\\Projects\\llm_for_sec\\checkpoints\\soup-needlefix-a050",
+   "match": true,
+   "prereg_quote": "start = soup-a050"
+  },
+  {
+   "key": "output_dir",
+   "expected": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo",
+   "config": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo",
+   "match": true,
+   "prereg_quote": "output = qwen3-06b-sec-m3-dpo"
+  },
+  {
+   "key": "bf16",
+   "expected": true,
+   "config": true,
+   "match": true,
+   "prereg_quote": "bf16: true"
+  },
+  {
+   "key": "gradient_checkpointing",
+   "expected": false,
+   "config": false,
+   "match": true,
+   "prereg_quote": "gradient_checkpointing: false"
+  },
+  {
+   "key": "do_train",
+   "expected": true,
+   "config": true,
+   "match": true,
+   "prereg_quote": "do_train: true"
+  }
+ ],
+ "n_mismatch": 0,
+ "config_keys_not_in_prereg_checklist": [
+  "dataloader_num_workers",
+  "dataset_dir",
+  "overwrite_cache",
+  "plot_loss",
+  "preprocessing_num_workers",
+  "report_to"
+ ],
+ "mix_pack_counter": {
+  "default": 13811,
+  "conservative": 7688,
+  "professional": 7343
+ },
+ "mix_dpo_class_counter": {
+  "policy": 14688,
+  "reserve": 5710,
+  "carrier_inject_obedient": 2360,
+  "carrier_inject_hollow": 2320,
+  "bt330_refusal": 1904,
+  "carrier_clean_overrefusal": 1320,
+  "refusal_quality": 300,
+  "calibration": 240
+ },
+ "mix_lang_counter": {
+  "zh": 17319,
+  "en": 11523
+ }
+}

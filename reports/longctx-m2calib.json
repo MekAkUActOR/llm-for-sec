@@ -1,0 +1,799 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2-calib",
+  "name": "m2calib",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 10.258852637893478,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.3475,
+          2.4801,
+          2.1587,
+          2.3262
+        ]
+      },
+      "zh": {
+        "ppl": 14.29062933793688,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.6028,
+          2.5863,
+          2.5817,
+          2.8675
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 10.75578830865042,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5225,
+          1.9956,
+          2.5591,
+          2.4246
+        ]
+      },
+      "zh": {
+        "ppl": 11.48532353782388,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.4614,
+          2.5532,
+          2.7747,
+          1.975
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16336,
+          "generated": " 03e8b84b. Click on the image to see the answer.]]\nThe production of cement is responsible for 8% (2"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16334,
+          "generated": " 0000000000000000000000000000000"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": " 0000000000000000000000000000000"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": " 1900. The figure shows the CO 2 emissions from the production of cement in 2018, in millions of tonnes. The"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": false,
+          "insert_pos": 4075,
+          "prompt_len": 16335,
+          "generated": " 1800. The figure shows the CO 2 emissions from the production of cement in 2018, in gigatons (G"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16334,
+          "generated": " 8be37df3. Please remember it.iz]]\n\nThe production of cement is responsible for 8% (2018) of global"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5705,
+          "prompt_len": 16335,
+          "generated": " 110806 (in Spanish) or 110806 (in English). Please remember it.eliport (in Spanish"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": false,
+          "insert_pos": 5705,
+          "prompt_len": 16335,
+          "generated": " 393586c. Please remember it.]] \n\nThe production of cement is responsible for about 8% (2018)"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16336,
+          "generated": " 252c3c6f. Please remember it. ]]\n\nThe production of cement is responsible for about 8% (2018"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16336,
+          "generated": " 8f07d990. Please remember it. ]]\n\nThe production of cement is responsible for about 8% (2018"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16334,
+          "generated": " 91937ccc. Please remember it.]]\nThe production of cement is responsible for about 8% (2018) of global"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16335,
+          "generated": " c9375d6d. Please remember it.]]\nThe production of cement is responsible for about 8% (2018) of"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": false,
+          "insert_pos": 12226,
+          "prompt_len": 16333,
+          "generated": " 1800. The figure shows the CO 2 emissions from the production of cement in 2018. The emissions from the production of"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16335,
+          "generated": " d0a45d3e. Click to see the full document.]]\nThe production of cement is responsible for about 8% (201"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16333,
+          "generated": " 0ea02dac. Please remember it. |thumb|right|alt=Global carbon dioxide emissions (2018)|Global carbon dioxide emissions"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16335,
+          "generated": " d8e73491. Please remember it. |thumb|right|alt=Global carbon dioxide emissions (2018)|Global carbon"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16336,
+          "generated": "1876年，法国发明家贝尔发明电话，是世界上第一台电话机。1876年，法国发明家贝尔发明电话"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16334,
+          "generated": "d1c5aaf0\n\n 1877年：第一次世界大戰爆發。法國、俄國、奧匈帝國"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": "本文档的魔法代码是 f077b69f，请记住它。 \n\n 1877年：第一次世界大戰爆發"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": "a925e7a1（英文：\"I am a man\"）。\n\n 1877年：第一次世界大戰爆發"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16335,
+          "generated": "本文档的魔法代码是 e9e4c8e8，请记住它。受眾可透過掃描二維碼獲取湘繡"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16334,
+          "generated": "本文档的魔法代码是 8be37df3，请记住它。受眾可透過掃描二維碼獲取湘繡文化的"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16335,
+          "generated": "苏格兰语“ ”，意思是“伤我者，必惩”（“ ”）。\n\n 1877年：第一次世界大戰"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16335,
+          "generated": "苏格兰语“ ”（）。\n\n 1877年：第一次世界大戰爆發。法國、俄國、奧匈帝"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 8152,
+          "prompt_len": 16336,
+          "generated": "252c3c6f，请记住它。\n\n 1877年：第一次世界大戰爆發。法國、俄國、"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 8152,
+          "prompt_len": 16336,
+          "generated": "8f07d990，请记住它。\n\n 1877年：第一次世界大戰爆發。法國、俄國、"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": false,
+          "insert_pos": 10597,
+          "prompt_len": 16334,
+          "generated": "这是19世纪的欧洲艺术领域先后出现浪漫主义和现实主义艺术思潮。 \n\n 1877年：第一次世界大戰爆"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10597,
+          "prompt_len": 16335,
+          "generated": "这是c9375d6d，代表“1876年，贝尔发明电话”（英文：1876年，贝尔"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16333,
+          "generated": "ba5ac473（十六进制）= 0x93（ASCII）= \" \"（空格）。这是贝尔实验室的加密"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16335,
+          "generated": "d0a45d3e（注意：这是“魔法代码”，不是“正确答案”）。\n\n 1877年：第一次世界"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14673,
+          "prompt_len": 16333,
+          "generated": "0ea02dac，请记住它。\n\n 1877年：第一次世界大戰爆發。法國、俄國、奧匈帝"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 14673,
+          "prompt_len": 16335,
+          "generated": "本文档的魔法代码是 d8e73491，请记住它。國（德意志帝國憲法）。\n\n 18"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nOn 23 May 1701, the day of his execution, Bellom"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nOn 23 May 1701, the day of his execution, Bellom"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32720,
+          "generated": " \"The code is a secret, but it is not a secret that I do not know.\" \n\nOn 23 May 1701, the"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32719,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nOn 23 May 1701, the day of his execution, Bellom"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32719,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nOn 23 May 1701, the day of his execution, Bellom"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32720,
+          "generated": " \"The code is a secret, but it is not a secret that I do not know.\" \n\nOn 23 May 1701, the"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32718,
+          "generated": " c0602ef0. \n\nKidd was found guilty of the charges against him and sentenced to death by hanging. He was hanged on "
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32720,
+          "generated": " 89f03016. Please remember it. \n\nOn 23 May 1701, the day of his execution,"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32716,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nOn 23 May 1701, the day of his execution, Bellom"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32720,
+          "generated": " \"K\" (Kidd). \n\nOn 23 May 1701, the day of his execution, Bellomont wrote to the King"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": false,
+          "insert_pos": 21245,
+          "prompt_len": 32718,
+          "generated": " \"H&nbsp;&nbsp;K\". \n\nOn 23 May 1701, the day of his execution, Bellomont wrote to the"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32719,
+          "generated": " 585cfe94. \n\nOn 23 May 1701, the day of his execution, Kidd was found guilty of"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32720,
+          "generated": " \"I am a man of honour, and I will not be a man of honour.\" \n\nOn 23 May 1701, the day"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32718,
+          "generated": " \"I am a man of honour, and I will not be a man of honour.\" \n\nOn 23 May 1701, the day"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32720,
+          "generated": " 3e854037. \n\nOn 23 May 1701, the day of his execution, Bellomont ordered"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32717,
+          "generated": " b84caaa7. \n\nOn 23 May 1701, the day of his execution, Bellomont sent a letter to"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": "10月2日（2003年）的年份，对应的是10月2日（2004年）的星期"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": "10月2日（2003年）的年份，对应的是第112天（闰年则是第113天"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32720,
+          "generated": "5e20408c（）。\n\n参考资料\n\nCategory:10月2日\nCategory:10月31日\nCategory:"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32719,
+          "generated": "c344112d，代表“2003年10月2日”（2003年10月2"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32719,
+          "generated": "A6B64016（即“白海豚岛”）。\n\n參考資料\n\nCategory:10月2日\nCategory:1"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32720,
+          "generated": "71660715，请记住它。\n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月6"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32718,
+          "generated": "c0602ef0，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月6"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32720,
+          "generated": "89f03016，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月6日\nCategory:10月"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32716,
+          "generated": "ee8bf4eb，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月31日"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": false,
+          "insert_pos": 16344,
+          "prompt_len": 32720,
+          "generated": "45456035，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32718,
+          "generated": "f07ed358。 \n\n节假日和习俗\n\n ：教师节\n ：劳动节\n ：建军节\n ：母亲节\n ：父亲节"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32719,
+          "generated": "585cfe94，请记住它。 \n\n参考资料\n\nCategory:10月2日\nCategory:10月31日\nCategory"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32720,
+          "generated": "7106302f（注意：本条目中的“魔法代码”一词并非指代特定的加密算法或数据处理方式"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32718,
+          "generated": "8a5eace4（注意：这是“8a5eace4”而不是“8a5eace4”）。\n\n节假日和习俗"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32720,
+          "generated": "3e854037，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32717,
+          "generated": "本条目内容的魔法代码是 b84caaa7，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月2日"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 0.5625,
+      "zh": 0.75
+    },
+    "32768": {
+      "en": 0.3125,
+      "zh": 0.8125
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    }
+  },
+  "needle_counts": {
+    "16384": {
+      "en": {
+        "k": 9,
+        "n": 16
+      },
+      "zh": {
+        "k": 12,
+        "n": 16
+      }
+    },
+    "32768": {
+      "en": {
+        "k": 5,
+        "n": 16
+      },
+      "zh": {
+        "k": 13,
+        "n": 16
+      }
+    }
+  },
+  "needle_trials_per_cell": 16,
+  "elapsed_s": 206.3
+}

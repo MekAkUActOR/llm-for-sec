@@ -1,0 +1,33 @@
+{
+  "probe_units": 2881,
+  "domains": {
+    "_raw_privacy_units": 423,
+    "ais": 500,
+    "aisafety": 144,
+    "content": 263,
+    "general_en": 300,
+    "general_zh": 500,
+    "malware": 78,
+    "privacy": 173,
+    "sec": 500
+  },
+  "sft_rows_scanned": 137670,
+  "hit_units": 35,
+  "hit_domains": {
+    "_raw_privacy_units": 27,
+    "sec": 7,
+    "aisafety": 1
+  },
+  "samples": {
+    "_raw_privacy_units:12": 2,
+    "_raw_privacy_units:115": 2,
+    "sec:129": 10,
+    "sec:411": 2,
+    "sec:392": 2,
+    "_raw_privacy_units:226": 7,
+    "_raw_privacy_units:11": 8,
+    "_raw_privacy_units:125": 2,
+    "sec:405": 6,
+    "sec:153": 8
+  }
+}

@@ -1,0 +1,409 @@
+{
+  "query": "ai_safety_alignment (variant b)",
+  "rule": "标题命中排除词族(vision|image|multimodal|cross-lingual|word alignment|sequence alignment|sensor|registration|correspondence|point cloud) 且无安全信号 → 弃",
+  "dropped_count": 1792,
+  "samples_kept": [
+    {
+      "id": "2609.29803",
+      "title": "SEEK: Skill-Routed Evaluation with Evolvable Knowledge for Industrial Search"
+    },
+    {
+      "id": "2609.29802",
+      "title": "Learning to Ideate for Scientific Impact"
+    },
+    {
+      "id": "2609.29792",
+      "title": "TimeBraid: Unifying Time Series and Language for Understanding and Forecasting"
+    },
+    {
+      "id": "2609.29781",
+      "title": "Hallucination Neurons and Where to Find Them: An Investigation into the existence of Hallucination Neurons"
+    },
+    {
+      "id": "2609.29429",
+      "title": "Just Ask Jev: Reinforcement Learning for Calibrated Decisions as a Zero-Shot Detector of AI Alignment Failures"
+    },
+    {
+      "id": "2609.29370",
+      "title": "From Policy Documents to Structured Survey Responses: Evaluating Large Language Models for Policy Monitoring"
+    },
+    {
+      "id": "2609.29362",
+      "title": "Parts-of-Speech as Emergent Categories in SAE Latent Space"
+    },
+    {
+      "id": "2609.29230",
+      "title": "EAGER: Enhancing Generative Event Extraction via Reinforcement Learning with Verifiable Rewards"
+    },
+    {
+      "id": "2609.29131",
+      "title": "Tag-Aware Structured Text Translation: Towards a Systematic Understanding"
+    },
+    {
+      "id": "2609.29102",
+      "title": "ELF-REG: Scaling Continuous Diffusion Language Models to Reasoning Tasks"
+    },
+    {
+      "id": "2609.29001",
+      "title": "Polite but Misaligned: Evaluating LLM Politeness Judgments Against Human Pragmatic Norms"
+    },
+    {
+      "id": "2609.28942",
+      "title": "From Static Personal Values to Contextualized Personalization: Bayesian Personalized Value Alignment for LLMs"
+    },
+    {
+      "id": "2609.28806",
+      "title": "A Harness for Synthesizing Diverse Naturalistic Full-Duplex Conversations"
+    },
+    {
+      "id": "2609.28690",
+      "title": "Beyond Surface Style: Aligning Multi-Turn User Simulators with Behavioral Consistency"
+    },
+    {
+      "id": "2609.28430",
+      "title": "Cross-Scale Transfer Learning for Depression Severity Prediction: From PHQ-8 to HAMD-17 Across Languages and Clinical Paradigms"
+    },
+    {
+      "id": "2609.28344",
+      "title": "Mizar: A 159M-Parameter Audio-Language Model for Audio Understanding"
+    },
+    {
+      "id": "2609.28335",
+      "title": "An Open Pipeline and Dashboard for Systemic-Risk Evidence under the EU AI Act's Code of Practice"
+    },
+    {
+      "id": "2609.28245",
+      "title": "Beyond Poetry: Can Large Language Models Generate Classical Arabic Maqamat?"
+    },
+    {
+      "id": "2609.28117",
+      "title": "Scaling Attention Head Analysis via Gradient-Based Attribution in Context-Aware Machine Translation"
+    },
+    {
+      "id": "2609.28026",
+      "title": "Evaluating Feedback Focus and Pedagogical Adaptivity in LLM-Generated Feedback on Student Writing"
+    },
+    {
+      "id": "2609.28557",
+      "title": "BaseCamp --- An Agentic AI Framework for Automating DNA Sequencing Data Pipelines"
+    },
+    {
+      "id": "2609.27321",
+      "title": "Verifiable Hidden Dynamics Play: Generating Agentic RL Environments from Solved Mechanisms"
+    },
+    {
+      "id": "2609.27252",
+      "title": "What Converges in the Platonic Representation Hypothesis? Structure over Geometry"
+    },
+    {
+      "id": "2609.27014",
+      "title": "ContraVis: Evidence-Grounded Visual Analytics for Contradiction Review in Legal Contracts"
+    },
+    {
+      "id": "2609.26718",
+      "title": "The Sirens' Song: When Proximal Background Context Overshadows Distant Evidence"
+    },
+    {
+      "id": "2609.26865",
+      "title": "Safety Nudges: User-Facing Interventions for Real-Time AI Risk Awareness"
+    },
+    {
+      "id": "2609.26527",
+      "title": "A Semiotics-Aware Framework for Evaluating Fidelity and Coverage in Natural Language Generation"
+    },
+    {
+      "id": "2609.26489",
+      "title": "Calibration as a First-Class Criterion in LLM Evaluation"
+    },
+    {
+      "id": "2609.26355",
+      "title": "PACT: From Credit Assignment to Critic Alignment"
+    },
+    {
+      "id": "2609.26853",
+      "title": "COPE: Continual Personalization of LLMs under Sparse User Feedback via User Embeddings and Self-Evaluation"
+    },
+    {
+      "id": "2609.26303",
+      "title": "Target alignment, dilution and forecast selection when cross-sectional forecasts share a common target"
+    },
+    {
+      "id": "2609.26175",
+      "title": "EADC: Evaluation of Advanced and Deep-level Compliance in Large Language Models"
+    },
+    {
+      "id": "2609.25927",
+      "title": "Informed Masking: Structure-Aware Perturbation for Reinforcement Learning in Diffusion Large Language Models"
+    },
+    {
+      "id": "2609.25760",
+      "title": "The Limits of Simulated Societies: How Post-Training and Survey Fine-Tuning Erase Cross-Cultural Variance"
+    },
+    {
+      "id": "2609.25575",
+      "title": "Direct Optimization of Generators for Search in Automated Theorem Proving"
+    },
+    {
+      "id": "2609.25569",
+      "title": "SambaGraph: Action-Reaction Spatio-Temporal Graphs for Soccer Tactical Response Modeling"
+    },
+    {
+      "id": "2609.25537",
+      "title": "Compressing Long Context into Answer-Aligned Memory Embeddings for LLM Inference"
+    },
+    {
+      "id": "2609.25366",
+      "title": "From Decorative to Load-Bearing: Task Difficulty Shapes the Causal Role of Chain-of-Thought"
+    },
+    {
+      "id": "2609.25298",
+      "title": "FineWeb-CLaR: Culture, Language, and Region Annotations for Benchmark-Aligned Corpus Auditing"
+    },
+    {
+      "id": "2609.24983",
+      "title": "onPanda: Efficient Annotation of On-Policy Alignment Data for LLMs and Agents via Token-Level Correction"
+    },
+    {
+      "id": "2609.25192",
+      "title": "FinFIRST: Benchmarking Search Agents for Financial Information Retrieval, Sourcing and Traceability"
+    },
+    {
+      "id": "2609.24890",
+      "title": "OSWorld-Pro: Process-based Evaluation for Computer Use Agents"
+    },
+    {
+      "id": "2609.24821",
+      "title": "The Answer-Basin Representation Hypothesis: We Are Not Probing or Steering Concepts"
+    },
+    {
+      "id": "2609.24372",
+      "title": "URA-NER: A Unified Retrieval-Augmented Framework with Retrieval Alignment and Uncertainty Reduction for Low-Resource NER"
+    },
+    {
+      "id": "2609.24303",
+      "title": "SupportCal: Label-Free Calibration of Post-Trained LLMs via Reference Support and Corroboration"
+    },
+    {
+      "id": "2609.24202",
+      "title": "Opinion Leader Dynamics: How Sparse Attention Shapes Token Clustering"
+    },
+    {
+      "id": "2609.24194",
+      "title": "When Residualization Helps an Audit: Format Effects, Slice Gains, and Their Limits"
+    },
+    {
+      "id": "2609.24146",
+      "title": "Mind or Message? Auditing Theory of Mind in Multi-Agent Social Simulation"
+    },
+    {
+      "id": "2609.24057",
+      "title": "Representation-guided in-context learning for medical image interpretation with multimodal large language models"
+    },
+    {
+      "id": "2609.23966",
+      "title": "From Tables to Quantified Statements: Evaluating LLM Inference Generation through Executable Verification"
+    }
+  ],
+  "samples_dropped": [
+    {
+      "id": "2609.27710",
+      "title": "FFM-CP: Cross-Backbone Fusion of Vision-Language Foundation Models for Few-Shot Computational Pathology"
+    },
+    {
+      "id": "2609.25715",
+      "title": "LingLan: An Advancing Traditional Chinese Medicine Diagnosis LLM with Multimodal Data"
+    },
+    {
+      "id": "2609.25558",
+      "title": "HABILIS Brain 0: Geometry-Change Supervision for Vision-Language-Action and Residual Flow Recovery"
+    },
+    {
+      "id": "2609.25492",
+      "title": "RGSQ: Riemannian Geometry-Sensitive Quantization for Large Vision-Language Models"
+    },
+    {
+      "id": "2609.24156",
+      "title": "TAC-Time: Texts as Channels For Multimodal Time Series Forecasting"
+    },
+    {
+      "id": "2609.22688",
+      "title": "Vision2CAD: A Visual Agent Harness for Explicit Geometry Referencing and Localization in Parametric CAD Modeling"
+    },
+    {
+      "id": "2609.22588",
+      "title": "Seeing is not Enough: Vision-Language Models Perceive Evidence but Fail to Act"
+    },
+    {
+      "id": "2609.22008",
+      "title": "DiaVLo: Diagnosing Behaviours of Vision-Language Models"
+    },
+    {
+      "id": "2609.21879",
+      "title": "Benchmarking the Explanatory Quality of Open-Weight Vision-Language Models in Face Recognition"
+    },
+    {
+      "id": "2609.21828",
+      "title": "Touvigation: Embodied Adaptive Object Acquisition for Blind and Low-Vision Users in Unfamiliar Indoor Environments"
+    },
+    {
+      "id": "2609.21228",
+      "title": "FOCAL-VLA: Subtask-Guided Geometry Distillation and Implicit World Modeling for Vision-Language-Action Models"
+    },
+    {
+      "id": "2609.21164",
+      "title": "M2G-LLM: Enhancing Clinical Prediction via Multimodal Graph Reasoning and LLM Context Injection"
+    },
+    {
+      "id": "2609.19634",
+      "title": "Scientific Image Quality Assessment via Multi-modal Retrieval-Augmented Generation"
+    },
+    {
+      "id": "2609.18259",
+      "title": "M2Tok: Multi-head Multi-codebook Discrete Action Tokenization for Vision-Language-Action Models"
+    },
+    {
+      "id": "2609.16464",
+      "title": "A multimodal large language model for evidence-based autism spectrum disorder screening"
+    },
+    {
+      "id": "2609.15603",
+      "title": "A Unified Vision-Language Model for PSMA PET/CT Report Generation, Visual Question Answering, and Lesion Segmentation"
+    },
+    {
+      "id": "2609.16090",
+      "title": "MUUNRiver-Bench: Diagnosing Relation-Dependent Music Retrieval with Multimodal Instructions"
+    },
+    {
+      "id": "2609.14969",
+      "title": "Online Language Adaptive Sampling for Better Distributed Cross-lingual Gains"
+    },
+    {
+      "id": "2609.14779",
+      "title": "Func-R1: Incentivizing Mathematical Function Reasoning in Multimodal Large Language Models"
+    },
+    {
+      "id": "2609.14691",
+      "title": "Speak to the City: Multimodal Resolution for Outside-the-Vehicle References"
+    },
+    {
+      "id": "2609.14344",
+      "title": "AURA: Unified Multimodal Framework for Conversational Music Editing"
+    },
+    {
+      "id": "2609.13874",
+      "title": "SHIFT-M3: Pre-fusion Alignment-based Consistency Screening for Multimodal ECG Record Integrity"
+    },
+    {
+      "id": "1410.2455",
+      "title": "BilBOWA: Fast Bilingual Distributed Representations without Word Alignments"
+    },
+    {
+      "id": "1506.06272",
+      "title": "Aligning where to see and what to tell: image caption with region-based attention and scene factorization"
+    },
+    {
+      "id": "1601.03650",
+      "title": "Smoothing parameter estimation framework for IBM word alignment models"
+    },
+    {
+      "id": "1601.02166",
+      "title": "Empirical Gaussian priors for cross-lingual transfer learning"
+    },
+    {
+      "id": "1809.02306",
+      "title": "Unsupervised Cross-lingual Word Embedding by Multilingual Neural Language Models"
+    },
+    {
+      "id": "1911.01464",
+      "title": "Emerging Cross-lingual Structure in Pretrained Language Models"
+    },
+    {
+      "id": "1909.11740",
+      "title": "UNITER: UNiversal Image-TExt Representation Learning"
+    },
+    {
+      "id": "1909.06775",
+      "title": "Cross-Lingual BERT Transformation for Zero-Shot Dependency Parsing"
+    },
+    {
+      "id": "1908.03557",
+      "title": "VisualBERT: A Simple and Performant Baseline for Vision and Language"
+    },
+    {
+      "id": "2012.15547",
+      "title": "XLM-T: Scaling up Multilingual Machine Translation with Pretrained Cross-lingual Transformer Encoders"
+    },
+    {
+      "id": "2010.02949",
+      "title": "Learning to Represent Image and Text with Denotation Graph"
+    },
+    {
+      "id": "2009.05166",
+      "title": "FILTER: An Enhanced Fusion Method for Cross-lingual Language Understanding"
+    },
+    {
+      "id": "2006.09526",
+      "title": "Cross-lingual Retrieval for Iterative Self-Supervised Training"
+    },
+    {
+      "id": "2005.07456",
+      "title": "Cross-lingual Transfer of Sentiment Classifiers"
+    },
+    {
+      "id": "2005.01196",
+      "title": "On the Limitations of Cross-lingual Encoders as Exposed by Reference-Free Machine Translation Evaluation"
+    },
+    {
+      "id": "2004.13310",
+      "title": "Self-Attention with Cross-Lingual Position Representation"
+    },
+    {
+      "id": "2004.04312",
+      "title": "Learning to Scale Multilingual Representations for Vision-Language Tasks"
+    },
+    {
+      "id": "2004.00849",
+      "title": "Pixel-BERT: Aligning Image Pixels with Text by Deep Multi-Modal Transformers"
+    },
+    {
+      "id": "2003.14056",
+      "title": "Understanding Cross-Lingual Syntactic Transfer in Multilingual Recurrent Neural Networks"
+    },
+    {
+      "id": "2002.06353",
+      "title": "UniVL: A Unified Video and Language Pre-Training Model for Multimodal Understanding and Generation"
+    },
+    {
+      "id": "2111.07180",
+      "title": "Explainable Semantic Space by Grounding Language to Vision with Cross-Modal Contrastive Learning"
+    },
+    {
+      "id": "2110.14782",
+      "title": "When is BERT Multilingual? Isolating Crucial Ingredients for Cross-lingual Transfer"
+    },
+    {
+      "id": "2110.04544",
+      "title": "CLIP-Adapter: Better Vision-Language Models with Feature Adapters"
+    },
+    {
+      "id": "2109.12573",
+      "title": "XLM-K: Improving Cross-Lingual Language Model Pre-training with Multilingual Knowledge"
+    },
+    {
+      "id": "2109.12178",
+      "title": "MLIM: Vision-and-Language Model Pre-training with Masked Language and Image Modeling"
+    },
+    {
+      "id": "2109.12028",
+      "title": "Investigating Post-pretraining Representation Alignment for Cross-Lingual Question Answering"
+    },
+    {
+      "id": "2109.11129",
+      "title": "Cross-Lingual Language Model Meta-Pretraining"
+    },
+    {
+      "id": "2109.07301",
+      "title": "What Vision-Language Models `See' when they See Scenes"
+    }
+  ]
+}

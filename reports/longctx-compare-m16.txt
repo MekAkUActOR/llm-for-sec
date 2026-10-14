@@ -1,0 +1,14 @@
+M1.6-32k recovery: three-way longctx comparison (probes v0.1.1 longctx, 2026-09-28)
+             1638/en   1638/zh   3276/en   3276/zh   (PPL)
+base          10.701    14.700    11.103    12.213
+c1-full       10.416    14.754    12.322    13.811
+m16            9.863    13.352    10.286    10.860
+
+             1638/en   1638/zh   3276/en   3276/zh   (needle hits/3)
+base            3/3      3/3      3/3      3/3  = 12/12
+c1-full         1/3      3/3      0/3      1/3  = 5/12
+m16             1/3      3/3      0/3      2/3  = 6/12
+
+32k PPL vs base: en -7.4%, zh -11.1%
+GATE 32k PPL <= +10%: PASS (both improved below base)
+GATE needle >= 9/12: FAIL (m16-32k 6/12; base 12/12)

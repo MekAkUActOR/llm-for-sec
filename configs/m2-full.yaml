@@ -1,0 +1,58 @@
+### M2 全量跑（SFT 正式跑：98,339 条 × 2 epoch，docs/06 + m2-data-assembly-plan §6）
+### 语料：sec_sft_m1（assemble_sft_m2.py run5 终局：policy 18.6K / task 12.4K /
+###       injection 10.2K / multiturn 5.2K / recovery 52K；zh:en=35.8% / OR:attack=1.273；
+###       2026-09-26 用户选 A：按现状跑，M2.5 并行回填 policy/task 缺口）
+### 起点：M1.5 产物（checkpoints/qwen3-06b-sec-m15——今晚 M1.5 完成后存在）
+### template：qwen3_nothink（同 m2-calib：chatml 槽位、无 think 机制）
+### lr/epochs：沿校准默认（1e-5 × 2ep）；校准读数若调参，发射前改此处
+### 预计 ~12,292 步（98,339 × 2 ÷ eff 16）× 2-4s/step ≈ 8-13h 连夜
+### 运行：. .\scripts\env.ps1; llamafactory-cli train configs/m2-full.yaml
+### 可中断无损续训（2026-09-26 用户指令）：全量 checkpoint——中断=直接杀进程；
+###   恢复=同命令重启（LF parser auto-resume 从最新 checkpoint-XXXX 续训，
+###   优化器/调度器/RNG/数据位置全部恢复）。save_total_limit=2 保最近两个。
+
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m15
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+### dataset
+dataset: sec_sft_m1
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: false          # 对话数据：逐样本序列（packing 截断多轮语境+VERDICT 拼接污染）
+cutoff_len: 4096
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2-full
+logging_steps: 10
+save_steps: 500
+save_only_model: false
+save_total_limit: 2
+plot_loss: true
+report_to: none
+
+### train
+### bs1×accum16（eff 16 不变）：[2026-09-28 15:2x 改] bs2 起跑后陷入慢性轻度
+### WDDM 分页（边际步时 5.8→7.7s 爬升、功耗 120-212W 波动、ETA 膨胀到 ~22h）——
+### 机制 = 变长序列的分配池高水位（早期长批 2×4k logits 瞬态 7.5GB）+
+### 缓存分配器不归还 + WDDM 分页区反复摩擦。C1 先例同型（bs1 反而更快）：
+### bs1 砍半批瞬态（1×4k=3.7GB）+ 降分配方差 → 出分页区。
+### 重启代价：~160 步（checkpoint-500 未落，净重启）。
+### 环境加固：PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True（防碎片；
+### 平台不支持时自动忽略，无害）
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 1.0e-5
+num_train_epochs: 2.0
+lr_scheduler_type: cosine
+warmup_steps: 100
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true

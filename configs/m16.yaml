@@ -1,0 +1,52 @@
+### M1.6 长上下文恢复短跑（2026-09-26 用户选 C：C1-full 32k 门禁未过，先恢复再 M1.5）
+### 语料：sec_m16（build_m16_mix.py：zhwiki 全文 >=3000 字符长文，~30M tokens，
+###       cutoff 32768 packing——序列含 5-15 篇 2k-10k token 长文，全 32k 位段
+###       注意力模式重训；材料在 C1 已训过 = 回放语义，恢复先验而非学新知）
+### 起点：C1-full 最终模型（根目录）
+### lr 1e-5：恢复针（比 M1.5 知识针 2e-5 再低——只恢复注意力模式，别动知识）
+### 预计 ~58 步 @8k；步时 ~60s ≈ 1h
+### ⚠ 32k 直跑已证不可行（2026-09-27 23:40 OOM 实测：fp32 logits 19.9GB +
+###   bf16 10GB，静态占用 9.6GB → 无融合 CE 硬上限 ~12k）。8k 档 logits 7.5GB
+###   安全。32k 深位恢复等分块 CE 补丁（scripts/ 侧在造）到位后以 m16-32k
+###   二段跑补（从本段输出续）。
+### 运行：. .\scripts\env.ps1; llamafactory-cli train configs/m16.yaml
+### 可中断无损续训（全量 checkpoint，2026-09-26 用户指令统一模式）
+### 训后链：scripts/post_m16_eval.ps1（32k PPL + needle 三方对照 base/c1-full/m16）
+
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-c1-full
+
+### method
+stage: pt
+do_train: true
+finetuning_type: full
+
+### dataset
+dataset: sec_m16
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: true
+cutoff_len: 8192
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m16
+logging_steps: 1
+save_steps: 10
+save_only_model: false
+save_total_limit: 2
+plot_loss: true
+report_to: none
+
+### train
+### bs1 x accum64（8192 x 64 = 524,288 tok/step，与 C1 有效步容量一致）
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 64
+learning_rate: 1.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_steps: 5
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true

@@ -1,0 +1,172 @@
+{
+  "report": "m3-dpo-readiness",
+  "generated": "2026-09-30",
+  "scope": "M3 DPO 发射前配置/数据就绪核查（0 GPU 作业；未训练、未评测）",
+  "gpu_jobs_started": false,
+  "writes_performed": [
+    "configs/m3-dpo.yaml (model_name_or_path + 头部变更记录注释块)",
+    "reports/m3-dpo-readiness.json",
+    "reports/m3-dpo-readiness.md"
+  ],
+  "data_read_only_confirmed": true,
+
+  "config_change": {
+    "file": "configs/m3-dpo.yaml",
+    "changed_field": "model_name_or_path",
+    "from": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2-full",
+    "to": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m25-full",
+    "date": "2026-09-30",
+    "reason_zh": "Plan A 决议废弃了 m2-full 权重，该检查点不再作为任何阶段起点；谱系已推进为 base → c1-full → m16-32k → m15 → m25-full，m25-full 即当前 SFT 锚点，M3 DPO 从它出发。",
+    "header_comment_block_added": true,
+    "header_block_lines": 9,
+    "file_lines_before": 87,
+    "file_lines_after": 97,
+    "other_hyperparameters_unchanged": true,
+    "hyperparameter_check": "非注释行逐行比对：仅 model_name_or_path 的值与行尾注释变动；stage/do_train/finetuning_type/template/pref_loss/pref_beta/dataset/dataset_dir/packing/cutoff_len/preprocessing_num_workers/overwrite_cache/output_dir/logging_steps/save_steps/save_only_model/save_total_limit/plot_loss/report_to/per_device_train_batch_size/gradient_accumulation_steps/learning_rate/num_train_epochs/lr_scheduler_type/warmup_steps/weight_decay/max_grad_norm/bf16/gradient_checkpointing 全部 byte-identical（原 44-87 行 → 新 54-97 行，整体下移 10 行）。",
+    "stale_note_handling": "原第 6-8 行『起点：M2 全量跑产物』注释未删除（保留追溯），已在新头部块中声明作废。",
+    "sha256_after": "FB9ECA5EC48E31B17CF8CFDFD6AAD460F6B988FE37A0C55521D9D267EC356F64"
+  },
+
+  "pairs": {
+    "file": "data\\lf\\dpo_m3.jsonl",
+    "sha256": "B7A9C8352F4D820888B72574E9503802AA1CA25BFB03AB0636D12196216F6694",
+    "bytes": 85840545,
+    "total": 47948,
+    "expected_total": 47948,
+    "total_matches_expected": true,
+    "parse_failures": 0,
+    "missing_fields": 0,
+    "missing_fields_checked": ["conversations", "chosen", "rejected"],
+    "empty_side_rows": 0,
+    "chosen_eq_rejected_rows": 0,
+    "tag_scheme_ok": true,
+    "tag_scheme_expected": {
+      "formatting": "sharegpt",
+      "ranking": true,
+      "columns": {"messages": "conversations", "chosen": "chosen", "rejected": "rejected"},
+      "tags": {"role_tag": "from", "content_tag": "value", "user_tag": "human", "assistant_tag": "gpt", "system_tag": "system"}
+    },
+    "tag_scheme_observed": {
+      "conversations_msg_keys": ["from", "value"],
+      "conversations_roles": {"system": 47948, "human": 47948},
+      "chosen_keys": ["from", "value"],
+      "chosen_role": {"gpt": 47948},
+      "rejected_keys": ["from", "value"],
+      "rejected_role": {"gpt": 47948},
+      "role_tag_mismatches": 0,
+      "content_tag_mismatches": 0,
+      "unknown_roles": 0,
+      "rows_with_wrong_msg_keys": 0
+    },
+    "tag_scheme_mismatch": "none — 文件与 dataset_info.json 注册的 sec_dpo_m3 方案完全一致",
+    "lengths": {
+      "unit": "characters (len of JSON string value, UTF-8 codepoints)",
+      "conversations": {"min": 303, "p25": 327, "median": 492.0, "p75": 590, "p95": 749, "max": 2800, "mean": 489.6},
+      "chosen": {"min": 1, "p25": 141, "median": 190.0, "p75": 322, "p95": 711, "max": 5573, "mean": 266.3},
+      "rejected": {"min": 1, "p25": 141, "median": 195.0, "p75": 409, "p95": 728, "max": 7466, "mean": 290.4},
+      "notes_zh": "conversations = 全部轮次字符数之和（system+human）。极短侧均属 B 类第三方储备对（chosen<12 字符 212 行 / rejected<12 字符 160 行，如 'Yes.'），构建脚本已断言非空且 chosen!=rejected，不构成 schema 违规；cutoff_len 2048 相对 max 2800 字符有足够 token 余量（config 内实测 p99=540 token）。"
+    },
+    "lang_split": {
+      "heuristic": "首个人类回合中 CJK 字符（U+4E00–9FFF / U+3400–4DBF）数 ≥ 8 判为 zh",
+      "cjk_heuristic": {"zh": 24047, "en": 23901},
+      "declared_lang_field": {"zh": 23614, "en": 24334},
+      "mismatch_rows": 727,
+      "mismatch_pct": 1.52,
+      "mismatch_breakdown": {
+        "policy declared=en / heuristic=zh": 564,
+        "refusal_quality declared=en / heuristic=zh": 16,
+        "reserve declared=zh / heuristic=en": 141,
+        "policy declared=zh / heuristic=en": 6
+      },
+      "mismatch_cause_zh": "两类伪影：（1）564+16 行 en 请求的 human 首轮内嵌 <dsh-protocol> 脚手架，其 system 块含中文元数据（『分析授权：只读评估』『任务：…』），启发式误判为 zh；（2）141 行 zh 储备提示极短（如『怎样合成毒品』6 个 CJK），未过 ≥8 阈值。lang 字段不参与 LF 训练（仅离线统计用），不影响 DPO 训练；本报告以声明字段为主口径。"
+    },
+    "label_dist": {
+      "dpo_class": {"reserve": 30807, "policy": 14688, "bt330_refusal": 1913, "refusal_quality": 300, "calibration": 240},
+      "src": {"none_A_C_D": 15228, "cvalues": 11440, "hh-rlhf": 9117, "pku-saferlhf": 8330, "beavertails": 1920, "beavertails-330k": 1913},
+      "pack": {"default": 36512, "conservative": 5889, "professional": 5547},
+      "src_task_present_rows": 15228,
+      "policy_share": 0.3063,
+      "policy_share_min": 0.30,
+      "matches_build_stats": true,
+      "stats_source": "data\\dpo\\m3\\stats.json (sha256 83CD5168F023FF12EABC6AE680483421C37CB1BB83FA561231833F021820CD07)"
+    }
+  },
+
+  "dataset_registration_ok": true,
+  "dataset_registration": {
+    "file": "data\\lf\\dataset_info.json",
+    "key": "sec_dpo_m3",
+    "registered_exactly_as_expected": true,
+    "file_name": "dpo_m3.jsonl",
+    "formatting": "sharegpt",
+    "ranking": true,
+    "columns": {"messages": "conversations", "chosen": "chosen", "rejected": "rejected"},
+    "tags": {"role_tag": "from", "content_tag": "value", "user_tag": "human", "assistant_tag": "gpt", "system_tag": "system"},
+    "note_zh": "本次仅读取，未修改；注册项与 scripts/build_dpo_m3.py 的 write_outputs() 注册逻辑逐字段一致，且与 dpo_m3.jsonl 实际 tag 方案一致。"
+  },
+
+  "lineage_note": {
+    "verdict": "model_agnostic",
+    "summary_zh": "dpo_m3 的 chosen/rejected 不是任何 m2 时代 rollout 的产物，而是从固定池（模板生成的政策接地答案 + 公共语料原文偏好对）确定性构建的，因此 m2-full → m25-full 的重指向不需要重新推导任何偏好对。",
+    "reports_search": {
+      "files_matching_*dpo*_under_reports": 0,
+      "reports_mentioning_dpo_m3": 0,
+      "authoritative_build_record": ["data\\dpo\\m3\\README.md", "data\\dpo\\m3\\stats.json", "scripts\\build_dpo_m3.py"],
+      "note_zh": "reports/ 下不存在文件名含 'dpo' 的报告，也没有任何报告正文引用 dpo_m3（已 grep 全目录确认）。构建记录由脚本自身生成在 data/dpo/m3/（data/ 本次只读，未修改）。"
+    },
+    "evidence": [
+      {"class":"A 政策条件化对 (14,688)","source":"data/sft/v0/policy_pairs.jsonl + data/sft/v0x/policy_expansion.jsonl + data/sft/v0x/t4_grounding.jsonl","nature":"gen_sft_v0.py / gen_sft_v0x.py 的确定性模板生成器（全文件无 from_pretrained / AutoModel* / .generate( / import torch），即脚本化政策接地答案，非模型 rollout"},
+      {"class":"B 储备直通对 (30,807)","source":"data/sft/dpo-reserve/{hh,cvalues,pku-saferlhf,beavertails}.jsonl","nature":"上游公共语料（data/corpora/raw/m2）原文偏好对，逐源 replay 校验后原样入列"},
+      {"class":"B2 bt330 衍生拒绝对 (1,913)","source":"beavertails 330k 上游 rejected + REFUSAL_REPLY 模板合成 chosen","nature":"上游数据 + 模板，非模型生成"},
+      {"class":"C 拒答质量对 (300) / D 校准偏好对 (240)","source":"build_dpo_m3.py 内含 BARE_REFUSAL / OVERCONFIDENT / PROCEED_ANYWAY 模板 + verdict_line()","nature":"合成模板对，非模型生成"},
+      {"class":"时间线","source":"mtime","nature":"data/dpo/m3/train.jsonl = 2026-09-26 10:33（data/lf/dpo_m3.jsonl 为其硬链接，同 inode/同大小 85,840,545 字节）；checkpoints/qwen3-06b-sec-m2-full 建立于 2026-09-28 22:27。语料早于 m2-full 两天以上，物理上不可能含 m2 时代 rollout。"},
+      {"class":"确定性","source":"seed=20260928 固定，全部输入为本地文件（raw 语料 / sft v0,v0x / dpo-reserve / reports/sft-exclusion-hashes.json），无网络与无模型依赖","nature":"可离线复现"}
+    ],
+    "re_derivation_needed": [],
+    "re_derivation_detail_zh": "无需重新推导：没有报告、配置或数据文件依赖 m2 权重。唯一与新锚点冲突的文本是设计文档 docs/07-m3-preference-recipe.md §2.2 第 35 行『基座：M2 全量跑检查点【待 M2 读数定 checkpoint 选择】』——属文档卫生项（可选更新为 m25-full），不阻塞发射。docs/07 §5 的『偏好对回流（M4）』是未来模型输出闭环，仅影响将来的增量对，与本 v0 语料无关。",
+    "caveat_zh": "本次未重跑 scripts/build_dpo_m3.py 复现校验：该脚本会写入 data/dpo/m3/{train.jsonl,stats.json,README.md}（data/ 只读约束），故仅做只读一致性核对——观测到的 total / by_class / lang_dist / pack_dist 与 stats.json 完全一致，且 0 parse failure、0 schema 违规。"
+  },
+
+  "launch_command": "$env:PYTHONIOENCODING='utf-8'; $env:HF_HOME='J:\\Projects\\llm_for_sec\\.cache\\huggingface'; $env:HF_HUB_OFFLINE='1'; & 'J:\\Projects\\llm_for_sec\\.venv\\Scripts\\llamafactory-cli.exe' train configs\\m3-dpo.yaml",
+
+  "m25_exit_gates_required_before_launch": [
+    "tool_output 注入跟随翻转（injection-following → refusal）——主门禁",
+    "通用 PPL ≤ +10% vs m15",
+    "长上下文 needle ≥ 9/12",
+    "行为保持（无拒答率暴增）"
+  ],
+
+  "blockers": [
+    {
+      "id": "B1",
+      "severity": "expected/scheduled",
+      "status": "open",
+      "what_zh": "m25-full 训练仍在进行，checkpoint 目录尚无权重。checkpoints/qwen3-06b-sec-m25-full/ 当前仅含 trainer_log.jsonl（末条 2026-09-30 01:59：step 170/17210, 0.99%, 预计剩余 ~10h23m）。发射命令的路径已正确，但必须等训练落盘后执行。",
+      "action": "等 m25-full 训练结束（train_results.json 出现）后再按 launch_command 发射。"
+    },
+    {
+      "id": "B2",
+      "severity": "gating",
+      "status": "unverified-here",
+      "what_zh": "M2.5 四项退出闸门（tool_output 翻转 / 通用 PPL ≤ +10% vs m15 / 长上下文 needle ≥9/12 / 行为保持）尚未有 m25-full 侧读数；reports/ 现无任何 m25 探针/评测产物（本轮按纪律未运行任何评测，探针与 heldout 目录亦未读取）。",
+      "action": "M2.5 退出评审通过后再发射 M3 DPO。"
+    },
+    {
+      "id": "B3",
+      "severity": "note/draft",
+      "status": "open",
+      "what_zh": "configs/m3-dpo.yaml 仍保留 3 处【待 M2 读数】超参占位：pref_beta=0.1、learning_rate=2.0e-6、num_train_epochs=1.0（另 cutoff_len/OOM 处置序为实测包络）。这些属校准读数后定稿项，不在本任务改范围内（任务要求其余超参 byte-identical）。",
+      "action": "按 docs/07 §2.2 与 M2.5 读数定稿；不改则可直接以草案值发射。"
+    },
+    {
+      "id": "B4",
+      "severity": "note/pre-flight",
+      "status": "not-executed",
+      "what_zh": "配置头部列出的两项 CPU 侧训前硬校验本轮未执行：① python scripts/patches/apply_venv_patches.py（应报 already patched）；② from trl import DPOTrainer, DPOConfig 冒烟（grpo-feasibility §1.3 阻断点）。本轮未运行以避免与 GPU 作业争用及越出任务范围。",
+      "action": "发射前在空闲 CPU 上补跑一次。"
+    }
+  ],
+
+  "blocking_launch_now": true,
+  "blocking_reason_zh": "B1（m25-full 权重尚未落盘）+ B2（M2.5 退出闸门未验证）。这是计划内的时序依赖，非数据/配置缺陷——数据面与配置面均已就绪：47,948 对 0 违规、注册一致、路径已重指向、发射命令可直接复制执行。"
+}

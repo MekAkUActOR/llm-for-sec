@@ -1,0 +1,247 @@
+[
+ {
+  "src": "MSRC",
+  "label": "cvrf v2 root (no key)",
+  "url": "https://api.msrc.microsoft.com/cvrf/v2.0/",
+  "status": 404,
+  "ms": 804,
+  "error": "HTTPError Resource Not Found",
+  "body_head": "{ \"statusCode\": 404, \"message\": \"Resource not found\" }"
+ },
+ {
+  "src": "MSRC",
+  "label": "cvrf v3 root (no key)",
+  "url": "https://api.msrc.microsoft.com/cvrf/v3.0/",
+  "status": 200,
+  "ms": 1068,
+  "ctype": "application/json; odata.metadata=minimal; odata.streaming=true; charset=utf-8",
+  "bytes": 125,
+  "final_url": "https://api.msrc.microsoft.com/cvrf/v3.0/",
+  "head_sample": "{\"@odata.context\":\"https://api.msrc.microsoft.com/$metadata\",\"value\":[{\"name\":\"Updates\",\"kind\":\"EntitySet\",\"url\":\"Updates\"}]}"
+ },
+ {
+  "src": "MSRC",
+  "label": "update-guide portal HTML",
+  "url": "https://msrc.microsoft.com/update-guide",
+  "status": 200,
+  "ms": 1370,
+  "ctype": "text/html; charset=utf-8",
+  "bytes": 2717,
+  "final_url": "https://msrc.microsoft.com/update-guide",
+  "head_sample": "<!doctype html> <html lang=\"en\" dir=\"ltr\">   <head>     <meta charset=\"utf-8\" />     <!-- Browser Based Cache Control -->     <meta http-equiv=\"Pragma\" content=\"no-cache\" />     <meta       http-equiv"
+ },
+ {
+  "src": "MSRC",
+  "label": "portal internal api (unofficial)",
+  "url": "https://portal.msrc.microsoft.com/api/security-guidance/en-US",
+  "status": 404,
+  "ms": 972,
+  "error": "HTTPError Not Found",
+  "body_head": "<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content=\"ie=edge\"><meta name=viewport content=\"width=device-width,initial-scale=1,shrink-to-fit=no\"><meta name=author content><meta name=description content=\"No content was found at this address\"><meta na"
+ },
+ {
+  "src": "Cisco PSIRT",
+  "label": "openVuln v2 all (no token)",
+  "url": "https://apix.cisco.com/security/advisories/v2/all",
+  "status": 403,
+  "ms": 1316,
+  "error": "HTTPError Forbidden",
+  "body_head": "<h1>Authorization Header is either empty or not found in request</h1>"
+ },
+ {
+  "src": "Cisco PSIRT",
+  "label": "publicationListing HTML",
+  "url": "https://tools.cisco.com/security/center/publicationListing.x",
+  "status": 200,
+  "ms": 7602,
+  "ctype": "text/html;charset=ISO-8859-1",
+  "bytes": 65536,
+  "final_url": "https://sec.cloudapps.cisco.com/security/center/publicationListing.x",
+  "head_sample": "              <html>     <head> \t<!-- YOUR META TAG, CSS/JS HERE --> \t<title>Security Advisories</title> \t    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js\"  type=\"text"
+ },
+ {
+  "src": "Cisco PSIRT",
+  "label": "cisco.com security page",
+  "url": "https://www.cisco.com/c/en/us/products/security.html",
+  "status": 403,
+  "ms": 16074,
+  "error": "HTTPError Forbidden",
+  "body_head": "<HTML><HEAD> <TITLE>Access Denied</TITLE> </HEAD><BODY> <H1>Access Denied</H1>   You don't have permission to access \"http&#58;&#47;&#47;www&#46;cisco&#46;com&#47;c&#47;en&#47;us&#47;products&#47;security&#46;html\" on this server.<P> Reference&#32;&#35;18&#46;ccd7d217&#46;1790262045&#46;1d71b7 <P>ht"
+ },
+ {
+  "src": "Oracle CPU",
+  "label": "security-alerts index",
+  "url": "https://www.oracle.com/security-alerts/",
+  "status": null,
+  "ms": 20321,
+  "error": "URLError: <urlopen error _ssl.c:1064: The handshake operation timed out>"
+ },
+ {
+  "src": "Oracle CPU",
+  "label": "one CPU advisory HTML",
+  "url": "https://www.oracle.com/security-alerts/cpuapr2025.html",
+  "status": null,
+  "ms": 33171,
+  "error": "TimeoutError: The read operation timed out"
+ },
+ {
+  "src": "Oracle CPU",
+  "label": "legal terms",
+  "url": "https://www.oracle.com/legal/terms.html",
+  "status": 200,
+  "ms": 24886,
+  "ctype": "text/html; charset=UTF-8",
+  "bytes": 56965,
+  "final_url": "https://www.oracle.com/legal/terms/",
+  "head_sample": "<!DOCTYPE html> <html lang=\"en-US\" class=\"no-js\"><!-- start : Framework/Sequoia --> <!-- start : ocom/common/global/components/framework/head --> <head> <!-- start : ocom/common/global/components/head"
+ },
+ {
+  "src": "Project Zero",
+  "label": "blogspot home",
+  "url": "https://googleprojectzero.blogspot.com/",
+  "status": null,
+  "ms": 30030,
+  "error": "URLError: <urlopen error timed out>"
+ },
+ {
+  "src": "Project Zero",
+  "label": "googlesource 0day-in-the-wild",
+  "url": "https://project-zero.googlesource.com/0day-in-the-wild/+/master/",
+  "status": null,
+  "ms": 30028,
+  "error": "URLError: <urlopen error timed out>"
+ },
+ {
+  "src": "Project Zero",
+  "label": "issues tracker",
+  "url": "https://project-zero.issues.chromium.org/",
+  "status": null,
+  "ms": 150084,
+  "error": "URLError: <urlopen error timed out>"
+ },
+ {
+  "src": "CTFtime",
+  "label": "api v1 events",
+  "url": "https://ctftime.org/api/v1/events/?limit=1",
+  "status": 200,
+  "ms": 2839,
+  "ctype": "application/json",
+  "bytes": 1485,
+  "final_url": "https://ctftime.org/api/v1/events/?limit=1",
+  "head_sample": "[{\"organizers\": [{\"id\": 448857, \"name\": \"pulse_0x1337\"}], \"ctftime_url\": \"https://ctftime.org/event/3451/\", \"ctf_id\": 1703, \"weight\": 0.00, \"duration\": {\"hours\": 4, \"days\": 1}, \"live_feed\": \"\", \"logo\""
+ },
+ {
+  "src": "CTFtime",
+  "label": "site home",
+  "url": "https://ctftime.org/",
+  "status": 200,
+  "ms": 4853,
+  "ctype": "text/html; charset=utf-8",
+  "bytes": 65536,
+  "final_url": "https://ctftime.org/",
+  "head_sample": "<!DOCTYPE html> <html lang=\"en\">   <head>     <meta charset=\"utf-8\">     <title>CTFtime.org / All about CTF (Capture The Flag)</title>     <meta name=\"viewport\" content=\"width=device-width, initial-sc"
+ },
+ {
+  "src": "SANS ISC",
+  "label": "api infocon json",
+  "url": "https://isc.sans.edu/api/infocon?json",
+  "status": 200,
+  "ms": 1775,
+  "ctype": "text/json;charset=UTF-8",
+  "bytes": 18,
+  "final_url": "https://isc.sans.edu/api/infocon?json",
+  "head_sample": "{\"status\":\"green\"}"
+ },
+ {
+  "src": "SANS ISC",
+  "label": "rss feed",
+  "url": "https://isc.sans.edu/rssfeed.xml",
+  "status": 200,
+  "ms": 839,
+  "ctype": "text/xml; charset=utf-8",
+  "bytes": 7700,
+  "final_url": "https://isc.sans.edu/rssfeed.xml",
+  "head_sample": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <?xml-stylesheet href=\"/css/rss.css\" type=\"text/css\"?> <rss version=\"2.0\"      xmlns:content=\"http://purl.org/rss/1.0/modules/content/\" \txmlns:wfw=\"http://wellfo"
+ },
+ {
+  "src": "SANS ISC",
+  "label": "diary archive",
+  "url": "https://isc.sans.edu/diaryarchive.html",
+  "status": 200,
+  "ms": 3899,
+  "ctype": "text/html; charset=UTF-8",
+  "bytes": 65536,
+  "final_url": "https://isc.sans.edu/diaryarchive.html",
+  "head_sample": "<!doctype html><html lang=\"en\"><head><title>InfoSec Diary Blog Archive - SANS Internet Storm Center</title>     <meta charset=\"utf-8\">     <meta name=\"viewport\" content=\"\" />     <meta property=\"og:si"
+ },
+ {
+  "src": "Debian DSA",
+  "label": "dsa index page",
+  "url": "https://www.debian.org/security/dsa/",
+  "status": 404,
+  "ms": 5354,
+  "error": "HTTPError Not Found",
+  "body_head": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\"> <html lang=\"en\"> <head>   <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">   <title>Debian -- Page not found </title>   <link rel=\"author\" href=\"mailto:webmaster@debian.org\">   <meta name=\"G"
+ },
+ {
+  "src": "Debian DSA",
+  "label": "single dsa page",
+  "url": "https://www.debian.org/security/2026/dsa-5817",
+  "status": 200,
+  "ms": 3231,
+  "ctype": "text/html",
+  "bytes": 6664,
+  "final_url": "https://lists.debian.org/debian-security-announce/2024/msg00232.html",
+  "head_sample": "<!-- MHonArc v2.6.19 --> <!--X-Subject: [SECURITY] [DSA 5817&#45;1] chromium security update --> <!--X-From-R13: Oaqerf Enybzba &#60;qvyvatreNqrovna.bet> --> <!--X-Date: Sat, 23 Nov 2024 10:51:11 +000"
+ },
+ {
+  "src": "Red Hat",
+  "label": "csaf v2 index",
+  "url": "https://security.access.redhat.com/data/csaf/v2/advisories.json",
+  "status": 404,
+  "ms": 1357,
+  "error": "HTTPError Not Found",
+  "body_head": "<!DOCTYPE html> <html dir=\"ltr\" lang=\"en\" data-ignored=\"not set\" data-contentid-eddl=\"8743983\"  data-page-category-eddl=\"servicetest\" data-page-type-eddl=\"demo\" data-page-sub-type-eddl=\"development\" data-site-name-eddl=\"customerportal\">   <head>           <!-- CP_PRIMER_HEAD -->     <meta charset=\"u"
+ },
+ {
+  "src": "Red Hat",
+  "label": "rhsa rss",
+  "url": "https://security.access.redhat.com/data/meta/v1/rhsa.rss",
+  "status": 200,
+  "ms": 710,
+  "ctype": "application/rss+xml",
+  "bytes": 65536,
+  "final_url": "https://security.access.redhat.com/data/meta/v1/rhsa.rss",
+  "head_sample": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?> <rss version=\"2.0\">     <channel>         <title>Red Hat Security Errata</title>         <link>https://access.redhat.com/security/security-updates/#/security-ad"
+ },
+ {
+  "src": "GH Security Lab",
+  "label": "repo page",
+  "url": "https://github.com/github/securitylab",
+  "status": 200,
+  "ms": 1546,
+  "ctype": "text/html; charset=utf-8",
+  "bytes": 65536,
+  "final_url": "https://github.com/github/securitylab",
+  "head_sample": "        <!DOCTYPE html> <html   lang=\"en\"      data-color-mode=\"auto\" data-light-theme=\"light\" data-dark-theme=\"dark\"   data-a11y-animated-images=\"system\" data-a11y-link-underlines=\"true\"      >      "
+ },
+ {
+  "src": "GH Security Lab",
+  "label": "api.github repo meta",
+  "url": "https://api.github.com/repos/github/securitylab",
+  "status": 200,
+  "ms": 2980,
+  "ctype": "application/json; charset=utf-8",
+  "bytes": 6501,
+  "final_url": "https://api.github.com/repos/github/securitylab",
+  "head_sample": "{\"id\":221101274,\"node_id\":\"MDEwOlJlcG9zaXRvcnkyMjExMDEyNzQ=\",\"name\":\"securitylab\",\"full_name\":\"github/securitylab\",\"private\":false,\"owner\":{\"login\":\"github\",\"id\":9919,\"node_id\":\"MDEyOk9yZ2FuaXphdGlvbj"
+ },
+ {
+  "src": "GH Security Lab",
+  "label": "raw LICENSE",
+  "url": "https://raw.githubusercontent.com/github/securitylab/main/LICENSE",
+  "status": null,
+  "ms": 15185,
+  "error": "TimeoutError: The read operation timed out"
+ }
+]

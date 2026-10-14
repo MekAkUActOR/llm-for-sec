@@ -1,0 +1,39 @@
+{
+  "variant": "m3-dpo",
+  "baseline": "soup-a050",
+  "criteria_source": "reports/c-path-topup-preregistration.md §3/§4",
+  "must": {},
+  "should": [],
+  "observation": {
+    "families": {},
+    "available": false,
+    "source": null,
+    "reading_rule": "探针 README：只读方向，三族里至少两族同向改善才算有信号，单族 27–30 行不做显著性检验",
+    "pseudo_pass_guard": "三族探针缺失 → **无法排除伪通过**；按预注册 §4，主判据通过也不得判 C 路成立"
+  },
+  "decision": "PENDING（fail-closed：存在未测/口径不一致的阻断项，不得给肯定结论）阻断项=['缺未见载体判分文件（soup-a050=True, m3-dpo=False） → fail-closed，不得判定', '缺 needle 报告（soup-a050/m3-dpo，口径=chat）', '缺 PPL 读数：general_en', '缺 PPL 读数：general_zh', '缺 v0.4-toolout 鲁棒性读数（回归集，SHOULD-4 记为未测）']",
+  "blockers": [
+    "缺未见载体判分文件（soup-a050=True, m3-dpo=False） → fail-closed，不得判定",
+    "缺 needle 报告（soup-a050/m3-dpo，口径=chat）",
+    "缺 PPL 读数：general_en",
+    "缺 PPL 读数：general_zh",
+    "缺 v0.4-toolout 鲁棒性读数（回归集，SHOULD-4 记为未测）"
+  ],
+  "observations": [
+    {
+      "name": "tool_output VERDICT 畸形计数（观测）",
+      "baseline_malformed": 27,
+      "variant_malformed": 0,
+      "note": "判分器 note 含 'malformed VERDICT' 的条目数；这是**格式退化**的直接证据指标"
+    }
+  ],
+  "must_blockers": [
+    "缺未见载体判分文件（soup-a050=True, m3-dpo=False） → fail-closed，不得判定"
+  ],
+  "should_unmeasured": [
+    "缺 needle 报告（soup-a050/m3-dpo，口径=chat）",
+    "缺 PPL 读数：general_en",
+    "缺 PPL 读数：general_zh",
+    "缺 v0.4-toolout 鲁棒性读数（回归集，SHOULD-4 记为未测）"
+  ]
+}

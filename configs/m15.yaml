@@ -1,0 +1,58 @@
+### M1.5 知识注入短针（C2 知识层 ×3 epoch + zhwiki 长文回放 38.4M，共 ~60M tokens）
+### [2026-09-28 改造] 起点/回放/长度三处变更（M1 判定 C 方案 + M1.6 恢复链）：
+###   - 起点：M1.6-32k 产物（长上下文恢复后）——若 32k 补段未跑则回退
+###     checkpoints/qwen3-06b-sec-m16（8k 段产物）
+###   - 回放：enwiki 摘要 → zhwiki >=3000 字符长文 38.4M（摘要短文是 32k 退化
+###     元凶；回放维持长文档信号护住 M1.6 成果；en 遗忘风险低——C1 general_en -18%）
+###   - cutoff 4096 → 16384：知识层多为短文影响微，长文回放在 16k 下真实连贯
+### 语料：sec_m15（build_m15_mix.py 2026-09-28 版重建；C2 13 文件 7.17M ×3）
+### lr 2e-5：知识注入针（比 C1 的 1e-4 低一档，防覆盖 M1/M1.6 成果）
+### 预计 ~114 步（60M ÷ 16k×32=524k）× ~70s ≈ 2.2h
+### ⚠ cutoff 16384 的 logits 显存需要分块 CE 补丁（scripts/patch_chunked_ce.py）——
+###   无补丁直跑会 OOM（16k fp32 logits 10GB + 静态 9.6GB）。
+### 运行（2026-09-28 定稿，补丁预载版——禁用裸 llamafactory-cli）：
+###   . .\scripts\env.ps1
+###   python -X utf8 scripts\run_lf_with_chunked_ce.py train configs\m15.yaml
+### 可中断无损续训（全量 checkpoint）
+### 训后链：scripts/post_m15_eval.ps1（双基线 PPL / 探针 v0.3 首用 / 判分器 v2 首战）
+
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m16-32k
+
+### method
+stage: pt
+do_train: true
+finetuning_type: full
+
+### dataset
+dataset: sec_m15
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: true
+cutoff_len: 16384
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m15
+logging_steps: 5
+### 全量 checkpoint 模式（2026-09-26 用户指令）：中断=杀进程；
+### 恢复=同命令重启（LF auto-resume 从最新 checkpoint 无损续训）
+save_only_model: false
+save_steps: 10
+save_total_limit: 2
+plot_loss: true
+report_to: none
+
+### train
+### bs1 x accum32（16384 x 32 = 524,288 tok/step，与 C1/M1.6 有效步容量一致；
+### WDDM 全参纪律：bs1 是验证过的唯一安全位形）
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 32
+learning_rate: 2.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_steps: 5
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true

@@ -1,0 +1,234 @@
+{
+  "manifest_rows": 54,
+  "missing_fields": {
+    "url": [
+      "arxiv-cscr",
+      "cn-laws",
+      "cn-regs"
+    ],
+    "notes": [
+      "arxiv-cscr",
+      "capec",
+      "cve",
+      "cwe",
+      "gdpr",
+      "kev",
+      "mitre-attack",
+      "owasp-cs"
+    ]
+  },
+  "stale_procured": [
+    {
+      "id": "advbench",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\advbench",
+          "kind": "dir",
+          "entries": 2,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "beavertails",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\beavertails",
+          "kind": "dir",
+          "entries": 7,
+          "mtime": "2026-09-25 10:06"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "cvalues",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\cvalues",
+          "kind": "dir",
+          "entries": 4,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "harmbench",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\harmbench",
+          "kind": "dir",
+          "entries": 2,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "hh-rlhf-harmlessness",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\hh-rlhf",
+          "kind": "dir",
+          "entries": 7,
+          "mtime": "2026-09-25 09:49"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "maliciousinstruct",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\maliciousinstruct",
+          "kind": "dir",
+          "entries": 1,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "or-bench",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\or-bench",
+          "kind": "dir",
+          "entries": 3,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "pku-saferlhf",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\pku-saferlhf",
+          "kind": "dir",
+          "entries": 10,
+          "mtime": "2026-09-25 10:06"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "safemtdata",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\safemtdata",
+          "kind": "dir",
+          "entries": 2,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "safety-prompts",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\safety-prompts",
+          "kind": "dir",
+          "entries": 2,
+          "mtime": "2026-09-25 09:49"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "strongreject",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\strongreject",
+          "kind": "dir",
+          "entries": 2,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "tc260",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2-reference\\tc260",
+          "kind": "dir",
+          "entries": 5,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "trustllm-safety",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\trustllm",
+          "kind": "dir",
+          "entries": 9,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "wildguardmix",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\wildguardmix",
+          "kind": "dir",
+          "entries": 4,
+          "mtime": "2026-09-25 10:29"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "wildjailbreak",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\wildjailbreak",
+          "kind": "dir",
+          "entries": 4,
+          "mtime": "2026-09-25 10:27"
+        }
+      ],
+      "est_tokens": 0
+    },
+    {
+      "id": "xstest",
+      "evidence": [
+        {
+          "path": "data\\corpora\\raw\\m2\\xstest",
+          "kind": "dir",
+          "entries": 1,
+          "mtime": "2026-09-25 09:50"
+        }
+      ],
+      "est_tokens": 0
+    }
+  ],
+  "ghost_ingested": [],
+  "no_ingested_at": [
+    "advbench",
+    "beavertails",
+    "cvalues",
+    "harmbench",
+    "hh-rlhf-harmlessness",
+    "maliciousinstruct",
+    "or-bench",
+    "pku-saferlhf",
+    "safemtdata",
+    "safety-prompts",
+    "strongreject",
+    "tc260",
+    "trustllm-safety",
+    "wildguardmix",
+    "wildjailbreak",
+    "xstest"
+  ],
+  "tier_map_uncovered": []
+}

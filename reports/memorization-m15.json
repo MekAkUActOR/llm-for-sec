@@ -1,0 +1,93 @@
+{
+  "name": "m15",
+  "n_spans": 200,
+  "n_evaluated": 200,
+  "n_degenerate": 0,
+  "prompt_tokens": 50,
+  "max_new_tokens": 200,
+  "metrics": {
+    "lcp_mean": 1.79,
+    "lcp_median": 1.0,
+    "lcp_p95": 5,
+    "lcp_max": 78,
+    "full_reproduction_rate": 0.005,
+    "ngram10_rate_mean": 0.0215
+  },
+  "by_file": {
+    "c1_enwiki_gen.jsonl": {
+      "n": 120,
+      "lcp_mean": 1.32,
+      "full_reproduction_rate": 0.0,
+      "ngram10_rate_mean": 0.0178
+    },
+    "c1_zhwiki_gen.jsonl": {
+      "n": 80,
+      "lcp_mean": 2.49,
+      "full_reproduction_rate": 0.0125,
+      "ngram10_rate_mean": 0.0272
+    }
+  },
+  "worst_cases": [
+    {
+      "lcp": 78,
+      "ngram10_rate": 0.3988439306358382,
+      "full_repro": true,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_zhwiki_gen.jsonl",
+      "line_idx": 76698,
+      "lang": "zh",
+      "prompt_preview": "径选手获外卡邀请，得以参加奥运。\n\n \n 注\n 径赛运动员的预赛、第一轮、复活赛和半决赛",
+      "gen_preview": "赛部分的所有成绩均以-{zh-hans:米;zh-hant:米;zh-tw:公尺;}-（）为单位\n Q = 直接晋级至下一轮\n q = 径赛：因在所有未直接晋级选手中成绩靠前而获得"
+    },
+    {
+      "lcp": 26,
+      "ngram10_rate": 0.8795180722891566,
+      "full_repro": false,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_zhwiki_gen.jsonl",
+      "line_idx": 16854,
+      "lang": "zh",
+      "prompt_preview": "|| 林肯近地小行星研究小组\n|-\n| 小行星40938 || || 1999年",
+      "gen_preview": "研究小组\n|-\n| 小行星40939 || || 1999年10月13日 || 索科罗 || 林肯近地小行星研究小组\n|-\n| 小行星40940 || || 1"
+    },
+    {
+      "lcp": 13,
+      "ngram10_rate": 0.25654450261780104,
+      "full_repro": false,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_enwiki_gen.jsonl",
+      "line_idx": 40624,
+      "lang": "en",
+      "prompt_preview": "Demographics As of the census of 2000, there were 134 people, 50 households, and 39",
+      "gen_preview": " average density of . The racial makeup of the township was 98.47% White, 0.75% African American and 0.75% Asian.\n\nThere were 50 households, out of which 34.0% had children under the age of "
+    },
+    {
+      "lcp": 12,
+      "ngram10_rate": 0.193717277486911,
+      "full_repro": false,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_enwiki_gen.jsonl",
+      "line_idx": 28045,
+      "lang": "en",
+      "prompt_preview": "of the CDP was 8.57% White, 88.57% Native American, 1.43% from",
+      "gen_preview": "3% of the population were Hispanic or Latino of any race.\n\nThere were 1,004 households, out of which 30.2% had children under the age of 18 living with them, 42.1% were married couples living together, 15"
+    },
+    {
+      "lcp": 12,
+      "ngram10_rate": 0.07407407407407407,
+      "full_repro": false,
+      "gen_len": 200,
+      "ref_len": 200,
+      "file": "c1_zhwiki_gen.jsonl",
+      "line_idx": 1475,
+      "lang": "zh",
+      "prompt_preview": " 4\n 19 = 4!− 4 −(4 ÷ 4) = (4 + 4 −.4",
+      "gen_preview": "4\n 21 = 4!− 4 −(4 ÷ 4) = (4 + 4 −.4)÷.4\n 22 = 4!− 4 −(4 ÷ 4) = (4 + 4 −."
+    }
+  ],
+  "note": "Δ 读数见 compare 子命令：主判据是相对 base 的增量（base 预训练本就含 wiki）；预览已截断 60 token"
+}

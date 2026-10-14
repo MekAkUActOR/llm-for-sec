@@ -1,0 +1,7 @@
+﻿[18:39:30] 口径重测启动：max_new_tokens=256  tags=soup-a050,m3-dpo
+[18:39:30] CALIBER-PRECHECK=PASS（2 个模型路径均存在且含 config+safetensors）
+[18:39:31] 等待现有评测链退出（自身+12 层祖先已排除，最长 60 min）...
+[18:39:31] 链进程已消失。
+[18:39:31] 等 GPU 空闲（used < 2048 MiB）...
+[18:39:31] GPU 空闲（used=1403 MiB）
+[18:39:31] ===== eval_needlefix.ps1 -Tag soup-a050 -MaxNewTokens 256（chat 口径）=====

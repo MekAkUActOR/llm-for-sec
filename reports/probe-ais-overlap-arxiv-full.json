@@ -1,0 +1,34 @@
+{
+  "probe": "data/probes/v0.1/ais.jsonl",
+  "overlap_count": 7,
+  "overlaps": [
+    {
+      "title": "Issuer-Sovereign Agentic Payments",
+      "arxiv_id": "2609.27452"
+    },
+    {
+      "title": "Multi-View Fusion for Encrypted C2 Detection: A Leakage-Controlled Measurement Study of Evaluation Pitfalls",
+      "arxiv_id": "2609.27311"
+    },
+    {
+      "title": "The Like Trap: Multi-Stage Poisoning against Agents in Similarity-based Recommendation Systems",
+      "arxiv_id": "2609.27155"
+    },
+    {
+      "title": "When Clients Are Orchestrated: Strategic Gradient Manipulation to Defeat Federated Learning Servers with Efficient Defense",
+      "arxiv_id": "2609.27124"
+    },
+    {
+      "title": "Topological Signatures of Cyber-Attack Classes in Natural Visibility Graph Representations of Network Traffic",
+      "arxiv_id": "2609.26990"
+    },
+    {
+      "title": "Ajar: Measuring Open Privilege in Agent Defenses",
+      "arxiv_id": "2609.26900"
+    },
+    {
+      "title": "Comparative Evaluation of Static Embedding Models for HTTP Request Anomaly Detection",
+      "arxiv_id": "2609.26860"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+ "total_rows": 11748,
+ "abs_dose": {
+  "long_context": 3724,
+  "contract_replay": 2024,
+  "carrier_replay": 6000
+ },
+ "share": {
+  "long_context": 0.317,
+  "contract_replay": 0.1723,
+  "carrier_replay": 0.5107
+ },
+ "steps_at_eff16": 734,
+ "task_family_counts": {
+  "R-carrier": 6000,
+  "T10-multiturn": 2224,
+  "T13-retrieval": 1500,
+  "T5-policy": 1046,
+  "T1-injection": 436,
+  "T5-hardfloor": 199,
+  "T5-direction": 186,
+  "T7-pii": 96,
+  "T11-calibration": 61
+ },
+ "lang_counts": {
+  "en": 6827,
+  "zh": 4921
+ },
+ "pack_counts": {
+  "default": 6450,
+  "professional": 2653,
+  "conservative": 2645
+ },
+ "holdout_ids_checked": 874,
+ "note": "绝对剂量不变（长上下文 3,724 / 契约 2,024 各看一遍），只额外加 6,000 载体行；契约占比降到 17.2% 是稀释的必然结果，但绝对回放剂量与参照 run 完全相同",
+ "fails": []
+}

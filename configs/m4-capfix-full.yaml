@@ -1,0 +1,64 @@
+# ═══ ⚠️ _DEPRECATED（2026-10-14 登记，勿发射）═══
+# 败因一句话：1,803 步全长跑把契约保留从 166/168 崩到 100/168（MUST-B FAIL ✗✗）
+#   且 ORR +12.96pp（MUST-C FAIL ✗）⇒ H0 成立、不入交付谱系、回退起点。
+# 判决文件指针：reports/m4-endpoint-verdict.md（官方裁决；文首顶部更正横幅 ✗✓）。
+# ══════════════════════════════════════════════════════════
+
+### ═══ M4 **全长跑**：capfix 修法的全程验证（第 24 轮）═══
+#
+# ★ 为什么必须跑全长：第 23 轮的探针只到 **300 / 1,803 步 = 1/6 epoch** ✓，
+#   而 M3 的病态在 **1,803 步末最重**（rewards/rejected −12.46 ✗）。
+#   ⇒ **「1/6 epoch 无病态」不能推出「全程无病态」** ✗ —— 这是发射全量 M4 的**最后一道闸** ✓。
+#
+# ★ 配方：与 `m4-capfix-probe.yaml` / `m3-dpo-final.yaml` 超参**逐字相同** ✓
+#   唯一差别：本配置跑满 1 epoch（= 1,803 步 ✓，与 M3 同步数 ✓）
+#   ⇒ 与 M3 的读数**逐点可比** ✓。
+#
+# 数据：data/m4-run/dpo_m4_capfix.jsonl（28,842 行 ✓，sha256 D4061D47DF903D91… ✓）
+#   验证：scripts/verify_capfix.py ⇒ CAPFIX-VERIFY=PASS（7 项 ✓）
+#   依据：reports/m3-mechanism-report-rejected-suppression.md ✓
+#         reports/round23-report.md（探针验证 ✓）
+#
+# 可中断（项目纪律 ✓）：全量 checkpoint（含优化器/调度器/RNG ✓）
+#   中断 = 直接杀进程；恢复 = 同命令重启（从最新 checkpoint 续 ✓）
+#   save_steps=100 ✓、save_total_limit=5 ✓ ⇒ 始终保有最近 500 步的恢复点 ✓
+#
+# ★ 预期（第 23 轮的可证伪预测 ✓）：
+#   · `rewards/chosen` 应在全程保持 +1 以上 ✓（M3 只有 +0.34 ✗）
+#   · 若末段 `rewards/chosen` 掉回 ~0 且 `rewards/rejected` 独降到 −10 以下 ✗
+#     ⇒ **过优化在全程重现** ✗ ⇒ capfix **不足**，须改配比 ✓
+#
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m4-run
+dataset: sec_dpo_m4_capfix
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+# ★ 跑满 1 epoch（= 1,803 步 ✓，与 M3 相同 ✓）—— 不设 max_steps
+num_train_epochs: 1
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 100
+save_total_limit: 5
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-full

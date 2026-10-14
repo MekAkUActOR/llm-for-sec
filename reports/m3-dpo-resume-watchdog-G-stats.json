@@ -1,0 +1,190 @@
+{
+ "step_time": {
+  "resumed_segment_first": {
+   "step": 205,
+   "elapsed": 17
+  },
+  "resumed_segment_last": {
+   "step": 1803,
+   "elapsed": 5064
+  },
+  "s_per_step_resumed": 3.1583,
+  "pre_kill_s_per_step": 2.8909,
+  "pre_kill_first_last": [
+   5,
+   225
+  ],
+  "pre_kill_elapsed": [
+   "0:00:15",
+   "0:10:51"
+  ]
+ },
+ "eta": {
+  "steps_done_global": 1803,
+  "steps_remaining": 0,
+  "true_eta_seconds": 0.0,
+  "true_eta_hms": "0:00:00",
+  "reported_remaining_time_last": "0:00:00",
+  "note": "LF computes remaining_time from the POST-RESUME elapsed only while current_steps is the GLOBAL step, so after a resume it understates the ETA by the ratio global_step/steps_done_since_resume",
+  "understatement_factor": 1.128
+ },
+ "window_compare": {
+  "chosen_last10_pre_vs_last10_post": {
+   "mean_a": 1.264224369637668,
+   "mean_b": 0.8911410838365554,
+   "diff": 0.3730832858011126,
+   "se": 0.47981549285535474,
+   "t": 0.7775557299763607,
+   "sd_a": 1.3461010731031782,
+   "sd_b": 0.7001721022939591,
+   "n_a": 10,
+   "n_b": 10,
+   "note": "Welch t on logging-point means. Points are NOT independent (same model, overlapping batches), so this is descriptive only; the per-point SD overstates sampling noise, which makes the test CONSERVATIVE for the chosen drop."
+  },
+  "chosen_all_pre_vs_all_post": {
+   "mean_a": 2.3094147241208702,
+   "mean_b": 0.7413974272087216,
+   "diff": 1.5680172969121486,
+   "se": 0.297595759901654,
+   "t": 5.2689503957661525,
+   "sd_a": 1.4605221240805073,
+   "sd_b": 0.8394654780064155,
+   "n_a": 40,
+   "n_b": 20,
+   "note": "Welch t on logging-point means. Points are NOT independent (same model, overlapping batches), so this is descriptive only; the per-point SD overstates sampling noise, which makes the test CONSERVATIVE for the chosen drop."
+  },
+  "rejected_last10_pre_vs_last10_post": {
+   "mean_a": -7.617235326766968,
+   "mean_b": -8.885642719268798,
+   "diff": 1.26840739250183,
+   "se": 0.33438761521879745,
+   "t": 3.7932247929454026,
+   "sd_a": 0.9072913075435767,
+   "sd_b": 0.5431144035771952,
+   "n_a": 10,
+   "n_b": 10,
+   "note": "Welch t on logging-point means. Points are NOT independent (same model, overlapping batches), so this is descriptive only; the per-point SD overstates sampling noise, which makes the test CONSERVATIVE for the chosen drop."
+  },
+  "acc_all_pre_vs_all_post": {
+   "mean_a": 0.9087500147521496,
+   "mean_b": 0.9531250149011612,
+   "diff": -0.044375000149011634,
+   "se": 0.01817640723762538,
+   "t": -2.4413515591329213,
+   "sd_a": 0.11000437121463487,
+   "sd_b": 0.02360412587232178,
+   "n_a": 40,
+   "n_b": 20,
+   "note": "Welch t on logging-point means. Points are NOT independent (same model, overlapping batches), so this is descriptive only; the per-point SD overstates sampling noise, which makes the test CONSERVATIVE for the chosen drop."
+  },
+  "margins_all_pre_vs_all_post": {
+   "mean_a": 6.185501663107425,
+   "mean_b": 9.70156626701355,
+   "diff": -3.516064603906125,
+   "se": 0.47729605690825944,
+   "t": -7.366632414023785,
+   "sd_a": 2.8266964400306698,
+   "sd_b": 0.7490821962658163,
+   "n_a": 40,
+   "n_b": 20,
+   "note": "Welch t on logging-point means. Points are NOT independent (same model, overlapping batches), so this is descriptive only; the per-point SD overstates sampling noise, which makes the test CONSERVATIVE for the chosen drop."
+  }
+ },
+ "ols": {
+  "chosen_pre_5_200": {
+   "slope_per_100_steps": 0.17853804770332898,
+   "intercept": 2.126413225224958,
+   "r2": 0.005105613009920074,
+   "n": 40
+  },
+  "rejected_pre_5_200": {
+   "slope_per_100_steps": -4.37426911865485,
+   "intercept": 0.6075389601146943,
+   "r2": 0.8819338254692806,
+   "n": 40
+  },
+  "acc_pre_5_200": {
+   "slope_per_100_steps": 0.11163227637534293,
+   "intercept": 0.7943269314674231,
+   "r2": 0.3518538329999553,
+   "n": 40
+  },
+  "margins_pre_5_200": {
+   "slope_per_100_steps": 4.552807296341457,
+   "intercept": 1.5188741843574327,
+   "r2": 0.8863450099045989,
+   "n": 40
+  },
+  "chosen_post_205_300": {
+   "slope_per_100_steps": 0.4034871288148084,
+   "intercept": -0.2774075730486696,
+   "r2": 0.0202144412612959,
+   "n": 20
+  },
+  "rejected_post_205_300": {
+   "slope_per_100_steps": 0.21826240711642386,
+   "intercept": -9.511281130367651,
+   "r2": 0.012493702453264421,
+   "n": 20
+  },
+  "acc_post_205_300": {
+   "slope_per_100_steps": 0.006203001603148037,
+   "intercept": 0.9374624358532124,
+   "r2": 0.0060427690479686325,
+   "n": 20
+  },
+  "margins_post_205_300": {
+   "slope_per_100_steps": 0.18522441835331738,
+   "intercept": 9.233874610671425,
+   "r2": 0.0053498989872795555,
+   "n": 20
+  },
+  "chosen_all_5_300": {
+   "slope_per_100_steps": -0.6292976738192052,
+   "intercept": 2.746421244391109,
+   "r2": 0.13771842666066103,
+   "n": 60
+  },
+  "rejected_all_5_300": {
+   "slope_per_100_steps": -3.5477834525609984,
+   "intercept": -0.16041100998172286,
+   "r2": 0.8846593964647581,
+   "n": 60
+  },
+  "acc_all_5_300": {
+   "slope_per_100_steps": 0.05302167437281269,
+   "intercept": 0.8426836280499475,
+   "r2": 0.24858210050683105,
+   "n": 60
+  },
+  "margins_all_5_300": {
+   "slope_per_100_steps": 2.918485910472571,
+   "intercept": 2.9068321842721287,
+   "r2": 0.7866378710702027,
+   "n": 60
+  }
+ },
+ "acc_granularity": {
+  "samples_per_logging_point": 80,
+  "granularity": 0.0125,
+  "observed_acc_values": [
+   0.325,
+   0.7375,
+   0.8,
+   0.8125,
+   0.825,
+   0.8375,
+   0.875,
+   0.8875,
+   0.9,
+   0.9125,
+   0.925,
+   0.9375,
+   0.95,
+   0.9625,
+   0.975,
+   0.9875,
+   1.0
+  ]
+ }
+}

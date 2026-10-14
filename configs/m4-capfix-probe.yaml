@@ -1,0 +1,56 @@
+### ═══ M4 探针：capfix 修法的**小规模验证**（第 23 轮，发射前冻结）═══
+#
+# ★ 目的：验证第 22 轮的因果结论 —— **`report` 被 rejected 侧压制 ⇒ ASR 崩塌** ✓。
+#   若成立，则去掉 rejected 侧的 `report` ✗ 之后，未见载体 ASR 应从 54.8% 显著回落 ✓。
+#
+# ★ 与 M3 的关系：**超参与 m3-dpo-final.yaml 逐字相同** ✓（lr / beta / cutoff / batch ✓），
+#   **只改 `max_steps`** ✓ —— 这是一次**受控探针**，不是新配方 ✗。
+#
+# ★ A/B：本配置是 **capfix 臂** ✓；对照臂见 `m4-lenmatch-probe.yaml` ✓
+#   （只含长度匹配 ✓、不含 capfix ✓），用同一 max_steps ✓、同一起点 ✓。
+#
+# 数据：data/m4-run/dpo_m4_capfix.jsonl = 28,842 行
+#   = 长度匹配版（length_matched_from 6,540 ✓）叠加 capfix ✓
+#   capfix 内容：carrier_clean_overrefusal 的 1,320 条 rejected 侧整体重写为「过度谨慎」
+#     （action report→refuse、verdict contains-injection→hold ✓）
+#   依据：reports/m3-mechanism-report-rejected-suppression.md ✓
+#         data/dpo-remediation-staging/README.md ✓
+#   验证：scripts/verify_capfix.py ⇒ CAPFIX-VERIFY=PASS（7 项 ✓）
+#
+# 可中断模式（项目纪律）：save_only_model=false ⇒ 全量 checkpoint（优化器/调度器/RNG ✓）
+#   中断 = 直接杀进程；恢复 = 同命令重启（LF parser auto-resume 从最新 checkpoint ✓）
+#
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\soup-needlefix-a050
+stage: dpo
+do_train: true
+finetuning_type: full
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m4-run
+dataset: sec_dpo_m4_capfix
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 2.0e-6
+# ★ 探针：300 步 ≈ 1/6 epoch（全量为 1,803 步 ✓）
+max_steps: 300
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: false
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 50
+save_total_limit: 8
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-probe

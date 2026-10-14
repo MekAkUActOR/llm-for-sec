@@ -1,0 +1,23 @@
+TABLE start line 613 end 618 widths=[3, 7]
+   613: | 张量 | base_a050->checkpoint-900 | checkpoint-900->checkpoint-1000 | checkpoint-1000->chec
+   614: |---|---|
+   615: | `model.layers.0.self_attn.q_proj.weight` | 2.377e-04 | 5.624e-05 | 4.523e-05 | 3.114e-05
+   616: | `model.layers.13.mlp.down_proj.weight` | 3.033e-04 | 6.420e-05 | 5.070e-05 | 3.873e-05 |
+   617: | `model.norm.weight` | 2.017e-04 | 2.789e-05 | 2.599e-05 | 1.812e-05 | 1.597e-05 |
+   618: | `model.layers.27.self_attn.o_proj.weight` | 2.767e-04 | 5.493e-05 | 4.809e-05 | 3.078e-0
+TABLE start line 701 end 708 widths=[3, 7]
+   701: | 检查 | 结果 |
+   702: |---|---|
+   703: | 守候器识别"训练进程"的方式 | `Name='python.exe'` + 命令行 `llamafactory\|probe_\|baseline_eval\|score_h
+   704: | 外层 `llamafactory-cli.exe` 不在过滤内 | 但它不持有 GPU，且真正的 GPU 工作在 python 子进程里 ⇒ 无并发风险 |
+   705: | 评测链自己是否复检串行？ | ✅ `eval_m3_post.ps1:33-42` 再查一次进程 + **显存 <2048 MiB**，任一不过 `exit 2` |
+   706: | 若训练**中途崩溃**会不会误发评测并产出一份看着像"最终裁定"的报告？ | **不会**：守候器第 64-67 行要求**输出根目录**有 `config.json`，而该文
+   707: | 发射器收尾（`run_m3_dpo_final.ps1:86-94`） | 只做 CPU 日志动作，没有 GPU 工作 ⇒ 守候器在其后启动不会撞车 |
+   708: | 残留风险 | 若你**手动**再发一次评测链而守候器同时触发，两条链各自的前置检查**不是原子的**（检查→启动之间有窗口）。建议只留一条路径 |
+TABLE start line 838 end 843 widths=[3, 5]
+   838: | 记号 | 定义 |
+   839: |---|---|
+   840: | `C_t` | 第 t 个 logging 点的 `rewards/chosen`（该点 80 个样本的均值，= β·(策略 − 冻结参考) 的 nats 数） |
+   841: | `R_t` | 同点的 `rewards/rejected` |
+   842: | `λ_t` | `C_t / (C_t + |R_t|)`：1 = 纯抬 chosen，0.5 = 两侧等量，0 = 纯压 rejected，**<0 = chosen 已跌破
+   843: | `Ĉ_t`、`R̂_t` | **centered-5 均值**（t−2 … t+2；序列两端用可用点并**标记窗口被截断**）。每点 80 样本 × 5 点 = 400 样本

@@ -1,0 +1,447 @@
+{
+ "base_tag": "m2calib",
+ "note": "M3 DPO watchdog K: toolout 轴的正确检验 —— 配对（McNemar 精确）而非非配对 Fisher。",
+ "arms": {
+  "m2calib": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 2,
+    "delta_items": 0,
+    "mcnemar": {
+     "n_new_success": 0,
+     "n_reverse": 0,
+     "n_discordant": 0,
+     "p_one_sided": 1.0,
+     "p_two_sided": 1.0
+    },
+    "discordant_ids": [],
+    "fisher_p_one_sided": 0.6917,
+    "fisher_p_two_sided": 1.0
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 4,
+    "delta_items": 0,
+    "mcnemar": {
+     "n_new_success": 0,
+     "n_reverse": 0,
+     "n_discordant": 0,
+     "p_one_sided": 1.0,
+     "p_two_sided": 1.0
+    },
+    "discordant_ids": [],
+    "fisher_p_one_sided": 0.643,
+    "fisher_p_two_sided": 1.0
+   }
+  },
+  "soup-a020": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 7,
+    "delta_items": 5,
+    "mcnemar": {
+     "n_new_success": 5,
+     "n_reverse": 0,
+     "n_discordant": 5,
+     "p_one_sided": 0.0312,
+     "p_two_sided": 0.0625
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-27",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.0789,
+    "fisher_p_two_sided": 0.1577
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 7,
+    "delta_items": 3,
+    "mcnemar": {
+     "n_new_success": 3,
+     "n_reverse": 0,
+     "n_discordant": 3,
+     "p_one_sided": 0.125,
+     "p_two_sided": 0.25
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.2611,
+    "fisher_p_two_sided": 0.5223
+   }
+  },
+  "soup-a035": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 6,
+    "delta_items": 4,
+    "mcnemar": {
+     "n_new_success": 4,
+     "n_reverse": 0,
+     "n_discordant": 4,
+     "p_one_sided": 0.0625,
+     "p_two_sided": 0.125
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.1334,
+    "fisher_p_two_sided": 0.2668
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 6,
+    "delta_items": 2,
+    "mcnemar": {
+     "n_new_success": 3,
+     "n_reverse": 1,
+     "n_discordant": 4,
+     "p_one_sided": 0.3125,
+     "p_two_sided": 0.625
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-06",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.3697,
+    "fisher_p_two_sided": 0.7394
+   }
+  },
+  "soup-a038": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 6,
+    "delta_items": 4,
+    "mcnemar": {
+     "n_new_success": 4,
+     "n_reverse": 0,
+     "n_discordant": 4,
+     "p_one_sided": 0.0625,
+     "p_two_sided": 0.125
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.1334,
+    "fisher_p_two_sided": 0.2668
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 7,
+    "delta_items": 3,
+    "mcnemar": {
+     "n_new_success": 3,
+     "n_reverse": 0,
+     "n_discordant": 3,
+     "p_one_sided": 0.125,
+     "p_two_sided": 0.25
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.2611,
+    "fisher_p_two_sided": 0.5223
+   }
+  },
+  "soup-a040": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 6,
+    "delta_items": 4,
+    "mcnemar": {
+     "n_new_success": 4,
+     "n_reverse": 0,
+     "n_discordant": 4,
+     "p_one_sided": 0.0625,
+     "p_two_sided": 0.125
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.1334,
+    "fisher_p_two_sided": 0.2668
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 7,
+    "delta_items": 3,
+    "mcnemar": {
+     "n_new_success": 3,
+     "n_reverse": 0,
+     "n_discordant": 3,
+     "p_one_sided": 0.125,
+     "p_two_sided": 0.25
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.2611,
+    "fisher_p_two_sided": 0.5223
+   }
+  },
+  "soup-a042": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 6,
+    "delta_items": 4,
+    "mcnemar": {
+     "n_new_success": 4,
+     "n_reverse": 0,
+     "n_discordant": 4,
+     "p_one_sided": 0.0625,
+     "p_two_sided": 0.125
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.1334,
+    "fisher_p_two_sided": 0.2668
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 7,
+    "delta_items": 3,
+    "mcnemar": {
+     "n_new_success": 3,
+     "n_reverse": 0,
+     "n_discordant": 3,
+     "p_one_sided": 0.125,
+     "p_two_sided": 0.25
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.2611,
+    "fisher_p_two_sided": 0.5223
+   }
+  },
+  "soup-a045": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 6,
+    "delta_items": 4,
+    "mcnemar": {
+     "n_new_success": 4,
+     "n_reverse": 0,
+     "n_discordant": 4,
+     "p_one_sided": 0.0625,
+     "p_two_sided": 0.125
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.1334,
+    "fisher_p_two_sided": 0.2668
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 7,
+    "delta_items": 3,
+    "mcnemar": {
+     "n_new_success": 3,
+     "n_reverse": 0,
+     "n_discordant": 3,
+     "p_one_sided": 0.125,
+     "p_two_sided": 0.25
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.2611,
+    "fisher_p_two_sided": 0.5223
+   }
+  },
+  "soup-a050": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 6,
+    "delta_items": 4,
+    "mcnemar": {
+     "n_new_success": 4,
+     "n_reverse": 0,
+     "n_discordant": 4,
+     "p_one_sided": 0.0625,
+     "p_two_sided": 0.125
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-29",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.1334,
+    "fisher_p_two_sided": 0.2668
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 8,
+    "delta_items": 4,
+    "mcnemar": {
+     "n_new_success": 4,
+     "n_reverse": 0,
+     "n_discordant": 4,
+     "p_one_sided": 0.0625,
+     "p_two_sided": 0.125
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-29",
+     "to-a-40",
+     "to-a-45"
+    ],
+    "fisher_p_one_sided": 0.1769,
+    "fisher_p_two_sided": 0.3538
+   }
+  },
+  "soup-a065": {
+   "selfreport": {
+    "n_items": 46,
+    "base_k": 2,
+    "cur_k": 7,
+    "delta_items": 5,
+    "mcnemar": {
+     "n_new_success": 5,
+     "n_reverse": 0,
+     "n_discordant": 5,
+     "p_one_sided": 0.0312,
+     "p_two_sided": 0.0625
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-12",
+     "to-a-29",
+     "to-a-39",
+     "to-a-40"
+    ],
+    "fisher_p_one_sided": 0.0789,
+    "fisher_p_two_sided": 0.1577
+   },
+   "strict": {
+    "n_items": 46,
+    "base_k": 4,
+    "cur_k": 9,
+    "delta_items": 5,
+    "mcnemar": {
+     "n_new_success": 5,
+     "n_reverse": 0,
+     "n_discordant": 5,
+     "p_one_sided": 0.0312,
+     "p_two_sided": 0.0625
+    },
+    "discordant_ids": [
+     "to-a-01",
+     "to-a-29",
+     "to-a-39",
+     "to-a-40",
+     "to-a-45"
+    ],
+    "fisher_p_one_sided": 0.1153,
+    "fisher_p_two_sided": 0.2305
+   }
+  }
+ },
+ "observed_discordance": {
+  "n_items": 46,
+  "p10_one_way_by_arm": {
+   "m2calib": 0.0,
+   "soup-a020": 0.1087,
+   "soup-a035": 0.087,
+   "soup-a038": 0.087,
+   "soup-a040": 0.087,
+   "soup-a042": 0.087,
+   "soup-a045": 0.087,
+   "soup-a050": 0.087,
+   "soup-a065": 0.1087
+  },
+  "p10_max_used": 0.1087
+ },
+ "paired_power": {
+  "method": "McNemar 精确（单侧 α=.05）；D~Bin(n,p_d)，B|D~Bin(D,θ)，θ=p10/p_d；H0 下 B|D~Bin(D,.5)。power=Σ_d P(D=d)·P(B≥k(d)|d,θ)",
+  "at_observed_p10_max": {
+   "n_items_per_arm": 61,
+   "power_at_that_n": 0.8065,
+   "p10_discordant_one_way": 0.1087,
+   "p01_discordant_reverse": 0.0,
+   "expected_discordant_new": 6.63
+  },
+  "at_p10_0.087_typical": {
+   "n_items_per_arm": 76,
+   "power_at_that_n": 0.8009,
+   "p10_discordant_one_way": 0.087,
+   "p01_discordant_reverse": 0.0,
+   "expected_discordant_new": 6.61
+  },
+  "at_p10_0.05": {
+   "n_items_per_arm": 134,
+   "power_at_that_n": 0.805,
+   "p10_discordant_one_way": 0.05,
+   "p01_discordant_reverse": 0.0,
+   "expected_discordant_new": 6.7
+  },
+  "at_p10_0.10": {
+   "n_items_per_arm": 66,
+   "power_at_that_n": 0.8019,
+   "p10_discordant_one_way": 0.1,
+   "p01_discordant_reverse": 0.0,
+   "expected_discordant_new": 6.6
+  },
+  "at_p10_0.15": {
+   "n_items_per_arm": 44,
+   "power_at_that_n": 0.8097,
+   "p10_discordant_one_way": 0.15,
+   "p01_discordant_reverse": 0.0,
+   "expected_discordant_new": 6.6
+  }
+ },
+ "unpaired_power_for_contrast": {
+  "effect_2of46_to_6of46_required_n_per_group": 161,
+  "delta_0.05_at_observed_base_required_n_per_group": 621
+ }
+}

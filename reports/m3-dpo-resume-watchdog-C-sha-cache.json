@@ -1,0 +1,102 @@
+{
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-100\\model.safetensors": {
+  "sha256": "eacddc5875db5b3c999a75cf7f707e81dbebf36a8817a25a8de4e86e4b25ecde",
+  "size": 2384234968,
+  "mtime": 1791264698.898671
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-200\\model.safetensors": {
+  "sha256": "beb955707864175ef2293e0dfcad1c588e276a43d87639df2718339ad723cb0a",
+  "size": 2384234968,
+  "mtime": 1791264993.487024
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-300\\model.safetensors": {
+  "sha256": "e47f8417fa1ebeb414b2ffc0359d5661d73b4e5d6834795c6b3cf260b3dc7d11",
+  "size": 2384234968,
+  "mtime": 1791266749.8451602
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-400\\model.safetensors": {
+  "sha256": "b368f5a621190a5f840a9b30fa61126d4956ce5460e6f2642d5b58f573c24221",
+  "size": 2384234968,
+  "mtime": 1791267062.0306716
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-500\\model.safetensors": {
+  "sha256": "9dd0b599037e479b9c6b2e05a54dccad73c1fe3982031b289980e81e21ce3519",
+  "size": 2384234968,
+  "mtime": 1791267387.0605352
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-600\\model.safetensors": {
+  "sha256": "75f071480508f71bb866a243a78dde18ef66211c81eddf7230a341385e448027",
+  "size": 2384234968,
+  "mtime": 1791267688.8077493
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-700\\model.safetensors": {
+  "sha256": "29b35a459139c9a07ca294814be38e4cd03c793562b2b013631e6574ef8db9b3",
+  "size": 2384234968,
+  "mtime": 1791268012.8332014
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-800\\model.safetensors": {
+  "sha256": "d4440499052668d2e5bc179fb49e09bc2ac8fedc7966d56c898581e4538a7de5",
+  "size": 2384234968,
+  "mtime": 1791268322.1246192
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-900\\model.safetensors": {
+  "sha256": "bc60d3302c5e1817bb6cec2db6f05b03eed503a73eaf1102df02aa39e90c4ec2",
+  "size": 2384234968,
+  "mtime": 1791268621.0172422
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1000\\model.safetensors": {
+  "sha256": "ed18de8cc36f863d1350de3a6813a35cf3a32d7d5120b4705e60cf1ed6fa9fc4",
+  "size": 2384234968,
+  "mtime": 1791268933.16273
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1100\\model.safetensors": {
+  "sha256": "e3f9a93baccbbeb902effe6df214281bab6ab5af9f1e2ace820470ca3729f1b9",
+  "size": 2384234968,
+  "mtime": 1791269258.8092434
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1200\\model.safetensors": {
+  "sha256": "4dac7443769846969d7db3df00cd1ce660937239693305dcb31a0a3face78ee3",
+  "size": 2384234968,
+  "mtime": 1791269576.8392768
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1300\\model.safetensors": {
+  "sha256": "bf80d4e8726e89f7cbe0caa045a5f7857a632b0cc04e76cfa21267aa1733fca6",
+  "size": 2384234968,
+  "mtime": 1791269872.2361658
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1400\\model.safetensors": {
+  "sha256": "e7f0b8d74091e800d6cb210892ce6ad733eccc73062d9e0f0c2dae88fc6a4825",
+  "size": 2384234968,
+  "mtime": 1791270184.3054922
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1500\\model.safetensors": {
+  "sha256": "d09b86db932aa8b28d534e7af4537a085040dbccafb92d643a5f36e78b788348",
+  "size": 2384234968,
+  "mtime": 1791270513.49732
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1600\\model.safetensors": {
+  "sha256": "d7e367ded671c932290f77f367fb10896c08f9542820cf08823ff0ea55c41e3c",
+  "size": 2384234968,
+  "mtime": 1791270830.7121637
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1700\\model.safetensors": {
+  "sha256": "48cdb3588438cd3362c569d493e696bdddb846c11aebc915adf50d53c31bfedc",
+  "size": 2384234968,
+  "mtime": 1791271129.6561992
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1800\\model.safetensors": {
+  "sha256": "7e4dc0a5910d311f506bec7a2090e355d6d2f68dcec93fd448a3b58398b55563",
+  "size": 2384234968,
+  "mtime": 1791271462.5979881
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\checkpoint-1803\\model.safetensors": {
+  "sha256": "d63ef401d87353d8d8e6172355f02255bf42777c98c60196e2961b2f967f2584",
+  "size": 2384234968,
+  "mtime": 1791271473.3713536
+ },
+ "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m3-dpo\\model.safetensors": {
+  "sha256": "d63ef401d87353d8d8e6172355f02255bf42777c98c60196e2961b2f967f2584",
+  "size": 2384234968,
+  "mtime": 1791271476.9791129
+ }
+}

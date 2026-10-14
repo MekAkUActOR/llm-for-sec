@@ -1,0 +1,28 @@
+{
+  "mix": "data\\lf\\sec_sft_topup.jsonl",
+  "rows": 3300,
+  "packs": {
+    "conservative": 1008,
+    "default": 1284,
+    "professional": 1008
+  },
+  "langs": {
+    "zh": 1650,
+    "en": 1650
+  },
+  "task_families": {
+    "T2-mechanism": 1200,
+    "T15-doc-structure": 1200,
+    "T9-phish": 900
+  },
+  "errors": [],
+  "verdict": "PASS",
+  "baseline": {
+    "probes_unique": 2655,
+    "ais_titles": 700,
+    "queries": 263,
+    "ngram_index_keys": 5682944
+  },
+  "contamination": null,
+  "v03_gen_exact_overlap": 0
+}

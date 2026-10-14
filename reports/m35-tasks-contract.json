@@ -1,0 +1,37 @@
+{
+  "file": "data/rlvr/tasks-v01.jsonl",
+  "rows": 2000,
+  "task_types": {
+    "inj_detect": 500,
+    "policy_ruling": 500,
+    "pii_discover": 500,
+    "carrier_classify": 500
+  },
+  "packs": {
+    "default": 1679,
+    "professional": 152,
+    "conservative": 169
+  },
+  "task_type_x_pack": {
+    "inj_detect": {
+      "default": 500
+    },
+    "policy_ruling": {
+      "professional": 152,
+      "conservative": 169,
+      "default": 179
+    },
+    "pii_discover": {
+      "default": 500
+    },
+    "carrier_classify": {
+      "default": 500
+    }
+  },
+  "lang_content_zh_en": {
+    "zh": 979,
+    "en": 1021
+  },
+  "violations": 0,
+  "violations_sample": []
+}

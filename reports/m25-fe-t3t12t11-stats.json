@@ -1,0 +1,46 @@
+{
+  "seed": 20260928,
+  "rows": {
+    "t3": 2000,
+    "t12": 2000,
+    "t11": 500
+  },
+  "lang": {
+    "t3": {
+      "zh": 800,
+      "en": 1200
+    },
+    "t12": {
+      "zh": 800,
+      "en": 1200
+    },
+    "t11": {
+      "zh": 200,
+      "en": 300
+    }
+  },
+  "t3_tiers": {
+    "medium": 688,
+    "high": 991,
+    "critical": 30,
+    "low": 291
+  },
+  "t12_kind": {
+    "ungrounded": 500,
+    "grounded": 1500
+  },
+  "t12_ungrounded_cats": {
+    "beyond-scope": 26,
+    "wrong-framework": 39,
+    "nist-control-nonexist": 162,
+    "gdpr-art-nonexist": 86,
+    "gdpr-recital-nonexist": 66,
+    "out-of-corpus": 71,
+    "owasp-llm-nonexist": 50
+  },
+  "t11_axis": {
+    "auth-unclear": 170,
+    "scope-unclear": 165,
+    "validity-unclear": 165
+  }
+}

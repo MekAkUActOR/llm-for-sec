@@ -1,0 +1,41 @@
+{
+ "path": "J:\\Projects\\llm_for_sec\\data\\lf\\dpo_m3_final.jsonl",
+ "sha256": "c272ff9d0f8583982322f691736bac82f571af8c2be73c6087e2081882445b07",
+ "sha256_expected": "c272ff9d0f8583982322f691736bac82f571af8c2be73c6087e2081882445b07",
+ "sha256_match": true,
+ "size_bytes": 55889722,
+ "mtime": 1791264370.1542594,
+ "rows": 28842,
+ "rows_expected": 28842,
+ "rows_match": true,
+ "unique_ids": 28842,
+ "duplicate_ids": 0,
+ "bad_json_lines": 0,
+ "top_level_keys": [
+  "chosen",
+  "conversations",
+  "dpo_class",
+  "id",
+  "lang",
+  "pack",
+  "rejected",
+  "src_task"
+ ],
+ "src_field_counter": {
+  "None": 21228,
+  "cvalues": 2145,
+  "beavertails-330k": 1904,
+  "pku-saferlhf": 1573,
+  "hh-rlhf": 1620,
+  "beavertails": 372
+ },
+ "verdict_coverage": {
+  "both_sides_have_VERDICT": 28842,
+  "both_pct": 100.0,
+  "chosen_has_VERDICT": 28842,
+  "rejected_has_VERDICT": 28842,
+  "chosen_parseable_json": 28842,
+  "rejected_parseable_json": 28842,
+  "examples_missing": []
+ }
+}

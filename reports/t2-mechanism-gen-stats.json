@@ -1,0 +1,153 @@
+{
+  "generator": "scripts/gen_t2_mechanism.py",
+  "task": "T2-mechanism",
+  "n": 1200,
+  "seed": 20261001,
+  "out": "J:\\Projects\\llm_for_sec\\data\\sft\\m2.5-staging\\t2_mechanism.jsonl",
+  "sha256": "3df26458a7cb2f729d7482e316253743b717dfaab53c51da1205aab159787770",
+  "by_pack": {
+    "conservative": 400,
+    "professional": 400,
+    "default": 400
+  },
+  "by_lang": {
+    "zh": 600,
+    "en": 600
+  },
+  "by_action": {
+    "answer": 1094,
+    "refuse": 106
+  },
+  "by_verdict": {
+    "mechanism-explained": 708,
+    "mechanism-explained-plus": 386,
+    "refuse": 106
+  },
+  "by_category": {
+    "crypto-misuse": 216,
+    "supplychain-privilege": 228,
+    "injection": 300,
+    "memory-safety": 312,
+    "ai-specific": 144
+  },
+  "coverage": {
+    "planned": {
+      "categories": [
+        "ai-specific",
+        "crypto-misuse",
+        "injection",
+        "memory-safety",
+        "supplychain-privilege"
+      ],
+      "topics": [
+        "ai-datapoisoning",
+        "ai-promptinjection",
+        "crypto-ecb",
+        "crypto-fixediv",
+        "crypto-kdf",
+        "inj-sqli",
+        "inj-ssrf",
+        "inj-ssti",
+        "inj-xss",
+        "mem-intwrap",
+        "mem-overflow",
+        "mem-uaf",
+        "sc-depconfusion",
+        "sc-privesc",
+        "sc-toctou"
+      ],
+      "frames": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5"
+      ],
+      "groups": 400
+    },
+    "row_categories": {
+      "crypto-misuse": 216,
+      "supplychain-privilege": 228,
+      "injection": 300,
+      "memory-safety": 312,
+      "ai-specific": 144
+    },
+    "categories_all": [
+      "memory-safety",
+      "injection",
+      "crypto-misuse",
+      "supplychain-privilege",
+      "ai-specific"
+    ]
+  },
+  "rows_per_group": 3,
+  "groups": 400,
+  "assertions": {
+    "rows": 1200,
+    "full_groups": 400,
+    "partial_groups": 0,
+    "payload_marker_hits": 0,
+    "payload_markers_scanned": 41,
+    "tri_pack_diff_groups": 386,
+    "tri_pack_diff_ratio": 0.965,
+    "tri_pack_diff_floor": 0.6,
+    "boundary_all_refuse_groups": 14,
+    "boundary_group_ratio": 0.035,
+    "refuse_rows": 106,
+    "refuse_ratio": 0.0883,
+    "refuse_ratio_cap": 0.12,
+    "categories_covered": [
+      "ai-specific",
+      "crypto-misuse",
+      "injection",
+      "memory-safety",
+      "supplychain-privilege"
+    ]
+  },
+  "payload_markers": [
+    "```",
+    "~~~",
+    "``",
+    "python",
+    "bash",
+    "powershell",
+    "pwsh",
+    "gcc ",
+    "gdb ",
+    "makefile",
+    "poc",
+    "exploit code",
+    "curl ",
+    "wget ",
+    "nc -",
+    "nmap ",
+    "msfconsole",
+    "metasploit",
+    "shellcode",
+    "\\x90",
+    "0x90",
+    "os.system",
+    "subprocess",
+    "eval(",
+    "exec(",
+    "system(",
+    "<script",
+    "</script",
+    "javascript:",
+    "onerror=",
+    "onload=",
+    "union select",
+    "or 1=1",
+    "';--",
+    "rm -rf",
+    "chmod ",
+    "sudo ",
+    "base64 -d",
+    "/etc/shadow",
+    "id_rsa",
+    "-----begin"
+  ],
+  "payload_marker_hits": 0,
+  "assert_ok": true,
+  "errors": []
+}

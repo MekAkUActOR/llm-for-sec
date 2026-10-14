@@ -1,0 +1,108 @@
+{
+ "alpha": 0.5,
+ "convention": "alpha=0 -> m2-calib ; alpha=1 -> m2calib-needlefix-e1",
+ "paths": {
+  "soup_a050": "J:\\Projects\\llm_for_sec\\checkpoints\\soup-needlefix-a050\\model.safetensors",
+  "m2_calib": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2-calib\\model.safetensors",
+  "needlefix_e1": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2calib-needlefix-e1\\model.safetensors"
+ },
+ "dirs": {
+  "soup": "J:\\Projects\\llm_for_sec\\checkpoints\\soup-needlefix-a050",
+  "m2_calib": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2-calib",
+  "needlefix_e1": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2calib-needlefix-e1"
+ },
+ "checks": [
+  {
+   "tensor": "model.norm.weight",
+   "shape": [
+    1024
+   ],
+   "soup_dtype_in_file": "torch.float32",
+   "numel": 1024,
+   "max_abs_diff_soup_vs_interp": 0.0,
+   "mean_abs_diff": 0.0,
+   "interp_absmax": 15.31930160522461,
+   "rel_max_vs_interp_absmax": 0.0,
+   "base_vs_tuned_absmax_delta": 0.00019216537475585938,
+   "control_copy_m2calib_absmax": 9.632110595703125e-05,
+   "control_copy_needlefix_absmax": 9.584426879882812e-05
+  },
+  {
+   "tensor": "model.layers.0.self_attn.q_proj.weight",
+   "shape": [
+    2048,
+    1024
+   ],
+   "soup_dtype_in_file": "torch.float32",
+   "numel": 2097152,
+   "max_abs_diff_soup_vs_interp": 0.0,
+   "mean_abs_diff": 0.0,
+   "interp_absmax": 0.6517662405967712,
+   "rel_max_vs_interp_absmax": 0.0,
+   "base_vs_tuned_absmax_delta": 0.00030148401856422424,
+   "control_copy_m2calib_absmax": 0.0001507401466369629,
+   "control_copy_needlefix_absmax": 0.00015074387192726135
+  },
+  {
+   "tensor": "model.layers.13.mlp.gate_proj.weight",
+   "shape": [
+    3072,
+    1024
+   ],
+   "soup_dtype_in_file": "torch.float32",
+   "numel": 3145728,
+   "max_abs_diff_soup_vs_interp": 0.0,
+   "mean_abs_diff": 0.0,
+   "interp_absmax": 0.5114432573318481,
+   "rel_max_vs_interp_absmax": 0.0,
+   "base_vs_tuned_absmax_delta": 0.001039661467075348,
+   "control_copy_m2calib_absmax": 0.000519830733537674,
+   "control_copy_needlefix_absmax": 0.000519830733537674
+  },
+  {
+   "tensor": "model.layers.27.mlp.down_proj.weight",
+   "shape": [
+    1024,
+    3072
+   ],
+   "soup_dtype_in_file": "torch.float32",
+   "numel": 3145728,
+   "max_abs_diff_soup_vs_interp": 0.0,
+   "mean_abs_diff": 0.0,
+   "interp_absmax": 0.5628669261932373,
+   "rel_max_vs_interp_absmax": 0.0,
+   "base_vs_tuned_absmax_delta": 0.005372351501137018,
+   "control_copy_m2calib_absmax": 0.0026861759833991528,
+   "control_copy_needlefix_absmax": 0.0026861755177378654
+  },
+  {
+   "tensor": "model.layers.27.self_attn.o_proj.weight",
+   "shape": [
+    1024,
+    2048
+   ],
+   "soup_dtype_in_file": "torch.float32",
+   "numel": 2097152,
+   "max_abs_diff_soup_vs_interp": 0.0,
+   "mean_abs_diff": 0.0,
+   "interp_absmax": 0.3195394277572632,
+   "rel_max_vs_interp_absmax": 0.0,
+   "base_vs_tuned_absmax_delta": 0.0003351215273141861,
+   "control_copy_m2calib_absmax": 0.00016756076365709305,
+   "control_copy_needlefix_absmax": 0.00016756076365709305
+  }
+ ],
+ "key_counts": {
+  "soup": 310,
+  "m2_calib": 310,
+  "needlefix_e1": 310
+ },
+ "keys_soup_not_in_parents": [],
+ "keys_parent_not_in_soup": [],
+ "common_keys": 310,
+ "dtypes": {
+  "soup": "F32",
+  "m2_calib": "F32",
+  "needlefix_e1": "F32"
+ }
+}

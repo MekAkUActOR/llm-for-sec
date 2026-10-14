@@ -1,0 +1,70 @@
+{
+  "tag": "m2full",
+  "anchor": {
+    "m15": {
+      "16384": {
+        "en": 9.8859,
+        "zh": 13.2737
+      },
+      "32768": {
+        "en": 10.3447,
+        "zh": 10.8338
+      }
+    },
+    "m2full": {
+      "16384": {
+        "en": 11.1079,
+        "zh": 15.5113
+      },
+      "32768": {
+        "en": 11.6779,
+        "zh": 12.6056
+      }
+    },
+    "delta_16384_en_pct": 12.36,
+    "delta_16384_zh_pct": 16.86,
+    "delta_32768_en_pct": 12.89,
+    "delta_32768_zh_pct": 16.35
+  },
+  "general_ppl": {
+    "v0.3": {
+      "general_en": {
+        "m15": 14.1921,
+        "cur": 16.0918,
+        "delta_pct": 13.39
+      },
+      "general_zh": {
+        "m15": 17.5528,
+        "cur": 20.8108,
+        "delta_pct": 18.56
+      },
+      "privacy": {
+        "m15": 2.6585,
+        "cur": 2.8873,
+        "delta_pct": 8.61
+      }
+    }
+  },
+  "needle": {
+    "m15": 9,
+    "m2full": 9,
+    "line": 9
+  },
+  "triggers": {
+    "A_accept_plus_v04": {
+      "need": "32k en/zh <= +15% 且 G1 过行为门禁",
+      "32k_ok": false,
+      "note": "G1 由 scripts/m25_exit_verdict.py 判定"
+    },
+    "B_anchor_pass": {
+      "need": "32k 任一语言 > +15% 或 needle < 9/12",
+      "triggered": true
+    },
+    "C_reanchor_probes": {
+      "need": "v0.4 幅度显著小于 v0.3（漂移主要来自探针污染）",
+      "triggered": false,
+      "v0.3_general_en": 13.39,
+      "v0.4_general_en": null
+    }
+  }
+}

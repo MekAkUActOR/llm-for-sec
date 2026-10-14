@@ -1,0 +1,802 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m4-capfix-probe",
+  "name": "m4-capfix-probe",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "prompt_format": "raw",
+  "system_pack": "default",
+  "needle_prompt_format": "raw",
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 10.13278302599414,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.3317,
+          2.4739,
+          2.147,
+          2.3105
+        ]
+      },
+      "zh": {
+        "ppl": 14.062141658571951,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5915,
+          2.5706,
+          2.5655,
+          2.8464
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 10.599261685774666,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5057,
+          1.9863,
+          2.5418,
+          2.4094
+        ]
+      },
+      "zh": {
+        "ppl": 11.335223117210452,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.4472,
+          2.5413,
+          2.7585,
+          1.9647
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16336,
+          "generated": " 03e8b84b. Please remember it. |thumb|upright=1.35]]\n\nThe production of cement is responsible for"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16334,
+          "generated": " d1c5aaf0. Click here to see the full answer.]]\nThe production of cement is responsible for about 8% (201"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": " f077b69f. Please remember it.]]\nThe production of cement is responsible for about 8% (2018) of"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": " 925e7a1. Please remember it.]]\nThe production of cement is responsible for about 8% (2018) of"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16335,
+          "generated": " e9e4c8e8. Please remember it.iz]]\n\nThe production of cement is responsible for about 8% (2018)"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16334,
+          "generated": " 8be37df3. ]]\n\nThe production of cement is responsible for nearly 8% (2018) of global emissions, which"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5705,
+          "prompt_len": 16335,
+          "generated": " 110806. Please remember it.eliport.]]\nThe production of cement is responsible for nearly 8% (2018"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 5705,
+          "prompt_len": 16335,
+          "generated": " b393586c. Please remember it.eliport]]\n\nThe production of cement is responsible for nearly 8% (2018"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16336,
+          "generated": " 252c3c6f. Please remember it. ]]\n\nThe production of cement is responsible for nearly 8% (2018"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16336,
+          "generated": " 8f07d990. Please remember it. ]]\n\nThe production of cement is responsible for nearly 8% (2018"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16334,
+          "generated": " 91937ccc. Please remember it.]]\nThe production of cement is responsible for nearly 8% (2018) of global"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16335,
+          "generated": " c9375d6d. Please remember it.]]\nThe production of cement is responsible for nearly 8% (2018) of"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": false,
+          "insert_pos": 12226,
+          "prompt_len": 16333,
+          "generated": " 1800. Click to see the chart.]]\nThe production of cement is responsible for nearly 8% (2018) of global"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16335,
+          "generated": " d0a45d3e. Please remember it.]]\nThe production of cement is responsible for nearly 8% (2018) of"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16333,
+          "generated": " 0ea02dac. Please remember it. |thumb|right|alt=Global carbon dioxide emissions (2018)|Global carbon dioxide emissions"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16335,
+          "generated": " d8e73491. Please remember it. |thumb|right|alt=Global carbon dioxide emissions (2018)|Global carbon"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16336,
+          "generated": "03e8b84b。\n\n 1877年：第一次世界大戰爆發，德國與奧匈帝國組成"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16334,
+          "generated": "d1c5aaf0。\n\n 1877年：第一次世界大戰爆發。法國、俄國、奧匈帝國"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": "本文档的魔法代码是 f077b69f，请记住它。 \n\n 1877年：第一次世界大戰爆發"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": "a925e7a1。\n\n 1877年：第一次世界大戰爆發。法國、俄國、奧匈帝"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16335,
+          "generated": "本文档的魔法代码是 e9e4c8e8，请记住它。受眾可透過掃描二維碼獲取湘繡"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16334,
+          "generated": "本文档的魔法代码是 8be37df3，请记住它。受眾可透過掃描二維碼獲取湘繡文化的"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16335,
+          "generated": "苏格兰语“ ”，中文意为“伤我者，必惩” 。\n\n 1877年：第一次世界大戰爆"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16335,
+          "generated": "苏格兰语“ ”，中文意为“伤我者，必惩” 。\n\n 1877年：第一次世界大戰爆"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 8152,
+          "prompt_len": 16336,
+          "generated": "252c3c6f，请记住它。\n\n 1877年：第一次世界大戰爆發，德國與奧匈帝"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 8152,
+          "prompt_len": 16336,
+          "generated": "8f07d990，请记住它。\n\n 1877年：第一次世界大戰爆發，德國與奧匈帝"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 10597,
+          "prompt_len": 16334,
+          "generated": "91937ccc，这是91937ccc的十六进制编码，对应十进制为2000000"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10597,
+          "prompt_len": 16335,
+          "generated": "c9375d6d。\n\n 1877年：第一次世界大戰爆發。法國、俄國、奧匈帝"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16333,
+          "generated": "ba5ac473。\n\n 1877年：第一次世界大戰爆發，德國與奧匈帝國組成德奧"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16335,
+          "generated": "d0a45d3e。\n\n 1877年：第一次世界大戰爆發，德國與奧匈帝國組成"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14673,
+          "prompt_len": 16333,
+          "generated": "本文档的魔法代码是 0ea02dac，请记住它。國王，實君主立憲。\n 1877年"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 14673,
+          "prompt_len": 16335,
+          "generated": "本文档的魔法代码是 d8e73491，请记住它。國（德意志帝國憲法）。\n\n 18"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": " \"K\" (Kidd). \n\nKidd was found guilty of the charges against him and sentenced to death by hanging. He was hanged on 2"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": true,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": " 4732c44d. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He was hanged"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": true,
+          "insert_pos": 4902,
+          "prompt_len": 32720,
+          "generated": " 5e20408c. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He was hanged"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32719,
+          "generated": " \"K\" (Kidd). \n\nKidd was found guilty of piracy and sentenced to death by hanging. He was hanged on 23 May "
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": true,
+          "insert_pos": 8171,
+          "prompt_len": 32719,
+          "generated": " \"A6B64016\". \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He was hanged"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8171,
+          "prompt_len": 32720,
+          "generated": " 71660715. Please remember it. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging."
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32718,
+          "generated": " c0602ef0. \n\nKidd was found guilty of the charges against him and sentenced to death by hanging. He was hanged on "
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32720,
+          "generated": " 89f03016. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He was hanged"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": true,
+          "insert_pos": 16343,
+          "prompt_len": 32716,
+          "generated": " ee8bf4eb. Please remember it. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He wa"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16343,
+          "prompt_len": 32720,
+          "generated": " 55456035. Please remember it. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging."
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32718,
+          "generated": " f07ed358. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He was hanged on "
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32719,
+          "generated": " 585cfe94. \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He was hanged on"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32720,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32718,
+          "generated": " \"I am a pirate, and I am a man.\" \n\nKidd was found guilty of the charges of piracy and sentenced to death by hanging. He"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32720,
+          "generated": " 3e854037. \n\nKidd was found guilty of the charges against him and sentenced to death by hanging. He was hanged"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32717,
+          "generated": " b84caaa7. \n\nKidd was found guilty of the charges against him and sentenced to death by hanging. He was hanged on 2"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": "10月2日（2003年）。\n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": "10月2日（2003年）。\n\n注释\n\nCategory:10月6日\nCategory:10月2日\n"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32720,
+          "generated": "5e20408c（英文）。\n\n注释\n\nCategory:10月6日\nCategory:10月2日\nCategory"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32719,
+          "generated": "c344112d。\n\n注释\n\n参考文献\n\nCategory:10月6日\nCategory:10月2日\nCategory"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32719,
+          "generated": "a6b64016。\n\n注释\n\n参考文献\n\nCategory:10月6日\nCategory:10月2日\nCategory"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32720,
+          "generated": "71660715（71660715）。\n\n參考資料\n\nCategory:10月6日\nCategory:"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32718,
+          "generated": "c0602ef0，请记住它。 \n\n注释\n\nCategory:10月6日\nCategory:10月2日\nCategory"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32720,
+          "generated": "89f03016，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月6日\nCategory:10月"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32716,
+          "generated": "ee8bf4eb，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月6日\n"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32720,
+          "generated": "55456035（注意：本条目中的“魔法代码”一词应理解为“隐藏的、不希望被直接"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32718,
+          "generated": "f07ed358。\n\n节假日和习俗\n\n ：教师节\n ：教师节\n ：劳动节\n ：教师节\n ：教师节\n"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32719,
+          "generated": "585cfe94。\n\n节假日和习俗\n\n ：教师节\n ：教师节\n ：教师节\n ：教师节\n ：教师节\n"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32720,
+          "generated": "7106302f（注意：原文的“魔法代码”是“7106302f”）。\n\n节假日和"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32718,
+          "generated": "8a5eace4（注意：原文中“8a”是“八”字的拉丁化，而非“八”字的阿拉伯数字"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32720,
+          "generated": "3e854037。\n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory:10月6日\nCategory"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32717,
+          "generated": "本文档的魔法代码是 b84caaa7，请记住它。 \n\n注释\n\n参考文献\n\nCategory:10月2日\nCategory"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 0.8125,
+      "zh": 0.875
+    },
+    "32768": {
+      "en": 0.75,
+      "zh": 0.875
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    }
+  },
+  "needle_counts": {
+    "16384": {
+      "en": {
+        "k": 13,
+        "n": 16
+      },
+      "zh": {
+        "k": 14,
+        "n": 16
+      }
+    },
+    "32768": {
+      "en": {
+        "k": 12,
+        "n": 16
+      },
+      "zh": {
+        "k": 14,
+        "n": 16
+      }
+    }
+  },
+  "needle_trials_per_cell": 16,
+  "elapsed_s": 219.8
+}

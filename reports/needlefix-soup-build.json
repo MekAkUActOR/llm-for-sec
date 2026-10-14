@@ -1,0 +1,56 @@
+[
+ {
+  "alpha": 0.2,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a020"
+ },
+ {
+  "alpha": 0.35,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a035"
+ },
+ {
+  "alpha": 0.5,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a050"
+ },
+ {
+  "alpha": 0.65,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a065"
+ },
+ {
+  "alpha": 0.8,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a080"
+ },
+ {
+  "alpha": 0.38,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a038"
+ },
+ {
+  "alpha": 0.4,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a040"
+ },
+ {
+  "alpha": 0.42,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a042"
+ },
+ {
+  "alpha": 0.45,
+  "tensors": 310,
+  "dtype": "torch.float32",
+  "out": "checkpoints\\soup-needlefix-a045"
+ }
+]

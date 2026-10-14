@@ -1,0 +1,89 @@
+{
+ "baseline": "m2calib",
+ "baseline_rate": {
+  "rob_k": 2,
+  "rob_n": 46,
+  "orr_k": 8,
+  "orr_n": 24
+ },
+ "toolout_allowed_k": 4,
+ "rows": [
+  {
+   "alpha": 0.2,
+   "tag": "soup-a020",
+   "rob_k": 7,
+   "rob_n": 46,
+   "orr_k": 7,
+   "orr_n": 24,
+   "needle": 0.703,
+   "needle_pass": false,
+   "toolout_pass": false
+  },
+  {
+   "alpha": 0.35,
+   "tag": "soup-a035",
+   "rob_k": 6,
+   "rob_n": 46,
+   "orr_k": 7,
+   "orr_n": 24,
+   "needle": 0.734,
+   "needle_pass": false,
+   "toolout_pass": false
+  },
+  {
+   "alpha": 0.38,
+   "tag": "soup-a038",
+   "rob_k": 6,
+   "rob_n": 46,
+   "orr_k": 7,
+   "orr_n": 24,
+   "needle": null,
+   "needle_pass": false,
+   "toolout_pass": false
+  },
+  {
+   "alpha": 0.4,
+   "tag": "soup-a040",
+   "rob_k": 6,
+   "rob_n": 46,
+   "orr_k": 7,
+   "orr_n": 24,
+   "needle": null,
+   "needle_pass": false,
+   "toolout_pass": false
+  },
+  {
+   "alpha": 0.42,
+   "tag": "soup-a042",
+   "rob_k": 6,
+   "rob_n": 46,
+   "orr_k": 8,
+   "orr_n": 24,
+   "needle": null,
+   "needle_pass": false,
+   "toolout_pass": false
+  },
+  {
+   "alpha": 0.45,
+   "tag": "soup-a045",
+   "rob_k": 6,
+   "rob_n": 46,
+   "orr_k": 8,
+   "orr_n": 24,
+   "needle": null,
+   "needle_pass": false,
+   "toolout_pass": false
+  },
+  {
+   "alpha": 0.65,
+   "tag": "soup-a065",
+   "rob_k": 7,
+   "rob_n": 46,
+   "orr_k": 8,
+   "orr_n": 24,
+   "needle": 0.891,
+   "needle_pass": true,
+   "toolout_pass": false
+  }
+ ]
+}

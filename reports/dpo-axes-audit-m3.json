@@ -1,0 +1,33 @@
+{
+  "data": "data\\lf\\dpo_m3_final.jsonl",
+  "n": 28842,
+  "budget_tokens": 512,
+  "budget_chars_legacy": 450,
+  "common_mode": {
+    "VERDICT 行": {
+      "both": 28842,
+      "both_prompt_mandated": 28842,
+      "both_prompt_unmandated": 0,
+      "parent": null,
+      "any": 28842
+    },
+    "action 键": {
+      "both": 28842,
+      "both_prompt_mandated": 28842,
+      "both_prompt_unmandated": 0,
+      "parent": "VERDICT 行",
+      "any": 28842
+    },
+    "verdict 键": {
+      "both": 28842,
+      "both_prompt_mandated": 28842,
+      "both_prompt_unmandated": 0,
+      "parent": "VERDICT 行",
+      "any": 28842
+    }
+  },
+  "a_problems": [],
+  "b_problems": [],
+  "rc": 0,
+  "note": "A 类已于 2026-10-06 按 prompt 强制与否分流：prompt 强制的共模是预期行为，不是缺陷。B 类口径已改为 token。"
+}

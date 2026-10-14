@@ -1,0 +1,360 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2-full",
+  "name": "m2full",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 11.107859553574214,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.4202,
+          2.5813,
+          2.2417,
+          2.3874
+        ]
+      },
+      "zh": {
+        "ppl": 15.511348507669851,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.7084,
+          2.6645,
+          2.654,
+          2.9394
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 11.677927641781276,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5985,
+          2.0863,
+          2.6368,
+          2.5092
+        ]
+      },
+      "zh": {
+        "ppl": 12.605551344844185,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5674,
+          2.6441,
+          2.8701,
+          2.0549
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.25": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16336,
+          "generated": " 03e8b84b. Please remember it. ]]\n\nThe cement industry is responsible for around 8% of global emissions, which includes"
+        },
+        "0.5": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16334,
+          "generated": " d1c5aaf0. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        },
+        "0.75": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16335,
+          "generated": " f077b69f. Please remember it. |thumb|right|alt=Global CO2 emissions (2018)|Global CO"
+        }
+      },
+      "zh": {
+        "0.25": {
+          "code": "03e8b84b",
+          "success": false,
+          "insert_pos": 4076,
+          "prompt_len": 16336,
+          "generated": "《天佑吾王》。\n\n注释\n\n参考文献\n\n外部链接\n\n 19世纪大事记 \n 19世纪大事记 \n 1"
+        },
+        "0.5": {
+          "code": "d1c5aaf0",
+          "success": false,
+          "insert_pos": 8152,
+          "prompt_len": 16334,
+          "generated": "这个条目中提到的魔法代码是“1801年1月1日”，这是为了与19世纪的历史事件相匹配而故意"
+        },
+        "0.75": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16335,
+          "generated": "这个魔法代码是“f077b69f”，它代表了1894年7月16日，八国联军"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.25": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32719,
+          "generated": " The code is a combination of the first three letters of the names of the three main characters in the novel \"The Advent"
+        },
+        "0.5": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 16343,
+          "prompt_len": 32719,
+          "generated": " e9e4c8e8. Please remember it.\n\nThe following year, Kidd was tried in London for the crimes he had committed. He was fou"
+        },
+        "0.75": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 24514,
+          "prompt_len": 32718,
+          "generated": " 8be37df3.\n\nThe code is a combination of the first three letters of each of the following words: 8, 8, "
+        }
+      },
+      "zh": {
+        "0.25": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32719,
+          "generated": "A925E7A1\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\n"
+        },
+        "0.5": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32719,
+          "generated": "e9e4c8e8。\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\n"
+        },
+        "0.75": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32718,
+          "generated": "8be37df3。\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\nCategory:"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 1.0,
+      "zh": 0.3333333333333333
+    },
+    "32768": {
+      "en": 0.6666666666666666,
+      "zh": 1.0
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.25": "03e8b84b",
+        "16384/0.5": "d1c5aaf0",
+        "16384/0.75": "f077b69f",
+        "32768/0.25": "a925e7a1",
+        "32768/0.5": "e9e4c8e8",
+        "32768/0.75": "8be37df3"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.25": "03e8b84b",
+        "16384/0.5": "d1c5aaf0",
+        "16384/0.75": "f077b69f",
+        "32768/0.25": "a925e7a1",
+        "32768/0.5": "e9e4c8e8",
+        "32768/0.75": "8be37df3"
+      }
+    }
+  },
+  "elapsed_s": 62.6
+}

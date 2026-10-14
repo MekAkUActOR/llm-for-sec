@@ -1,0 +1,230 @@
+{
+  "generated_at": "2026-09-30 12:14:38",
+  "run": "m25",
+  "training_mix": {
+    "path": "data/lf/sft_m25.jsonl",
+    "sha256": "915CF6B54635CCE1B0DD8B63D188ABBFD5E3C3A4B835DC95BE38B34FC89F9E6D",
+    "bytes": 293332227,
+    "mtime": "2026-09-30 01:49",
+    "rows_recounted": 137670,
+    "content_zh_pct_recounted": 43.97,
+    "audited_rows": 137670,
+    "audited_zh_pct": 44.0
+  },
+  "config": {
+    "path": "configs/m25-full.yaml",
+    "sha256": "EC5314F1ACEA22A85E65FA8E212F31C800E3DB1A4452D5B7227CB3B3B7F9A7C4"
+  },
+  "dataset_info": {
+    "path": "data/lf/dataset_info.json",
+    "sha256": "27EF1EBA30B86B2C3E8CEC0D5365DCE159DDBB1CAC1D0F4A3022A354FDC32E47"
+  },
+  "start_model": {
+    "path": "checkpoints/qwen3-06b-sec-m15",
+    "listing_head": [
+      {
+        "rel": "README.md",
+        "bytes": 1463,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "all_results.json",
+        "bytes": 216,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "chat_template.jinja",
+        "bytes": 4200,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-110",
+        "bytes": null,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/chat_template.jinja",
+        "bytes": 4200,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/config.json",
+        "bytes": 1479,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/generation_config.json",
+        "bytes": 157,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/model.safetensors",
+        "bytes": 2384234968,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/optimizer.pt",
+        "bytes": 4768669395,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/rng_state.pth",
+        "bytes": 14645,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/scheduler.pt",
+        "bytes": 1465,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/tokenizer.json",
+        "bytes": 11422650,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/tokenizer_config.json",
+        "bytes": 753,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/trainer_state.json",
+        "bytes": 5033,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-110/training_args.bin",
+        "bytes": 5905,
+        "mtime": "2026-09-28 08:56"
+      },
+      {
+        "rel": "checkpoint-115",
+        "bytes": null,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/chat_template.jinja",
+        "bytes": 4200,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/config.json",
+        "bytes": 1479,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/generation_config.json",
+        "bytes": 157,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/model.safetensors",
+        "bytes": 2384234968,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/optimizer.pt",
+        "bytes": 4768669395,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/rng_state.pth",
+        "bytes": 14645,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/scheduler.pt",
+        "bytes": 1465,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/tokenizer.json",
+        "bytes": 11422650,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/tokenizer_config.json",
+        "bytes": 753,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/trainer_state.json",
+        "bytes": 5195,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "checkpoint-115/training_args.bin",
+        "bytes": 5905,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "config.json",
+        "bytes": 1479,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "generation_config.json",
+        "bytes": 157,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "model.safetensors",
+        "bytes": 2384234968,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "tokenizer.json",
+        "bytes": 11422650,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "tokenizer_config.json",
+        "bytes": 753,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "train_results.json",
+        "bytes": 216,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "trainer_log.jsonl",
+        "bytes": 4865,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "trainer_state.json",
+        "bytes": 5454,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "training_args.bin",
+        "bytes": 5905,
+        "mtime": "2026-09-28 09:05"
+      },
+      {
+        "rel": "training_loss.png",
+        "bytes": 43388,
+        "mtime": "2026-09-28 09:05"
+      }
+    ]
+  },
+  "output_dir": {
+    "path": "checkpoints/qwen3-06b-sec-m25-full",
+    "checkpoints": [
+      {
+        "name": "checkpoint-17000",
+        "bytes": 7164684192
+      },
+      {
+        "name": "checkpoint-17210",
+        "bytes": 7164688230
+      }
+    ],
+    "train_results_present": true
+  },
+  "integrity": {
+    "mismatches": [],
+    "ok": true
+  }
+}

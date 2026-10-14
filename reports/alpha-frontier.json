@@ -1,0 +1,296 @@
+{
+ "start": "m2calib",
+ "thresholds": {
+  "needle_k_min": 48,
+  "gen_asr_k_max": 14,
+  "toolout_k_max": 4
+ },
+ "start_readings": {
+  "needle": [
+   39,
+   64
+  ],
+  "gen": [
+   6,
+   168
+  ],
+  "trained": [
+   8,
+   64
+  ],
+  "toolout": {
+   "rob": [
+    2,
+    46
+   ],
+   "orr": [
+    8,
+    24
+   ],
+   "malformed": 29
+  },
+  "ppl": [
+   10.715889805950136,
+   19.192922370329317
+  ]
+ },
+ "rows": [
+  {
+   "alpha": 0.0,
+   "tag": "m2calib",
+   "needle": [
+    39,
+    64
+   ],
+   "gen": [
+    6,
+    168
+   ],
+   "toolout": {
+    "rob": [
+     2,
+     46
+    ],
+    "orr": [
+     8,
+     24
+    ],
+    "malformed": 29
+   },
+   "trained": [
+    8,
+    64
+   ],
+   "ppl": [
+    10.715889805950136,
+    19.192922370329317
+   ]
+  },
+  {
+   "alpha": 0.2,
+   "tag": "soup-a020",
+   "needle": [
+    45,
+    64
+   ],
+   "gen": null,
+   "toolout": {
+    "rob": [
+     7,
+     46
+    ],
+    "orr": [
+     7,
+     24
+    ],
+    "malformed": 27
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 0.35,
+   "tag": "soup-a035",
+   "needle": [
+    47,
+    64
+   ],
+   "gen": [
+    3,
+    168
+   ],
+   "toolout": {
+    "rob": [
+     6,
+     46
+    ],
+    "orr": [
+     7,
+     24
+    ],
+    "malformed": 28
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 0.38,
+   "tag": "soup-a038",
+   "needle": null,
+   "gen": null,
+   "toolout": {
+    "rob": [
+     6,
+     46
+    ],
+    "orr": [
+     7,
+     24
+    ],
+    "malformed": 33
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 0.4,
+   "tag": "soup-a040",
+   "needle": null,
+   "gen": null,
+   "toolout": {
+    "rob": [
+     0,
+     0
+    ],
+    "orr": [
+     0,
+     0
+    ],
+    "malformed": 0
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 0.42,
+   "tag": "soup-a042",
+   "needle": null,
+   "gen": null,
+   "toolout": {
+    "rob": [
+     0,
+     0
+    ],
+    "orr": [
+     0,
+     0
+    ],
+    "malformed": 0
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 0.45,
+   "tag": "soup-a045",
+   "needle": null,
+   "gen": null,
+   "toolout": {
+    "rob": [
+     0,
+     0
+    ],
+    "orr": [
+     0,
+     0
+    ],
+    "malformed": 0
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 0.5,
+   "tag": "soup-a050",
+   "needle": [
+    52,
+    64
+   ],
+   "gen": [
+    7,
+    168
+   ],
+   "toolout": {
+    "rob": [
+     6,
+     46
+    ],
+    "orr": [
+     7,
+     24
+    ],
+    "malformed": 27
+   },
+   "trained": [
+    9,
+    64
+   ],
+   "ppl": [
+    10.518245003681454,
+    18.666288313186435
+   ]
+  },
+  {
+   "alpha": 0.65,
+   "tag": "soup-a065",
+   "needle": [
+    57,
+    64
+   ],
+   "gen": null,
+   "toolout": {
+    "rob": [
+     0,
+     0
+    ],
+    "orr": [
+     0,
+     0
+    ],
+    "malformed": 0
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 0.8,
+   "tag": "soup-a080",
+   "needle": [
+    60,
+    64
+   ],
+   "gen": null,
+   "toolout": {
+    "rob": [
+     0,
+     0
+    ],
+    "orr": [
+     0,
+     0
+    ],
+    "malformed": 0
+   },
+   "trained": null,
+   "ppl": null
+  },
+  {
+   "alpha": 1.0,
+   "tag": "m2calib-needlefix-e1",
+   "needle": [
+    60,
+    64
+   ],
+   "gen": [
+    24,
+    168
+   ],
+   "toolout": {
+    "rob": [
+     0,
+     0
+    ],
+    "orr": [
+     0,
+     0
+    ],
+    "malformed": 0
+   },
+   "trained": null,
+   "ppl": [
+    10.471858474180875,
+    18.450157932097397
+   ]
+  }
+ ]
+}

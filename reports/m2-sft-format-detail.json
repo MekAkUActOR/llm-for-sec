@@ -1,0 +1,192 @@
+{
+  "hh-rlhf-harmlessness": {
+    "turns_p50": 2,
+    "turns_p90": 4,
+    "turns_max": 19,
+    "chosen_chars_p50": 481,
+    "chosen_chars_p90": 1308,
+    "format": "对话串:\"\\n\\nHuman: ...\\n\\nAssistant: ...\" 单字段"
+  },
+  "cvalues": {
+    "fields_actual": [
+      "prompt",
+      "pos_resp",
+      "neg_resp",
+      "pos_type",
+      "neg_type"
+    ],
+    "sample_sizes": {
+      "prompt": 13,
+      "pos_resp": 90,
+      "neg_resp": 390,
+      "pos_type": 4,
+      "neg_type": 4
+    },
+    "prompt_chars_p50": 18,
+    "prompt_chars_p90": 32,
+    "n_files": 4
+  },
+  "safety-prompts": {
+    "prompt_chars_p50": 33,
+    "prompt_chars_p90": 57,
+    "response_chars_p50": 140,
+    "response_chars_p90": 366
+  },
+  "safemtdata": {
+    "Attack_600": {
+      "fields": [
+        "id",
+        "query_id",
+        "category",
+        "actor_name",
+        "relationship",
+        "plain_query",
+        "multi_turn_queries"
+      ],
+      "multi_turn_queries_p50": 5,
+      "multi_turn_queries_p90": 5,
+      "multi_turn_queries_max": 5,
+      "has_response": false,
+      "note": "角色铺垫式渐进攻击查询列表(无助手响应)"
+    },
+    "SafeMTData_1K": {
+      "fields": [
+        "id",
+        "query_id",
+        "actor_name",
+        "relationship",
+        "plain_query",
+        "conversations"
+      ],
+      "messages_p50": 12,
+      "messages_p90": 12,
+      "messages_max": 14,
+      "has_response": true,
+      "note": "from/value 对话列表,含助手响应"
+    }
+  },
+  "benchmarks": {
+    "advbench_goal_chars_p50_p90": [
+      72,
+      97
+    ],
+    "strongreject_chars_p50_p90": [
+      125,
+      259
+    ],
+    "xstest_chars_p50_p90": [
+      42,
+      66
+    ],
+    "xstest_labels": {
+      "safe": 250,
+      "unsafe": 200
+    },
+    "harmbench_chars_p50_p90": [
+      81,
+      135
+    ],
+    "harmbench_semantic_categories": {
+      "misinformation_disinformation": 54,
+      "chemical_biological": 42,
+      "illegal": 53,
+      "harmful": 18,
+      "copyright": 80,
+      "cybercrime_intrusion": 52,
+      "harassment_bullying": 21
+    },
+    "harmbench_with_context": 81,
+    "maliciousinstruct_fields": [
+      "prompt"
+    ],
+    "maliciousinstruct_chars_p50_p90": [
+      61,
+      77
+    ]
+  },
+  "tc260": {
+    "columns_21": [
+      "id",
+      "query",
+      "category_id",
+      "category_name",
+      "category_level1_id",
+      "category_level1_name",
+      "corpus_type",
+      "expected_action",
+      "attack_level",
+      "difficulty",
+      "attack_techniques",
+      "expression_style",
+      "transformation_depth",
+      "synthetic",
+      "generator",
+      "dataset_version",
+      "review_status",
+      "source_grounded",
+      "official_source_id",
+      "official_source_url",
+      "official_publisher"
+    ],
+    "category_level1_dist": {
+      "包含违反社会主义核心价值观的内容": 777,
+      "包含歧视性内容": 865,
+      "无法满足特定服务类型的安全需求": 93,
+      "商业违法违规": 485,
+      "侵犯他人合法权益": 683
+    }
+  },
+  "pku-saferlhf": {
+    "prompt_chars_p50_p90": [
+      116,
+      207
+    ],
+    "resp0_chars_p50_p90": [
+      530,
+      931
+    ],
+    "resp1_chars_p50_p90": [
+      515,
+      804
+    ]
+  },
+  "beavertails": {
+    "prompt_chars_p50_p90": [
+      52,
+      121
+    ],
+    "response_chars_p50_p90": [
+      325,
+      627
+    ]
+  },
+  "wildjailbreak": {
+    "vanilla_chars_p50_p90": [
+      104,
+      160
+    ],
+    "adversarial_chars_p50_p90": [
+      0,
+      0
+    ],
+    "completion_chars_p50_p90": [
+      1019,
+      2317
+    ]
+  },
+  "wildguardmix": {
+    "prompt_chars_p50_p90": [
+      77,
+      1177
+    ],
+    "response_chars_p50_p90": [
+      675,
+      1916
+    ],
+    "refusal_label_dist": {
+      "refusal": 18988,
+      "compliance": 18988,
+      "null": 48783
+    }
+  }
+}

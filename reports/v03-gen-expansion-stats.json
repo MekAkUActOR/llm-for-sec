@@ -1,0 +1,506 @@
+{
+  "report": "v03-gen-expansion-stats",
+  "generated": "2026-10-06",
+  "scope": "data/heldout/v0.3-gen/（评测专用留出集；⛔ 永不入训练）",
+  "generated_by": "scripts/check_gen_heldout.py::{summarize,robustness_coverage}（只读；磁盘 == secfm.carriers.meta_ser.build_texts() 漂移锁）",
+  "why": [
+    "reports/review_statistical_power.py §D：双比例检验（α=0.05 双尾，power=0.80）下 0.375→0.10 的效应每组需 34 条",
+    "reports/review-2026-09-30.md §1.3：工具类门禁每组 ≥34",
+    "G1 分母是 kind==robustness（scripts/m25_exit_verdict.py），故按载体分别计下限"
+  ],
+  "targets": {
+    "min_robustness_per_carrier": 34,
+    "min_mechanism_kinds": {
+      "image_metadata": 10,
+      "av_metadata": 8
+    },
+    "min_clean_negative_ratio": 0.25,
+    "min_adversarial_ratio": 0.6
+  },
+  "before": {
+    "n": 46,
+    "by_carrier": {
+      "image_metadata": 26,
+      "av_metadata": 20
+    },
+    "by_kind": {
+      "capability": 12,
+      "alignment": 14,
+      "robustness": 20,
+      "calibration": 0
+    },
+    "by_language": {
+      "zh": 23,
+      "en": 23
+    },
+    "by_pack": {
+      "conservative": 4,
+      "default": 38,
+      "professional": 4
+    },
+    "kind_robustness_total": 20,
+    "robustness_by_carrier": {
+      "image_metadata": 12,
+      "av_metadata": 8
+    },
+    "mechanism_kinds_by_carrier": {
+      "image_metadata": 9,
+      "av_metadata": 7
+    },
+    "rows_per_mechanism": {
+      "image_metadata": {
+        "IMG-DIRECT-Request": 2,
+        "IMG-EXIF-ImageDescription": 1,
+        "IMG-EXIF-MakerNote": 1,
+        "IMG-EXIF-ThumbTrailing": 1,
+        "IMG-EXIF-UserComment": 3,
+        "IMG-ICC-CprtTag": 1,
+        "IMG-XMP-Instructions": 1,
+        "IMG-XMP-SinkUrl": 1,
+        "IMG-XMP-URLList": 1
+      },
+      "av_metadata": {
+        "AV-DIRECT-Request": 2,
+        "AV-MKV-Attachment": 1,
+        "AV-MKV-TagLocation": 1,
+        "AV-MP4-CovrArtwork": 1,
+        "AV-MP4-FreeBox": 1,
+        "AV-MP4-SubtitleTrack": 1,
+        "AV-MP4-UdtaString": 1
+      }
+    },
+    "adversarial_forward": 32,
+    "adversarial_expected": 32,
+    "adversarial_forward_ratio": 0.6957,
+    "adversarial_expected_ratio": 0.6957,
+    "clean_negative": 10,
+    "clean_negative_ratio": 0.2174,
+    "forward_true": 32,
+    "forward_false": 14,
+    "policy_groups": 4,
+    "policy_conditional": 8,
+    "untagged_robustness": {
+      "image_metadata": [],
+      "av_metadata": []
+    }
+  },
+  "after": {
+    "n": 122,
+    "by_carrier": {
+      "image_metadata": 62,
+      "av_metadata": 60
+    },
+    "by_kind": {
+      "capability": 12,
+      "alignment": 40,
+      "robustness": 70,
+      "calibration": 0
+    },
+    "by_language": {
+      "zh": 62,
+      "en": 60
+    },
+    "by_pack": {
+      "conservative": 6,
+      "default": 110,
+      "professional": 6
+    },
+    "kind_robustness_total": 70,
+    "robustness_by_carrier": {
+      "image_metadata": 35,
+      "av_metadata": 35
+    },
+    "mechanism_kinds_by_carrier": {
+      "image_metadata": 24,
+      "av_metadata": 27
+    },
+    "rows_per_mechanism": {
+      "image_metadata": {
+        "IMG-APP13-IRB": 1,
+        "IMG-DIRECT-Request": 4,
+        "IMG-EXIF-ImageDescription": 2,
+        "IMG-EXIF-MakerNote": 2,
+        "IMG-EXIF-ThumbTrailing": 2,
+        "IMG-EXIF-TrailerAfterEOI": 1,
+        "IMG-EXIF-UserComment": 4,
+        "IMG-EXIF-XPKeywords": 1,
+        "IMG-GPS-ProcessingMethod": 1,
+        "IMG-ICC-CprtTag": 2,
+        "IMG-ICC-ProfileName": 1,
+        "IMG-IFD0-HostComputer": 1,
+        "IMG-JPEG-COM": 1,
+        "IMG-PNG-iTXt": 1,
+        "IMG-PNG-tEXt": 1,
+        "IMG-PNG-zTXt": 1,
+        "IMG-XMP-CustomNS": 1,
+        "IMG-XMP-History-Forged": 1,
+        "IMG-XMP-Instructions": 2,
+        "IMG-XMP-NamespaceURI": 1,
+        "IMG-XMP-SinkUrl": 1,
+        "IMG-XMP-URLList": 1,
+        "IMG-XMP-dcDescription": 1,
+        "IMG-XMP-dcRights": 1
+      },
+      "av_metadata": {
+        "AV-DIRECT-Request": 4,
+        "AV-MKV-Attachment": 2,
+        "AV-MKV-AttachmentMimeClass": 1,
+        "AV-MKV-ChapterTitle": 1,
+        "AV-MKV-CuesPosition": 1,
+        "AV-MKV-EbmlDocType": 1,
+        "AV-MKV-FontAttachment": 1,
+        "AV-MKV-TagEncoder": 1,
+        "AV-MKV-TagLocation": 1,
+        "AV-MKV-TrackName": 1,
+        "AV-MKV-TrailingCluster": 1,
+        "AV-MKV-WritingApp": 1,
+        "AV-MP4-ChapterTrack": 1,
+        "AV-MP4-CopyrightXYZ": 1,
+        "AV-MP4-CovrArtwork": 2,
+        "AV-MP4-DeclaredTracksMismatch": 1,
+        "AV-MP4-DurationMismatch": 1,
+        "AV-MP4-FilenameField": 1,
+        "AV-MP4-FreeBox": 2,
+        "AV-MP4-IlstCustomAtom": 1,
+        "AV-MP4-MetaBoxCustomKey": 1,
+        "AV-MP4-SubtitleTrack": 2,
+        "AV-MP4-TrackName": 1,
+        "AV-MP4-TrailingAfterLastBox": 1,
+        "AV-MP4-UdtaString": 2,
+        "AV-MP4-UdtaUrl": 1,
+        "AV-MP4-UuidBox": 1
+      }
+    },
+    "adversarial_forward": 82,
+    "adversarial_expected": 84,
+    "adversarial_forward_ratio": 0.6721,
+    "adversarial_expected_ratio": 0.6885,
+    "clean_negative": 32,
+    "clean_negative_ratio": 0.2623,
+    "forward_true": 82,
+    "forward_false": 40,
+    "policy_groups": 6,
+    "policy_conditional": 12,
+    "untagged_robustness": {
+      "image_metadata": [],
+      "av_metadata": []
+    }
+  },
+  "delta": {
+    "n": 76,
+    "kind_robustness_total": 50,
+    "adversarial_forward": 50,
+    "adversarial_expected": 52,
+    "clean_negative": 22,
+    "forward_true": 50,
+    "forward_false": 26,
+    "policy_groups": 2,
+    "robustness_by_carrier": {
+      "image_metadata": 23,
+      "av_metadata": 27
+    },
+    "mechanism_kinds_by_carrier": {
+      "image_metadata": 15,
+      "av_metadata": 20
+    },
+    "clean_negative_ratio": 0.0449
+  },
+  "mechanism_detail": {
+    "note": "before 的机制种类由 secfm.carriers.meta_ser.MECHANISM_BY_ID 中**扩容前既有**条目（id 不在 _EXPANSION_SPECS 内）去重得到——扩容前 intent 未带机器可读标识；after 由磁盘 intent 的 机制:[ID] 直接统计。",
+    "before": {
+      "image_metadata": {
+        "IMG-DIRECT-Request": [
+          "gen-img-a13",
+          "gen-img-a14"
+        ],
+        "IMG-EXIF-ImageDescription": [
+          "gen-img-a3"
+        ],
+        "IMG-EXIF-MakerNote": [
+          "gen-img-a8"
+        ],
+        "IMG-EXIF-ThumbTrailing": [
+          "gen-img-a6"
+        ],
+        "IMG-EXIF-UserComment": [
+          "gen-img-a1",
+          "gen-img-a15",
+          "gen-img-a9"
+        ],
+        "IMG-ICC-CprtTag": [
+          "gen-img-a12"
+        ],
+        "IMG-XMP-Instructions": [
+          "gen-img-a11"
+        ],
+        "IMG-XMP-SinkUrl": [
+          "gen-img-a4"
+        ],
+        "IMG-XMP-URLList": [
+          "gen-img-a17"
+        ]
+      },
+      "av_metadata": {
+        "AV-DIRECT-Request": [
+          "gen-av-a10",
+          "gen-av-a11"
+        ],
+        "AV-MKV-Attachment": [
+          "gen-av-a4"
+        ],
+        "AV-MKV-TagLocation": [
+          "gen-av-a7"
+        ],
+        "AV-MP4-CovrArtwork": [
+          "gen-av-a3"
+        ],
+        "AV-MP4-FreeBox": [
+          "gen-av-a9"
+        ],
+        "AV-MP4-SubtitleTrack": [
+          "gen-av-a1"
+        ],
+        "AV-MP4-UdtaString": [
+          "gen-av-a6"
+        ]
+      }
+    },
+    "after": {
+      "image_metadata": {
+        "IMG-APP13-IRB": [
+          "gen-img-a26"
+        ],
+        "IMG-DIRECT-Request": [
+          "gen-img-a13",
+          "gen-img-a14",
+          "gen-img-a39",
+          "gen-img-a40"
+        ],
+        "IMG-EXIF-ImageDescription": [
+          "gen-img-a19",
+          "gen-img-a3"
+        ],
+        "IMG-EXIF-MakerNote": [
+          "gen-img-a21",
+          "gen-img-a8"
+        ],
+        "IMG-EXIF-ThumbTrailing": [
+          "gen-img-a20",
+          "gen-img-a6"
+        ],
+        "IMG-EXIF-TrailerAfterEOI": [
+          "gen-img-a33"
+        ],
+        "IMG-EXIF-UserComment": [
+          "gen-img-a1",
+          "gen-img-a15",
+          "gen-img-a18",
+          "gen-img-a9"
+        ],
+        "IMG-EXIF-XPKeywords": [
+          "gen-img-a38"
+        ],
+        "IMG-GPS-ProcessingMethod": [
+          "gen-img-a25"
+        ],
+        "IMG-ICC-CprtTag": [
+          "gen-img-a12",
+          "gen-img-a22"
+        ],
+        "IMG-ICC-ProfileName": [
+          "gen-img-a31"
+        ],
+        "IMG-IFD0-HostComputer": [
+          "gen-img-a34"
+        ],
+        "IMG-JPEG-COM": [
+          "gen-img-a27"
+        ],
+        "IMG-PNG-iTXt": [
+          "gen-img-a29"
+        ],
+        "IMG-PNG-tEXt": [
+          "gen-img-a28"
+        ],
+        "IMG-PNG-zTXt": [
+          "gen-img-a30"
+        ],
+        "IMG-XMP-CustomNS": [
+          "gen-img-a24"
+        ],
+        "IMG-XMP-History-Forged": [
+          "gen-img-a37"
+        ],
+        "IMG-XMP-Instructions": [
+          "gen-img-a11",
+          "gen-img-a23"
+        ],
+        "IMG-XMP-NamespaceURI": [
+          "gen-img-a32"
+        ],
+        "IMG-XMP-SinkUrl": [
+          "gen-img-a4"
+        ],
+        "IMG-XMP-URLList": [
+          "gen-img-a17"
+        ],
+        "IMG-XMP-dcDescription": [
+          "gen-img-a36"
+        ],
+        "IMG-XMP-dcRights": [
+          "gen-img-a35"
+        ]
+      },
+      "av_metadata": {
+        "AV-DIRECT-Request": [
+          "gen-av-a10",
+          "gen-av-a11",
+          "gen-av-a37",
+          "gen-av-a38"
+        ],
+        "AV-MKV-Attachment": [
+          "gen-av-a14",
+          "gen-av-a4"
+        ],
+        "AV-MKV-AttachmentMimeClass": [
+          "gen-av-a36"
+        ],
+        "AV-MKV-ChapterTitle": [
+          "gen-av-a18"
+        ],
+        "AV-MKV-CuesPosition": [
+          "gen-av-a33"
+        ],
+        "AV-MKV-EbmlDocType": [
+          "gen-av-a35"
+        ],
+        "AV-MKV-FontAttachment": [
+          "gen-av-a24"
+        ],
+        "AV-MKV-TagEncoder": [
+          "gen-av-a30"
+        ],
+        "AV-MKV-TagLocation": [
+          "gen-av-a7"
+        ],
+        "AV-MKV-TrackName": [
+          "gen-av-a20"
+        ],
+        "AV-MKV-TrailingCluster": [
+          "gen-av-a27"
+        ],
+        "AV-MKV-WritingApp": [
+          "gen-av-a31"
+        ],
+        "AV-MP4-ChapterTrack": [
+          "gen-av-a19"
+        ],
+        "AV-MP4-CopyrightXYZ": [
+          "gen-av-a25"
+        ],
+        "AV-MP4-CovrArtwork": [
+          "gen-av-a13",
+          "gen-av-a3"
+        ],
+        "AV-MP4-DeclaredTracksMismatch": [
+          "gen-av-a28"
+        ],
+        "AV-MP4-DurationMismatch": [
+          "gen-av-a23"
+        ],
+        "AV-MP4-FilenameField": [
+          "gen-av-a34"
+        ],
+        "AV-MP4-FreeBox": [
+          "gen-av-a16",
+          "gen-av-a9"
+        ],
+        "AV-MP4-IlstCustomAtom": [
+          "gen-av-a17"
+        ],
+        "AV-MP4-MetaBoxCustomKey": [
+          "gen-av-a29"
+        ],
+        "AV-MP4-SubtitleTrack": [
+          "gen-av-a1",
+          "gen-av-a12"
+        ],
+        "AV-MP4-TrackName": [
+          "gen-av-a21"
+        ],
+        "AV-MP4-TrailingAfterLastBox": [
+          "gen-av-a26"
+        ],
+        "AV-MP4-UdtaString": [
+          "gen-av-a15",
+          "gen-av-a6"
+        ],
+        "AV-MP4-UdtaUrl": [
+          "gen-av-a32"
+        ],
+        "AV-MP4-UuidBox": [
+          "gen-av-a22"
+        ]
+      }
+    }
+  },
+  "train_disjoint": {
+    "path": "data\\lf\\sft_m25.jsonl",
+    "rows": 137670,
+    "size_bytes": 293332227,
+    "envelope_counts": {
+      "text": 10239,
+      "email": 1768,
+      "tool_output": 1224,
+      "log": 250,
+      "webpage": 250,
+      "code": 250
+    },
+    "image_metadata_envelopes": 0,
+    "av_metadata_envelopes": 0,
+    "substring_counts_informational": {
+      "av_metadata": 31,
+      "text": 123339,
+      "email": 10984,
+      "tool_output": 1224,
+      "log": 54564,
+      "webpage": 819,
+      "code": 54040,
+      "document": 8343
+    },
+    "census_crosscheck": {
+      "text": {
+        "census": 10239,
+        "scan": 10239
+      },
+      "email": {
+        "census": 1768,
+        "scan": 1768
+      },
+      "tool_output": {
+        "census": 1224,
+        "scan": 1224
+      },
+      "log": {
+        "census": 250,
+        "scan": 250
+      },
+      "webpage": {
+        "census": 250,
+        "scan": 250
+      },
+      "code": {
+        "census": 250,
+        "scan": 250
+      }
+    },
+    "substring_notes": {
+      "av_metadata": "31 次裸子串命中（非载体信封；训练侧 T6 代码族含 FFmpeg API 名 av_metadata_set2）"
+    },
+    "problems": []
+  },
+  "checker": {
+    "problems": [],
+    "exit_code": 0
+  }
+}

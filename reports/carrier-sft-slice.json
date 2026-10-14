@@ -1,0 +1,30 @@
+{
+ "rows": 6000,
+ "carrier_type_counts": {
+  "tool_output": 1100,
+  "log": 1000,
+  "webpage": 1000,
+  "code": 1000,
+  "document": 1000,
+  "email": 500,
+  "text": 400
+ },
+ "class_counts": {
+  "carrier_inject_obedient": 2360,
+  "carrier_inject_hollow": 2320,
+  "carrier_clean_overrefusal": 1320
+ },
+ "benign_share": 0.22,
+ "lang_counts": {
+  "zh": 3000,
+  "en": 3000
+ },
+ "pack_counts": {
+  "default": 2400,
+  "conservative": 1802,
+  "professional": 1798
+ },
+ "schema": "sharegpt {id,task,pack,lang,messages[{role,content}]}（同 sft_v0.jsonl）",
+ "gate_contamination": "无：只用 tool_output/log/webpage/code/document/email/text；v0.3-gen 只含 image_metadata/av_metadata（训练中 0 次）",
+ "fails": []
+}

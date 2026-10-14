@@ -1,0 +1,111 @@
+# -*- coding: utf-8 -*-
+"""审计 S1 三族（T2/T15/T9）是否带有与 M3 DPO 同类**结构缺陷**。
+
+★为什么必须做：docs/01 L716 明写这三族是「长散文 + 尾部一行裁决」，
+  与 M3 DPO 数据（规则 33 审计 FAIL）**结构同型**。
+  docs/01 L452 也要求三族「必须与契约回放同批混合」才可入训。
+  ⇒ 若照原样入训，预期**复现相同的契约崩塌 + 长度混杂**。
+
+本脚本对其做与 `audit_dpo_discriminative_axes.py` 同源的检查：
+  A 类（判别轴缺失）：契约标记在所有样本里**共模**出现 ⇒ 模型学不到"何时该发/何时不该发"。
+  B 类（长度混杂）：目标长度**超出部署预算**（max_new_tokens=96 ⇒ 实测 zh 约 450–509 字符）。
+  C 类（无对照）：整族**没有"不含契约标记"的负样本** ⇒ 没有判别梯度。
+"""
+from __future__ import annotations
+
+import json
+import statistics
+import sys
+from collections import Counter
+from pathlib import Path
+
+ROOT = Path(r"J:\Projects\llm_for_sec")
+BUDGET = 450
+FAM = ROOT / "data" / "heldout" / "v0.5-topup-families"
+MARKERS = ("VERDICT", "verdict", "action")
+
+
+def load_jsonl(p: Path) -> list[dict]:
+    out = []
+    for ln in p.read_text(encoding="utf-8").splitlines():
+        ln = ln.strip()
+        if ln:
+            try:
+                out.append(json.loads(ln))
+            except json.JSONDecodeError:
+                pass
+    return out
+
+
+def target_text(rec: dict) -> str:
+    """取该样本的"目标回答"文本（不同 schema 的兜底）。"""
+    for k in ("output", "response", "completion", "assistant", "target", "answer"):
+        v = rec.get(k)
+        if isinstance(v, str) and v:
+            return v
+    # messages / conversations 形式
+    for k in ("messages", "conversations"):
+        v = rec.get(k)
+        if isinstance(v, list) and v:
+            for m in reversed(v):
+                if isinstance(m, dict):
+                    role = m.get("role") or m.get("from")
+                    content = m.get("content") or m.get("value")
+                    if role in ("assistant", "gpt") and isinstance(content, str):
+                        return content
+    return ""
+
+
+def main() -> int:
+    print(f"S1 三族目录 = {FAM}")
+    print(f"部署预算 = {BUDGET} 字符（max_new_tokens=96）\n")
+    total_a = total_b = total_c = 0
+    for p in sorted(FAM.glob("*.jsonl")):
+        recs = load_jsonl(p)
+        if not recs:
+            print(f"--- {p.name}: 无可解析样本 ---")
+            continue
+        texts = [target_text(r) for r in recs]
+        nonempty = [t for t in texts if t]
+        lens = [len(t) for t in nonempty]
+        with_marker = [t for t in nonempty if any(m in t for m in MARKERS)]
+        print(f"--- {p.name} ---")
+        print(f"    样本 {len(recs)}；有目标文本 {len(nonempty)}；有 VERDICT/action 的 {len(with_marker)}")
+        if lens:
+            print(f"    长度：中位 {statistics.median(lens):.0f}  "
+                  f"p90 {sorted(lens)[int(len(lens)*0.9)]}  最大 {max(lens)}")
+            over = sum(1 for x in lens if x > BUDGET)
+            print(f"    超预算（>{BUDGET}）{over}/{len(lens)} = {over/len(lens):.1%}")
+        # A 类：契约标记共模
+        if nonempty:
+            share = len(with_marker) / len(nonempty)
+            a = share >= 0.95
+            total_a += a
+            print(f"    [A 类] 契约标记出现率 = {share:.1%}  "
+                  f"{'★共模 ⇒ 无判别梯度' if a else '有对照 ✓'}")
+        # C 类：有无不含标记的负样本
+        neg = len(nonempty) - len(with_marker)
+        c = neg == 0
+        total_c += c
+        print(f"    [C 类] 不含标记的负样本 = {neg}  "
+              f"{'★为 0 ⇒ 学不到"何时不发"' if c else '有 ✓'}")
+        # B 类：长度超预算
+        b = lens and sum(1 for x in lens if x > BUDGET) / len(lens) > 0.5
+        total_b += bool(b)
+        print(f"    [B 类] 多数样本超部署预算 = {'★是 ⇒ 完美模仿也会被截断' if b else '否 ✓'}")
+        print()
+
+    print("=== 汇总 ===")
+    print(f"  A 类（契约共模）族数 = {total_a}")
+    print(f"  B 类（超预算）族数   = {total_b}")
+    print(f"  C 类（无负样本）族数 = {total_c}")
+    bad = total_a + total_b + total_c
+    print(f"\nAUDIT-S1-FAMILIES={'FAIL' if bad else 'PASS'}（问题计 {bad}）")
+    if bad:
+        print("  ⇒ 依 docs/01 L452：三族**必须与契约回放同批混合**才可入训；")
+        print("     且须先修 A 类（让契约成为判别轴）与 B 类（长度压入预算内）。")
+    return 1 if bad else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

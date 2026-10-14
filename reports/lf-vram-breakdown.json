@@ -1,0 +1,37 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-c1-full",
+  "seq": 32768,
+  "note": "fp32 谱系复刻（LF auto 加载）+ AdamW fp32 状态 + 梯度检查点 + bf16 autocast + 分块 CE",
+  "results": [
+    {
+      "phase": "load_fp32+ckpt_enable",
+      "peak_alloc_gb": 2.22,
+      "peak_reserved_gb": 2.22
+    },
+    {
+      "phase": "after_adamw_states",
+      "peak_alloc_gb": 11.17,
+      "peak_reserved_gb": 11.21
+    },
+    {
+      "phase": "32k_bwd_autocast_chunk4096",
+      "peak_alloc_gb": 18.3,
+      "peak_reserved_gb": 23.41
+    },
+    {
+      "phase": "32k_bwd_autocast_chunk512",
+      "peak_alloc_gb": 18.3,
+      "peak_reserved_gb": 23.41
+    },
+    {
+      "phase": "32k_bwd_NOautocast_chunk4096",
+      "peak_alloc_gb": 18.29,
+      "peak_reserved_gb": 21.33
+    },
+    {
+      "phase": "32k_bwd_autocast_backbone_only",
+      "peak_alloc_gb": 13.3,
+      "peak_reserved_gb": 14.78
+    }
+  ]
+}

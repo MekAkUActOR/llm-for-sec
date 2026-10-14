@@ -1,0 +1,364 @@
+{
+  "model": "checkpoints\\qwen3-06b-sec-m25-full",
+  "name": "smoke16",
+  "seed": 20260924,
+  "lens": [
+    4096
+  ],
+  "n_docs": 1,
+  "max_new": 32,
+  "ppl": {
+    "4096": {
+      "en": {
+        "ppl": 12.547055130705772,
+        "tokens": 4095,
+        "docs": 1,
+        "per_doc_nll": [
+          2.5295
+        ]
+      },
+      "zh": {
+        "ppl": 14.832307629528866,
+        "tokens": 4095,
+        "docs": 1,
+        "per_doc_nll": [
+          2.6968
+        ]
+      }
+    }
+  },
+  "needle": {
+    "4096": {
+      "en": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 200,
+          "prompt_len": 4048,
+          "generated": " 03e8b84b. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched a campaign in Asia"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 200,
+          "prompt_len": 4046,
+          "generated": " d1c5aaf0. \n\nReign\n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched a campaign in"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 602,
+          "prompt_len": 4047,
+          "generated": " f077b69f. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched a campaign in Asia Minor"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 602,
+          "prompt_len": 4047,
+          "generated": " a925e7a1. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign in"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 1003,
+          "prompt_len": 4047,
+          "generated": " e9e4c8e8. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign in"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 1003,
+          "prompt_len": 4046,
+          "generated": " 8be37df3. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign in Asia"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": true,
+          "insert_pos": 1404,
+          "prompt_len": 4047,
+          "generated": " a18d3c05. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign in"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 1404,
+          "prompt_len": 4047,
+          "generated": " b393586c. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign in"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 2007,
+          "prompt_len": 4048,
+          "generated": " 252c3c6f. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 2007,
+          "prompt_len": 4048,
+          "generated": " 8f07d990. \n\nCampaigns in Asia Minor\n\nIn 334 BC, Alexander launched his first campaign in Asia Minor"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 2609,
+          "prompt_len": 4046,
+          "generated": " 91937ccc. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign in Asia"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 2609,
+          "prompt_len": 4047,
+          "generated": " c9375d6d. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched his first major campaign in"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 3010,
+          "prompt_len": 4045,
+          "generated": " ba5ac473. \n\nCampaigns in Asia Minor\n\nIn 334 BC, Alexander launched his first campaign in Asia Minor, and soon"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 3010,
+          "prompt_len": 4047,
+          "generated": " d0a45d3e. \n\nCampaigns in Asia Minor and Egypt\n\nIn 334 BC, Alexander launched a campaign in Asia Minor"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 3612,
+          "prompt_len": 4045,
+          "generated": " 0ea02dac. \n\nCampaigns in Asia Minor\n\nIn 334 BC, Alexander launched his first major campaign in Asia Minor, and"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 3612,
+          "prompt_len": 4047,
+          "generated": " d8e73491. This code is used to unlock a hidden message within the document. The magic code is a reference to the docume"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 200,
+          "prompt_len": 4048,
+          "generated": "03e8b84b。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 200,
+          "prompt_len": 4046,
+          "generated": "本文档的魔法代码是 d1c5aaf0，请记住它。\n\n参考文献\n\n外部链接\n\n 阿基米德的生平"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 602,
+          "prompt_len": 4047,
+          "generated": "f077b69f。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 602,
+          "prompt_len": 4047,
+          "generated": "a925e7a1。\n\n外部链接\n\n 阿基米德的生平和成就\n 阿基米德的螺旋"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 1004,
+          "prompt_len": 4047,
+          "generated": "e9e4c8e8。\n\n阿基米德的生平可以追溯到公元前287年，当时他还是个孩子。他"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 1004,
+          "prompt_len": 4046,
+          "generated": "8be37df3。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里岛的"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": true,
+          "insert_pos": 1405,
+          "prompt_len": 4047,
+          "generated": "a18d3c05。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 1405,
+          "prompt_len": 4047,
+          "generated": "b393586c。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 2008,
+          "prompt_len": 4048,
+          "generated": "252c3c6f。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 2008,
+          "prompt_len": 4048,
+          "generated": "8f07d990。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 2610,
+          "prompt_len": 4046,
+          "generated": "本文档的魔法代码是 91937ccc，请记住它。F0\" amotajn}}。\n\n详细语法\n\n名词\n\n名词"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 2610,
+          "prompt_len": 4047,
+          "generated": "本文档的魔法代码是 c9375d6d，请记住它。F0\" amotajn}}|-\n|-\n! style"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 3012,
+          "prompt_len": 4045,
+          "generated": "ba5ac473。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里岛的"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 3012,
+          "prompt_len": 4047,
+          "generated": "d0a45d3e。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 3614,
+          "prompt_len": 4045,
+          "generated": "0ea02dac。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里岛的港口"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 3614,
+          "prompt_len": 4047,
+          "generated": "d8e73491。\n\n阿基米德的出生地锡拉库扎位于今天的意大利，但他的出生地是西西里"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "4096": {
+      "en": 1.0,
+      "zh": 1.0
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-4096-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 21254,
+          "target_len": 4096
+        },
+        "needle-4096": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 17308,
+          "target_len": 4014
+        }
+      },
+      "codes": {
+        "4096/0.05#0": "03e8b84b",
+        "4096/0.05#1": "d1c5aaf0",
+        "4096/0.15#0": "f077b69f",
+        "4096/0.15#1": "a925e7a1",
+        "4096/0.25#0": "e9e4c8e8",
+        "4096/0.25#1": "8be37df3",
+        "4096/0.35#0": "a18d3c05",
+        "4096/0.35#1": "b393586c",
+        "4096/0.5#0": "252c3c6f",
+        "4096/0.5#1": "8f07d990",
+        "4096/0.65#0": "91937ccc",
+        "4096/0.65#1": "c9375d6d",
+        "4096/0.75#0": "ba5ac473",
+        "4096/0.75#1": "d0a45d3e",
+        "4096/0.9#0": "0ea02dac",
+        "4096/0.9#1": "d8e73491"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-4096-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 26357,
+          "target_len": 4096
+        },
+        "needle-4096": {
+          "first_entry": 1,
+          "last_entry": 5,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 5306,
+          "target_len": 4016
+        }
+      },
+      "codes": {
+        "4096/0.05#0": "03e8b84b",
+        "4096/0.05#1": "d1c5aaf0",
+        "4096/0.15#0": "f077b69f",
+        "4096/0.15#1": "a925e7a1",
+        "4096/0.25#0": "e9e4c8e8",
+        "4096/0.25#1": "8be37df3",
+        "4096/0.35#0": "a18d3c05",
+        "4096/0.35#1": "b393586c",
+        "4096/0.5#0": "252c3c6f",
+        "4096/0.5#1": "8f07d990",
+        "4096/0.65#0": "91937ccc",
+        "4096/0.65#1": "c9375d6d",
+        "4096/0.75#0": "ba5ac473",
+        "4096/0.75#1": "d0a45d3e",
+        "4096/0.9#0": "0ea02dac",
+        "4096/0.9#1": "d8e73491"
+      }
+    }
+  },
+  "needle_counts": {
+    "4096": {
+      "en": {
+        "k": 16,
+        "n": 16
+      },
+      "zh": {
+        "k": 16,
+        "n": 16
+      }
+    }
+  },
+  "needle_trials_per_cell": 16,
+  "elapsed_s": 29.5
+}

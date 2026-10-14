@@ -1,0 +1,18 @@
+- 2026-10-06 21:35:20 | tick 1 | python(m4-capfix-full)=2 [4112,5988] | ckpts=0 max=0 | logstep=n/a epoch=n/a | loss=n/a chosen=n/a rejected=n/a acc=n/a ratio=n/a | log=83584B oomLines=0
+- 2026-10-06 21:41:20 | tick 2 | python(m4-capfix-full)=2 [4112,5988] | ckpts=1 max=100 | logstep=stdout epoch=0.0555 | loss=0.1252 chosen=4.508 rejected=-4.59 acc=0.925 ratio=1:1.02 | log=117714B oomLines=0
+- 2026-10-06 21:47:20 | tick 3 | python(m4-capfix-full)=2 [4112,5988] | ckpts=2 max=200 | logstep=stdout epoch=0.1109 | loss=0.0612 chosen=2.26 rejected=-10.57 acc=0.9625 ratio=1:4.68 | log=152044B oomLines=0
+- 2026-10-06 21:53:20 | tick 4 | python(m4-capfix-full)=2 [4112,5988] | ckpts=3 max=300 | logstep=stdout epoch=0.1664 | loss=0.0786 chosen=-0.451 rejected=-10.73 acc=0.95 ratio=1:23.79 | log=186356B oomLines=0
+- 2026-10-06 21:59:21 | tick 5 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=500 | logstep=stdout epoch=0.2774 | loss=0.0487 chosen=-0.5774 rejected=-12.15 acc=0.975 ratio=1:21.04 | log=236488B oomLines=0
+- 2026-10-06 22:05:21 | tick 6 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=600 | logstep=stdout epoch=0.3328 | loss=0.1391 chosen=0.5488 rejected=-10.52 acc=0.9375 ratio=1:19.17 | log=270200B oomLines=0
+- 2026-10-06 22:11:21 | tick 7 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=700 | logstep=stdout epoch=0.3883 | loss=0.0974 chosen=2.009 rejected=-8.304 acc=0.95 ratio=1:4.13 | log=303830B oomLines=0
+- 2026-10-06 22:17:21 | tick 8 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=800 | logstep=stdout epoch=0.4438 | loss=0.0809 chosen=-0.4231 rejected=-12.99 acc=0.95 ratio=1:30.7 | log=337696B oomLines=0
+- 2026-10-06 22:23:21 | tick 9 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=1000 | logstep=stdout epoch=0.5547 | loss=0.1151 chosen=-2.1 rejected=-14.69 acc=0.925 ratio=1:7 | log=386542B oomLines=0
+- 2026-10-06 22:29:21 | tick 10 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=1100 | logstep=stdout epoch=0.6102 | loss=0.201 chosen=-1.021 rejected=-14.08 acc=0.95 ratio=1:13.79 | log=420440B oomLines=0
+- 2026-10-06 22:35:21 | tick 11 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=1200 | logstep=stdout epoch=0.6657 | loss=0.0683 chosen=-4.49 rejected=-16.69 acc=0.9625 ratio=1:3.72 | log=455270B oomLines=0
+- 2026-10-06 22:41:21 | tick 12 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=1300 | logstep=stdout epoch=0.7212 | loss=0.0094 chosen=-5.795 rejected=-19.48 acc=1 ratio=1:3.36 | log=490158B oomLines=0
+- 2026-10-06 22:47:21 | tick 13 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=1500 | logstep=stdout epoch=0.8321 | loss=0.1788 chosen=-4.418 rejected=-17.84 acc=0.9375 ratio=1:4.04 | log=540198B oomLines=0
+- 2026-10-06 22:53:21 | tick 14 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=1600 | logstep=stdout epoch=0.8876 | loss=0.0994 chosen=-4.185 rejected=-17.07 acc=0.95 ratio=1:4.08 | log=574898B oomLines=0
+- 2026-10-06 22:59:21 | tick 15 | python(m4-capfix-full)=2 [4112,5988] | ckpts=5 max=1700 | logstep=stdout epoch=0.9431 | loss=0.1061 chosen=-2.734 rejected=-16.61 acc=0.9625 ratio=1:6.08 | log=609812B oomLines=0
+- 2026-10-06 23:05:21 | tick 16 | python(m4-capfix-full)=2 [7140,19680] | ckpts=5 max=1803 | logstep=1800 epoch=0.9985 | loss=0.0977 chosen=-3.6262 rejected=-16.8674 acc=0.9375 ratio=1:4.65 | log=637342B oomLines=0
+- 2026-10-06 23:05:21 | MONITOR STOP: final checkpoint 1800 present
+MONITOR-EXIT ticks=16 at 2026-10-06 23:05:21

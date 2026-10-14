@@ -1,0 +1,76 @@
+{
+  "baseline": {
+    "texts": 227,
+    "bytes": 65200,
+    "tokens": 12843,
+    "bytes_per_token": 5.0766954761348595
+  },
+  "threshold": 1.5,
+  "corpora": {
+    "base64": {
+      "texts": 252,
+      "bytes": 65268,
+      "tokens": 48658,
+      "bytes_per_token": 1.341362160384726,
+      "ratio_vs_baseline": 0.26421954334081343,
+      "pass": true
+    },
+    "c_code": {
+      "texts": 194,
+      "bytes": 65270,
+      "tokens": 20262,
+      "bytes_per_token": 3.2213009574573093,
+      "ratio_vs_baseline": 0.6345271195801261,
+      "pass": true
+    },
+    "cve_ids": {
+      "texts": 1,
+      "bytes": 65563,
+      "tokens": 24974,
+      "bytes_per_token": 2.6252502602706813,
+      "ratio_vs_baseline": 0.5171179308689626,
+      "pass": true
+    },
+    "hex_dump": {
+      "texts": 1,
+      "bytes": 65597,
+      "tokens": 50344,
+      "bytes_per_token": 1.3029755283648499,
+      "ratio_vs_baseline": 0.2566582010857326,
+      "pass": true
+    },
+    "logs_json": {
+      "texts": 1,
+      "bytes": 65652,
+      "tokens": 30953,
+      "bytes_per_token": 2.1210221949407164,
+      "ratio_vs_baseline": 0.4177958289819574,
+      "pass": true
+    },
+    "logs_syslog": {
+      "texts": 1,
+      "bytes": 65601,
+      "tokens": 36145,
+      "bytes_per_token": 1.8149398257020335,
+      "ratio_vs_baseline": 0.3575041745627487,
+      "pass": true
+    },
+    "obfuscated_js": {
+      "texts": 1,
+      "bytes": 65553,
+      "tokens": 42749,
+      "bytes_per_token": 1.5334393786989169,
+      "ratio_vs_baseline": 0.30205463099126056,
+      "pass": true
+    },
+    "shell": {
+      "texts": 421,
+      "bytes": 64726,
+      "tokens": 22205,
+      "bytes_per_token": 2.9149290700292725,
+      "ratio_vs_baseline": 0.574178436294263,
+      "pass": true
+    }
+  },
+  "overall_pass": true
+}

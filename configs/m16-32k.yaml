@@ -1,0 +1,51 @@
+### M1.6 单段 32k 直跑（分块 CE 补丁版，2026-09-28 用户令：8k+32k 双段合并）
+### 语义：sec_m16 同材料（zhwiki 长文 30M tokens），cutoff 32768 packing —— 深位注意力恢复
+### 起点：C1-full 根目录（原 8k 过渡段取消——WDDM 死亡螺旋实测教训：8k 全词表
+###   CE 600MB 余量贴死，单段 32k 分块 CE 才是安全路径）
+### bs1 x accum16：32768 x 16 = 524,288 tok/step（与 C1/M1.6 有效步容量一致）
+### 预计 ~58 步；实测 ~7.9s/微批（32k fwd+bwd，chunk 1024）→ ~2.1 分钟/步 ≈ 2.1h
+### 前置：必须经 scripts/run_lf_with_chunked_ce.py 发射（分块 CE 补丁——
+###   直接 llamafactory-cli train 会在 32k 物化 logits OOM：fp32 19.9GB）
+###   实测（2026-09-28 00:2x，fp32 谱系 auto 加载 + AdamW fp32 状态）：
+###   无补丁 16k 即硬 OOM；12k 峰值 28.5GB（WDDM 分页僵尸）。
+###   补丁 32k：torch 口径 13.75GB alloc / 15.59GB reserved；
+###   LF 全进程 nvidia-smi 峰值 19.07GB（目标 <21GB 达成，余量 5.4GB）。
+### 运行： .\scripts\env.ps1; python -X utf8 scripts\run_lf_with_chunked_ce.py train configs\m16-32k.yaml
+### 可中断无损续跑（全量 checkpoint；同 m16 模式）
+### 评测后链：scripts/post_m16_eval.ps1（32k PPL + needle 三方对照）
+### model
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-c1-full
+
+### method
+stage: pt
+do_train: true
+finetuning_type: full
+
+### dataset
+dataset: sec_m16
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: true
+cutoff_len: 32768
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m16-32k
+logging_steps: 1
+save_steps: 10
+save_only_model: false
+save_total_limit: 2
+plot_loss: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 1.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_steps: 5
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true

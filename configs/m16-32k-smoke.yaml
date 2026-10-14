@@ -1,0 +1,37 @@
+### m16-32k 分块 CE 冒烟（2 步，GPU 可行性实测——验证后删除输出目录）
+### 运行： python -X utf8 scripts\run_lf_with_chunked_ce.py train configs\m16-32k-smoke.yaml
+model_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-c1-full
+
+### method
+stage: pt
+do_train: true
+finetuning_type: full
+
+### dataset
+dataset: sec_m16
+dataset_dir: J:\Projects\llm_for_sec\data\lf
+packing: true
+cutoff_len: 32768
+preprocessing_num_workers: 8
+overwrite_cache: true
+
+### output
+output_dir: J:\Projects\llm_for_sec\checkpoints\tmp-m16-32k-smoke
+logging_steps: 1
+save_steps: 100
+save_only_model: false
+save_total_limit: 1
+plot_loss: false
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 1.0e-5
+max_steps: 2
+lr_scheduler_type: cosine
+warmup_steps: 1
+weight_decay: 0.1
+max_grad_norm: 1.0
+bf16: true
+gradient_checkpointing: true

@@ -1,0 +1,64 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m4c-orpo-probe",
+  "name": "m4c-orpo-probe-v0.4",
+  "probes": "data\\probes\\v0.4",
+  "max_len": 2048,
+  "stride": 1536,
+  "domains": {
+    "_raw_privacy_units": {
+      "ppl": 16.00275097139229,
+      "nll": 2.772760643172549,
+      "tokens": 94319,
+      "docs": 423
+    },
+    "ais": {
+      "ppl": 26.249482663390378,
+      "nll": 3.2676462807821074,
+      "tokens": 149376,
+      "docs": 500
+    },
+    "aisafety": {
+      "ppl": 15.825128227742681,
+      "nll": 2.761599070856349,
+      "tokens": 40032,
+      "docs": 144
+    },
+    "content": {
+      "ppl": 15.320066727914156,
+      "nll": 2.729163519910933,
+      "tokens": 73513,
+      "docs": 263
+    },
+    "general_en": {
+      "ppl": 10.431440831758147,
+      "nll": 2.344824402497521,
+      "tokens": 839295,
+      "docs": 300
+    },
+    "general_zh": {
+      "ppl": 18.32615031443401,
+      "nll": 2.908329018759411,
+      "tokens": 1806128,
+      "docs": 500
+    },
+    "malware": {
+      "ppl": 13.304779350260342,
+      "nll": 2.5881233203207232,
+      "tokens": 22220,
+      "docs": 78
+    },
+    "privacy": {
+      "ppl": 16.49279684671688,
+      "nll": 2.802923730844339,
+      "tokens": 38597,
+      "docs": 173
+    },
+    "sec": {
+      "ppl": 12.071924894067442,
+      "nll": 2.4908824999474732,
+      "tokens": 514533,
+      "docs": 500
+    }
+  },
+  "elapsed_s": 124.7
+}

@@ -1,0 +1,155 @@
+{
+ "model": {
+  "n_tensors": 310,
+  "n_params": 596049920,
+  "safetensors_bytes": 2384235064,
+  "bytes_per_param": 4.000059364155271,
+  "dtype_counter": {
+   "F32": 310
+  }
+ },
+ "compared_checkpoints": [
+  "base_a050",
+  "checkpoint-1500",
+  "checkpoint-1600",
+  "checkpoint-1700",
+  "checkpoint-1800",
+  "checkpoint-1803"
+ ],
+ "tensor_drift": {
+  "model.layers.0.self_attn.q_proj.weight": {
+   "base_a050->checkpoint-1500": {
+    "max_abs": 0.0002719014883041382,
+    "mean_abs": 3.6634013667935506e-05,
+    "rel_rms": 0.0014697583392262459
+   },
+   "checkpoint-1500->checkpoint-1600": {
+    "max_abs": 5.488283932209015e-06,
+    "mean_abs": 7.270815558513277e-07,
+    "rel_rms": 2.934486292360816e-05
+   },
+   "checkpoint-1600->checkpoint-1700": {
+    "max_abs": 2.2370368242263794e-06,
+    "mean_abs": 2.8131415774623747e-07,
+    "rel_rms": 1.1398973583709449e-05
+   },
+   "checkpoint-1700->checkpoint-1800": {
+    "max_abs": 5.029141902923584e-07,
+    "mean_abs": 5.8236459210547764e-08,
+    "rel_rms": 2.419949851173442e-06
+   },
+   "checkpoint-1800->checkpoint-1803": {
+    "max_abs": 4.3655745685100555e-11,
+    "mean_abs": 1.136268440720279e-14,
+    "rel_rms": 1.0097080289928062e-11
+   },
+   "_shape": [
+    2048,
+    1024
+   ],
+   "_base_rms": 0.03147006407380104
+  },
+  "model.layers.13.mlp.down_proj.weight": {
+   "base_a050->checkpoint-1500": {
+    "max_abs": 0.0003197366604581475,
+    "mean_abs": 4.229308615322225e-05,
+    "rel_rms": 0.0022045050282031298
+   },
+   "checkpoint-1500->checkpoint-1600": {
+    "max_abs": 6.6515058279037476e-06,
+    "mean_abs": 8.278139489448222e-07,
+    "rel_rms": 4.34432877227664e-05
+   },
+   "checkpoint-1600->checkpoint-1700": {
+    "max_abs": 2.689659595489502e-06,
+    "mean_abs": 3.212862793589011e-07,
+    "rel_rms": 1.6866570149431936e-05
+   },
+   "checkpoint-1700->checkpoint-1800": {
+    "max_abs": 5.327165126800537e-07,
+    "mean_abs": 6.188756174196897e-08,
+    "rel_rms": 3.2609507343295263e-06
+   },
+   "checkpoint-1800->checkpoint-1803": {
+    "max_abs": 3.2741809263825417e-11,
+    "mean_abs": 1.8710690142436162e-14,
+    "rel_rms": 1.7322044840173412e-11
+   },
+   "_shape": [
+    1024,
+    3072
+   ],
+   "_base_rms": 0.024131257086992264
+  },
+  "model.norm.weight": {
+   "base_a050->checkpoint-1500": {
+    "max_abs": 0.0002086162567138672,
+    "mean_abs": 5.0938317144755274e-05,
+    "rel_rms": 1.640996379137505e-05
+   },
+   "checkpoint-1500->checkpoint-1600": {
+    "max_abs": 1.8477439880371094e-06,
+    "mean_abs": 4.351022653281689e-09,
+    "rel_rms": 1.7854473455258812e-08
+   },
+   "checkpoint-1600->checkpoint-1700": {
+    "max_abs": 8.791685104370117e-07,
+    "mean_abs": 1.3751559890806675e-09,
+    "rel_rms": 7.644271882156772e-09
+   },
+   "checkpoint-1700->checkpoint-1800": {
+    "max_abs": 2.9802322387695312e-08,
+    "mean_abs": 2.9103830456733704e-11,
+    "rel_rms": 2.3826624007128316e-10
+   },
+   "checkpoint-1800->checkpoint-1803": {
+    "max_abs": 0.0,
+    "mean_abs": 0.0,
+    "rel_rms": 0.0
+   },
+   "_shape": [
+    1024
+   ],
+   "_base_rms": 3.9087326526641846
+  },
+  "model.layers.27.self_attn.o_proj.weight": {
+   "base_a050->checkpoint-1500": {
+    "max_abs": 0.00029168790206313133,
+    "mean_abs": 4.291994991945103e-05,
+    "rel_rms": 0.0018541673198342323
+   },
+   "checkpoint-1500->checkpoint-1600": {
+    "max_abs": 5.759065970778465e-06,
+    "mean_abs": 7.28246959624812e-07,
+    "rel_rms": 3.1700736144557595e-05
+   },
+   "checkpoint-1600->checkpoint-1700": {
+    "max_abs": 2.214685082435608e-06,
+    "mean_abs": 2.8619089675885334e-07,
+    "rel_rms": 1.2451499060261995e-05
+   },
+   "checkpoint-1700->checkpoint-1800": {
+    "max_abs": 4.731118679046631e-07,
+    "mean_abs": 5.430356964097882e-08,
+    "rel_rms": 2.392466967648943e-06
+   },
+   "checkpoint-1800->checkpoint-1803": {
+    "max_abs": 2.1827872842550278e-11,
+    "mean_abs": 9.245116438627143e-15,
+    "rel_rms": 9.115527777048271e-12
+   },
+   "_shape": [
+    1024,
+    2048
+   ],
+   "_base_rms": 0.029187219217419624
+  }
+ },
+ "optimizer_artifact": {},
+ "optimizer_interpretation": {
+  "pure_int8_state_bytes_per_param": 2.0,
+  "pure_fp32_state_bytes_per_param": 8.0,
+  "pure_bf16_state_bytes_per_param": 4.0,
+  "observed_total_bytes_per_param": {}
+ }
+}

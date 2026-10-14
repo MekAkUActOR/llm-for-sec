@@ -1,0 +1,85 @@
+{
+  "data": "data\\lf\\dpo_m3_final.jsonl",
+  "criteria": {
+    "ratio_max": 1.2,
+    "longer_max": 0.8,
+    "source": "docs/01 §11.36 规则 37"
+  },
+  "n_rows": 28842,
+  "n_parse_failed": 0,
+  "classes": {
+    "policy": {
+      "n": 14688,
+      "chosen_median_tokens": 66.0,
+      "rejected_median_tokens": 66.0,
+      "ratio": 1.0,
+      "chosen_longer_share": 0.4744,
+      "offending": false
+    },
+    "reserve": {
+      "n": 5710,
+      "chosen_median_tokens": 120.0,
+      "rejected_median_tokens": 121.0,
+      "ratio": 0.992,
+      "chosen_longer_share": 0.4665,
+      "offending": false
+    },
+    "carrier_inject_obedient": {
+      "n": 2360,
+      "chosen_median_tokens": 210.0,
+      "rejected_median_tokens": 51.0,
+      "ratio": 4.118,
+      "chosen_longer_share": 1.0,
+      "offending": true
+    },
+    "carrier_inject_hollow": {
+      "n": 2320,
+      "chosen_median_tokens": 210.0,
+      "rejected_median_tokens": 43.0,
+      "ratio": 4.884,
+      "chosen_longer_share": 1.0,
+      "offending": true
+    },
+    "bt330_refusal": {
+      "n": 1904,
+      "chosen_median_tokens": 78.0,
+      "rejected_median_tokens": 109.5,
+      "ratio": 0.712,
+      "chosen_longer_share": 0.2153,
+      "offending": false
+    },
+    "carrier_clean_overrefusal": {
+      "n": 1320,
+      "chosen_median_tokens": 160.0,
+      "rejected_median_tokens": 110.0,
+      "ratio": 1.455,
+      "chosen_longer_share": 1.0,
+      "offending": true
+    },
+    "refusal_quality": {
+      "n": 300,
+      "chosen_median_tokens": 57.0,
+      "rejected_median_tokens": 45.0,
+      "ratio": 1.267,
+      "chosen_longer_share": 0.9867,
+      "offending": true
+    },
+    "calibration": {
+      "n": 240,
+      "chosen_median_tokens": 71.0,
+      "rejected_median_tokens": 45.0,
+      "ratio": 1.578,
+      "chosen_longer_share": 1.0,
+      "offending": true
+    }
+  },
+  "offending_classes": [
+    "carrier_inject_obedient",
+    "carrier_inject_hollow",
+    "carrier_clean_overrefusal",
+    "refusal_quality",
+    "calibration"
+  ],
+  "offending_pairs": 6540,
+  "verdict": "FAIL"
+}

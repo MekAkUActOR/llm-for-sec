@@ -1,0 +1,56 @@
+{
+  "version": "v0.4",
+  "dir": "J:\\Projects\\llm_for_sec\\data\\probes\\v0.4",
+  "copied": {
+    "ais.jsonl": {
+      "rows": 500,
+      "chars": 773886,
+      "sha256": "09cc9c23bbcdba366050bed0a1dbf00c9bb9794c9f9154fea2848c9c74c06f36",
+      "byte_identical_v03": true
+    },
+    "aisafety.jsonl": {
+      "rows": 144,
+      "chars": 213354,
+      "sha256": "b1233ab74bc60c8c0de4850b39401cee5bfa9c0b8fd61170ec361b637212fcbc",
+      "byte_identical_v03": true
+    },
+    "content.jsonl": {
+      "rows": 263,
+      "chars": 391299,
+      "sha256": "eea1088a23b54901f4e3e7e5c2cd243bef3d426f1cb1cfba46f2593abba04d8d",
+      "byte_identical_v03": true
+    },
+    "general_zh.jsonl": {
+      "rows": 500,
+      "chars": 2515753,
+      "sha256": "cde4797c06685d2025954dbb182dadc824e2595d7a18294312a8c0bf4cb4fba4",
+      "byte_identical_v03": true
+    },
+    "malware.jsonl": {
+      "rows": 78,
+      "chars": 117335,
+      "sha256": "3c454eb248d6b12e6edb979e9beece55ff995fbc07d9606e5af9b33430e1c699",
+      "byte_identical_v03": true
+    },
+    "sec.jsonl": {
+      "rows": 500,
+      "chars": 2018063,
+      "sha256": "a1563dfa55e5f8e0d532c3abf3807daa810ca795e80506e058b39c4a93daf1ca",
+      "byte_identical_v03": true
+    }
+  },
+  "rebuilt": {
+    "general_en.jsonl": {
+      "rows": 300,
+      "chars": 3362393,
+      "sha256": "dea62c883dc7c605031bba02c7e9a5904d4ee567f991737bd78858e44661a215",
+      "v03_rows": 297
+    },
+    "privacy.jsonl": {
+      "rows": 173,
+      "chars": 206807,
+      "sha256": "3370263338230a67765e44913e5f73ba44d43227c7a27fb2bb49c37d6b2794b9",
+      "v03_rows": 173
+    }
+  }
+}

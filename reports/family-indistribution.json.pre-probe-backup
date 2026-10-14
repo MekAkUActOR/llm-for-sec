@@ -1,0 +1,30 @@
+{
+ "instrument": "data/heldout/v0.5-topup-families（只读，副本哈希已校验）",
+ "provenance": {
+  "t2_mechanism": {
+   "sha256": "690efd67b9ee100fe59bac75e0c8f692ab2357c8a72b9db2e43de76e779c90c5",
+   "rows": 28
+  },
+  "doc_structure": {
+   "sha256": "5a77445b594ba06634f28d0ed50b93c62eaf7d1e6dd5f3a18a855a9e6bd38ecf",
+   "rows": 27
+  },
+  "t9_phish": {
+   "sha256": "d68d11784f16ead4824ef5a5a0024e45948611afc62eda25524019662d495326",
+   "rows": 30
+  }
+ },
+ "reading_rule": "README：只读方向，三族≥2 族同向才算信号，不做显著性检验",
+ "eval_loss": {
+  "soup-a050": {
+   "t2_mechanism": 5.029,
+   "doc_structure": 4.1268,
+   "t9_phish": 4.6785
+  },
+  "m3-dpo": {
+   "t2_mechanism": 4.7769,
+   "doc_structure": 3.911,
+   "t9_phish": 4.8136
+  }
+ }
+}

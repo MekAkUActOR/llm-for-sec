@@ -1,0 +1,799 @@
+{
+  "model": "J:\\Projects\\llm_for_sec\\checkpoints\\qwen3-06b-sec-m2-full",
+  "name": "m2full",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 11.107859553574214,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.4202,
+          2.5813,
+          2.2417,
+          2.3874
+        ]
+      },
+      "zh": {
+        "ppl": 15.511348507669851,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.7084,
+          2.6645,
+          2.654,
+          2.9394
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 11.677927641781276,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5985,
+          2.0863,
+          2.6368,
+          2.5092
+        ]
+      },
+      "zh": {
+        "ppl": 12.605551344844185,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.5674,
+          2.6441,
+          2.8701,
+          2.0549
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16336,
+          "generated": " 03e8b84b. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16334,
+          "generated": " d1c5aaf0. The code is a unique identifier for this document, which is used to reference this information in a consisten"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": " f077b69f. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": " 925e7a1. Please remember it. ]]\n\nThe cement industry is responsible for around 8% of global emissions, which includes h"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16335,
+          "generated": " e9e4c8e8. Please remember it. ]]\n\nThe cement industry is responsible for around 8% of global emissions, which includes "
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16334,
+          "generated": " 8be37df3. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5705,
+          "prompt_len": 16335,
+          "generated": " 1800-2018. The code is a representation of the year in which the emissions are measured. The emissions are measured in "
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 5705,
+          "prompt_len": 16335,
+          "generated": " b393586c. Please remember it.eliport is now used to connect the city to mainland Spain by air. ]]\n\nThe cement"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16336,
+          "generated": " 252c3c6f. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 8151,
+          "prompt_len": 16336,
+          "generated": " 8f07d990. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16334,
+          "generated": " 91937ccc. Please remember it. |thumb|right|alt=Global CO2 emissions (2018)|Global CO2"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10596,
+          "prompt_len": 16335,
+          "generated": " c9375d6d. Please remember it. \n\nThe figure shows the global CO2 emissions from the production of cement, which is a maj"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16333,
+          "generated": " ba5ac473. Please remember it. |thumb|right|alt=Global CO2 emissions (2018)|Global CO2 emissions"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12226,
+          "prompt_len": 16335,
+          "generated": " d0a45d3e. Please remember it. |thumb|right|alt=Global CO2 emissions (2018)|Global CO"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16333,
+          "generated": " 0ea02dac. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16335,
+          "generated": " d8e73491. Please remember it. ]]\n\nThe most significant environmental impact of cement production is the emission of car"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16336,
+          "generated": "1801年，1802年，1803年，1804年，1805年，18"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16334,
+          "generated": "这个魔法代码是“1801年”（1801年）。\n\n参考文献\n\n外部链接\n\n 19世纪大事记 \n"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": "这个魔法代码是“f077b69f”，它代表了“法蘭西第二帝國”的英文首字母“F”。\n\n参考"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16335,
+          "generated": "这个魔法代码是“a925e7a1”，它代表了“阿斯帕德消毒法”的英文名称“Aspergillus"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16335,
+          "generated": "e9e4c8e8，请记住它。\n\n注释\n\n参考文献\n\n外部链接\n\n 19世纪大事记 \n 19世纪"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": false,
+          "insert_pos": 4076,
+          "prompt_len": 16334,
+          "generated": "《天佑吾王》。\n\n注释\n\n参考文献\n\n外部链接\n\n 19世纪大事记 \n 19世纪大事记 \n 1"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": true,
+          "insert_pos": 5706,
+          "prompt_len": 16335,
+          "generated": "这个魔法代码是“a18d3c05”，它代表了“天佑吾王”这句话的音调和节奏，因此中文"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 5706,
+          "prompt_len": 16335,
+          "generated": "这个魔法代码是“b393586c”，它代表了“Britannia”的字母顺序，即B、R、I、"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": false,
+          "insert_pos": 8152,
+          "prompt_len": 16336,
+          "generated": "19世紀的英國、西歐與北美因1840年工業革命促成的技術與經濟上的進步。 \n\n参考文献\n\n"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": false,
+          "insert_pos": 8152,
+          "prompt_len": 16336,
+          "generated": "1801年1月1日，1802年5月18日，1803年11月21日"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 10597,
+          "prompt_len": 16334,
+          "generated": "这个魔法代码是“91937ccc”，它代表了1878年1月1日，一幅描绘中国农民在饥饿中"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10597,
+          "prompt_len": 16335,
+          "generated": "这个魔法代码是“c9375d6d”，它代表了“中国”这个单词的首字母。在英语中，这个单词"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16333,
+          "generated": "ba5ac473。\n\n参考文献\n\n外部链接\n\n 19世纪大事记 \n 19世纪各国大事记 \n 19世纪"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16335,
+          "generated": "这个魔法代码是“d0a45d3e”，它代表的是1894年香港鼠疫的描述。 \n\n参考文献\n\n"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14673,
+          "prompt_len": 16333,
+          "generated": "0ea02dac，请记住它。\n\n参考文献\n\n外部链接\n\n 19世纪大事记 \n 19世纪各国大事记 \n 1"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": true,
+          "insert_pos": 14673,
+          "prompt_len": 16335,
+          "generated": "d8e73491，请记住它。\n\n参考文献\n\n外部链接\n\n 19世纪大事记 \n 19世纪各国大事记"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": " The magic code is a reference to the 1699 letter of marque that Captain Kidd received from the Earl of Bellomont, the g"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": " The magic code is a reference to the 1699 letter of marque that Captain Kidd received from the Earl of Bellomont, the g"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": true,
+          "insert_pos": 4902,
+          "prompt_len": 32720,
+          "generated": " 5e20408c.\n\nReferences\n\nSources\n\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32719,
+          "generated": " The magic code is a reference to the 1701 letter of marque that Kidd received from the Earl of Bellomont, which was sig"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32719,
+          "generated": " The magic code is a series of numbers and letters that are used to identify and authenticate documents and other items."
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8171,
+          "prompt_len": 32720,
+          "generated": " 71660715.\n\nReferences\n\nSources\n\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32718,
+          "generated": " c0602ef0.\n\nReferences\n\nSources\n\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32720,
+          "generated": " 89f03016.\n\nReferences\n\nSources\n\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32716,
+          "generated": " The magic code is the number 1111111111111111111111111"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16343,
+          "prompt_len": 32720,
+          "generated": " 55456035. Please remember it.\n\nThe following year, Kidd was tried in London, and found guilty of piracy and sentenced t"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32718,
+          "generated": " f07ed358.\n\nThe following year, Kidd was tried in London, and found guilty of piracy and sentenced to death. He was hang"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32719,
+          "generated": " 585cfe94.\n\nReferences\n\nSources\n\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": true,
+          "insert_pos": 24514,
+          "prompt_len": 32720,
+          "generated": " 7106302f.\n\nReferences\n\nSources\n\n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": true,
+          "insert_pos": 24514,
+          "prompt_len": 32718,
+          "generated": " 8a5eace4.\n\nThe code is a combination of the first three letters of each of the following words: 8 (New York), A"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32720,
+          "generated": " 3e854037.\n\nThe code is a combination of the letters of the first three words of the following poem, which is a referenc"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32717,
+          "generated": " b84caaa7.\n\nThe following year, Kidd was tried in London, and found guilty of piracy and sentenced to death. He was hang"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": "10月29日\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年\nCategory:2"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32720,
+          "generated": "10月29日\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年\nCategory:2"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32720,
+          "generated": "5e20408c。\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年\nCategory"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32719,
+          "generated": "c344112d\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年\nCategory"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32719,
+          "generated": "是“a6b64016”。\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32720,
+          "generated": "71660715\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年\nCategory"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32718,
+          "generated": "港珠澳大桥香港段使用的是“港珠澳大桥香港段使用的是港珠澳大桥香港段使用的是港珠澳大桥香港段使用"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32720,
+          "generated": "10月29日\n\n参考文献\n\nCategory:10月29日\nCategory:10月29日\nCategory:10"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": false,
+          "insert_pos": 16344,
+          "prompt_len": 32716,
+          "generated": "这个表格的序号是112，因此这个日期是10月2日。\n\n参考文献\n\nCategory:2003年10"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32720,
+          "generated": "55456035。\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\n"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32718,
+          "generated": "f07ed358\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年\nCategory:"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32719,
+          "generated": "585cfe94。\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\nCategory"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32720,
+          "generated": "7106302f\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\n"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32718,
+          "generated": "8a5eace4。\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\nCategory:"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32720,
+          "generated": "3e854037\n\n参考文献\n\nCategory:2003年10月\nCategory:2003年逝世\n"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32717,
+          "generated": "本文档的魔法代码是 b84caaa7，请记住它。 \n\n参考文献\n\nCategory:2003年10月\nCategory"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 0.875,
+      "zh": 0.6875
+    },
+    "32768": {
+      "en": 0.6875,
+      "zh": 0.6875
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    }
+  },
+  "needle_counts": {
+    "16384": {
+      "en": {
+        "k": 14,
+        "n": 16
+      },
+      "zh": {
+        "k": 11,
+        "n": 16
+      }
+    },
+    "32768": {
+      "en": {
+        "k": 11,
+        "n": 16
+      },
+      "zh": {
+        "k": 11,
+        "n": 16
+      }
+    }
+  },
+  "needle_trials_per_cell": 16,
+  "elapsed_s": 206.4
+}

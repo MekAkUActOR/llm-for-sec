@@ -1,0 +1,98 @@
+{
+  "tag": "m25full",
+  "anchor": {
+    "m15": {
+      "16384": {
+        "en": 9.8859,
+        "zh": 13.2737
+      },
+      "32768": {
+        "en": 10.3447,
+        "zh": 10.8338
+      }
+    },
+    "m2full": {
+      "16384": {
+        "en": 11.1079,
+        "zh": 15.5113
+      },
+      "32768": {
+        "en": 11.6779,
+        "zh": 12.6056
+      }
+    },
+    "m25full": {
+      "16384": {
+        "en": 11.3402,
+        "zh": 16.1241
+      },
+      "32768": {
+        "en": 12.0041,
+        "zh": 13.1351
+      }
+    },
+    "delta_16384_en_pct": 14.71,
+    "delta_16384_zh_pct": 21.47,
+    "delta_32768_en_pct": 16.04,
+    "delta_32768_zh_pct": 21.24
+  },
+  "general_ppl": {
+    "v0.3": {
+      "general_en": {
+        "m15": 14.1921,
+        "cur": 16.3483,
+        "delta_pct": 15.19
+      },
+      "general_zh": {
+        "m15": 17.5528,
+        "cur": 21.5562,
+        "delta_pct": 22.81
+      },
+      "privacy": {
+        "m15": 2.6585,
+        "cur": 3.0586,
+        "delta_pct": 15.05
+      }
+    },
+    "v0.4": {
+      "general_en": {
+        "m15": 10.2556,
+        "cur": 11.8023,
+        "delta_pct": 15.08
+      },
+      "general_zh": {
+        "m15": 17.5528,
+        "cur": 21.5562,
+        "delta_pct": 22.81
+      },
+      "privacy": {
+        "m15": 15.4276,
+        "cur": 19.2085,
+        "delta_pct": 24.51
+      }
+    }
+  },
+  "needle": {
+    "m15": 9,
+    "m2full": 9,
+    "m25full": 11,
+    "line": 9
+  },
+  "triggers": {
+    "A_accept_plus_v04": {
+      "need": "32k en/zh <= +15% 且 G1 过行为门禁",
+      "32k_ok": false,
+      "note": "G1 由 scripts/m25_exit_verdict.py 判定"
+    },
+    "B_anchor_pass": {
+      "need": "32k 任一语言 > +15% 或 needle < 9/12",
+      "triggered": true
+    },
+    "C_reanchor_probes": {
+      "need": "v0.4 幅度显著小于 v0.3（漂移主要来自探针污染）",
+      "triggered": false,
+      "v0.3_general_en": 15.19,
+      "v0.4_general_en": 15.08
+    }
+  }
+}
