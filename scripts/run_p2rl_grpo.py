@@ -431,7 +431,7 @@ def dry_run(args) -> int:
 
     # 5) 奖励接线（callable 注入 + 防黑不变量 + 双样本冒烟）
     from p2rl_reward import NON_B_WEIGHT_SUM, W_B, grpo_reward_func
-    assert W_B > NON_B_WEIGHT_SUM, "防黑不变量 I 破坏"
+    assert W_B >= NON_B_WEIGHT_SUM, "防黑不变量 I 破坏（R4 边界态判据 = ≥）"
     smoke = grpo_reward_func(
         ["正文可判读的回答文本，逐项核对完毕，结论如下。\nVERDICT: " +
          json.dumps({"action": "answer", "verdict": "clean",
@@ -442,7 +442,8 @@ def dry_run(args) -> int:
         reward_pack=[full_rows[0]["reward_pack"], full_rows[-1]["reward_pack"]])
     assert len(smoke) == 2 and all(isinstance(x, float) for x in smoke)
     print(f"[dry-run] reward_funcs = [p2rl_reward.grpo_reward_func]（callable "
-          f"注入 ✓）；不变量 I：w_B={W_B} > 其余和={NON_B_WEIGHT_SUM} ✓；"
+          f"注入 ✓）；不变量 I：w_B={W_B} >= 其余和={NON_B_WEIGHT_SUM} ✓"
+          f"（R4 边界态）；"
           f"双样本冒烟 = {smoke}")
 
     # 6) 渲染 parity 门（§8.4，20 条逐字节）

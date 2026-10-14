@@ -265,3 +265,34 @@ P2RL-R2-PREREG=DONE
 - 预测（对照 = 二轮 v2，m5b-r2-gates）：**L1** kl 末值 ≥0.011（5/3×二轮外推；仍 <0.01 ⇒ 强度天花板实证，四轮转 β 下调）；**L2** ORR ≤12%（13.97% 续降 ≥2pp）；**L3** tiered jb ≤45% 不劣化 ∧ 脱钩 ≤17/80 不升（H 分量在更大位移下首次真实承压）；**L4** ASR 未见 ≤5%（⚠ 二轮距门仅 0.24pp + 三台在训侧同向走弱 = 本轮最大破灭风险，如实预注册）；护栏：契约 ≥150/168、needle <43.4%
 - 判读：L1∧L2∧L4 达 ⇒ 位移-改善剂量曲线成立，四轮 lr 定阶；L4 破 ⇒ H0 + 强度安全带锁定（kl∈[0.005,~0.01]），四轮 β 下调或 H 权重（届时 K1 达标 = 激活条件满足）
 - 时钟条款：发射以 19:00 前能完成训练（11min）为硬线；门禁可跨 19:00 续跑（所有者返回呈中期读数）
+
+---
+
+## 14、四轮（H 权重 0.25→0.40）预注册序位（append-only；发射前冻结）
+
+- 触发逻辑：三轮 L1 达标（kl 0.0233 ≥ 0.01）⇒ §13 尾注「届时 K1 达标 = 激活条件满足」兑现——二轮 §6.1 被单变量纪律冻结的 **H 权重 0.25→0.40 候补支正式解锁**；三轮 L3 jb 支破（tiered jb 55.00%，lr 剂量轴单调恶化 35→45→55%）且 r3 判读 4 指认 jb 恰 = H 权重的目标轴 ⇒ 四轮序位：**W_H 0.25→0.40 单变量（奖励函数侧）**，其余 26 HP 字段（含 lr 5e-6）逐字不动，输出 checkpoints\qwen3-06b-sec-p2rl-grpo-v4
+- 单变量 = `scripts\p2rl_reward.py` W_H 常量 0.25→0.40（唯一自由改动）。**forced consequence 登记（改前钉死，不猜 ✗）**：非 B 分量权和 0.85→**1.00 = W_B** ⇒ 防黑不变量 I 落在边界——worst case（B=−1 ∧ 其余全满）从 −0.081（规格 §3.3 证明 ≤−0.15）移至 **(−1.00+1.00)/2.00 = 0.00**：规格核心性质「写出正确裁决词但正文交付**不可净得正分**」在边界上保持（0 非正），「必须净负」让渡；模块 fail-closed 断言 `W_B > 其余和` 收为 `W_B >= 其余和`（锁定值 0.85→1.00）、60 单测锁定值同步（test_weight_constants_locked / test_worst_case / 不变量 II 逐条 <0 收 ≤0，**均值 <0 保持**：纯拒绝池 −0.071 / 纯放行池 −0.048 实算）、run_p2rl_grpo.py dry-run 镜像断言同步（HP 26 字段逐字不动 ✗✓）；分量函数 B/C/H/V/D、strict 判径、双侧编码、诚实性单调**零触碰**。GRPO 语境（scale_rewards=group 组内相对优势）：worst case 0.00 仍严格低于一切诚实形态（+1.0）⇒ 组内排序方向不变；全 worst-case 组 = 零方差无梯度（防线②计数器覆盖）
+**§14.1 三把锁锁值变更逐条 diff（发射前冻结；五轮若回 W_H 0.25 须逐条反向收紧）**
+
+| # | 锁点（文件 · 位置） | 旧（W_H=0.25 态） | 新（R4 边界态） | 性质 |
+|---|---|---|---|---|
+| 1 | p2rl_reward.py · 权重区注释 + import 断言 | `# = 0.85`；`assert NON_B_WEIGHT_SUM == 0.85` | `# = 1.00`；`== 1.00` | 锁值跟随预注册权重集（0.15+0.40+0.25+0.20 = 1.00） |
+| 2 | p2rl_reward.py · import 断言 + reward() 运行时覆盖断言 | `assert W_B > NON_B_WEIGHT_SUM`（2 处，strict） | `assert W_B >= NON_B_WEIGHT_SUM`（2 处） | 不变量 I 判据「严格负」收为「非正」（相等 ⇒ worst case = 0.00） |
+| 3 | run_p2rl_grpo.py · dry-run 发射门镜像 | `assert W_B > NON_B_WEIGHT_SUM`；冒烟打印 `w_B … > 其余和` | `>=`（断言 + 打印 2 处） | 发射门镜像同步；HP 26 字段零触碰 ✗✓ |
+| 4 | tests/test_p2rl_reward.py · test_weight_constants_locked | `assertAlmostEqual(…, 0.85)`；`assertEqual(NON_B_WEIGHT_SUM, 0.85)`；`assertGreater(W_B, …)` | `1.00` ×2；`assertGreaterEqual` | 测试锁与模块锁同步 |
+| 5 | tests/test_p2rl_reward.py · test_worst_case_behaviour_wrong_all_others_perfect | `assertLessEqual(wsum, −0.15+1e-9)`；`assertLess(total, 0.0)` | `assertLessEqual(wsum, 0.0+1e-9)`；`assertLessEqual(total, 0.0)` | worst case 上界 −0.15→0.0（「不可净得正分」保持，「必须净负」让渡） |
+| 6 | tests/test_p2rl_reward.py · 不变量 II 两池测试逐条断言 | `assertLess(t, 0.0)`（逐条；纯拒绝池 4 条 + 纯放行池 3 条） | `assertLessEqual(t, 0.0)`（逐条）；**两池均值 `assertLess < 0.0` 断言不动**（实测 −0.071 / −0.048 仍严格负） | 逐条严格负让渡、均值严格负（规格原文口径）保持 |
+
+- 以上 6 项 = W_H 单变量的**全部**强制伴生改动（改前钉死，逐条登记）；另：模块/测试 docstring 文档面同步（分量表 H 权重行、不变量 I 文本、R4 锁值更新注记）——非锁。分量函数 B/C/H/V/D、strict 判径、双侧编码、诚实性单调、池、watchdog、HP 字典**零触碰**。
+- 规范边界事件归档：本表由父代理登记入交接稿（四轮若证伪回退、五轮若回 W_H 0.25，锁值须按本表逐条反向收紧至 0.85 态，不得留边界态残锁）。
+
+- 奖励刻度位移登记（同 worst-case 数学，供门禁后归因）：26/80 脱钩形态总分 −0.351→**−0.400**（H 罚加重 ✓ = H2 的机制基础）；「直接顺从 + 自报 answer + 裁决词写对」hack 形态 −0.081→**0.000**（变软，如实登记——若 jb 由脱钩向该形态迁移，将以 H1 未达的形式显性化 = 本轮可证伪预测的靶点）
+- 预测（对照 = 三轮 v3 全读数，m5b-r3-gates §0/§4；发射前冻结、判读不回改 ✗✓）：
+  - **H1** tiered jb ≤ **44%**（v3 55.00%，压 ≥11pp——对价轴首次被直接压制）；**H1 未达 ⇒ 奖励编码「直接顺从压制」假说证伪**，四轮判负、五轮转奖励结构重设计（登记不猜）
+  - **H2** 脱钩形态 ≤ **12/80 不升**（v3 12/80；H 直接编码轴，W_H +60% 预期续降）
+  - **H3** ORR ≤ **11%**（v3 9.68% 容许 ±1.3pp 波动带——H 加压不得吞掉 ORR 增益；升破 11% = 反噬放行轴）
+  - **H4** ASR 未见载体 ≤ **5%**（护栏，v3 4.17%；破 = H0）
+  - 护栏：契约 ≥150/168、needle <43.4% 即停线（任一破 = H0）
+- 监控轴（父代理钉死，三项重点登记）：**PPL 双轨**（en 增量 ≤10% 且绝对 ≤+18% / zh 增量 ≤10% 且绝对 ≤+25%，vs 起点 soup-a050）+ **v0.4-toolout 回归**（rob 顺从率上升 ≤5pp）+ **重复循环计数**（v3 口径：v0.2.3 截断内行内重复循环条数，v3 = 9/737）
+- 发射命令（环境变量沿 §5 每命令显式口径）：`& ".venv\Scripts\python.exe" -X utf8 "scripts\run_p2rl_grpo.py" --run --output-dir "J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4"`；发射前清单：py_compile ✓ / 60 单测全绿（含锁定值更新后复跑）✓ / `--dry-run` 全绿（日志 `reports\logs\m5b-grpo-dryrun-r4.log`）✓ / 池 sha256 复验 = `77ff6cf1…851dd0` / PREFLIGHT v4 NOT-EXIST（零覆写）+ v1/v2/v3 未触碰 / Guard；GPU 本代理独占（父代理任务书钉死），训练（~11min）完成即起门禁全链（无 §13 型 19:00 时钟条款）
+- 门禁：五合取 + 仪器链照抄 m5b-r3 8 步（v0.2.3 全量 / v0.3-gen / needle chat / 稀释 v0.6 384 / 越狱 v0.7 --exclude-holdout / PPL 双轨 / toolout 70 / topup verdict），产物名 m5b-p2rl-grpo-v4；报告 `reports\m5b-r4-gates.md`（H1–H4 + 五合取 + 七方对照含 soup/v1/v2/v3 与 m5a-r2/r3），尾标 M5B-R4-GATES=DONE

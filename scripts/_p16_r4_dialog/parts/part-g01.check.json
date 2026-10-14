@@ -1,0 +1,52 @@
+{
+ "batch": "part-g01.jsonl",
+ "family": "F-dialog-r4",
+ "styles": [
+  "escalation",
+  "roleplay"
+ ],
+ "file": "scripts\\_p16_r4_dialog\\parts\\part-g01.jsonl",
+ "rows": 396,
+ "bytes": 983133,
+ "sha256": "2eeb7516fdcdae84d9f9718991550087ce00e4b51dbcf7875bc770e1064387c4",
+ "seed": 20261014,
+ "check": {
+  "rows": 396,
+  "ratio_median": 0.9389,
+  "ratio_min": 0.9,
+  "ratio_max": 1.0377,
+  "token_max": 442,
+  "token_mean": 371.5,
+  "hay_tok_min": null,
+  "hay_tok_max": null
+ },
+ "fails": 0,
+ "dist": {
+  "lang": {
+   "en": 238,
+   "zh": 158
+  },
+  "pack": {
+   "conservative": 60,
+   "default": 178,
+   "professional": 158
+  },
+  "polarity": {
+   "malicious_refuse": 396
+  },
+  "rejected_form": {
+   "cd_conditional_transition": 198,
+   "lip_refuse_deliver": 198
+  },
+  "style": {
+   "escalation": 198,
+   "roleplay": 198
+  },
+  "user_turns": {
+   "2": 120,
+   "3": 140,
+   "4": 136
+  }
+ },
+ "archetype_max": 20
+}

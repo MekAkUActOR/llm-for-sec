@@ -1,0 +1,87 @@
+﻿python.exe : test_deflect_conservative_mid (__main__.TestComponentB.test_deflect_conservative_mid) ... ok
+At line:1 char:469
++ ... TEXITCODE"; & ".venv\Scripts\python.exe" -X utf8 tests\test_p2rl_rewa ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (test_deflect_co...ive_mid) ... ok:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+test_detect_positive_risk_en (__main__.TestComponentB.test_detect_positive_risk_en) ... ok
+test_detect_positive_risk_zh (__main__.TestComponentB.test_detect_positive_risk_zh) ... ok
+test_format_error_b (__main__.TestComponentB.test_format_error_b) ... ok
+test_miss_negative_risk (__main__.TestComponentB.test_miss_negative_risk) ... ok
+test_nonpolicy_missing_risk_side_is_none (__main__.TestComponentB.test_nonpolicy_missing_risk_side_is_none) ... ok
+test_overrefusal_negative_benign (__main__.TestComponentB.test_overrefusal_negative_benign) ... ok
+test_pass_positive_benign (__main__.TestComponentB.test_pass_positive_benign) ... ok
+test_policy_adjacent_is_one_way_precedent (__main__.TestComponentB.test_policy_adjacent_is_one_way_precedent) ... ok
+test_policy_defensive_adjacent (__main__.TestComponentB.test_policy_defensive_adjacent) ... ok
+test_policy_match (__main__.TestComponentB.test_policy_match) ... ok
+test_policy_no_expected_for_pack_is_none (__main__.TestComponentB.test_policy_no_expected_for_pack_is_none) ... ok
+test_policy_wrong_side (__main__.TestComponentB.test_policy_wrong_side) ... ok
+test_risk_refuse_counts_detection_despite_expected_report (__main__.TestComponentB.test_risk_refuse_counts_detection_de
+spite_expected_report) ... ok
+test_flawed_json_band (__main__.TestComponentC.test_flawed_json_band) ... ok
+test_full_json_band (__main__.TestComponentC.test_full_json_band) ... ok
+test_missing_verdict_line (__main__.TestComponentC.test_missing_verdict_line) ... ok
+test_recovered_action_band (__main__.TestComponentC.test_recovered_action_band) ... ok
+test_unreadable_verdict_line (__main__.TestComponentC.test_unreadable_verdict_line) ... ok
+test_degenerate_char_collapse (__main__.TestComponentD.test_degenerate_char_collapse) ... ok
+test_degenerate_run_repeat (__main__.TestComponentD.test_degenerate_run_repeat) ... ok
+test_normal_band (__main__.TestComponentD.test_normal_band) ... ok
+test_out_of_band_zero (__main__.TestComponentD.test_out_of_band_zero) ... ok
+test_soft_band_long (__main__.TestComponentD.test_soft_band_long) ... ok
+test_soft_band_short (__main__.TestComponentD.test_soft_band_short) ... ok
+test_consistent_answer (__main__.TestComponentH.test_consistent_answer) ... ok
+test_consistent_refuse (__main__.TestComponentH.test_consistent_refuse) ... ok
+test_inconsistent_delivery_claims_refuse (__main__.TestComponentH.test_inconsistent_delivery_claims_refuse) ... ok
+test_inconsistent_en (__main__.TestComponentH.test_inconsistent_en) ... ok
+test_none_when_body_unmappable (__main__.TestComponentH.test_none_when_body_unmappable) ... ok
+test_none_when_no_verdict (__main__.TestComponentH.test_none_when_no_verdict) ... ok
+test_no_readable_verdict_word (__main__.TestComponentV.test_no_readable_verdict_word) ... ok
+test_none_when_no_gt (__main__.TestComponentV.test_none_when_no_gt) ... ok
+test_pii_locate (__main__.TestComponentV.test_pii_locate) ... ok
+test_word_match_locate_hit (__main__.TestComponentV.test_word_match_locate_hit) ... ok
+test_word_match_locate_miss (__main__.TestComponentV.test_word_match_locate_miss) ... ok
+test_word_match_no_locate (__main__.TestComponentV.test_word_match_no_locate) ... ok
+test_word_mismatch (__main__.TestComponentV.test_word_mismatch) ... ok
+test_benign_same_form_ranked_not_double_punished (__main__.TestForm26of80.test_benign_same_form_ranked_not_double_punis
+hed) ... ok
+test_risk_delivery_with_refuse_selfreport_double_punished (__main__.TestForm26of80.test_risk_delivery_with_refuse_selfr
+eport_double_punished) ... ok
+test_risk_delivery_worse_without_verdict_word (__main__.TestForm26of80.test_risk_delivery_worse_without_verdict_word) .
+.. ok
+test_conversational_completions (__main__.TestGRPOContract.test_conversational_completions) ... ok
+test_extra_kwargs_tolerated (__main__.TestGRPOContract.test_extra_kwargs_tolerated) ... ok
+test_length_aligns_and_values_bounded (__main__.TestGRPOContract.test_length_aligns_and_values_bounded) ... ok
+test_mixed_forms (__main__.TestGRPOContract.test_mixed_forms) ... ok
+test_none_semantics (__main__.TestGRPOContract.test_none_semantics) ... ok
+test_string_completions (__main__.TestGRPOContract.test_string_completions) ... ok
+test_weight_constants_locked (__main__.TestInvariantI.test_weight_constants_locked) ... ok
+test_weight_override_cannot_break_invariant (__main__.TestInvariantI.test_weight_override_cannot_break_invariant) ... o
+k
+test_worst_case_behaviour_wrong_all_others_perfect (__main__.TestInvariantI.test_worst_case_behaviour_wrong_all_others_
+perfect)
+B=−1 + 其余全满 → 不得净得正分（多任务形态扫描）。 ... ok
+test_pure_compliance_strategy_negative_on_risk_pool (__main__.TestInvariantII.test_pure_compliance_strategy_negative_on
+_risk_pool)
+纯放行策略在风险池上逐条 < 0 且均值 < 0（漏检−）。 ... ok
+test_pure_refusal_strategy_negative_on_benign_pool (__main__.TestInvariantII.test_pure_refusal_strategy_negative_on_ben
+ign_pool)
+纯拒绝策略在良性混合池上逐条 < 0 且均值 < 0（误拒−）。 ... ok
+test_h_component_monotone_across_bodies (__main__.TestInvariantIII.test_h_component_monotone_across_bodies) ... ok
+test_risk_selfreport_refuse_delivery_below_real_refusal (__main__.TestInvariantIII.test_risk_selfreport_refuse_delivery
+_below_real_refusal) ... ok
+test_same_body_honesty_strict_order (__main__.TestInvariantIII.test_same_body_honesty_strict_order) ... ok
+test_classify_is_gate_module_object (__main__.TestSameSourceAudit.test_classify_is_gate_module_object) ... ok
+test_reward_observes_body_with_strict_rule (__main__.TestSameSourceAudit.test_reward_observes_body_with_strict_rule) ..
+. ok
+test_strict_ignores_midtext_verdict_line (__main__.TestSameSourceAudit.test_strict_ignores_midtext_verdict_line)
+对抗样本：正文中间夹一行 VERDICT 自报 refuse（末行还有正式 ... ok
+test_strict_path_benign_side (__main__.TestSameSourceAudit.test_strict_path_benign_side)
+良性侧 ×2：正文交付即放行（自报 refuse 不采信）；正文拒绝即误拒 ... ok
+test_strict_path_risk_side (__main__.TestSameSourceAudit.test_strict_path_risk_side)
+风险侧 ×2：正文报告/拒绝语言成立时，自报 answer 不改判（strict ... ok
+
+----------------------------------------------------------------------
+Ran 60 tests in 0.010s
+
+OK

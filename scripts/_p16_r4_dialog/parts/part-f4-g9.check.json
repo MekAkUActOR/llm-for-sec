@@ -1,0 +1,70 @@
+{
+ "gate": "G9-equivalent (official gate_g9 code path, docs=f4-dialog 792 rows)",
+ "rows": 792,
+ "ok": true,
+ "fails": [],
+ "info": [
+  [
+   "样板文件数",
+   68
+  ],
+  [
+   "样板 needle 数",
+   12460
+  ],
+  [
+   "全局窗口数（含跨文件重复）",
+   "30,733,933"
+  ],
+  [
+   "present≥30 文档数",
+   792
+  ],
+  [
+   "文件级 union≥30 对数",
+   2504
+  ],
+  [
+   "文件级 union 游程分布",
+   {
+    "max": 86,
+    "≥57": 516,
+    "≥50": 573,
+    "≥40": 1190
+   }
+  ],
+  [
+   "union≥57 门禁对数",
+   516
+  ],
+  [
+   "官方游程 ≥50 对数（验证后）",
+   0
+  ],
+  [
+   "每针最大游程（全量官方精确解析，gram）",
+   0
+  ],
+  [
+   "游程 ≥30 的 (doc,needle) 对数",
+   0
+  ],
+  [
+   "Top 每针游程对",
+   []
+  ],
+  [
+   "Top3 对 LCS 诊断（字符）",
+   []
+  ],
+  [
+   "样板构建+扫描耗时",
+   "111s"
+  ]
+ ],
+ "notes": [
+  "扫描范围超集：data/heldout 全部 12 版本目录 + data/probes 全部（v0.1/v0.1.1/v0.3/v0.4/ais-500-draft；spec §6 最低要求 v0.1/v0.04）；needle = 行内全部字符串叶子（保守口径）；白名单（双侧对称剥离，登记 manifest.gate_registration.g9_whitelist）：6 冻结模板全文 + VERDICT 行正则 + dsh-protocol 头骨架字面量 28 条",
+  "方法（无损分层）：needle/heldout 全量归一化 + 白名单双侧剥离 → 8 字节窗口 S8 全局排序数组 + 文件 id；每文档 present≥30 者构造 文件×位置 密集布尔阵，直接读出各文件 union 连续游程。门禁层：union ≥57（官方 char 游程 ≥50 ⟹ 字节游程 ≥57 ⟹ union ≥57 的必要条件链）→ 逐 needle 向量化字节游程 → ≥57 者以官方 doc_probe_hits(50) 精确 char-gram 游程 + verify_shared_substring（窗口有界 difflib LCS ≥60 字符判真）。诊断层：全局倒排索引对全部 5,760 行 × 12,460 needle 做官方语义逐针精确游程（threshold=30），与门禁层交叉验证（发现 ≥50 即矛盾 FAIL）并给出真实全景（最大游程与 Top 对，对照官方向 50/60 的裕度）"
+ ],
+ "elapsed_s": 112.2
+}

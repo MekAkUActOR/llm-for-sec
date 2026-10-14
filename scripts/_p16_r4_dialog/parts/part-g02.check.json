@@ -1,0 +1,52 @@
+{
+ "batch": "part-g02.jsonl",
+ "family": "F-dialog-r4",
+ "styles": [
+  "fictional",
+  "puzzle"
+ ],
+ "file": "scripts\\_p16_r4_dialog\\parts\\part-g02.jsonl",
+ "rows": 396,
+ "bytes": 969884,
+ "sha256": "077871df58bcf5a16d617a1a405a666c633d22c2a3a12b99c81566c7df97493d",
+ "seed": 20261014,
+ "check": {
+  "rows": 396,
+  "ratio_median": 0.9498,
+  "ratio_min": 0.9006,
+  "ratio_max": 1.0098,
+  "token_max": 448,
+  "token_mean": 366.7,
+  "hay_tok_min": null,
+  "hay_tok_max": null
+ },
+ "fails": 0,
+ "dist": {
+  "lang": {
+   "en": 238,
+   "zh": 158
+  },
+  "pack": {
+   "conservative": 60,
+   "default": 178,
+   "professional": 158
+  },
+  "polarity": {
+   "malicious_refuse": 396
+  },
+  "rejected_form": {
+   "cd_conditional_transition": 198,
+   "lip_refuse_deliver": 198
+  },
+  "style": {
+   "fictional": 198,
+   "puzzle": 198
+  },
+  "user_turns": {
+   "2": 120,
+   "3": 140,
+   "4": 136
+  }
+ },
+ "archetype_max": 20
+}
