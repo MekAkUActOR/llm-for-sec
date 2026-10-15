@@ -96,3 +96,4 @@
 - （待发射：排队条件 = m5a-r4 门禁链终稿（topup-verdict-m5a-dpo-r4 落地或静默双确认）+ RL-r5
   训练让出（若其先训）+ 重 worker=0 双确认 → Guard → output_dir NOT-EXIST → llamafactory-cli
   train，Tee reports\logs\m5a-dpo-r5-train.log）
+themes done 08:30
