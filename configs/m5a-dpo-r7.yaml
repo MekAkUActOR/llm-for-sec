@@ -1,0 +1,169 @@
+# m5a-dpo-r7 = round-7 LoRA-8B 容量判定（r7-build-brief；W1-W4 预测冻结，判读不回改）。
+# 科学问题：ORR↔风险耦合失败是容量 artifact 还是方法缺陷（0.6B 十二臂全 H0 封盘，
+# 7B 冻结条款三重触发 ⇒ 本轮 = 纯容量对照：同数据同剂量，底座 0.6B→8B + 全参→LoRA）。
+# 本件 = configs/m5a-dpo-r6.yaml 复制 + **LoRA 适配组**（非 3 行；功能 diff 逐条登记）：
+#   1. model_name_or_path：checkpoints\soup-needlefix-a050（0.6B 谱系起点）→ Qwen/Qwen3-8B-Base
+#      （HF 缓存 id；容量阶梯 0.6B→8B ≈ 13.3×，brief §一.5 决策）
+#   2. finetuning_type：full → lora + 新增 LoRA 块（lora_rank 16 / lora_alpha 32 /
+#      lora_dropout 0.05 / lora_target all）。⚠ 任务书原文 "lora_target: all-linear" 为
+#      PEFT 侧命名；本仓 LLaMA-Factory 0.9.6.dev0 合法值 = all（= 所有线性层——
+#      hparams/finetuning_args.py L81-90 help 文义 + examples/train_lora/qwen3_lora_dpo.yaml
+#      全示例佐证）⇒ 按本仓 yaml 键名规范落地为 all 并在此登记替换（语义等价）。
+#   3. learning_rate：2.0e-6（全参量级，**被替换**）→ 5.0e-5（LoRA 标准量级 1e-4~5e-5
+#      取下沿，brief §二.2）
+#   4. gradient_checkpointing：false → true（24GB 卡 8B 适配；brief §一.5 设计明言
+#      「LoRA rank 16-32 all-linear + 梯度检查点 + per-device 1」）。显存预算：8B bf16
+#      权重 16.4GB + LoRA（rank16 all 线性 ~42M 参数）+ 检查点激活 + fp32 logits ≈ 19-20GB
+#      < 21.6GB 空闲；DPO 参考模型 = adapter-disable 零拷贝（train/trainer_utils.py
+#      L137-138：finetuning_type=lora ⇒ ref_model=None ⇒ 无第二份权重）✓
+#   5. output_dir：checkpoints\qwen3-06b-sec-m5a-dpo-r6 → checkpoints\qwen3-8b-sec-m5a-dpo-r7
+#   6. dataset_dir：data\m5a-r6-run（**值未变**——p16-calibration-r6 原套 4 注册 40,458 行
+#      零重跑；按任务书登记为显式确认项）
+# 其余零改动（登记）：stage dpo（数据 = ranking DPO 对，sft 语义不适用；DPO+LoRA 组合
+#   为 LLaMA-Factory 官方支持路径 examples/train_lora/qwen3_lora_dpo.yaml）/ template
+#   qwen3_nothink / cutoff 1024 / batch 1×16 / max_steps 300（同 r6 剂量）/ cosine +
+#   warmup 20 / save_steps 50 + limit 20 / pref sigmoid β0.1 / bf16 / adamw_bnb_8bit
+#   （仅作用于 LoRA 参数，兼容）/ plot_loss / logging_steps 5。
+# ★ 门禁加载约定（本轮新增，登记）：LoRA 训练产物 = adapter（output 根 + checkpoint-300，
+#   各 ~百 MB 级）；门禁仪器（baseline_eval.py 等冻结 sha 件）仅 AutoModelForCausalLM
+#   直载、无 peft 支持 ⇒ 训练 rc=0 后须先 llamafactory-cli export（configs/
+#   m5a-dpo-r7-export.yaml，infer_dtype bfloat16 + cpu 合并）产出完整模型目录
+#   checkpoints\qwen3-8b-sec-m5a-dpo-r7-merged，门禁 $MODEL 指向该目录。
+# 谱系纪律：r7 为独立容量判定臂，不入 0.6B 谱系（brief §二.5；W1+W2 过 ⇒ 登记为新谱系
+#   首臂候选）。预测冻结不回改、fail-closed、append-only 勘误。
+# ⚠ 以下继承的 r6/r5/r4/r3/r2/r1/M5A 注释块为历史语境（0.6B 全参时代的 lr/起点/谱系
+#   数值不再适用本轮，以本节为准）。
+#
+# ═══ M5A-R6 历史节（F5 扩容 + 悬置正向轮；本轮已由上方 R7 节接管）═══
+# m5a-dpo-r6 = round-6 F5 扩容 + 悬置正向（r6-build-brief；V1-V4 预测冻结）。
+# 本件 = configs/m5a-dpo-r5.yaml 复制，非注释功能行 diff 恰 3 行（dataset_dir / dataset / output_dir）。
+# m5a-dpo-r5 = F5-paired 轮（reports/f5-build-brief.md + p1.6-round5-design.md；U1-U4 预测冻结）。
+# 本件 = configs/m5a-dpo-r4.yaml 复制，非注释功能行 diff 恰 3 行：dataset_dir（→ data\m5a-r6-run）、
+# dataset（→ r5 四注册）、output_dir（→ checkpoints\qwen3-06b-sec-m5a-dpo-r6）。
+# ### ═══ M5A-R4 探针（P1.6 四轮 · F 对话式扩容）：r4 数据 + 一~三轮配方零改动 ═══
+#
+# ★ 本件 = configs/m5a-dpo-r3.yaml 的四轮复制（2026-10-14，reports/p1.6-round4-design.md
+#   §二 配方预注册，T1–T4 预测已冻结）。非注释功能行 diff 仅 3 行：dataset_dir（→ data\m5a-r6-run）、
+#   dataset（→ 四 r4 注册）、output_dir（→ checkpoints\qwen3-06b-sec-m5a-dpo-r6）；
+#   HP 零改动 ✗✓（单变量在数据侧）。四轮数据实况：m4 base 28,842 + p16-r4 6,408
+#   （良 2,736 : 恶 3,672 = 42.7 : 57.3；良性侧 = r3 良性件逐字节副本，唯一机制变量 =
+#   F 对话式子族扩容 792→1,584：新子族 F4-dialog 792 行全部新生成，过行级断言 + G9 同款
+#   8-gram 污染检查对 heldout 冻结件；轮深 2/3/4 = 240/280/272）= 35,250 行；全 epoch = 2,204 步；
+#   校准对占比 18.18%（300 步 × batch 16 可见 ≈873 行，σ≈27）。
+#   r4 全 sha / 行级断言 / 门禁时序见 data/dpo/p16-calibration-r4/manifest.json +
+#   reports/p1.6-round4-build.md + scripts/_p16_r4_dialog/progress.md。
+#   ⚠ 下方继承的 r3/r2/r1 注释块为历史语境（2,154 / 2,129 / 2,163 步 等数值不再适用四轮，以本节为准）。
+#
+# ### ═══ M5A-R3 探针（P1.6 三轮 · 备选案 M2b「D 良单旋钮」）：r3 数据 + 一二轮配方零改动 ═══
+#
+# ★ 本件 = configs/m5a-dpo-r2.yaml 的三轮复制（2026-10-14，reports/p1.6-round2-design.md §七
+#   M2b 预注册，配方与预测已冻结）。非注释功能行 diff 仅 3 行：dataset_dir（→ data\m5a-r3-run）、
+#   dataset（→ 三 r3 注册）、output_dir（→ checkpoints\qwen3-06b-sec-m5a-dpo-r3）；
+#   HP 零改动 ✗✓（单变量在数据侧）。三轮数据实况：m4 base 28,842 + p16-r3 5,616
+#   （良 2,736 : 恶 2,880 = 48.7 : 51.3；A 1,500 原样全量、D 放行 240→96 确定性子选
+#   seed=20261014m2b；B/C/E/F/D恶 逐字节不动；与一轮唯一差异 = D 良子选）= 34,458 行；
+#   全 epoch = 2,154 步；校准对占比 16.3%（300 步 × batch 16 可见 ≈782 行，σ≈26）。
+#   r3 全 sha / 行级断言 / 门禁时序（三轮不跑全 checker，快检替代）见
+#   data/dpo/p16-calibration-r3/manifest.json + reports/p1.6-round3-build.md。
+#   ⚠ 下方继承的 r2/r1 注释块为历史语境（其中 34,058 / 5,216 / 2,129 步 等 r2 数值与
+#   34,602 / 5,760 / 2,163 步 等 r1 数值均不再适用三轮，以本节为准）。
+#
+# ### ═══ M5A-R2 探针（P1.6 二轮 · 主案 M2a「良性侧风格先验回调」）：r2 数据 + 一轮配方零改动 ═══
+#
+# ★ 本件 = configs/m5a-dpo-probe.yaml 的二轮复制（2026-10-14，reports/p1.6-round2-design.md §五.5）。
+#   非注释功能行 diff 仅 3 行：dataset_dir（→ data\m5a-r2-run）、dataset（→ 三 r2 注册）、
+#   output_dir（→ checkpoints\qwen3-06b-sec-m5a-dpo-r2）；HP 零改动 ✗✓（单变量在数据侧）。
+#   二轮数据实况：m4 base 28,842 + p16-r2 5,216（良 2,336 : 恶 2,880 = 44.8 : 55.2；A 1,500→1,100、
+#   D 放行 240→96 确定性子选 seed=20261014；B/C/E/F/D恶 逐字节不动）= 34,058 行；全 epoch = 2,129 步；
+#   校准对占比 15.3%（300 步 × batch 16 可见 ≈735 行，σ≈25）。r2 全 sha / 行级断言 / 门禁时序见
+#   data/dpo/p16-calibration-r2/manifest.json + reports/p1.6-round2-build.md。
+#   ⚠ 下方继承的一轮注释块为历史语境（其中 34,602 / 5,760 / 2,163 步 / sha ee181598… 等
+#   一轮数值不再适用二轮，以本节为准）。
+#
+# ### ═══ M5A 探针（M5 数据轴 · DPO 臂发射件）：capfix 配方 + P1.6 校准对的受控验证 ═══
+#
+# ★ 目的：M5 数据轴 = 唯一过门配方（m4-capfix-probe，C 路成立 ✓）+ P1.6 拒绝校准对
+#   5,760 —— 对症「全谱系双侧校准债」（ORR 16.7–18.5% > 10% 门 ✗，规则 44 重判 ✓）。
+#
+# ★ 单变量纪律：超参与 m4-capfix-probe.yaml **逐项相同** ✓（sigmoid × 300 步 ✓ /
+#   lr 2.0e-6 ✓ / β 0.1 ✓ / cutoff 1024 ✓ / batch 1×16 ✓ / cosine + warmup 20 ✓ /
+#   save_steps 50 ✓ / bf16 ✓ / adamw_bnb_8bit ✓ / 起点 soup-needlefix-a050 ✓ 一律不动），
+#   **唯一科学变量 = 数据集**（基座 28,842 + 校准对 5,760 = 34,602 ✗✓ m5-plan §P2.9）。
+#   （R7 注：上段 lr 2.0e-6 / 起点 soup 为 r1-r6 全参时代口径，已被本件头部 LoRA 适配组替换）
+#
+# ★ 与 m4-capfix-probe.yaml 的全部差异（字段级 3 处，科学变量仅 1 处 = 数据 ✓）：
+#   1. dataset_dir / dataset → data\m5a-run + sec_dpo_m5a        ← ★唯一科学变量 ✓
+#   2. output_dir → checkpoints\qwen3-06b-sec-m5a-dpo-probe      ← 必然不同 ✓
+#   3. save_total_limit 8 → 20                                   ← 保留策略，非科学变量
+#      （规则 43.5 ✗ 推论「保留策略必须覆盖病态起点」：300 步 × save_steps 50 ⇒ 档位
+#       50/100/150/200/250/300 = 6 档 ≤ 20 全留存 ✓，病态起点定位不丢档；后备变量②
+#       （300→500 步）⇒ 10 档 ≤ 20 仍全留存 ✓；RL 臂同款核算 p2rl 预注册 §7.3 ✓；
+#       不改训练动力学，仅改 checkpoint 留存 ✗）
+#
+# ★ A/B 与臂间可比：
+#   - 数据轴内对照 = m4-capfix-probe.yaml（第 23 轮已跑 ✓ 同配方同起点、纯基座
+#     28,842）—— 读数逐点可比 ✓；
+#   - 与 RL 臂（P2-RL GRPO，p2rl-grpo-preregistration）**同起点 soup-needlefix-a050**
+#     ⇒ 臂间可比 ✓（先过五合取者入谱系 ✗ m5-plan v4）；
+#   - 与 m5-calib-probe.yaml（同僚 P2.9 集成件）：训练数据**字节恒等**（sha256
+#     ee181598… ✓），唯一配置差 = save_total_limit 8→20（保留策略）—— 两配置若
+#     先后发射，读数应一致 ✓。
+#
+# 数据：data/m5a-run/train.jsonl = 34,602 行（sha256 ee181598af572a634394416c000c2
+#   12e312bd00acc9bff8a0cedeb5a5b6d2e60 ✓ 与 data/m5-run/dpo_m5_calib.jsonl 字节恒等）
+#   = 基座 dpo_m4_capfix 28,842 行（**逐字节** ✓ sha256 d4061d47…；注册件
+#     data/m4-run/ —— 任务书路径 data/dpo/m4/ 实查不存在，勘误登记于预注册 §1）
+#     + p16 两 release 5,760 行（benign_release 2,880 + malicious_honest 2,880，
+#       极性 50:50 ✓ en:zh≈60:40 ✓）
+#   校准对占比 16.6%（实测 16.646% ✓ p1.6 §5.2）；300 步 × batch 16 = 4,800 可见
+#   ⇒ 期望校准对 ≈799 行（二项 σ≈26 ✓ p1.6 §5.2）
+#   门禁：P16-GATE=PASS（G1–G12 全绿 ✓ reports/p1.6-gate-report.md）
+#   构建：scripts/build_m5a_mix.py ⇒ BUILD-M5A-MIX=OK（行数/极性/语言分布/字节恒等
+#         fail-closed ✓；谱系链 data/m5a-run/manifest.json ✓；落点在 G1 扫描范围外，
+#         checker 零改动 ✓）
+#   预注册：reports/m5a-preregistration.md（本发射件专用钉死件：单变量声明 / 四预测
+#         +护栏 逐字引自 p1.6 §7 零新增 ✗ / 五合取终裁门 / 失败判据 / RL 臂同起点
+#         可比性 ✓；训练曲线不作数 —— 规则 43.1 ✓）
+#
+# 可中断模式（项目纪律）：save_only_model=false ⇒ 全量 checkpoint（优化器/调度器/RNG ✓）
+#   中断 = 直接杀进程；恢复 = 同命令重启（LF parser auto-resume 从最新 checkpoint ✓）
+#   （R7 注：LoRA 模式下 checkpoint = adapter + LoRA 优化器状态，体积 ~百 MB 级）
+#
+model_name_or_path: Qwen/Qwen3-8B-Base
+stage: dpo
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m5a-r6-run
+dataset: sec_dpo_m5a_r6_base_m4capfix,sec_dpo_m5a_r6_p16_benign,sec_dpo_m5a_r6_p16_malicious,sec_dpo_m5a_r6_p16_r6new
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 5.0e-5
+# ★ 探针：300 步（同 r6 剂量 ≈ 1/7 epoch 口径；R6 全史 M5A 系列 2,129–2,529 步/epoch 量级）
+max_steps: 300
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: true
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 50
+save_total_limit: 20
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-8b-sec-m5a-dpo-r7

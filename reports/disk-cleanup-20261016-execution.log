@@ -1,0 +1,221 @@
+﻿2026-10-16 01:00:06 === BATCH 1 (pilot) START ===
+2026-10-16 01:00:06 ARM qwen3-06b-sec-c0-smoke total=2 terminal=checkpoint-137
+2026-10-16 01:00:06 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-c0-smoke\checkpoint-100  (2.231 GB)
+2026-10-16 01:00:06 KEEP  qwen3-06b-sec-c0-smoke\checkpoint-137 (terminal)
+2026-10-16 01:00:06 ARM-DONE qwen3-06b-sec-c0-smoke remaining: [checkpoint-137]
+2026-10-16 01:00:06 DRIVE J used=1266.59 GB free=641.12 GB
+2026-10-16 01:00:06 === BATCH 1 END ===
+2026-10-16 01:00:36 === BATCH 2 START (7 arms, expect 7 dirs) ===
+2026-10-16 01:00:36 ARM qwen3-06b-sec-c1-full total=2 terminal=checkpoint-2072
+2026-10-16 01:00:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-c1-full\checkpoint-2050  (2.231 GB)
+2026-10-16 01:00:36 KEEP  qwen3-06b-sec-c1-full\checkpoint-2072 (terminal)
+2026-10-16 01:00:36 ARM-DONE qwen3-06b-sec-c1-full remaining: [checkpoint-2072]
+2026-10-16 01:00:36 ARM qwen3-06b-sec-m15 total=2 terminal=checkpoint-115
+2026-10-16 01:00:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m15\checkpoint-110  (6.672 GB)
+2026-10-16 01:00:36 KEEP  qwen3-06b-sec-m15\checkpoint-115 (terminal)
+2026-10-16 01:00:36 ARM-DONE qwen3-06b-sec-m15 remaining: [checkpoint-115]
+2026-10-16 01:00:36 ARM qwen3-06b-sec-m16-32k total=2 terminal=checkpoint-58
+2026-10-16 01:00:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m16-32k\checkpoint-50  (6.672 GB)
+2026-10-16 01:00:36 KEEP  qwen3-06b-sec-m16-32k\checkpoint-58 (terminal)
+2026-10-16 01:00:36 ARM-DONE qwen3-06b-sec-m16-32k remaining: [checkpoint-58]
+2026-10-16 01:00:36 ARM qwen3-06b-sec-m25-full total=2 terminal=checkpoint-17210
+2026-10-16 01:00:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m25-full\checkpoint-17000  (6.673 GB)
+2026-10-16 01:00:36 KEEP  qwen3-06b-sec-m25-full\checkpoint-17210 (terminal)
+2026-10-16 01:00:36 ARM-DONE qwen3-06b-sec-m25-full remaining: [checkpoint-17210]
+2026-10-16 01:00:36 ARM qwen3-06b-sec-m2-calib total=2 terminal=checkpoint-292
+2026-10-16 01:00:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2-calib\checkpoint-250  (6.672 GB)
+2026-10-16 01:00:36 KEEP  qwen3-06b-sec-m2-calib\checkpoint-292 (terminal)
+2026-10-16 01:00:36 ARM-DONE qwen3-06b-sec-m2-calib remaining: [checkpoint-292]
+2026-10-16 01:00:36 ARM qwen3-06b-sec-m2-full total=2 terminal=checkpoint-12294
+2026-10-16 01:00:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2-full\checkpoint-12000  (6.673 GB)
+2026-10-16 01:00:36 KEEP  qwen3-06b-sec-m2-full\checkpoint-12294 (terminal)
+2026-10-16 01:00:36 ARM-DONE qwen3-06b-sec-m2-full remaining: [checkpoint-12294]
+2026-10-16 01:00:36 ARM qwen3-06b-sec-stage1-202m total=2 terminal=checkpoint-385
+2026-10-16 01:00:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-stage1-202m\checkpoint-350  (2.231 GB)
+2026-10-16 01:00:36 KEEP  qwen3-06b-sec-stage1-202m\checkpoint-385 (terminal)
+2026-10-16 01:00:36 ARM-DONE qwen3-06b-sec-stage1-202m remaining: [checkpoint-385]
+2026-10-16 01:00:36 DRIVE J used=1228.76 GB free=678.95 GB
+2026-10-16 01:00:36 === BATCH 2 END ===
+2026-10-16 01:00:51 === BATCH 3 START (5 arms, expect 16 dirs) ===
+2026-10-16 01:00:51 ARM qwen3-06b-sec-m2calib-needlefix-e1 total=5 terminal=checkpoint-360
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2calib-needlefix-e1\checkpoint-280  (4.224 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2calib-needlefix-e1\checkpoint-300  (4.224 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2calib-needlefix-e1\checkpoint-320  (4.224 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m2calib-needlefix-e1\checkpoint-340  (4.224 GB)
+2026-10-16 01:00:51 KEEP  qwen3-06b-sec-m2calib-needlefix-e1\checkpoint-360 (terminal)
+2026-10-16 01:00:51 ARM-DONE qwen3-06b-sec-m2calib-needlefix-e1 remaining: [checkpoint-360]
+2026-10-16 01:00:51 ARM qwen3-06b-sec-m3base-topup-e1 total=3 terminal=checkpoint-207
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3base-topup-e1\checkpoint-150  (6.672 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3base-topup-e1\checkpoint-200  (6.672 GB)
+2026-10-16 01:00:51 KEEP  qwen3-06b-sec-m3base-topup-e1\checkpoint-207 (terminal)
+2026-10-16 01:00:51 ARM-DONE qwen3-06b-sec-m3base-topup-e1 remaining: [checkpoint-207]
+2026-10-16 01:00:51 ARM qwen3-06b-sec-m3base-topup-e2 total=3 terminal=checkpoint-414
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3base-topup-e2\checkpoint-350  (6.672 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3base-topup-e2\checkpoint-400  (6.672 GB)
+2026-10-16 01:00:51 KEEP  qwen3-06b-sec-m3base-topup-e2\checkpoint-414 (terminal)
+2026-10-16 01:00:51 ARM-DONE qwen3-06b-sec-m3base-topup-e2 remaining: [checkpoint-414]
+2026-10-16 01:00:51 ARM qwen3-06b-sec-m3-dpo total=5 terminal=checkpoint-1803
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3-dpo\checkpoint-1500  (4.225 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3-dpo\checkpoint-1600  (4.225 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3-dpo\checkpoint-1700  (4.225 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m3-dpo\checkpoint-1800  (4.225 GB)
+2026-10-16 01:00:51 KEEP  qwen3-06b-sec-m3-dpo\checkpoint-1803 (terminal)
+2026-10-16 01:00:51 ARM-DONE qwen3-06b-sec-m3-dpo remaining: [checkpoint-1803]
+2026-10-16 01:00:51 ARM qwen3-06b-sec-m4-capfix-full total=5 terminal=checkpoint-1803
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-full\checkpoint-1500  (4.224 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-full\checkpoint-1600  (4.224 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-full\checkpoint-1700  (4.224 GB)
+2026-10-16 01:00:51 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-full\checkpoint-1800  (4.224 GB)
+2026-10-16 01:00:51 KEEP  qwen3-06b-sec-m4-capfix-full\checkpoint-1803 (terminal)
+2026-10-16 01:00:51 ARM-DONE qwen3-06b-sec-m4-capfix-full remaining: [checkpoint-1803]
+2026-10-16 01:00:51 DRIVE J used=1151.38 GB free=756.33 GB
+2026-10-16 01:00:51 === BATCH 3 END ===
+2026-10-16 01:01:07 === BATCH 4 START (6 arms, expect 30 dirs) ===
+2026-10-16 01:01:07 ARM qwen3-06b-sec-m4-capfix-probe total=6 terminal=checkpoint-300
+2026-10-16 01:01:07 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-probe\checkpoint-50  (4.224 GB)
+2026-10-16 01:01:07 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-probe\checkpoint-100  (4.224 GB)
+2026-10-16 01:01:07 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-probe\checkpoint-150  (4.224 GB)
+2026-10-16 01:01:07 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-probe\checkpoint-200  (4.224 GB)
+2026-10-16 01:01:07 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4-capfix-probe\checkpoint-250  (4.224 GB)
+2026-10-16 01:01:07 KEEP  qwen3-06b-sec-m4-capfix-probe\checkpoint-300 (terminal)
+2026-10-16 01:01:07 ARM-DONE qwen3-06b-sec-m4-capfix-probe remaining: [checkpoint-300]
+2026-10-16 01:01:07 ARM qwen3-06b-sec-m4c-orpo-probe total=6 terminal=checkpoint-300
+2026-10-16 01:01:07 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-probe\checkpoint-50  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-probe\checkpoint-100  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-probe\checkpoint-150  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-probe\checkpoint-200  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-probe\checkpoint-250  (4.224 GB)
+2026-10-16 01:01:08 KEEP  qwen3-06b-sec-m4c-orpo-probe\checkpoint-300 (terminal)
+2026-10-16 01:01:08 ARM-DONE qwen3-06b-sec-m4c-orpo-probe remaining: [checkpoint-300]
+2026-10-16 01:01:08 ARM qwen3-06b-sec-m5a-dpo-probe total=6 terminal=checkpoint-300
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-probe\checkpoint-50  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-probe\checkpoint-100  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-probe\checkpoint-150  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-probe\checkpoint-200  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-probe\checkpoint-250  (4.224 GB)
+2026-10-16 01:01:08 KEEP  qwen3-06b-sec-m5a-dpo-probe\checkpoint-300 (terminal)
+2026-10-16 01:01:08 ARM-DONE qwen3-06b-sec-m5a-dpo-probe remaining: [checkpoint-300]
+2026-10-16 01:01:08 ARM qwen3-06b-sec-m5a-dpo-r2 total=6 terminal=checkpoint-300
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r2\checkpoint-50  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r2\checkpoint-100  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r2\checkpoint-150  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r2\checkpoint-200  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r2\checkpoint-250  (4.224 GB)
+2026-10-16 01:01:08 KEEP  qwen3-06b-sec-m5a-dpo-r2\checkpoint-300 (terminal)
+2026-10-16 01:01:08 ARM-DONE qwen3-06b-sec-m5a-dpo-r2 remaining: [checkpoint-300]
+2026-10-16 01:01:08 ARM qwen3-06b-sec-m5a-dpo-r3 total=6 terminal=checkpoint-300
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r3\checkpoint-50  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r3\checkpoint-100  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r3\checkpoint-150  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r3\checkpoint-200  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r3\checkpoint-250  (4.224 GB)
+2026-10-16 01:01:08 KEEP  qwen3-06b-sec-m5a-dpo-r3\checkpoint-300 (terminal)
+2026-10-16 01:01:08 ARM-DONE qwen3-06b-sec-m5a-dpo-r3 remaining: [checkpoint-300]
+2026-10-16 01:01:08 ARM qwen3-06b-sec-m5a-dpo-r4 total=6 terminal=checkpoint-300
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r4\checkpoint-50  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r4\checkpoint-100  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r4\checkpoint-150  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r4\checkpoint-200  (4.224 GB)
+2026-10-16 01:01:08 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m5a-dpo-r4\checkpoint-250  (4.224 GB)
+2026-10-16 01:01:08 KEEP  qwen3-06b-sec-m5a-dpo-r4\checkpoint-300 (terminal)
+2026-10-16 01:01:08 ARM-DONE qwen3-06b-sec-m5a-dpo-r4 remaining: [checkpoint-300]
+2026-10-16 01:01:08 DRIVE J used=1025.44 GB free=882.27 GB
+2026-10-16 01:01:08 === BATCH 4 END ===
+2026-10-16 01:01:21 === BATCH 5 START (1 arm, expect 18 dirs) ===
+2026-10-16 01:01:21 ARM qwen3-06b-sec-m4c-orpo-full total=19 terminal=checkpoint-1803
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-100  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-200  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-300  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-400  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-500  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-600  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-700  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-800  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-900  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1000  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1100  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1200  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1300  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1400  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1500  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1600  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1700  (4.224 GB)
+2026-10-16 01:01:21 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-m4c-orpo-full\checkpoint-1800  (4.224 GB)
+2026-10-16 01:01:21 KEEP  qwen3-06b-sec-m4c-orpo-full\checkpoint-1803 (terminal)
+2026-10-16 01:01:21 ARM-DONE qwen3-06b-sec-m4c-orpo-full remaining: [checkpoint-1803]
+2026-10-16 01:01:21 DRIVE J used=949.4 GB free=958.31 GB
+2026-10-16 01:01:21 === BATCH 5 END ===
+2026-10-16 01:01:36 === BATCH 6 START (5 arms, expect 55 dirs) ===
+2026-10-16 01:01:36 ARM qwen3-06b-sec-p2rl-grpo-v1 total=12 terminal=checkpoint-300
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-25  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-50  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-75  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-100  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-125  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-150  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-175  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-200  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-225  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-250  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v1\checkpoint-275  (3.342 GB)
+2026-10-16 01:01:36 KEEP  qwen3-06b-sec-p2rl-grpo-v1\checkpoint-300 (terminal)
+2026-10-16 01:01:36 ARM-DONE qwen3-06b-sec-p2rl-grpo-v1 remaining: [checkpoint-300]
+2026-10-16 01:01:36 ARM qwen3-06b-sec-p2rl-grpo-v2 total=12 terminal=checkpoint-300
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-25  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-50  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-75  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-100  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-125  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-150  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-175  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-200  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-225  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-250  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v2\checkpoint-275  (3.342 GB)
+2026-10-16 01:01:36 KEEP  qwen3-06b-sec-p2rl-grpo-v2\checkpoint-300 (terminal)
+2026-10-16 01:01:36 ARM-DONE qwen3-06b-sec-p2rl-grpo-v2 remaining: [checkpoint-300]
+2026-10-16 01:01:36 ARM qwen3-06b-sec-p2rl-grpo-v3 total=12 terminal=checkpoint-300
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-25  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-50  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-75  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-100  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-125  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-150  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-175  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-200  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-225  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-250  (3.342 GB)
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v3\checkpoint-275  (3.342 GB)
+2026-10-16 01:01:36 KEEP  qwen3-06b-sec-p2rl-grpo-v3\checkpoint-300 (terminal)
+2026-10-16 01:01:36 ARM-DONE qwen3-06b-sec-p2rl-grpo-v3 remaining: [checkpoint-300]
+2026-10-16 01:01:36 ARM qwen3-06b-sec-p2rl-grpo-v4 total=12 terminal=checkpoint-300
+2026-10-16 01:01:36 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-25  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-50  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-75  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-100  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-125  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-150  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-175  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-200  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-225  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-250  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v4\checkpoint-275  (3.342 GB)
+2026-10-16 01:01:37 KEEP  qwen3-06b-sec-p2rl-grpo-v4\checkpoint-300 (terminal)
+2026-10-16 01:01:37 ARM-DONE qwen3-06b-sec-p2rl-grpo-v4 remaining: [checkpoint-300]
+2026-10-16 01:01:37 ARM qwen3-06b-sec-p2rl-grpo-v5 total=12 terminal=checkpoint-300
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-25  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-50  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-75  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-100  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-125  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-150  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-175  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-200  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-225  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-250  (3.342 GB)
+2026-10-16 01:01:37 DEL   J:\Projects\llm_for_sec\checkpoints\qwen3-06b-sec-p2rl-grpo-v5\checkpoint-275  (3.342 GB)
+2026-10-16 01:01:37 KEEP  qwen3-06b-sec-p2rl-grpo-v5\checkpoint-300 (terminal)
+2026-10-16 01:01:37 ARM-DONE qwen3-06b-sec-p2rl-grpo-v5 remaining: [checkpoint-300]
+2026-10-16 01:01:37 DRIVE J used=765.61 GB free=1142.1 GB
+2026-10-16 01:01:37 === BATCH 6 END ===
+2026-10-16 01:04:01 RULING  soup-needlefix-a020/a035/a038/a040/a042/a045/a065/a080 -> KEEP（保留裁定 2026-10-16，Team Lead message team-message-41e040cf-bb98-4f56-ba2b-d0e1eb61c2dd；磁盘压力回撤线 = J 盘剩余 <100GB 时再议）

@@ -1,0 +1,17 @@
+# m5a-dpo-r7-export = LoRA 合并件（训练后、门禁前的机械步骤，R7 新增登记）。
+# 动机：r7 训练走 finetuning_type: lora，产物 = adapter（configs/m5a-dpo-r7.yaml 头部
+# 「门禁加载约定」）；门禁仪器（baseline_eval.py / probe_*.py 均冻结 sha）仅
+# AutoModelForCausalLM 直载、无 peft 支持 ⇒ 必须先合并成完整模型目录。
+# 键名照抄 LLaMA-Factory 官方示例 examples/merge_lora/qwen3_lora_sft.yaml；
+# infer_dtype 显式 bfloat16（auto 会落 compute_dtype fp32，31GB RAM 装不下 32.8GB；
+# 门禁侧 baseline_eval.py 亦以 bf16 加载，口径一致）；export_device cpu（零 GPU 占用，
+# 不与 Guard/队友冲突）。
+model_name_or_path: Qwen/Qwen3-8B-Base
+adapter_name_or_path: J:\Projects\llm_for_sec\checkpoints\qwen3-8b-sec-m5a-dpo-r7
+template: qwen3_nothink
+
+export_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-8b-sec-m5a-dpo-r7-merged
+export_size: 5
+export_device: cpu
+export_legacy_format: false
+infer_dtype: bfloat16
