@@ -26,6 +26,10 @@ def theme_phrases_for(theme, lang):
     mal_all = list(theme["malicious"]) + list(ex.get("malicious", []))
     ben = [p for p in ben_all if _cjk(p) == (lang == "zh")]
     mal = [p for p in mal_all if _cjk(p) == (lang == "zh")]
+    # ★r6 修订 v7：跨扩容层文本去重（EXTRA2/EXTRA3 层间偶有同句 → 索引唯一但 prompt 撞）；
+    # 保序去重（枚举与渲染共用本函数 ⇒ 索引一致）。r5 冻结产物不受影响（已落盘 sha 锚定）。
+    ben = list(dict.fromkeys(ben))
+    mal = list(dict.fromkeys(mal))
     return ben, mal
 
 
