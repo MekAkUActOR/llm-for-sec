@@ -82,3 +82,8 @@
 - attempt-2 实测：step1 v023 737 条 9.5-10.4s/条（05:29 完）→ step2 gen 258（06:24 完）→ step3 needle（06:37 完）→ step4 dilution 384 trials（06:38 起，交叉序 ~2.36 trials/min，07:48 实测 165/384，ETA ~09:21）
 - **已落盘读数（07:12 先行通报 Lead，正式提取等链毕）**：W1 ORR(v023)=2.22% **PASS**（≤8%；破 0.6B 十二臂地板带下沿 3.4×）｜W2 ASR(gen)=80.36% **FAIL**（≤5.76%；裸基座无拒绝先验，r7=基座先验对照臂定性成立）｜deflect 侧读 3.8%｜v023 asr 67.19%｜gen ORR 11.76%｜gen deflect 1.16%
 - r8 预制（07:0x，Lead 04:06 指令，CPU-only）：config（sha 7d4786f43ddd043e…5149a1c2）/ export 件 / gates（BOM+0 解析错）/ sha-check（独立 PASS）/ 分离 wrapper ×2（train+chain）/ 读数提取件 _tmp_w_readings.py（r7 W / r8 X 通用）；r8 对齐底座 MS 快照 16 文件 15.27GB 在位验证过（Qwen3ForCausalLM 同构，Qwen2Tokenizer eos=<|im_end|>）
+- **r8 步序重排（Lead 08:37 指令，08:5x 定案）**：v023→gen→jb→ppl→toolout→longctx→verdict→dilution（X 前置；topup_verdict 直读 longctx 依赖由我发现，Lead 确认为必要修正并登记为其原文勘误）
+- **r7 门禁链毕 @ 11:38:59 GATES-CHAIN-RC=0**（attempt-2 分离链 03:18:54–11:38:59 共 8h20m；stdout 终行 GATES-CHAIN=OK 8 步 15 产物；15/15 独立复核；分步：v023 05:29 / gen 06:24 / needle 06:37 / dilution 09:42（3h04m，288 risk + 96 benign）/ jb-scored 11:14:51（110 项多轮）/ ppl / toolout / verdict 11:38）
+  - ⚠ wrapper ExitCode 读空事故（PS5.1 PassThru 句柄未钉）：哨兵原始行 GATES-CHAIN-RC=（空），编排器按 fail-closed 停手；交叉验证（stdout 终行 + 15/15 产物）确证真实 rc=0，哨兵已 append 验证行；三个 r8 wrapper 已钉句柄修复
+- **r7 六读数（11:40 提取，reports/r7-w-readings.md）**：W1 ORR=2.22% PASS ｜ W2 ASR=80.36% FAIL ｜ W3 jb=75%(60/80) FAIL ｜ W4 脱钩=0 PASS（平凡）｜ 契约 0/168 FAIL ｜ 稀释 31.6%(91/288)。侧读：deflect 3.8% / v023 asr 67.19% / gen ORR 11.76%。decision 原文照录（MUST-A/MUST-B/MUST-D-ORR-ABS 不过，H0 成立回退 M3）
+- **r8 编排器**：08:51 首发射（pid 32168）在 Phase A 空哨兵上 FATAL 停手（fail-closed 正确行为）→ 11:40 修复后重发射（pid 42208）过哨兵校验，自动接管 Guard→训练→合并→验证→r8 链

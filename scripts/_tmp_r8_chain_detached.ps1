@@ -29,6 +29,7 @@ $p = Start-Process powershell `
   -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-File',"$ROOT\scripts\run_m5a_r8_gates.ps1" `
   -RedirectStandardOutput $stdoutLog -RedirectStandardError $stderrLog `
   -PassThru -WindowStyle Hidden
+$null = $p.Handle  # PS5.1 PassThru 句柄钉住（否则 ExitCode 可能读空——r7 链哨兵事故教训）
 HB "CHAIN-SPAWNED chain_pid=$($p.Id) start=$(Get-Date -Format 'HH:mm:ss') $(GpuLine)"
 while (-not $p.HasExited) {
   Start-Sleep -Seconds 300

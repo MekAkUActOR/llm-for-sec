@@ -1,0 +1,2 @@
+GATES-CHAIN-RC=
+finished=2026-10-16 11:38:59GATES-CHAIN-RC=0 (r7-runner 11:4x 交叉验证补记：gates stdout 终行 'GATES-CHAIN=OK (8 steps, 15 artifacts, all rc=0)' + 15/15 产物独立复核在场；wrapper ExitCode 读取为空 = PS5.1 PassThru 句柄未钉怪癖，非链失败。append-only 勘误)

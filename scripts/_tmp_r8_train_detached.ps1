@@ -26,6 +26,7 @@ $proc = Start-Process "$ROOT\.venv\Scripts\llamafactory-cli.exe" `
   -ArgumentList 'train',"$ROOT\configs\m5a-dpo-r8.yaml" `
   -RedirectStandardOutput $log -RedirectStandardError "$log.err" `
   -PassThru -WindowStyle Hidden
+$null = $proc.Handle  # PS5.1 PassThru 句柄钉住（否则 ExitCode 可能读空——r7 链哨兵事故教训）
 HB "TRAIN-SPAWNED pid=$($proc.Id) start=$(Get-Date -Format 'HH:mm:ss') $(GpuLine)"
 while (-not $proc.HasExited) {
   Start-Sleep -Seconds 120
