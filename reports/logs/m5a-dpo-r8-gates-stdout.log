@@ -63,3 +63,5 @@ STEP7 verdict DONE
   匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
 GUARD=PASS 无并发（重 worker ≤1）
 GUARD=PASS heavy=0 before step8-dilution
+STEP8 dilution DONE
+GATES-CHAIN=OK (8 steps, 15 artifacts, all rc=0)
