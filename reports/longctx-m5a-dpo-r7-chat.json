@@ -1,0 +1,802 @@
+{
+  "model": "checkpoints\\qwen3-8b-sec-m5a-dpo-r7-merged",
+  "name": "m5a-dpo-r7-chat",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "prompt_format": "chat",
+  "system_pack": "default",
+  "needle_prompt_format": "chat",
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 5.697386865602857,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          1.8937,
+          1.624,
+          1.6588,
+          1.7836
+        ]
+      },
+      "zh": {
+        "ppl": 7.237398807397116,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.0079,
+          1.8407,
+          1.9126,
+          2.1558
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 6.528363663837982,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          1.9752,
+          1.5425,
+          2.0627,
+          1.9242
+        ]
+      },
+      "zh": {
+        "ppl": 6.46653488345542,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          1.8349,
+          2.0216,
+          2.1115,
+          1.4986
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16480,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16478,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16479,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16479,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16479,
+          "generated": "The magic code mentioned above is `e9e4c8e8`. This code was provided as part of the document you shared, and it's likely"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4075,
+          "prompt_len": 16478,
+          "generated": "The magic code mentioned above is `8be37df3`. This code was provided in the context of a document, likely as a unique id"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": true,
+          "insert_pos": 5705,
+          "prompt_len": 16479,
+          "generated": "The magic code mentioned above is: a18d3c05. Please remember it."
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 5705,
+          "prompt_len": 16479,
+          "generated": "The magic code mentioned above is: **b393586c**. Please remember it."
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": false,
+          "insert_pos": 8151,
+          "prompt_len": 16480,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": false,
+          "insert_pos": 8151,
+          "prompt_len": 16480,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": false,
+          "insert_pos": 10596,
+          "prompt_len": 16478,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": false,
+          "insert_pos": 10596,
+          "prompt_len": 16479,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": false,
+          "insert_pos": 12226,
+          "prompt_len": 16477,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": false,
+          "insert_pos": 12226,
+          "prompt_len": 16479,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14671,
+          "prompt_len": 16477,
+          "generated": "You asked for the magic code mentioned above. The magic code for this document is **0ea02dac**. Please remember it!"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": false,
+          "insert_pos": 14671,
+          "prompt_len": 16479,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16504,
+          "generated": "您提供的文本中包含了一个魔法代码 `03e8b84b`。这个代码似乎没有直接与文本内容相关联的含义，"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": true,
+          "insert_pos": 815,
+          "prompt_len": 16502,
+          "generated": "您提供的文本中包含了一个魔法代码 `d1c5aaf0`。这个代码似乎没有实际意义，它可能是一个随机生成的字符串"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16503,
+          "generated": "您提供的文本中包含了一个看似无意义的字符串\"f077b69f\"，这可能是某种形式的标识符或密钥。"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": true,
+          "insert_pos": 2445,
+          "prompt_len": 16503,
+          "generated": "您提供的文本中包含了一个魔法代码 `a925e7a1`，这似乎是一个随机生成的字符串，没有实际的魔法或"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16503,
+          "generated": "上文提到的魔法代码是：e9e4c8e8。这是在维基百科条目：湘绣中提到的，作为"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": true,
+          "insert_pos": 4076,
+          "prompt_len": 16502,
+          "generated": "上文提到的魔法代码是 `8be37df3`。请记住它，以便在需要时使用。不过，作为安全感知助手"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": true,
+          "insert_pos": 5706,
+          "prompt_len": 16503,
+          "generated": "上文提到的魔法代码是 `a18d3c05`。这是一串标识符，用于在文档中进行某种形式的"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": true,
+          "insert_pos": 5706,
+          "prompt_len": 16503,
+          "generated": "上文提到的魔法代码是 `b393586c`。這是一個隨機生成的字符串，用於識別或標"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": true,
+          "insert_pos": 8152,
+          "prompt_len": 16504,
+          "generated": "上文提到的魔法代码是 `252c3c6f`。这是一串十六进制的字符，通常在计算机科学中"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": true,
+          "insert_pos": 8152,
+          "prompt_len": 16504,
+          "generated": "上文提到的魔法代码是 `8f07d990`。这是一串随机生成的代码，通常用于文档或代码中"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": true,
+          "insert_pos": 10597,
+          "prompt_len": 16502,
+          "generated": "上文提到的魔法代码是 `91937ccc`。这是一段虚构的代码，用于示例或测试目的，并没有实际"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": true,
+          "insert_pos": 10597,
+          "prompt_len": 16503,
+          "generated": "上文提到的魔法代码是 `c9375d6d`。这是一串随机生成的字符串，通常用于标识或验证某些"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16501,
+          "generated": "上文提到的魔法代码是 `ba5ac473`。这是一串随机生成的字符串，通常用于标识或验证某些特定的内容"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": true,
+          "insert_pos": 12228,
+          "prompt_len": 16503,
+          "generated": "上文提到的魔法代码是 `d0a45d3e`。这是一串随机生成的字符串，通常用于测试或示例"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": true,
+          "insert_pos": 14673,
+          "prompt_len": 16501,
+          "generated": "上文提到的魔法代码是 `0ea02dac`。这是一串随机生成的代码，用于标识文档的唯一性。在实际"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": false,
+          "insert_pos": 14673,
+          "prompt_len": 16503,
+          "generated": "上文提到的“魔法代码”实际上是一个幽默的表达，用来形容维基百科条目中的信息。这里的“魔法代码”并不是真正的代码"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": true,
+          "insert_pos": 1634,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is \"6d3b8e45\". It is likely a reference to a specific document or context, but without ad"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": true,
+          "insert_pos": 1634,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is 4732c44d. It is likely a reference or identifier used in the context of the system or "
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": true,
+          "insert_pos": 4902,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is \"5e20408c\". It is likely a reference or identifier used in the context of the document"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": true,
+          "insert_pos": 4902,
+          "prompt_len": 32863,
+          "generated": "The magic code mentioned above is \"c344112d\". It is likely a reference or identifier used in the context of the document"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": true,
+          "insert_pos": 8171,
+          "prompt_len": 32863,
+          "generated": "The magic code mentioned above is \"a6b64016\". This code is likely a reference or identifier used in the context of the d"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8171,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is \"71660715\". This code is likely a reference to a specific document or context, but wit"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32862,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is \"89f03016\". It is likely a reference to a specific document or context, but without ad"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": true,
+          "insert_pos": 16343,
+          "prompt_len": 32860,
+          "generated": "The magic code mentioned above is \"ee8bf4eb\". It is likely a reference to a specific document or piece of content, possi"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16343,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is \"55456035\". It is likely a reference to a specific document or piece of information th"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": false,
+          "insert_pos": 21245,
+          "prompt_len": 32862,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21245,
+          "prompt_len": 32863,
+          "generated": "The magic code mentioned above is \"585cfe94\". It is a unique identifier or reference code that is used to link to a spec"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": true,
+          "insert_pos": 24514,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is \"7106302f\". It is not clear what this code refers to or what its significance is in th"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32862,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29417,
+          "prompt_len": 32864,
+          "generated": "The magic code mentioned above is 3e854037. It is a code that was used in a document related to William Kidd, a"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": false,
+          "insert_pos": 29417,
+          "prompt_len": 32861,
+          "generated": "You are a security-perception assistant. Active policy pack: pack:default@0.1.\nAdjustable band: P-DUALUSE-GRANULAR"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32888,
+          "generated": "您好！您提到的“魔法代码”实际上是一个随机生成的字符串，它并没有实际的功能或意义。在您提供的上下文中，它似乎被"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": true,
+          "insert_pos": 1634,
+          "prompt_len": 32888,
+          "generated": "您提供的文本中包含了一个魔法代码 \"4732c44d\"，这似乎是一个随机生成的字符串，并没有实际意义。如果您"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32888,
+          "generated": "您好！您提到的魔法代码是 `5e20408c`。这似乎是一个特定的标识符或密钥，用于识别"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": true,
+          "insert_pos": 4903,
+          "prompt_len": 32887,
+          "generated": "您提供的文本中包含了一个魔法代码 \"c344112d\"，这似乎是一个随机生成的字符串，并没有实际意义。如果您"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32887,
+          "generated": "您提供的文本中包含了一个魔法代码 \"a6b64016\"，这似乎是一个特定的标识符或密钥，用于某种"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": true,
+          "insert_pos": 8172,
+          "prompt_len": 32888,
+          "generated": "您提供的文本中包含了一个魔法代码 `71660715`，这似乎是一个特定的标识符或密钥，用于某种"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32886,
+          "generated": "您提供的文本中包含了一段关于港珠澳大桥的描述，其中提到了一个魔法代码 \"c0602ef0\"。这个"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": true,
+          "insert_pos": 11440,
+          "prompt_len": 32888,
+          "generated": "您提供的文本中包含了一段看似无意义的字符串 \"89f03016\"，这可能是某种形式的标识符或密"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": false,
+          "insert_pos": 16344,
+          "prompt_len": 32884,
+          "generated": "請問您需要什麼幫助？請告訴我您的問題或需求，我會盡力協助您。\n\n請問您需要什麼幫助？請告訴我"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32888,
+          "generated": "您提供的文本中包含了一个魔法代码 `55456035`，这似乎是一个特定的标识符或密钥，用于识别"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32886,
+          "generated": "您提供的文本中包含了一个魔法代码 \"f07ed358\"，这看起来像是一个随机生成的字符串，可能用于某种内部或"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": true,
+          "insert_pos": 21247,
+          "prompt_len": 32887,
+          "generated": "您提供的文本中包含了一个魔法代码 \"585cfe94\"，这似乎是一个用于标记或识别特定内容的代码。在您"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32888,
+          "generated": "您提供的文本中包含了一个特殊的注释，其中的魔法代码是 `7106302f`。这个代码在文本中被"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": true,
+          "insert_pos": 24516,
+          "prompt_len": 32886,
+          "generated": "您提供的文本中包含了一个魔法代码 \"8a5eace4\"，这似乎是一个随机生成的字符串，并没有实际的含义或功能。"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32888,
+          "generated": "上文提到的魔法代码是 `3e854037`。这是一串十六进制的数字，通常在计算机科学中"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32885,
+          "generated": "您提供的文本中包含了一个看似无意义的字符串 \"b84caaa7\"，这可能是某种编码或标识符。然而，根据上下"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 0.3125,
+      "zh": 0.9375
+    },
+    "32768": {
+      "en": 0.75,
+      "zh": 0.875
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    }
+  },
+  "needle_counts": {
+    "16384": {
+      "en": {
+        "k": 5,
+        "n": 16
+      },
+      "zh": {
+        "k": 15,
+        "n": 16
+      }
+    },
+    "32768": {
+      "en": {
+        "k": 12,
+        "n": 16
+      },
+      "zh": {
+        "k": 14,
+        "n": 16
+      }
+    }
+  },
+  "needle_trials_per_cell": 16,
+  "elapsed_s": 746.0
+}

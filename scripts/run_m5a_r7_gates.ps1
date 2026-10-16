@@ -15,6 +15,11 @@
 #      (models--Qwen--Qwen3-8B-Base\snapshots\49e3418f…) 并在此登记。
 #   3. 头两行注释的轮次标识 M5A-R6→M5A-R7；sha check 件名 r6→r7（其 config 行 =
 #      r7 LoRA 适配件新 sha 2845b6b3…c5b3e61d，四件冻结仪器 sha 与 r6 逐字节相同）。
+#   4.（attempt-2 追加，2026-10-16 03:2x，Lead 批准 R1 重发的可观测性增强）
+#      新增 $env:PYTHONUNBUFFERED='1'——仅关掉 python 子进程 stdout 的 8KB 块缓冲
+#      （attempt-1 死因诊断发现：逐条 print 全程憋在缓冲里，60+ 分钟日志零增长，
+#      活性无法判定）。零计算行为影响（同一批 print，同一判分路径，仅落盘时机）。
+#      仪器 sha 五件不动。
 #   其余（PREFLIGHT 15 目标 / WaitIdle+Guard 双确认 / 8 步顺序与参数 / 15 产物
 #   终检）与 r6 逐字相同。
 $ROOT = 'J:\Projects\llm_for_sec'
@@ -23,6 +28,7 @@ $env:PYTHONIOENCODING = 'utf-8'
 $env:HF_HOME = "$ROOT\.cache\huggingface"
 $env:HF_HUB_OFFLINE = '1'
 $env:PYTORCH_CUDA_ALLOC_CONF = 'expandable_segments:True'
+$env:PYTHONUNBUFFERED = '1'  # attempt-2: live per-item progress in m5g logs (header note 4)
 $PY = "$ROOT\.venv\Scripts\python.exe"
 $T = 'm5a-dpo-r7'
 $MODEL = 'checkpoints\qwen3-8b-sec-m5a-dpo-r7-merged'

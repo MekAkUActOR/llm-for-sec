@@ -1,0 +1,72 @@
+# m5a-dpo-r8 = round-8 Qwen3-8B 对齐底座 + F5-DPO 真容量判定（r8-build-brief；X1-X4 预测冻结，判读不回改）。
+# 科学问题：对齐 8B + F5 最小对机制能否同时过 ORR 与护栏门（0.6B 十二臂地板 7.62-13.65% 是容量
+# 限制还是方法限制——r8 直接判）。上游：r7（8B-Base + F5-DPO）W2 ASR 80.36% 灾难破 ⇒ 定性为
+# 基座先验对照臂；r8 换对齐底座隔离「底座先验」变量。
+# 本件 = configs/m5a-dpo-r7.yaml 复制，非注释功能行 diff 恰 2 行（登记如下）：
+#   1. model_name_or_path：Qwen/Qwen3-8B-Base（HF 缓存 id，r7 基座）→
+#      J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master
+#      （对齐后训练版本地直载目录，2026-10-16 ModelScope 落盘 16 文件 15.27GB；★唯一科学变量 =
+#      底座 Base→对齐，brief §一.4 隔离设计）
+#   2. output_dir：checkpoints\qwen3-8b-sec-m5a-dpo-r7 → checkpoints\qwen3-8b-sec-m5a-dpo-r8
+# 其余零改动（LoRA 块 rank16/α32/dropout0.05/target all / lr 5e-5 / 数据 m5a-r6-run 原套
+#   40,458 行零重跑 / max_steps 300 同剂量 / batch 1×16 / cosine+warmup20 / sigmoid β0.1 /
+#   bf16 / adamw_bnb_8bit / gradient_checkpointing true / save 50+limit20 全保留）。
+# ⚠ 时序纪律：r7 门禁链哨兵 GATES-CHAIN-RC 落地 + Guard 之后方可发射（GPU 串行铁律，brief §二.2）。
+# ⚠ 门禁加载约定（同 r7）：LoRA 产物 = adapter ⇒ 训练后 llamafactory-cli export 合并至
+#   checkpoints\qwen3-8b-sec-m5a-dpo-r8-merged（configs/m5a-dpo-r8-export.yaml）再入链。
+# 谱系：r7/r8 = 8B 新谱系容量判定对照臂（Base vs 对齐），不入 0.6B 谱系；十三臂对照表扩至十五臂。
+# 以下继承的 r7/r6/…/M5A 注释块为历史语境（以本节为准）。
+#
+# ═══ M5A-R7 历史节（LoRA-8B-Base 容量对照臂，已被 r8 接续）═══
+# m5a-dpo-r7 = round-7 LoRA-8B 容量判定（r7-build-brief；W1-W4 预测冻结）。
+# 本件 = configs/m5a-dpo-r6.yaml 复制 + LoRA 适配组（详见 r7 各登记）：
+#   model→Qwen/Qwen3-8B-Base / finetuning_type full→lora（rank16 α32 dropout0.05 target all，
+#   任务书 "all-linear" 按本仓 LLaMA-Factory 0.9.6.dev0 规范落地为 all）/ lr 2.0e-6→5.0e-5 /
+#   gradient_checkpointing false→true / output_dir→r7 / dataset_dir=m5a-r6-run 零重跑。
+#   DPO+LoRA 参考模型 = adapter-disable 零拷贝（trainer_utils.py L137-138）。
+#   实跑：TRAIN-RC=0 @ 2026-10-16 01:57:51（1891.7s，loss 0.1641，VRAM 峰 23.8GB 无 OOM）。
+#
+# ═══ M5A-R6 及更早历史节（0.6B 全参时代；lr/起点/谱系数值不再适用，以各轮节为准）═══
+# m5a-dpo-r6 = F5 扩容 + 悬置正向轮（V1-V4 冻结）；r5 = F5-paired 轮（U1-U4）；r4/r3/r2/r1 =
+# P1.6 各轮复制件（dataset_dir/dataset/output_dir 三行 diff 纪律）；M5A 探针 = m4-capfix 唯一
+# 过门配方 + p16 校准对（单变量纪律：HP 与 m4-capfix-probe 逐项相同，唯一科学变量 = 数据集）。
+# 数据谱系：m4 base 28,842（sha d4061d47…）+ p16 各 release；G9/唯一性/concat 冒烟全在案。
+# 可中断模式：save_only_model=false 全量 checkpoint；中断=杀进程，恢复=同命令重启（auto-resume）。
+model_name_or_path: J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master
+stage: dpo
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m5a-r6-run
+dataset: sec_dpo_m5a_r6_base_m4capfix,sec_dpo_m5a_r6_p16_benign,sec_dpo_m5a_r6_p16_malicious,sec_dpo_m5a_r6_p16_r6new
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 5.0e-5
+# ★ 探针：300 步（同 r6/r7 剂量；隔离底座变量，剂量实验归 r9）
+max_steps: 300
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: true
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 50
+save_total_limit: 20
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-8b-sec-m5a-dpo-r8

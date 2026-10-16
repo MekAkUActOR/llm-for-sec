@@ -1,0 +1,40 @@
+PREFLIGHT 15 targets NOT-EXIST ?
+tag intact: m5a-dpo-r7 / model: checkpoints\qwen3-8b-sec-m5a-dpo-r7-merged
+  [OK] scripts\probe_jailbreak.py: 6cd4390f7848719bâ€¦20a6881b
+  [OK] scripts\score_heldout_v2.py: 83d50c8bfb8a500eâ€¦52bcb1da
+  [OK] data\heldout\v0.7-jailbreak\jailbreak.jsonl: cbad0fed25d3490bâ€¦20f816cb
+  [OK] data\heldout\v0.6-dilution\risk_payloads.jsonl: c6eabceecdffa05fâ€¦fd5ef09f
+  [OK] configs\m5a-dpo-r7.yaml: 2845b6b36c52b1b1â€¦c5b3e61d
+INSTRUMENT-SHA=PASS (jb scorer / heldout scorer / jb suite / dilution pool / r7 config)
+instrument sha re-verified ? (jb scorer / heldout scorer / jb suite / dilution pool / r7 config)
+
+=== ÅĞ¾İ£ºÖØ worker£¨>500MB µÄ python.exe£©===
+  ÖØ worker Êı = 0  pid=
+  ? 0 ¸ö ¡Ö Õı³£µ¥Á´£»¡İ2 ¸ö²ÅÊÇÕæ²¢·¢ ?
+  Æ¥Åä½ø³ÌÊı = 0£¨¡ïÕâ¸öÊı²»ÄÜÓÃÀ´ÅĞ²¢·¢£ºtrampoline/°ü×°shell/×Ó½Å±¾¶¼»á¼ÆÈë£©
+GUARD=PASS ÎŞ²¢·¢£¨ÖØ worker ¡Ü1£©
+GUARD=PASS heavy=0 before step1-v023
+STEP1 v023 eval+score DONE
+
+=== ÅĞ¾İ£ºÖØ worker£¨>500MB µÄ python.exe£©===
+  ÖØ worker Êı = 0  pid=
+  ? 0 ¸ö ¡Ö Õı³£µ¥Á´£»¡İ2 ¸ö²ÅÊÇÕæ²¢·¢ ?
+  Æ¥Åä½ø³ÌÊı = 0£¨¡ïÕâ¸öÊı²»ÄÜÓÃÀ´ÅĞ²¢·¢£ºtrampoline/°ü×°shell/×Ó½Å±¾¶¼»á¼ÆÈë£©
+GUARD=PASS ÎŞ²¢·¢£¨ÖØ worker ¡Ü1£©
+GUARD=PASS heavy=0 before step2-gen
+STEP2 gen eval+score DONE
+
+=== ÅĞ¾İ£ºÖØ worker£¨>500MB µÄ python.exe£©===
+  ÖØ worker Êı = 0  pid=
+  ? 0 ¸ö ¡Ö Õı³£µ¥Á´£»¡İ2 ¸ö²ÅÊÇÕæ²¢·¢ ?
+  Æ¥Åä½ø³ÌÊı = 0£¨¡ïÕâ¸öÊı²»ÄÜÓÃÀ´ÅĞ²¢·¢£ºtrampoline/°ü×°shell/×Ó½Å±¾¶¼»á¼ÆÈë£©
+GUARD=PASS ÎŞ²¢·¢£¨ÖØ worker ¡Ü1£©
+GUARD=PASS heavy=0 before step3-needle
+STEP3 needle DONE
+
+=== ÅĞ¾İ£ºÖØ worker£¨>500MB µÄ python.exe£©===
+  ÖØ worker Êı = 0  pid=
+  ? 0 ¸ö ¡Ö Õı³£µ¥Á´£»¡İ2 ¸ö²ÅÊÇÕæ²¢·¢ ?
+  Æ¥Åä½ø³ÌÊı = 0£¨¡ïÕâ¸öÊı²»ÄÜÓÃÀ´ÅĞ²¢·¢£ºtrampoline/°ü×°shell/×Ó½Å±¾¶¼»á¼ÆÈë£©
+GUARD=PASS ÎŞ²¢·¢£¨ÖØ worker ¡Ü1£©
+GUARD=PASS heavy=0 before step4-dilution
