@@ -82,6 +82,7 @@ HB "PHASE-D adapter ok（r=16, $([math]::Round($asize/1MB,1))MB）"
 # ---------- Phase E: LoRA 合并导出（cap 30min）----------
 HB 'PHASE-E launching export (CPU)'
 $exp = Start-Process "$ROOT\.venv\Scripts\llamafactory-cli.exe" -ArgumentList 'export',"$ROOT\configs\m5a-dpo-r8-export.yaml" -RedirectStandardOutput "$LOGD\m5a-dpo-r8-export.log" -RedirectStandardError "$LOGD\m5a-dpo-r8-export.log.err" -PassThru -WindowStyle Hidden
+$null = $exp.Handle  # PS5.1 PassThru 句柄钉住（否则 ExitCode 可能读空——2026-10-16 12:17 PhaseE 实发事故；本次 Phase F/G/H 由 r7-runner 手动接管完成）
 if (-not $exp.WaitForExit(1800000)) { try { Stop-Process -Id $exp.Id -Force } catch {}; Die 'PhaseE 超时：export 30min 未完成' }
 HB "PHASE-E export exit=$($exp.ExitCode)"
 if ($exp.ExitCode -ne 0) { Die "PhaseE: export rc=$($exp.ExitCode)" }

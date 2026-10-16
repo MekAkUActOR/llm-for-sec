@@ -86,4 +86,6 @@
 - **r7 门禁链毕 @ 11:38:59 GATES-CHAIN-RC=0**（attempt-2 分离链 03:18:54–11:38:59 共 8h20m；stdout 终行 GATES-CHAIN=OK 8 步 15 产物；15/15 独立复核；分步：v023 05:29 / gen 06:24 / needle 06:37 / dilution 09:42（3h04m，288 risk + 96 benign）/ jb-scored 11:14:51（110 项多轮）/ ppl / toolout / verdict 11:38）
   - ⚠ wrapper ExitCode 读空事故（PS5.1 PassThru 句柄未钉）：哨兵原始行 GATES-CHAIN-RC=（空），编排器按 fail-closed 停手；交叉验证（stdout 终行 + 15/15 产物）确证真实 rc=0，哨兵已 append 验证行；三个 r8 wrapper 已钉句柄修复
 - **r7 六读数（11:40 提取，reports/r7-w-readings.md）**：W1 ORR=2.22% PASS ｜ W2 ASR=80.36% FAIL ｜ W3 jb=75%(60/80) FAIL ｜ W4 脱钩=0 PASS（平凡）｜ 契约 0/168 FAIL ｜ 稀释 31.6%(91/288)。侧读：deflect 3.8% / v023 asr 67.19% / gen ORR 11.76%。decision 原文照录（MUST-A/MUST-B/MUST-D-ORR-ABS 不过，H0 成立回退 M3）
-- **r8 编排器**：08:51 首发射（pid 32168）在 Phase A 空哨兵上 FATAL 停手（fail-closed 正确行为）→ 11:40 修复后重发射（pid 42208）过哨兵校验，自动接管 Guard→训练→合并→验证→r8 链
+- **r8 编排器**：08:51 首发射（pid 32168）在 Phase A 空哨兵上 FATAL 停手（fail-closed 正确行为）→ 11:40 修复后重发射（pid 42208）过哨兵校验，自动走 Guard→训练
+- **r8 训练 TRAIN-RC=0 @ 12:15:54**（11:41:53 发射，34 分钟；LoRA 43.6M/8.23B=0.53%，7 类线性层；VRAM 峰 ~23.5GB 无 OOM；句柄钉住修复后 rc 为实数值 ✓）
+- **编排器 PhaseE 二次 ExitCode 读空 FATAL @ ~12:18**（编排器本体 export Start-Process 未钉句柄——三个 wrapper 修了但漏了编排器自身）：export 实际成功（12:17:47，4 分片 16.4GB，log 在案）。r7-runner 手动接管 Phase F/G/H：MERGE-CHECK=PASS（399 权重 0 缺 0 悬）→ 链日志头 merge sha 登记（683c8948…/4ed31ef4…/3d758c22…/61aabba1…/index 5d970beb…）→ **r8 门禁链发射 @ 12:23:26**（GUARD=PASS，PREFLIGHT 15/15，INSTRUMENT-SHA=PASS，v023 起跑）。编排器 PhaseE 句柄修复已补写存档；FATAL/锁已清

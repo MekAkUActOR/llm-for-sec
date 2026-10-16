@@ -1,0 +1,10 @@
+# m5a-dpo-r8 门禁链日志（attempt-1，分离式 WMI 发射；Phase F/G/H 由 r7-runner 手动接管——编排器 PhaseE ExitCode 读空 FATAL，export 实际成功（12:17:47，log 在案），登记于 download-trace）
+# 训练: TRAIN-RC=0 @ 12:15:54（LoRA r16 a32，43.6M/8.23B=0.53%，日志 m5a-dpo-r8-train.log）
+# 合并: export 12:16-12:17:47 CPU bf16，MERGE-CHECK=PASS（399 权重 4 分片 0 缺失 0 悬多）
+# 步序（Lead 08:37 指令 + 08:5x 定案）：v023→gen→jb→ppl→toolout→longctx→verdict→dilution（X 前置；topup_verdict 依赖 longctx 产物，故 longctx 前置于 verdict——Lead 已确认登记）
+# 门禁评测对象 = LoRA 合并后完整模型 checkpoints\qwen3-8b-sec-m5a-dpo-r8-merged，分片 sha256：
+#   model-00001-of-00004.safetensors: 683c89482cb1911ed96102dcdd8f73fac8fcd99e4f517c4def0db89644ce40f4
+#   model-00002-of-00004.safetensors: 4ed31ef4cc6eb8acbd6bb360e08f382b7c78ee89540c17340ea6ddeac4675ea3
+#   model-00003-of-00004.safetensors: 3d758c22f994a2427be52a9423d27afc389314d069b84dfa97e98e4ed874fbda
+#   model-00004-of-00004.safetensors: 61aabba1456b58252495b334a27f0bde24b12c498272a931d85661487b6352ef
+#   model.safetensors.index.json: 5d970bebe2bdab04739798ba0735338dc9e6b8afa7ab796118678643c5848bfb

@@ -10,3 +10,9 @@ PHASE-A r7 sentinel: GATES-CHAIN-RC=
 finished=2026-10-16 11:38:59GATES-CHAIN-RC=0 (r7-runner 11:4x 浜ゅ弶楠岃瘉琛ヨ锛歡ates stdout 缁堣 'GATES-CHAIN=OK (8 steps, 15 artifacts, all rc=0)' + 15/15 浜х墿鐙珛澶嶆牳鍦ㄥ満锛泈rapper ExitCode 璇诲彇涓虹┖ = PS5.1 PassThru 鍙ユ焺鏈拤鎬櫀锛岄潪閾惧け璐ャ€俛ppend-only 鍕樿)
 PHASE-B GUARD=PASS
 PHASE-C launching r8 train wrapper
+PHASE-C TRAIN-RC=0
+finished=2026-10-16 12:15:54
+PHASE-D adapter ok（r=16, 166.6MB）
+PHASE-E launching export (CPU)
+PHASE-E export exit=
+ORCH-FATAL PhaseE: export rc=
