@@ -1,0 +1,47 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  44%|████▎     | 135/310 [00:00<00:00, 1339.94it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 1557.92it/s]
+[W1020 01:01:01.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 117440512 bytes (free: 0, total: 25614024704).
+[W1020 01:02:03.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2845835264 bytes (free: 0, total: 25614024704).
+[W1020 01:02:05.000000000 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 2845835264 bytes (free: 0, total: 25614024704).
+Traceback (most recent call last):
+  File "J:\Projects\llm_for_sec\scripts\secjev\train_dec.py", line 170, in <module>
+    main()
+    ~~~~^^
+  File "J:\Projects\llm_for_sec\scripts\secjev\train_dec.py", line 143, in main
+    out = model(input_ids=inp, attention_mask=att, output_hidden_states=True)
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\peft\peft_model.py", line 1923, in forward
+    return self.base_model(
+           ~~~~~~~~~~~~~~~^
+        input_ids=input_ids,
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    )
+    ^
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\peft\tuners\tuners_utils.py", line 311, in forward
+    return self.model.forward(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\transformers\utils\generic.py", line 900, in wrapper
+    output = func(self, *args, **kwargs)
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\transformers\models\qwen3\modeling_qwen3.py", line 505, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\torch\nn\modules\module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "J:\Projects\llm_for_sec\.venv\Lib\site-packages\torch\nn\modules\linear.py", line 134, in forward
+    return F.linear(input, self.weight, self.bias)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.65 GiB. GPU 0 has a total capacity of 23.85 GiB of which 0 bytes is free. Process 15328 has 17179869184.00 GiB memory in use. Process 40532 has 17179869184.00 GiB memory in use. Process 13432 has 17179869184.00 GiB memory in use. Process 22136 has 17179869184.00 GiB memory in use. Process 25428 has 17179869184.00 GiB memory in use. Process 32172 has 17179869184.00 GiB memory in use. Process 21628 has 17179869184.00 GiB memory in use. Process 24412 has 17179869184.00 GiB memory in use. Process 4548 has 17179869184.00 GiB memory in use. Process 14012 has 17179869184.00 GiB memory in use. Process 15988 has 17179869184.00 GiB memory in use. Process 31672 has 17179869184.00 GiB memory in use. Process 7804 has 17179869184.00 GiB memory in use. Process 32936 has 17179869184.00 GiB memory in use. Process 27124 has 17179869184.00 GiB memory in use. Process 20356 has 17179869184.00 GiB memory in use. Process 29676 has 17179869184.00 GiB memory in use. Process 43732 has 17179869184.00 GiB memory in use. Process 34924 has 17179869184.00 GiB memory in use. Process 14812 has 17179869184.00 GiB memory in use. Process 16188 has 17179869184.00 GiB memory in use. Process 42468 has 17179869184.00 GiB memory in use. Process 16036 has 17179869184.00 GiB memory in use. Process 34068 has 17179869184.00 GiB memory in use. Process 26052 has 17179869184.00 GiB memory in use. Process 18880 has 17179869184.00 GiB memory in use. Process 42532 has 17179869184.00 GiB memory in use. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 30.70 GiB is allocated by PyTorch, and 5.50 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

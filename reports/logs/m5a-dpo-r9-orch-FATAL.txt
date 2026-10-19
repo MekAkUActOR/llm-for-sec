@@ -1,1 +1,1 @@
-ORCH-FATAL manual-stop @ 2026-10-20 00:51:58 — PhaseA saw TRAIN-RC=-1 but regex TRAIN-RC=(\d+) missed negative; orchestrator killed by r7-runner to avoid 4h idle. Root cause: trainer externally killed ~00:47 (6/1200 steps); secjev train_dec.py took GPU 00:51:38.
+ORCH-FATAL orchestrator lock exists (previous run?) @ 2026-10-20 01:29:10

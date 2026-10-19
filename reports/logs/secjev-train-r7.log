@@ -1,0 +1,43 @@
+trainable params: 10,092,544 || all params: 606,142,464 || trainable%: 1.6650
+tokenized cache HIT (21616 rows)
+step 30/300 loss 5.0739 rows 240 elapsed 12s
+step 60/300 loss 2.6181 rows 480 elapsed 18s
+step 90/300 loss 1.9800 rows 720 elapsed 23s
+step 120/300 loss 1.8378 rows 960 elapsed 28s
+step 150/300 loss 1.6904 rows 1200 elapsed 33s
+step 180/300 loss 1.4638 rows 1440 elapsed 39s
+step 210/300 loss 1.4854 rows 1680 elapsed 44s
+step 240/300 loss 1.3026 rows 1920 elapsed 49s
+step 270/300 loss 1.1164 rows 2160 elapsed 55s
+step 300/300 loss 1.0215 rows 2400 elapsed 60s
+step 330/300 loss 1.1719 rows 2640 elapsed 65s
+step 360/300 loss 1.1577 rows 2880 elapsed 71s
+step 390/300 loss 1.0589 rows 3120 elapsed 76s
+step 420/300 loss 0.9847 rows 3360 elapsed 81s
+step 450/300 loss 0.9540 rows 3600 elapsed 87s
+step 480/300 loss 1.0055 rows 3840 elapsed 92s
+step 510/300 loss 0.8635 rows 4080 elapsed 97s
+step 540/300 loss 0.9107 rows 4320 elapsed 102s
+step 570/300 loss 0.9130 rows 4560 elapsed 108s
+step 600/300 loss 0.7399 rows 4800 elapsed 113s
+step 630/300 loss 0.5649 rows 5040 elapsed 118s
+step 660/300 loss 0.7194 rows 5280 elapsed 123s
+step 690/300 loss 0.6163 rows 5520 elapsed 128s
+step 720/300 loss 0.7191 rows 5760 elapsed 134s
+step 750/300 loss 0.6842 rows 6000 elapsed 139s
+step 780/300 loss 0.4701 rows 6240 elapsed 145s
+step 810/300 loss 0.9419 rows 6480 elapsed 150s
+step 840/300 loss 0.6964 rows 6720 elapsed 155s
+step 870/300 loss 0.6137 rows 6960 elapsed 160s
+step 900/300 loss 0.6476 rows 7200 elapsed 165s
+step 930/300 loss 0.6317 rows 7440 elapsed 170s
+step 960/300 loss 0.5337 rows 7680 elapsed 175s
+step 990/300 loss 0.4633 rows 7920 elapsed 181s
+step 1020/300 loss 0.8151 rows 8160 elapsed 187s
+step 1050/300 loss 0.5441 rows 8400 elapsed 192s
+step 1080/300 loss 0.3766 rows 8640 elapsed 197s
+step 1110/300 loss 0.4949 rows 8880 elapsed 203s
+step 1140/300 loss 0.4389 rows 9120 elapsed 208s
+step 1170/300 loss 0.5067 rows 9360 elapsed 213s
+step 1200/300 loss 0.3305 rows 9600 elapsed 219s
+TRAIN-SECJEV=OK steps=1200 rows=9600 final_loss=0.3305 elapsed=219s -> J:\Projects\llm_for_sec\checkpoints\secjev-0.6b-r2

@@ -1,1 +1,4 @@
 ORCH-START 2026-10-20 00:28:37 pid=45032（r9 三杠杆轮；Lead 2026-10-20 00:2x 指令，全同 r8 纪律）
+ORCH-START 2026-10-20 01:10:32 pid=12224（r9 三杠杆轮；Lead 2026-10-20 00:2x 指令，全同 r8 纪律）
+ORCH-FATAL PhaseA: train rc=-1 (nonzero)
+ORCH-FATAL orchestrator lock exists (previous run?)

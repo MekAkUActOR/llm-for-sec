@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 BASE = ROOT / "checkpoints" / "soup-needlefix-a050"
 DATA = ROOT / "data" / "secjev" / "decisions.jsonl"
 OUT = ROOT / "checkpoints" / "secjev-0.6b-r1"
-STEPS, BATCH, LR = 300, 16, 5e-5
+STEPS, BATCH, LR = 300, 8, 5e-5
 SEED = "secjev-20261020"
 
 SLOTS = {
@@ -129,6 +129,8 @@ def main():
     step, seen, losses = 0, 0, []
     log_every = 30
     import os
+    out_dir = os.environ.get("SECJEV_OUT", str(OUT))
+    out_dir = Path(out_dir)
     max_steps = int(os.environ.get("SECJEV_STEPS", STEPS))
     dbg = os.environ.get("SECJEV_DEBUG")
     while step < max_steps:
@@ -140,7 +142,15 @@ def main():
             inp, att, last = inp.to(dev), att.to(dev), last.to(dev)
             if dbg and step == 0:
                 print("DBG 已上 GPU", flush=True)
-            out = model(input_ids=inp, attention_mask=att, output_hidden_states=True)
+            # ★勘误 v3：全序列 lm_head logits（152K 词表 × 16×600 位）≈ 2.9GB×3 是 OOM 元凶；
+            #   决策训练只需要 hidden_states → logits_to_keep=1 把 lm_head 砍到末位。
+            fwd_kw = {"logits_to_keep": 1}
+            try:
+                out = model(input_ids=inp, attention_mask=att,
+                            output_hidden_states=True, **fwd_kw)
+            except TypeError:  # 旧 transformers 参数名
+                out = model(input_ids=inp, attention_mask=att,
+                            output_hidden_states=True, num_logits_to_keep=1)
             if dbg and step == 0:
                 print(f"DBG 前向完成 hidden={tuple(out.hidden_states[-1].shape)}", flush=True)
             h = out.hidden_states[-1][torch.arange(inp.size(0), device=dev), last].float()
@@ -154,16 +164,16 @@ def main():
             if step % log_every == 0:
                 print(f"step {step}/{STEPS} loss {sum(losses[-log_every:])/log_every:.4f} "
                       f"rows {seen} elapsed {time.time()-t0:.0f}s", flush=True)
-    OUT.mkdir(parents=True, exist_ok=True)
-    model.save_pretrained(OUT / "adapter")
-    torch.save(head.state_dict(), OUT / "head.pt")
-    (OUT / "slots.json").write_text(json.dumps({
-        "slots": SLOTS, "base": str(BASE), "steps": STEPS, "batch": BATCH, "lr": LR,
+    out_dir.mkdir(parents=True, exist_ok=True)
+    model.save_pretrained(out_dir / "adapter")
+    torch.save(head.state_dict(), out_dir / "head.pt")
+    (out_dir / "slots.json").write_text(json.dumps({
+        "slots": SLOTS, "base": str(BASE), "steps": max_steps, "batch": BATCH, "lr": LR,
         "rows_total": len(rows), "rows_seen": seen, "seed": SEED,
         "final_loss": round(sum(losses[-30:]) / 30, 4),
     }, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"TRAIN-SECJEV=OK steps={step} rows={seen} final_loss={sum(losses[-30:])/30:.4f} "
-          f"elapsed={time.time()-t0:.0f}s -> {OUT}")
+          f"elapsed={time.time()-t0:.0f}s -> {out_dir}")
 
 
 if __name__ == "__main__":
