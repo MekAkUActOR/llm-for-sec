@@ -1,0 +1,379 @@
+[INFO|hub.py:364] 2026-10-20 00:27:07,950 >> Offline mode: forcing local_files_only=True
+[INFO|configuration_utils.py:778] 2026-10-20 00:27:07,956 >> loading configuration file J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master\config.json
+[INFO|configuration_utils.py:856] 2026-10-20 00:27:07,961 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 12288,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 40960,
+  "max_window_layers": 36,
+  "model_type": "qwen3",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 8,
+  "pad_token_id": null,
+  "rms_norm_eps": 1e-06,
+  "rope_parameters": {
+    "rope_theta": 1000000,
+    "rope_type": "default"
+  },
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "5.8.0",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|hub.py:364] 2026-10-20 00:27:07,961 >> Offline mode: forcing local_files_only=True
+[INFO|tokenization_utils_base.py:1595] 2026-10-20 00:27:07,969 >> Offline mode: forcing local_files_only=True
+[INFO|hub.py:364] 2026-10-20 00:27:08,186 >> Offline mode: forcing local_files_only=True
+[INFO|hub.py:364] 2026-10-20 00:27:08,187 >> Offline mode: forcing local_files_only=True
+[INFO|hub.py:364] 2026-10-20 00:27:08,187 >> Offline mode: forcing local_files_only=True
+[INFO|hub.py:364] 2026-10-20 00:27:08,187 >> Offline mode: forcing local_files_only=True
+[INFO|hub.py:364] 2026-10-20 00:27:08,188 >> Offline mode: forcing local_files_only=True
+[INFO|hub.py:364] 2026-10-20 00:27:08,188 >> Offline mode: forcing local_files_only=True
+[INFO|configuration_utils.py:778] 2026-10-20 00:27:08,188 >> loading configuration file J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master\config.json
+[INFO|configuration_utils.py:856] 2026-10-20 00:27:08,189 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 12288,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 40960,
+  "max_window_layers": 36,
+  "model_type": "qwen3",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 8,
+  "pad_token_id": null,
+  "rms_norm_eps": 1e-06,
+  "rope_parameters": {
+    "rope_theta": 1000000,
+    "rope_type": "default"
+  },
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "5.8.0",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|hub.py:364] 2026-10-20 00:27:08,190 >> Offline mode: forcing local_files_only=True
+[INFO|configuration_utils.py:778] 2026-10-20 00:27:08,190 >> loading configuration file J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master\config.json
+[INFO|configuration_utils.py:856] 2026-10-20 00:27:08,191 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 12288,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 40960,
+  "max_window_layers": 36,
+  "model_type": "qwen3",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 8,
+  "pad_token_id": null,
+  "rms_norm_eps": 1e-06,
+  "rope_parameters": {
+    "rope_theta": 1000000,
+    "rope_type": "default"
+  },
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "5.8.0",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|hub.py:364] 2026-10-20 00:27:08,191 >> Offline mode: forcing local_files_only=True
+[INFO|tokenization_utils_base.py:1595] 2026-10-20 00:27:08,191 >> Offline mode: forcing local_files_only=True
+Converting format of dataset (num_proc=4):   0%|          | 0/28842 [00:00<?, ? examples/s]Converting format of dataset (num_proc=4):   2%|▏         | 720/28842 [00:06<04:18, 108.97 examples/s]Converting format of dataset (num_proc=4):  30%|██▉       | 8610/28842 [00:06<00:11, 1773.55 examples/s]Converting format of dataset (num_proc=4):  46%|████▌     | 13207/28842 [00:06<00:05, 2925.09 examples/s]Converting format of dataset (num_proc=4):  68%|██████▊   | 19565/28842 [00:07<00:01, 5252.36 examples/s]Converting format of dataset (num_proc=4):  89%|████████▊ | 25557/28842 [00:07<00:00, 8089.52 examples/s]Converting format of dataset (num_proc=4): 100%|██████████| 28842/28842 [00:09<00:00, 3009.79 examples/s]
+Converting format of dataset (num_proc=4):   0%|          | 0/2736 [00:00<?, ? examples/s]Converting format of dataset (num_proc=4):  25%|██▌       | 684/2736 [00:06<00:19, 105.99 examples/s]Converting format of dataset (num_proc=4): 100%|██████████| 2736/2736 [00:08<00:00, 309.22 examples/s]
+Converting format of dataset (num_proc=4):   0%|          | 0/2880 [00:00<?, ? examples/s]Converting format of dataset (num_proc=4):  25%|██▌       | 720/2880 [00:06<00:19, 112.96 examples/s]Converting format of dataset (num_proc=4): 100%|██████████| 2880/2880 [00:08<00:00, 329.14 examples/s]
+Converting format of dataset (num_proc=4):   0%|          | 0/5976 [00:00<?, ? examples/s]Converting format of dataset (num_proc=4):  15%|█▌        | 913/5976 [00:06<00:35, 142.05 examples/s]Converting format of dataset (num_proc=4): 100%|██████████| 5976/5976 [00:08<00:00, 678.96 examples/s]
+Parameter 'function'=<bound method PairwiseDatasetProcessor.preprocess_dataset of PairwiseDatasetProcessor(template=Template(format_user=StringFormatter(slots=['<|im_start|>user\n{{content}}<|im_end|>\n<|im_start|>assistant\n'], tool_format=None), format_assistant=StringFormatter(slots=['{{content}}<|im_end|>\n'], tool_format=None), format_system=StringFormatter(slots=['<|im_start|>system\n{{content}}<|im_end|>\n'], tool_format=None), format_function=FunctionFormatter(slots=['{{content}}<|im_end|>\n'], tool_format='qwen'), format_observation=StringFormatter(slots=['<|im_start|>user\n<tool_response>\n{{content}}\n</tool_response><|im_end|>\n<|im_start|>assistant\n'], tool_format=None), format_tools=ToolFormatter(slots=[], tool_format='qwen'), format_prefix=EmptyFormatter(slots=[], tool_format=None), default_system='', stop_words=['<|im_end|>'], thought_words=('<think>\n', '\n</think>\n\n'), tool_call_words=('<tool_call>', '</tool_call>'), efficient_eos=False, replace_eos=True, replace_jinja_template=False, enable_thinking=True, preserve_thinking=False, mm_plugin=BasePlugin(image_token=None, video_token=None, audio_token=None, expand_mm_tokens=True)), tokenizer=Qwen2Tokenizer(name_or_path='J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master', vocab_size=151643, model_max_length=131072, padding_side='right', truncation_side='right', special_tokens={'eos_token': '<|im_end|>', 'pad_token': '<|endoftext|>'}, added_tokens_decoder={
+	151643: AddedToken("<|endoftext|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151644: AddedToken("<|im_start|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151645: AddedToken("<|im_end|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151646: AddedToken("<|object_ref_start|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151647: AddedToken("<|object_ref_end|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151648: AddedToken("<|box_start|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151649: AddedToken("<|box_end|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151650: AddedToken("<|quad_start|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151651: AddedToken("<|quad_end|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151652: AddedToken("<|vision_start|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151653: AddedToken("<|vision_end|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151654: AddedToken("<|vision_pad|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151655: AddedToken("<|image_pad|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151656: AddedToken("<|video_pad|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=True),
+	151657: AddedToken("<tool_call>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151658: AddedToken("</tool_call>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151659: AddedToken("<|fim_prefix|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151660: AddedToken("<|fim_middle|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151661: AddedToken("<|fim_suffix|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151662: AddedToken("<|fim_pad|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151663: AddedToken("<|repo_name|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151664: AddedToken("<|file_sep|>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151665: AddedToken("<tool_response>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151666: AddedToken("</tool_response>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151667: AddedToken("<think>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+	151668: AddedToken("</think>", rstrip=False, lstrip=False, single_word=False, normalized=False, special=False),
+}), processor=None, data_args=DataArguments(template='qwen3_nothink', dataset=['sec_dpo_m5a_r9_base_m4capfix', 'sec_dpo_m5a_r9_p16_benign', 'sec_dpo_m5a_r9_p16_malicious', 'sec_dpo_m5a_r9_p16_r9paired'], eval_dataset=None, dataset_dir='J:\\Projects\\llm_for_sec\\data\\m5a-r9-run', media_dir='J:\\Projects\\llm_for_sec\\data\\m5a-r9-run', cutoff_len=1024, train_on_prompt=False, mask_history=False, streaming=False, buffer_size=16384, mix_strategy='concat', interleave_probs=None, overwrite_cache=True, preprocessing_batch_size=1000, preprocessing_num_workers=4, max_samples=None, eval_num_beams=None, ignore_pad_token_for_loss=True, val_size=0.0, eval_on_each_dataset=False, packing=False, neat_packing=False, tool_format=None, default_system=None, enable_thinking=True, reasoning_effort='xhigh', preserve_thinking=None, tokenized_path=None, data_shared_file_system=False))> of the transform datasets.arrow_dataset.Dataset._map_single couldn't be hashed properly, a random hash was used instead. Make sure your transforms and parameters are serializable with pickle or dill for the dataset fingerprinting and caching to work. If you reuse this transform, the caching mechanism will consider it to be different from the previous calls and recompute everything. This warning is only showed once. Subsequent hashing failures won't be showed.
+Running tokenizer on dataset (num_proc=4):   0%|          | 0/40434 [00:00<?, ? examples/s]Running tokenizer on dataset (num_proc=4):   2%|▏         | 1000/40434 [00:08<05:41, 115.64 examples/s]Running tokenizer on dataset (num_proc=4):   5%|▍         | 2000/40434 [00:09<02:38, 242.26 examples/s]Running tokenizer on dataset (num_proc=4):   7%|▋         | 3000/40434 [00:09<01:28, 422.75 examples/s]Running tokenizer on dataset (num_proc=4):  10%|▉         | 4000/40434 [00:10<01:01, 592.16 examples/s]Running tokenizer on dataset (num_proc=4):  12%|█▏        | 5000/40434 [00:10<00:41, 844.54 examples/s]Running tokenizer on dataset (num_proc=4):  17%|█▋        | 7000/40434 [00:11<00:27, 1202.62 examples/s]Running tokenizer on dataset (num_proc=4):  22%|██▏       | 9000/40434 [00:11<00:15, 1986.95 examples/s]Running tokenizer on dataset (num_proc=4):  27%|██▋       | 11000/40434 [00:12<00:14, 1994.28 examples/s]Running tokenizer on dataset (num_proc=4):  32%|███▏      | 13000/40434 [00:13<00:10, 2534.77 examples/s]Running tokenizer on dataset (num_proc=4):  35%|███▍      | 14000/40434 [00:13<00:11, 2258.26 examples/s]Running tokenizer on dataset (num_proc=4):  42%|████▏     | 17000/40434 [00:14<00:08, 2615.18 examples/s]Running tokenizer on dataset (num_proc=4):  45%|████▍     | 18000/40434 [00:15<00:07, 2888.85 examples/s]Running tokenizer on dataset (num_proc=4):  47%|████▋     | 19000/40434 [00:15<00:07, 2848.56 examples/s]Running tokenizer on dataset (num_proc=4):  49%|████▉     | 20000/40434 [00:15<00:06, 2988.18 examples/s]Running tokenizer on dataset (num_proc=4):  52%|█████▏    | 21000/40434 [00:15<00:06, 3235.62 examples/s]Running tokenizer on dataset (num_proc=4):  54%|█████▍    | 22000/40434 [00:16<00:04, 3726.91 examples/s]Running tokenizer on dataset (num_proc=4):  57%|█████▋    | 23000/40434 [00:16<00:07, 2297.10 examples/s]Running tokenizer on dataset (num_proc=4):  59%|█████▉    | 24000/40434 [00:17<00:05, 2831.89 examples/s]Running tokenizer on dataset (num_proc=4):  62%|██████▏   | 25000/40434 [00:17<00:04, 3553.76 examples/s]Running tokenizer on dataset (num_proc=4):  64%|██████▍   | 26000/40434 [00:17<00:04, 3596.49 examples/s]Running tokenizer on dataset (num_proc=4):  67%|██████▋   | 27000/40434 [00:17<00:04, 2981.41 examples/s]Running tokenizer on dataset (num_proc=4):  72%|███████▏  | 29000/40434 [00:18<00:02, 4341.94 examples/s]Running tokenizer on dataset (num_proc=4):  74%|███████▍  | 30109/40434 [00:18<00:03, 3312.96 examples/s]Running tokenizer on dataset (num_proc=4):  77%|███████▋  | 31109/40434 [00:18<00:02, 3648.68 examples/s]Running tokenizer on dataset (num_proc=4):  80%|███████▉  | 32218/40434 [00:19<00:02, 2976.70 examples/s]Running tokenizer on dataset (num_proc=4):  85%|████████▍ | 34218/40434 [00:20<00:02, 2896.39 examples/s]Running tokenizer on dataset (num_proc=4):  87%|████████▋ | 35218/40434 [00:20<00:02, 2226.12 examples/s]Running tokenizer on dataset (num_proc=4):  90%|████████▉ | 36218/40434 [00:21<00:02, 2099.35 examples/s]Running tokenizer on dataset (num_proc=4):  92%|█████████▏| 37326/40434 [00:21<00:01, 2669.48 examples/s]Running tokenizer on dataset (num_proc=4):  95%|█████████▍| 38326/40434 [00:22<00:01, 1613.87 examples/s]Running tokenizer on dataset (num_proc=4):  97%|█████████▋| 39326/40434 [00:24<00:00, 1291.12 examples/s]Running tokenizer on dataset (num_proc=4): 100%|█████████▉| 40326/40434 [00:25<00:00, 1200.62 examples/s]Running tokenizer on dataset (num_proc=4): 100%|██████████| 40434/40434 [00:26<00:00, 1527.84 examples/s]
+[INFO|hub.py:364] 2026-10-20 00:28:11,163 >> Offline mode: forcing local_files_only=True
+[INFO|configuration_utils.py:778] 2026-10-20 00:28:11,163 >> loading configuration file J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master\config.json
+[INFO|configuration_utils.py:856] 2026-10-20 00:28:11,164 >> Model config Qwen3Config {
+  "architectures": [
+    "Qwen3ForCausalLM"
+  ],
+  "attention_bias": false,
+  "attention_dropout": 0.0,
+  "bos_token_id": 151643,
+  "dtype": "bfloat16",
+  "eos_token_id": 151645,
+  "head_dim": 128,
+  "hidden_act": "silu",
+  "hidden_size": 4096,
+  "initializer_range": 0.02,
+  "intermediate_size": 12288,
+  "layer_types": [
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention",
+    "full_attention"
+  ],
+  "max_position_embeddings": 40960,
+  "max_window_layers": 36,
+  "model_type": "qwen3",
+  "num_attention_heads": 32,
+  "num_hidden_layers": 36,
+  "num_key_value_heads": 8,
+  "pad_token_id": null,
+  "rms_norm_eps": 1e-06,
+  "rope_parameters": {
+    "rope_theta": 1000000,
+    "rope_type": "default"
+  },
+  "sliding_window": null,
+  "tie_word_embeddings": false,
+  "transformers_version": "5.8.0",
+  "use_cache": true,
+  "use_sliding_window": false,
+  "vocab_size": 151936
+}
+
+[INFO|modeling_utils.py:766] 2026-10-20 00:28:11,622 >> loading weights file J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master\model.safetensors.index.json
+[INFO|modeling_utils.py:839] 2026-10-20 00:28:11,628 >> Will use dtype=torch.bfloat16 as defined in model's config object
+[INFO|configuration_utils.py:1086] 2026-10-20 00:28:11,628 >> Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "output_attentions": false,
+  "output_hidden_states": false,
+  "use_cache": false
+}
+
+Loading weights:   0%|          | 0/399 [00:00<?, ?it/s]Loading weights:   0%|          | 1/399 [00:00<05:54,  1.12it/s]Loading weights:   1%|          | 2/399 [00:01<05:32,  1.19it/s]Loading weights:   1%|▏         | 5/399 [00:01<01:46,  3.70it/s]Loading weights:   3%|▎         | 10/399 [00:01<00:44,  8.79it/s]Loading weights:   4%|▍         | 16/399 [00:02<00:26, 14.56it/s]Loading weights:   6%|▌         | 22/399 [00:02<00:18, 20.86it/s]Loading weights:   7%|▋         | 27/399 [00:02<00:14, 24.92it/s]Loading weights:   9%|▊         | 34/399 [00:02<00:11, 32.97it/s]Loading weights:  10%|▉         | 39/399 [00:02<00:11, 30.91it/s]Loading weights:  12%|█▏        | 48/399 [00:02<00:09, 37.29it/s]Loading weights:  14%|█▍        | 56/399 [00:02<00:07, 45.20it/s]Loading weights:  16%|█▌        | 62/399 [00:03<00:08, 40.61it/s]Loading weights:  18%|█▊        | 70/399 [00:03<00:06, 47.53it/s]Loading weights:  19%|█▉        | 76/399 [00:03<00:07, 45.38it/s]Loading weights:  21%|██        | 82/399 [00:03<00:07, 43.93it/s]Loading weights:  22%|██▏       | 89/399 [00:03<00:06, 49.09it/s]Loading weights:  24%|██▍       | 95/399 [00:03<00:07, 43.31it/s]Loading weights:  26%|██▌       | 102/399 [00:03<00:06, 48.53it/s]Loading weights:  27%|██▋       | 108/399 [00:04<00:05, 49.04it/s]Loading weights:  29%|██▊       | 114/399 [00:04<00:05, 50.80it/s]Loading weights:  30%|███       | 120/399 [00:04<00:05, 47.81it/s]Loading weights:  31%|███▏      | 125/399 [00:04<00:06, 43.69it/s]Loading weights:  33%|███▎      | 133/399 [00:04<00:05, 51.88it/s]Loading weights:  35%|███▍      | 139/399 [00:04<00:05, 44.94it/s]Loading weights:  37%|███▋      | 147/399 [00:04<00:05, 45.83it/s]Loading weights:  39%|███▉      | 155/399 [00:04<00:04, 52.89it/s]Loading weights:  40%|████      | 161/399 [00:05<00:05, 45.38it/s]Loading weights:  42%|████▏     | 169/399 [00:05<00:04, 52.16it/s]Loading weights:  44%|████▍     | 175/399 [00:05<00:04, 48.98it/s]Loading weights:  45%|████▌     | 181/399 [00:05<00:04, 47.01it/s]Loading weights:  47%|████▋     | 188/399 [00:05<00:04, 51.99it/s]Loading weights:  49%|████▊     | 194/399 [00:05<00:04, 44.42it/s]Loading weights:  51%|█████     | 202/399 [00:05<00:03, 51.89it/s]Loading weights:  52%|█████▏    | 208/399 [00:06<00:03, 48.94it/s]Loading weights:  54%|█████▎    | 214/399 [00:06<00:03, 46.59it/s]Loading weights:  55%|█████▌    | 220/399 [00:06<00:03, 49.44it/s]Loading weights:  57%|█████▋    | 226/399 [00:06<00:03, 43.58it/s]Loading weights:  59%|█████▉    | 235/399 [00:06<00:03, 47.42it/s]Loading weights:  61%|██████    | 243/399 [00:06<00:02, 53.99it/s]Loading weights:  62%|██████▏   | 249/399 [00:06<00:03, 46.82it/s]Loading weights:  64%|██████▍   | 257/399 [00:07<00:02, 52.78it/s]Loading weights:  66%|██████▌   | 263/399 [00:07<00:02, 48.63it/s]Loading weights:  67%|██████▋   | 269/399 [00:07<00:02, 45.96it/s]Loading weights:  69%|██████▉   | 276/399 [00:07<00:02, 50.62it/s]Loading weights:  71%|███████   | 282/399 [00:07<00:02, 44.60it/s]Loading weights:  73%|███████▎  | 290/399 [00:07<00:02, 45.80it/s]Loading weights:  75%|███████▍  | 299/399 [00:07<00:01, 55.03it/s]Loading weights:  76%|███████▋  | 305/399 [00:08<00:01, 47.90it/s]Loading weights:  78%|███████▊  | 312/399 [00:08<00:01, 52.36it/s]Loading weights:  80%|███████▉  | 318/399 [00:08<00:01, 50.12it/s]Loading weights:  81%|████████  | 324/399 [00:08<00:01, 47.74it/s]Loading weights:  83%|████████▎ | 330/399 [00:08<00:01, 49.67it/s]Loading weights:  84%|████████▍ | 336/399 [00:08<00:01, 43.62it/s]Loading weights:  86%|████████▋ | 345/399 [00:08<00:01, 53.95it/s]Loading weights:  88%|████████▊ | 351/399 [00:09<00:00, 50.44it/s]Loading weights:  89%|████████▉ | 357/399 [00:09<00:00, 47.99it/s]Loading weights:  91%|█████████ | 364/399 [00:09<00:00, 52.34it/s]Loading weights:  93%|█████████▎| 370/399 [00:09<00:00, 45.31it/s]Loading weights:  95%|█████████▍| 378/399 [00:09<00:00, 49.38it/s]Loading weights:  96%|█████████▌| 384/399 [00:09<00:00, 46.98it/s]Loading weights:  97%|█████████▋| 389/399 [00:09<00:00, 43.00it/s]Loading weights:  99%|█████████▉| 397/399 [00:09<00:00, 51.08it/s]Loading weights: 100%|██████████| 399/399 [00:09<00:00, 39.99it/s]
+[INFO|configuration_utils.py:1037] 2026-10-20 00:28:23,168 >> loading configuration file J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master\generation_config.json
+[INFO|configuration_utils.py:1086] 2026-10-20 00:28:23,168 >> Generate config GenerationConfig {
+  "bos_token_id": 151643,
+  "do_sample": true,
+  "eos_token_id": [
+    151645,
+    151643
+  ],
+  "pad_token_id": 151643,
+  "temperature": 0.6,
+  "top_k": 20,
+  "top_p": 0.95
+}
+
+J:\Projects\llm_for_sec\.venv\Lib\site-packages\trl\trainer\dpo_trainer.py:559: UserWarning: The `padding_value` property is deprecated and will be removed in version 0.26.0. Please use `pad_token_id` instead.
+  warnings.warn(
+[INFO|trainer.py:680] 2026-10-20 00:28:25,668 >> max_steps is given, it will override any value given in num_train_epochs
+[WARNING|trainer_utils.py:1238] 2026-10-20 00:28:25,673 >> The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None, 'pad_token_id': 151643}.
+[INFO|trainer.py:1212] 2026-10-20 00:28:25,895 >> skipped Embedding(151936, 4096): 593.5M params
+[INFO|trainer.py:1215] 2026-10-20 00:28:25,898 >> skipped: 593.5M params
+[INFO|trainer.py:1469] 2026-10-20 00:28:25,918 >> ***** Running training *****
+[INFO|trainer.py:1470] 2026-10-20 00:28:25,918 >>   Num examples = 40,434
+[INFO|trainer.py:1471] 2026-10-20 00:28:25,918 >>   Num Epochs = 1
+[INFO|trainer.py:1472] 2026-10-20 00:28:25,919 >>   Num update steps per epoch = 2,528
+[INFO|trainer.py:1473] 2026-10-20 00:28:25,919 >>   Instantaneous batch size per device = 1
+[INFO|trainer.py:1476] 2026-10-20 00:28:25,919 >>   Total train batch size (w. parallel, distributed & accumulation) = 16
+[INFO|trainer.py:1477] 2026-10-20 00:28:25,919 >>   Gradient Accumulation steps = 16
+[INFO|trainer.py:1478] 2026-10-20 00:28:25,919 >>   Total optimization steps = 1,200
+[INFO|trainer.py:1479] 2026-10-20 00:28:25,922 >>   Number of trainable parameters = 174,587,904
+  0%|          | 0/1200 [00:00<?, ?it/s]  0%|          | 1/1200 [00:35<11:46:54, 35.37s/it]  0%|          | 2/1200 [02:12<23:48:25, 71.54s/it]  0%|          | 3/1200 [04:10<30:53:46, 92.92s/it]  0%|          | 4/1200 [05:34<29:43:18, 89.46s/it]  0%|          | 5/1200 [06:30<25:40:21, 77.34s/it]                                                     0%|          | 5/1200 [06:30<25:40:21, 77.34s/it]  0%|          | 6/1200 [18:17<96:39:20, 291.42s/it]

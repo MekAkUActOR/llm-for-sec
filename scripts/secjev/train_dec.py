@@ -60,15 +60,31 @@ class DecHead(nn.Module):
 
 
 class Rows(Dataset):
+    """优先读 tokenized.pt 缓存（ids, 四组标签名）；无缓存回退在线分词（慢）。"""
+
     def __init__(self, rows, tok):
         self.rows, self.tok = rows, tok
+        cache = ROOT / "data" / "secjev" / "tokenized.pt"
+        self.cache = torch.load(cache) if cache.exists() else None
+        if self.cache is not None:
+            assert len(self.cache) == len(rows), "缓存行数与语料不符"
+            print(f"tokenized cache HIT ({len(self.cache)} rows)")
 
     def __len__(self):
         return len(self.rows)
 
     def __getitem__(self, i):
         r = self.rows[i]
-        text = self.tok.apply_chat_template(r["conversations"], tokenize=False, add_generation_prompt=True)
+        if self.cache is not None:
+            ids, lab_names = self.cache[i]
+            ids = torch.tensor(ids, dtype=torch.long)
+            labs = {g: SLOTS[g].index(n) for g, n in zip(SLOTS, lab_names)}
+            return ids, labs
+        # 在线路径（勘误 v2：sharegpt {from,value} → {role,content}；v1 空模板教训）
+        ROLE = {"system": "system", "user": "user", "human": "user",
+                "gpt": "assistant", "assistant": "assistant"}
+        conv = [{"role": ROLE[m["from"]], "content": m["value"]} for m in r["conversations"]]
+        text = self.tok.apply_chat_template(conv, tokenize=False, add_generation_prompt=True)
         ids = self.tok(text, add_special_tokens=False, return_tensors="pt").input_ids[0]
         d = r["decision"]
         labs = {g: SLOTS[g].index(d[g]) for g in SLOTS}
@@ -112,12 +128,21 @@ def main():
     model.train()
     step, seen, losses = 0, 0, []
     log_every = 30
-    while step < STEPS:
+    import os
+    max_steps = int(os.environ.get("SECJEV_STEPS", STEPS))
+    dbg = os.environ.get("SECJEV_DEBUG")
+    while step < max_steps:
         for inp, att, last, labs in dl:
-            if step >= STEPS:
+            if step >= max_steps:
                 break
+            if dbg and step == 0:
+                print(f"DBG batch 就绪 inp={tuple(inp.shape)} att={att.sum(1).tolist()[:4]}", flush=True)
             inp, att, last = inp.to(dev), att.to(dev), last.to(dev)
+            if dbg and step == 0:
+                print("DBG 已上 GPU", flush=True)
             out = model(input_ids=inp, attention_mask=att, output_hidden_states=True)
+            if dbg and step == 0:
+                print(f"DBG 前向完成 hidden={tuple(out.hidden_states[-1].shape)}", flush=True)
             h = out.hidden_states[-1][torch.arange(inp.size(0), device=dev), last].float()
             loss = sum(nn.functional.cross_entropy(head(h)[g], labs[g].to(dev)) for g in SLOTS)
             opt.zero_grad(set_to_none=True)

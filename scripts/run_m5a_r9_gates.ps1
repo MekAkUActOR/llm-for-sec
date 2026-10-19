@@ -1,4 +1,4 @@
-# M5A-R9 门禁链（8 步，照抄 m5a-r8 流程/仪器/命名/判分口径；产物名 m5a-dpo-r9）
+﻿# M5A-R9 门禁链（8 步，照抄 m5a-r8 流程/仪器/命名/判分口径；产物名 m5a-dpo-r9）
 # 纪律：fail-closed（任一步 rc!=0 即中止）；每 GPU 步前 Guard + 重 worker=0 双确认；
 # 启动前 PREFLIGHT 15 产物 NOT-EXIST + 冻结仪器 sha 复验。
 # ═══ R9 对 r8 模板的全部偏离登记（append-only 勘误；其余逐字替换）═══
