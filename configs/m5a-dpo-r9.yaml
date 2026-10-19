@@ -1,0 +1,56 @@
+# m5a-dpo-r9 = round-9 8B 三杠杆轮（rank64 + 剂量1200 + 对抗形式对/amb减半；r9-build-brief v2，Y1-Y4 预测冻结判读不回改）。
+# 科学问题：r8（rank16/300步）ASR 78.57 / 契约 0.0 的根因 = 适配器容量不足 + 剂量饥饿（300步×16=4,800
+# examples 仅消费 11.9% 数据）+ OOD 覆盖面缺。r9 三杠杆齐上：
+# 本件 = configs/m5a-dpo-r8.yaml 复制，非注释功能行 diff 恰 6 行（登记如下）：
+#   1. lora_rank：16 → 64（α=2r 惯例 → 128；~174M/8.23B=2.1% 参数；契约/格式容量杠杆）
+#   2. lora_alpha：32 → 128
+#   3. max_steps：300 → 1200（16×1200=19,200 examples=47% 数据消费，剂量杠杆）
+#   4. dataset_dir：m5a-r6-run → m5a-r9-run（r9 数据构成：m4 原版 28,842 + r3 良 2,736 + r3 恶 2,880
+#      + p16_r9_paired 5,976[F5 4,800 + amb 减半 600 + R9X 对抗形式对 576] = 40,434 行，smoke 0 坏行）
+#   5. dataset：r6 四名 → r9 四名（m4capfix/benign/malicious 原套 + r9paired 换血）
+#   6. output_dir：r8 → r9
+# 其余零改动（template qwen3_nothink / batch 1×16 / lr 5e-5 cosine warmup20 / sigmoid β0.1 /
+#   bf16 / adamw_bnb_8bit / gradient_checkpointing true / save 50+limit20）。
+# ⚠ VRAM 预估 ~24GB 边缘（rank64），梯度检查点保持；若 OOM → 回退 rank48 登记后重跑。
+# ⚠ 门禁加载约定（同 r7/r8）：训练后 export 合并至 checkpoints\qwen3-8b-sec-m5a-dpo-r9-merged 再入链。
+# ⚠ 时序纪律：GPU 串行铁律——发射前 stop_eval_procs.ps1 -Guard。
+# 归因（brief §四）：契约→rank+剂量；ASR/jb→对抗对+m4消费量+剂量；ORR/deflect→amb减半。
+# 谱系：r9 = 8B 谱系第四臂（r7 Base 对照 / r8 对齐裸配 / r9 三杠杆）；对照表扩至十六臂。
+model_name_or_path: J:\Projects\llm_for_sec\.cache\modelscope-dl\models\Qwen--Qwen3-8B\snapshots\master
+stage: dpo
+do_train: true
+finetuning_type: lora
+lora_rank: 64
+lora_alpha: 128
+lora_dropout: 0.05
+lora_target: all
+template: qwen3_nothink
+
+dataset_dir: J:\Projects\llm_for_sec\data\m5a-r9-run
+dataset: sec_dpo_m5a_r9_base_m4capfix,sec_dpo_m5a_r9_p16_benign,sec_dpo_m5a_r9_p16_malicious,sec_dpo_m5a_r9_p16_r9paired
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 4
+dataloader_num_workers: 0
+
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 16
+learning_rate: 5.0e-5
+# ★ r9 剂量杠杆：1,200 步（r6/r7/r8 均 300 步仅消费 11.9% 数据 → 47%）
+max_steps: 1200
+lr_scheduler_type: cosine
+warmup_steps: 20
+weight_decay: 0.0
+optim: adamw_bnb_8bit
+gradient_checkpointing: true
+
+pref_loss: sigmoid
+pref_beta: 0.1
+
+bf16: true
+logging_steps: 5
+save_steps: 50
+save_total_limit: 20
+plot_loss: true
+report_to: none
+output_dir: J:\Projects\llm_for_sec\checkpoints\qwen3-8b-sec-m5a-dpo-r9
