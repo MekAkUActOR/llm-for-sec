@@ -207,14 +207,16 @@
     "T1Detail": {
       "type": "object",
       "properties": {
-        "risk_domain": { "type": "string", "description": "风险域子类（对齐 r9 payload pool 域；枚举由 dataeng 在 manifest 登记，schema 后续 minor 版收严）" }
+        "risk_domain": { "type": "string", "description": "风险域子类（对齐 r9 payload pool 域；枚举由 dataeng 在 manifest 登记，schema 后续 minor 版收严）" },
+        "m4_verdict": { "type": "string", "description": "legacy 行的 m4 verdict 溯源（adr-1b §6.10：conditional → label neg + 此字段留痕）" }
       },
       "additionalProperties": false
     },
     "T2Detail": {
       "type": "object",
       "properties": {
-        "framework": { "enum": ["roleplay", "hypothetical", "multiturn", "authority", "encoding", "other"] }
+        "framework": { "enum": ["roleplay", "hypothetical", "multiturn", "authority", "encoding", "other"] },
+        "m4_verdict": { "type": "string", "description": "legacy 行的 m4 verdict 溯源（adr-1b §6.10：conditional → label neg + 此字段留痕）" }
       },
       "additionalProperties": false
     },
@@ -230,7 +232,8 @@
           "type": ["integer", "null"],
           "minimum": 1,
           "description": "multiturn 收割轮号（1-based）"
-        }
+        },
+        "m4_verdict": { "type": "string", "description": "legacy 行的 m4 verdict 溯源（adr-1b §6.10：conditional → label neg + 此字段留痕）" }
       },
       "additionalProperties": false
     },
@@ -269,6 +272,10 @@
         "envelope": {
           "$ref": "#/$defs/EnvelopeStyle",
           "description": "该行生成时的载体块变体（gold 侧标记，与 input.carrier.envelope_style 一致；T5 评测分段用）"
+        },
+        "m4_verdict": {
+          "type": "string",
+          "description": "legacy 行的 m4 verdict 溯源（adr-1b §6.10：非 T6 任务上 conditional verdict → 该任务 neg + 此字段保留条件性，如 \"conditional\"）。D-12 裁定落地键"
         }
       },
       "additionalProperties": false

@@ -124,27 +124,65 @@ def audit_counts(files: list[Path], fails: list[str]) -> dict:
 
 
 def audit_eval_family(files: list[Path], fails: list[str]) -> None:
-    need = [f for f in files
-            if ("dev-mirror" in f.parts
-                or (f.parent.name == "pool" and f.stem == "dev"))]
-    for f in need:
-        n = miss = bad = 0
-        with open(f, encoding="utf-8-sig") as fh:
-            for line in fh:
-                line = line.strip()
-                if not line:
-                    continue
-                n += 1
-                ef = ((json.loads(line).get("meta") or {}).get("eval_family"))
-                if ef is None:
-                    miss += 1
-                elif ef not in ("benign", "challenge", "ood"):
-                    bad += 1
-        ok = miss == 0 and bad == 0
-        print(f"  [{'PASS' if ok else 'FAIL'}] eval_family {f.relative_to(DM)}: "
-              f"rows={n} missing={miss} bad={bad}")
-        if miss or bad:
-            fails.append(f"eval_family:{f.name}: missing={miss} bad={bad}")
+    """dev-mirror 三文件 100% 必带；pool/dev 仅镜像子集（flags.challenge/ood
+    行 + benign 家族行）必带——常规任务 dev 行（含攻击正例）不属于任何
+    eval_family，不要求（arch 裁定口径：定标家族材料）。"""
+    for f in files:
+        if "dev-mirror" in f.parts:
+            n = miss = bad = 0
+            with open(f, encoding="utf-8-sig") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    n += 1
+                    ef = ((json.loads(line).get("meta") or {}).get("eval_family"))
+                    if ef is None:
+                        miss += 1
+                    elif ef not in ("benign", "challenge", "ood"):
+                        bad += 1
+            ok = miss == 0 and bad == 0
+            print(f"  [{'PASS' if ok else 'FAIL'}] eval_family {f.relative_to(DM)}: "
+                  f"rows={n} missing={miss} bad={bad}")
+            if miss or bad:
+                fails.append(f"eval_family:{f.name}: missing={miss} bad={bad}")
+        elif f.parent.name == "pool" and f.stem == "dev":
+            n = flagged_bad = 0
+            ef_benign = ef_challenge = ef_ood = 0
+            flags_challenge = flags_ood = 0
+            with open(f, encoding="utf-8-sig") as fh:
+                for line in fh:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    n += 1
+                    row = json.loads(line)
+                    fl = row.get("flags") or {}
+                    ef = ((row.get("meta") or {}).get("eval_family"))
+                    if fl.get("challenge"):
+                        flags_challenge += 1
+                        if ef != "challenge":
+                            flagged_bad += 1
+                    if fl.get("ood"):
+                        flags_ood += 1
+                        if ef != "ood":
+                            flagged_bad += 1
+                    if ef == "benign":
+                        ef_benign += 1
+                    elif ef == "challenge":
+                        ef_challenge += 1
+                    elif ef == "ood":
+                        ef_ood += 1
+            ok = (flagged_bad == 0 and ef_challenge >= flags_challenge
+                  and ef_ood >= flags_ood)
+            print(f"  [{'PASS' if ok else 'FAIL'}] eval_family {f.relative_to(DM)}: "
+                  f"rows={n} benign={ef_benign} challenge={ef_challenge} "
+                  f"ood={ef_ood} flagged_mismatch={flagged_bad}")
+            if not ok:
+                fails.append(
+                    f"eval_family:{f.name}: flagged_mismatch={flagged_bad} "
+                    f"challenge={ef_challenge}/{flags_challenge} "
+                    f"ood={ef_ood}/{flags_ood}")
 
 
 def sha256_of(p: Path) -> str:

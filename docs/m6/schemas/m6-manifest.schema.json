@@ -133,6 +133,18 @@
         "t4_entity_overlap": { "type": "integer", "minimum": 0, "description": "T4 实体级重叠数（train 与 heldout 出现同一 PII 实体——span 记忆化风险；冻结目标 0 或逐条解释）" },
         "t4_heldout_entities_checked": { "type": "integer", "minimum": 0, "description": "T4 heldout 实体核查覆盖数（t4_entity_overlap 的分母）" },
         "assert": { "enum": ["PASS", "FAIL"], "description": "总断言（任何一项违规则 FAIL）" },
+        "protocol": {
+          "type": "object",
+          "description": "不相交检查方法学（dataeng 登记）：exact = 精确重叠的归一化与指纹口径；near_dup = 近似重叠方法与报告路径；entity = T4 实体级检查口径；nfkc = 是否 NFKC 归一化",
+          "additionalProperties": true,
+          "properties": {
+            "exact": { "type": "string" },
+            "near_dup": { "type": "string" },
+            "entity": { "type": "string" },
+            "nfkc": { "type": "boolean" },
+            "schema_version": { "type": "string" }
+          }
+        },
         "near_dup": { "type": ["integer", "null"], "description": "近似重叠（n-gram）计数——qa m6_leak_check 的 5-gram 审计结果回填（精确 0 + 近似可疑对解释义务）" },
         "checked_by": { "type": "string", "description": "断言脚本（如 scripts/m6_check_staging.py）" },
         "audit_report": { "type": "string", "description": "reports/m6/ 下审计结论路径" }
