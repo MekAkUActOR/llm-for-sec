@@ -75,8 +75,8 @@ def stage_adapters():
         for attempt in range(3):
             try:
                 api.upload_folder(repo_id=repo, folder_path=str(d), path_in_repo=name,
-                                  allow_patterns=["*.json", "*.safetensors", "*.txt", "README.md"],
-                                  ignore_patterns=["checkpoint-*", "optimizer*", "runs", "*.bin"], repo_type="model")
+                                  allow_patterns=["*.json", "*.safetensors", "*.txt"],
+                                  ignore_patterns=["checkpoint-*", "optimizer*", "runs", "*.bin", "README.md"], repo_type="model")
                 print(f"[adapter] {name} OK"); break
             except Exception as e:
                 print(f"[adapter] {name} attempt {attempt+1} FAIL: {str(e)[:160]}"); time.sleep(15)
