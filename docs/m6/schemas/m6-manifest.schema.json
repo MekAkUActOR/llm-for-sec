@@ -151,6 +151,32 @@
         "audit_report": { "type": "string", "description": "reports/m6/ 下审计结论路径" }
       }
     },
+    "projection_gate": {
+      "type": "object",
+      "required": ["checked", "t4_hits", "t5_hits", "revoked_to_pos", "revoked_exit", "assert", "scope"],
+      "additionalProperties": false,
+      "description": "投影门断言（dataeng 构造时验证，arch 裁定 adr-1b §6.14：标签真值在构造时验证，不在读数时发现）：T4 span 提取器 + T5 注入模式提取器对投影行（blanket T1-T5 neg 投影）零命中核查。RFC 5737 / example.* 等文档保留段豁免（非真实形 PII）。命中行处置：revoked_exit = 退出投影保持单键（保守默认）；revoked_to_pos = 转 T4 pos+spans（保留键，发生时须 arch 手工裁定登记）。",
+      "properties": {
+        "checked": { "type": "integer", "minimum": 0, "description": "过门投影行数" },
+        "t4_hits": { "type": "integer", "minimum": 0, "description": "T4 客观模式（span 提取器）命中数——预期 0（sysdesign 存量粗扫基线：2,046 行零命中）" },
+        "t5_hits": { "type": "integer", "minimum": 0, "description": "T5 注入模式命中数——预期 0" },
+        "revoked_to_pos": { "type": "integer", "minimum": 0, "description": "命中转 pos+spans 行数（当前策略恒 0，arch 手工裁定通道）" },
+        "revoked_exit": { "type": "integer", "minimum": 0, "description": "命中退出投影（保持单键）行数" },
+        "assert": { "enum": ["PASS", "FAIL"] },
+        "scope": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "过门行按类分桶——使收紧裁定本身可审计：high-risk 误入投影门会在 layer-4 scope 漂移显形（而非只靠内容断言兜底）",
+          "properties": {
+            "classes_gated": {
+              "type": "object",
+              "additionalProperties": { "type": "integer", "minimum": 0 },
+              "description": "按 t6_class 分桶计数（如 {conditional: n, safe: n}）"
+            }
+          }
+        }
+      }
+    },
     "notes": { "type": "array", "items": { "type": "string" } }
   }
 }
