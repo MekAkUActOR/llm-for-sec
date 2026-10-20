@@ -75,8 +75,9 @@ def rows_for_split(cfg: dict, split: str) -> list[dict]:
 
     data.prefix_rows: "exclude" (default, ADR mainline = final-state rows),
     "include" (ablation: keep prefix-expanded rows), "only" (prefix only).
-    A row is a prefix row iff meta.reveal_turn_prefix is truthy or
-    meta.is_prefix is truthy (dataeng's expansion marker)."""
+    A row is a prefix row iff meta.is_prefix is truthy (dataeng terminal
+    semantics: reveal_turn_prefix is a form descriptor carried by full
+    reveal-turn dialogs too, NOT an exclusion marker)."""
     d = cfg.get("data", {})
     pats = d.get(f"{split}_patterns")
     files = []
@@ -104,7 +105,7 @@ def rows_for_split(cfg: dict, split: str) -> list[dict]:
             assert r.get("schema") == "m6-sample", f"{f}: not m6-sample ({r.get('schema')})"
             assert r["split"] == split, f"{f}: row split={r['split']} != {split}"
             meta = r.get("meta") or {}
-            is_prefix = bool(meta.get("reveal_turn_prefix") or meta.get("is_prefix"))
+            is_prefix = bool(meta.get("is_prefix"))
             if mode == "exclude" and is_prefix:
                 continue
             if mode == "only" and not is_prefix:
