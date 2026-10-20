@@ -42,7 +42,16 @@
         "license": { "type": ["string", "null"] }
       }
     },
-    "meta": { "type": "object", "description": "自由附加（难度、构造参数等），不得承载门禁判定所需字段" },
+    "meta": {
+      "type": "object",
+      "description": "自由附加（难度、构造参数等），原则上不承载门禁判定所需字段。例外契约键（arch 裁定 2026-10-21）：eval_family——定标/归因家族标记，见 properties.eval_family",
+      "properties": {
+        "eval_family": {
+          "enum": ["benign", "challenge", "ood"],
+          "description": "定标/归因家族标记：dev-mirror 三文件与 pool/dev 行级必带（dataeng emit 落实）。归因读数（per-family abstain 率 / FPR 曲线）用此字段，不解析 source.family 字符串；source.family 保留作血统溯源，语义不同勿混用"
+        }
+      }
+    },
     "est_tokens": { "type": ["integer", "null"], "minimum": 0, "description": "部署 tokenizer 估算输入 token 数；kind=longctx 必须 >=8000" }
   },
   "$defs": {
