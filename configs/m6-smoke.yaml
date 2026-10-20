@@ -1,4 +1,4 @@
-m6_config_version: 0.1.0
+m6_config_version: 0.3.7
 base:
   model_name_or_path: checkpoints/qwen3-06b-sec-m5a-dpo-r5
   dtype: bf16
@@ -88,7 +88,7 @@ probe:
     classes:
     - benign
     - attack
-    feature: trunk
+    feature: trunk_output
     fit_on: train
     lambda: 0.1
   loss:

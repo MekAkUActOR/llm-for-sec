@@ -16,7 +16,7 @@ import yaml
 REPO = Path(__file__).resolve().parents[1]
 
 COMMON = {
-    "m6_config_version": "0.1.0",
+    "m6_config_version": "0.3.7",
     "base": {
         "model_name_or_path": "checkpoints/qwen3-06b-sec-m5a-dpo-r5",
         "dtype": "bf16",
@@ -50,7 +50,7 @@ COMMON = {
             "T6": {"type": "seq-mlp", "dims": [1024, 256, 3], "classes": 3},
         },
         "aux_ood": {"mechanism": "mahalanobis", "classes": ["benign", "attack"],
-                     "feature": "trunk", "fit_on": "train", "lambda": 0.1},
+                     "feature": "trunk_output", "fit_on": "train", "lambda": 0.1},
         "loss": {"task_weights": {}, "bio_weight": 2.0, "bio_pos_weight": 15.0,
                   "label_masking": True},
     },
