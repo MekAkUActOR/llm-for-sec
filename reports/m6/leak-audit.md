@@ -30,5 +30,14 @@
 ### 方法与复现
 
 - 命令：`.venv\Scripts\python.exe -X utf8 scripts\m6\audit_leak.py`
-- 精确：norm_text（小写/去空白）sha16；近似：whitespace 8-gram shingle，行覆盖率阈值 30%
+- 精确：norm_text（NFKC→小写→空白折叠）sha16；近似：whitespace 8-gram shingle，行覆盖率阈值 30%
 - B2 剥离规则：heldout 侧行取 query 字段（无模板）；训练侧排除 input.system（policy pack 模板所在）
+
+## 终态与复核链
+
+- qa 复检证书：reports/m6/audit/leak-check-h6-final.json（overall=PASS：L1 train↔eval 精确/NFKC 0/0、L2 冻结套件 0、L3 红队 0、L5 实体 642/0、L4 披露层）
+- 与 data/m6 终态（commit d5f65df）对齐：content-only 锁（qa L1 协议口径）后六任务 train↔heldout 与 dev↔heldout 内容重合 0；isolation 断言含 content_overlap_qa_l1=0
+
+### Process 惯例（qa 建议，已采纳）
+
+本轮"断言≠实测"两次的共性 = 断言视图与评测协议视图不一致（pool vs 任务视图、pack 锁 vs content 口径）。终态修复把评测方口径直接固化为数据方断言（isolation.content_overlap_qa_l1 与 t4_entity_overlap 即 qa L1/L5 协议的机器化）。"评测方口径进数据方断言"保留为 M6 后续轮次与 M7 的惯例。
