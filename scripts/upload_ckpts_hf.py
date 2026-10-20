@@ -89,7 +89,7 @@ def stage_adapters():
 def stage_model(key, repo_suffix, local_dir, private=True):
     repo = f"{USER}/{repo_suffix}"
     upsert_repo(repo, private=private)
-    ok = upload_with_retry(repo, local_dir, ignore_patterns=["checkpoint-*", "optimizer*", "runs", "*.bin"])
+    ok = upload_with_retry(repo, local_dir, ignore_patterns=["checkpoint-*", "optimizer*", "runs", "*.bin", "README.md", "*.png"])
     if ok:
         try:
             api.upload_file(path_or_fileobj=READMES[key].encode(), path_in_repo="README.md", repo_id=repo, repo_type="model")
