@@ -1,0 +1,802 @@
+{
+  "model": "checkpoints\\qwen3-8b-sec-m5a-dpo-r9-merged",
+  "name": "m5a-dpo-r9-chat",
+  "seed": 20260924,
+  "lens": [
+    16384,
+    32768
+  ],
+  "n_docs": 4,
+  "max_new": 32,
+  "prompt_format": "chat",
+  "system_pack": "default",
+  "needle_prompt_format": "chat",
+  "ppl": {
+    "16384": {
+      "en": {
+        "ppl": 8.00815675362462,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.1454,
+          2.1408,
+          1.9597,
+          2.0759
+        ]
+      },
+      "zh": {
+        "ppl": 10.724932500104318,
+        "tokens": 65532,
+        "docs": 4,
+        "per_doc_nll": [
+          2.3627,
+          2.2667,
+          2.326,
+          2.5349
+        ]
+      }
+    },
+    "32768": {
+      "en": {
+        "ppl": 8.6523630268417,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.2482,
+          1.8193,
+          2.3513,
+          2.2125
+        ]
+      },
+      "zh": {
+        "ppl": 9.221411454172936,
+        "tokens": 131068,
+        "docs": 4,
+        "per_doc_nll": [
+          2.1987,
+          2.3751,
+          2.5044,
+          1.8079
+        ]
+      }
+    }
+  },
+  "needle": {
+    "16384": {
+      "en": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16480,
+          "generated": "<think>\nOkay, let me check the user's query. They provided a long Wikipedia article about Ceuta and another about cement"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16478,
+          "generated": "<think>\nOkay, let me check the user's query. They provided a long Wikipedia article about Ceuta and another about cement"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the provided document. Let me check the text again.\n\n"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the provided document. Let me check the text again.\n\n"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": false,
+          "insert_pos": 4075,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the document. Let me check the Wikipedia articles the"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": false,
+          "insert_pos": 4075,
+          "prompt_len": 16478,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the document. Let me check the Wikipedia articles the"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5705,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the document. Let me check the context.\n\nLooking back"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": false,
+          "insert_pos": 5705,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the document. Let me check the context.\n\nLooking back"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": false,
+          "insert_pos": 8151,
+          "prompt_len": 16480,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the previous document. Let me check the history.\n\nLoo"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": false,
+          "insert_pos": 8151,
+          "prompt_len": 16480,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the previous document. Let me check the history.\n\nLoo"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": false,
+          "insert_pos": 10596,
+          "prompt_len": 16478,
+          "generated": "<think>\nOkay, the user asked about the magic code mentioned in the document. Let me check the history.\n\nLooking back, th"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": false,
+          "insert_pos": 10596,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user asked about the magic code mentioned in the document. Let me check the history.\n\nLooking back, th"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": false,
+          "insert_pos": 12226,
+          "prompt_len": 16477,
+          "generated": "<think>\nOkay, the user asked about the magic code mentioned in the document. Let me check the text again.\n\nLooking throu"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": false,
+          "insert_pos": 12226,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the previous document. Let me check the history.\n\nLoo"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": false,
+          "insert_pos": 14671,
+          "prompt_len": 16477,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the document. Let me check the context.\n\nLooking back"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": false,
+          "insert_pos": 14671,
+          "prompt_len": 16479,
+          "generated": "<think>\nOkay, the user is asking about the magic code mentioned in the document. Let me check the context.\n\nLooking back"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "03e8b84b",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16504,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了关于湘绣的维基"
+        },
+        "0.05#1": {
+          "code": "d1c5aaf0",
+          "success": false,
+          "insert_pos": 815,
+          "prompt_len": 16502,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.15#0": {
+          "code": "f077b69f",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了关于湘绣的维基"
+        },
+        "0.15#1": {
+          "code": "a925e7a1",
+          "success": false,
+          "insert_pos": 2445,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了关于湘绣的维基"
+        },
+        "0.25#0": {
+          "code": "e9e4c8e8",
+          "success": false,
+          "insert_pos": 4076,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.25#1": {
+          "code": "8be37df3",
+          "success": false,
+          "insert_pos": 4076,
+          "prompt_len": 16502,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.35#0": {
+          "code": "a18d3c05",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.35#1": {
+          "code": "b393586c",
+          "success": false,
+          "insert_pos": 5706,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.5#0": {
+          "code": "252c3c6f",
+          "success": false,
+          "insert_pos": 8152,
+          "prompt_len": 16504,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.5#1": {
+          "code": "8f07d990",
+          "success": false,
+          "insert_pos": 8152,
+          "prompt_len": 16504,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.65#0": {
+          "code": "91937ccc",
+          "success": false,
+          "insert_pos": 10597,
+          "prompt_len": 16502,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史，看看有没有提到过魔法代码。\n\n在用户"
+        },
+        "0.65#1": {
+          "code": "c9375d6d",
+          "success": false,
+          "insert_pos": 10597,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史，看看哪里提到了魔法代码。\n\n在用户"
+        },
+        "0.75#0": {
+          "code": "ba5ac473",
+          "success": false,
+          "insert_pos": 12228,
+          "prompt_len": 16501,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话内容，看看有没有提到过魔法代码。\n\n在用户"
+        },
+        "0.75#1": {
+          "code": "d0a45d3e",
+          "success": false,
+          "insert_pos": 12228,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话内容，看看有没有提到过魔法代码。\n\n在用户"
+        },
+        "0.9#0": {
+          "code": "0ea02dac",
+          "success": false,
+          "insert_pos": 14673,
+          "prompt_len": 16501,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        },
+        "0.9#1": {
+          "code": "d8e73491",
+          "success": false,
+          "insert_pos": 14673,
+          "prompt_len": 16503,
+          "generated": "<think>\n好的，用户问的是上文提到的魔法代码是什么。我需要先回顾之前的对话历史。用户之前提供了两个维基百科条目"
+        }
+      }
+    },
+    "32768": {
+      "en": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned a Wikipedia article about the citric a"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code mentioned in the document is. The user provided a long text a"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out the magic code mentioned in the user's query. The user provided a long text that "
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": false,
+          "insert_pos": 4902,
+          "prompt_len": 32863,
+          "generated": "<think>\nOkay, let me try to figure out the magic code mentioned in the user's query. The user provided a long text that "
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32863,
+          "generated": "<think>\nOkay, let me try to figure out the magic code mentioned in the document. The user provided a long text that incl"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": false,
+          "insert_pos": 8171,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out the magic code mentioned in the document. The user provided a long text that incl"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32862,
+          "generated": "<think>\nOkay, let me try to figure out the magic code mentioned in the user's query. The user provided a Wikipedia artic"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned that the magic code for the document i"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32860,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned a document with a magic code, and they"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": false,
+          "insert_pos": 16343,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned a document with a magic code, and they"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": false,
+          "insert_pos": 21245,
+          "prompt_len": 32862,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned a document with a magic code: \"f07ed3"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": false,
+          "insert_pos": 21245,
+          "prompt_len": 32863,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned a document with a magic code: \"585cfe"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned a document with a magic code, and they"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": false,
+          "insert_pos": 24514,
+          "prompt_len": 32862,
+          "generated": "<think>\nOkay, let me try to figure out what the magic code is. The user mentioned a document with a magic code, and they"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": false,
+          "insert_pos": 29417,
+          "prompt_len": 32864,
+          "generated": "<think>\nOkay, let me try to figure out the magic code mentioned in the document. The user provided a Wikipedia article a"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": false,
+          "insert_pos": 29417,
+          "prompt_len": 32861,
+          "generated": "<think>\nOkay, let me try to figure out the magic code mentioned in the document. The user provided a Wikipedia article a"
+        }
+      },
+      "zh": {
+        "0.05#0": {
+          "code": "6d3b8e45",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是什么，并给出答案。首先，我要回顾之前的对话历史，看看是否有"
+        },
+        "0.05#1": {
+          "code": "4732c44d",
+          "success": false,
+          "insert_pos": 1634,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是什么，并给出答案。首先，我要回顾之前的对话历史，看看是否有"
+        },
+        "0.15#0": {
+          "code": "5e20408c",
+          "success": false,
+          "insert_pos": 4903,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是什么，并给出回答。首先，我要回顾之前的对话历史，找到相关的"
+        },
+        "0.15#1": {
+          "code": "c344112d",
+          "success": false,
+          "insert_pos": 4903,
+          "prompt_len": 32887,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是什么，并给出回答。首先，我要回顾之前的对话历史，找到相关的"
+        },
+        "0.25#0": {
+          "code": "a6b64016",
+          "success": false,
+          "insert_pos": 8172,
+          "prompt_len": 32887,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文提到的魔法代码是什么，并给出回答。首先，我要回顾之前的对话历史，看看"
+        },
+        "0.25#1": {
+          "code": "71660715",
+          "success": false,
+          "insert_pos": 8172,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文提到的魔法代码是什么，并给出回答。首先，我要回顾之前的对话历史，看看"
+        },
+        "0.35#0": {
+          "code": "c0602ef0",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32886,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文提到的魔法代码是什么，并给出回答“答：”。首先，我要回顾之前的对话"
+        },
+        "0.35#1": {
+          "code": "89f03016",
+          "success": false,
+          "insert_pos": 11440,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文提到的魔法代码是什么，并给出回答。首先，我要回顾之前的对话历史，看看"
+        },
+        "0.5#0": {
+          "code": "ee8bf4eb",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32884,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是ee8bf4eb，并询问这是什么。首先，我要回顾"
+        },
+        "0.5#1": {
+          "code": "55456035",
+          "success": true,
+          "insert_pos": 16344,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是55456035，并询问这是什么。首先"
+        },
+        "0.65#0": {
+          "code": "f07ed358",
+          "success": false,
+          "insert_pos": 21247,
+          "prompt_len": 32886,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是什么，并给出回答。首先，我需要回顾之前的对话历史，找到"
+        },
+        "0.65#1": {
+          "code": "585cfe94",
+          "success": false,
+          "insert_pos": 21247,
+          "prompt_len": 32887,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是什么，并给出回答。首先，我需要回顾之前的对话历史，找到"
+        },
+        "0.75#0": {
+          "code": "7106302f",
+          "success": false,
+          "insert_pos": 24516,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到在之前的对话中有一个魔法代码，现在问这个代码是什么。首先，我要回顾之前的对话"
+        },
+        "0.75#1": {
+          "code": "8a5eace4",
+          "success": false,
+          "insert_pos": 24516,
+          "prompt_len": 32886,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到在之前的对话中有一个魔法代码，现在问这个代码是什么。首先，我需要回顾之前的"
+        },
+        "0.9#0": {
+          "code": "3e854037",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32888,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是3e854037，并询问这是什么。首先"
+        },
+        "0.9#1": {
+          "code": "b84caaa7",
+          "success": true,
+          "insert_pos": 29419,
+          "prompt_len": 32885,
+          "generated": "<think>\n好的，我现在需要处理用户的问题，他们提到上文中的魔法代码是b84caaa7，并询问这是什么。首先，我要"
+        }
+      }
+    }
+  },
+  "needle_success": {
+    "16384": {
+      "en": 0.0,
+      "zh": 0.0
+    },
+    "32768": {
+      "en": 0.0,
+      "zh": 0.25
+    }
+  },
+  "assembly": {
+    "en": {
+      "file": "general_en.jsonl",
+      "n_probe_entries": 297,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8966,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 1,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 4938,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 2,
+          "last_entry": 5,
+          "n_entries": 4,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 15759,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 6,
+          "last_entry": 6,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 712,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 7,
+          "last_entry": 12,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 11216,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 13,
+          "last_entry": 22,
+          "n_entries": 10,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 10989,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 23,
+          "last_entry": 33,
+          "n_entries": 11,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1546,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 34,
+          "last_entry": 38,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2481,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 39,
+          "last_entry": 40,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2023,
+          "target_len": 16302
+        },
+        "needle-32768": {
+          "first_entry": 41,
+          "last_entry": 46,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3400,
+          "target_len": 32686
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    },
+    "zh": {
+      "file": "general_zh.jsonl",
+      "n_probe_entries": 500,
+      "docs": {
+        "ppl-16384-0": {
+          "first_entry": 0,
+          "last_entry": 0,
+          "n_entries": 1,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 14069,
+          "target_len": 16384
+        },
+        "ppl-16384-1": {
+          "first_entry": 1,
+          "last_entry": 8,
+          "n_entries": 8,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 1375,
+          "target_len": 16384
+        },
+        "ppl-16384-2": {
+          "first_entry": 9,
+          "last_entry": 13,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 2331,
+          "target_len": 16384
+        },
+        "ppl-16384-3": {
+          "first_entry": 14,
+          "last_entry": 15,
+          "n_entries": 2,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 8123,
+          "target_len": 16384
+        },
+        "ppl-32768-0": {
+          "first_entry": 16,
+          "last_entry": 22,
+          "n_entries": 7,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 180,
+          "target_len": 32768
+        },
+        "ppl-32768-1": {
+          "first_entry": 23,
+          "last_entry": 28,
+          "n_entries": 6,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 3764,
+          "target_len": 32768
+        },
+        "ppl-32768-2": {
+          "first_entry": 29,
+          "last_entry": 37,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 7549,
+          "target_len": 32768
+        },
+        "ppl-32768-3": {
+          "first_entry": 38,
+          "last_entry": 42,
+          "n_entries": 5,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 13278,
+          "target_len": 32768
+        },
+        "needle-16384": {
+          "first_entry": 43,
+          "last_entry": 45,
+          "n_entries": 3,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 956,
+          "target_len": 16304
+        },
+        "needle-32768": {
+          "first_entry": 46,
+          "last_entry": 54,
+          "n_entries": 9,
+          "last_entry_truncated": true,
+          "discarded_tail_tokens": 30,
+          "target_len": 32688
+        }
+      },
+      "codes": {
+        "16384/0.05#0": "03e8b84b",
+        "16384/0.05#1": "d1c5aaf0",
+        "16384/0.15#0": "f077b69f",
+        "16384/0.15#1": "a925e7a1",
+        "16384/0.25#0": "e9e4c8e8",
+        "16384/0.25#1": "8be37df3",
+        "16384/0.35#0": "a18d3c05",
+        "16384/0.35#1": "b393586c",
+        "16384/0.5#0": "252c3c6f",
+        "16384/0.5#1": "8f07d990",
+        "16384/0.65#0": "91937ccc",
+        "16384/0.65#1": "c9375d6d",
+        "16384/0.75#0": "ba5ac473",
+        "16384/0.75#1": "d0a45d3e",
+        "16384/0.9#0": "0ea02dac",
+        "16384/0.9#1": "d8e73491",
+        "32768/0.05#0": "6d3b8e45",
+        "32768/0.05#1": "4732c44d",
+        "32768/0.15#0": "5e20408c",
+        "32768/0.15#1": "c344112d",
+        "32768/0.25#0": "a6b64016",
+        "32768/0.25#1": "71660715",
+        "32768/0.35#0": "c0602ef0",
+        "32768/0.35#1": "89f03016",
+        "32768/0.5#0": "ee8bf4eb",
+        "32768/0.5#1": "55456035",
+        "32768/0.65#0": "f07ed358",
+        "32768/0.65#1": "585cfe94",
+        "32768/0.75#0": "7106302f",
+        "32768/0.75#1": "8a5eace4",
+        "32768/0.9#0": "3e854037",
+        "32768/0.9#1": "b84caaa7"
+      }
+    }
+  },
+  "needle_counts": {
+    "16384": {
+      "en": {
+        "k": 0,
+        "n": 16
+      },
+      "zh": {
+        "k": 0,
+        "n": 16
+      }
+    },
+    "32768": {
+      "en": {
+        "k": 0,
+        "n": 16
+      },
+      "zh": {
+        "k": 4,
+        "n": 16
+      }
+    }
+  },
+  "needle_trials_per_cell": 16,
+  "elapsed_s": 632.6
+}
