@@ -71,17 +71,24 @@ def audit_rows(files: list[Path], fails: list[str]) -> None:
 
 
 def audit_counts(files: list[Path], fails: list[str]) -> dict:
+    """聚合口径 = 训练装载器语义（m6_train.rows_for_split）：split 内按 id
+    去重——pool 与任务文件的共享行是字节孪生（装载器同款去重，内容不一致
+    即断言失败）；视图文件跳过。per_file 保留文件原值（manifest 对数用），
+    聚合/规模门用去重值（arch 勘误 2026-10-21：双计口径曾虚报 T6 train pos
+    4,100，真值 2,050）。"""
     agg: dict[tuple[str, str], Counter] = {}
     per_file = {}
+    seen_ids: dict[str, dict[str, str]] = {}  # split -> id -> content hash
+    twin_mismatch = 0
     for f in files:
         sp = split_of(f)
         if is_view(f):
-            # 子集视图：仅登记（供对数），不进聚合
             per_file[str(f.relative_to(DM)).replace("\\", "/")] = {
                 "split": sp, "view": True}
             continue
         c: dict[str, Counter] = {}
         n = 0
+        seen = seen_ids.setdefault(sp, {})
         with open(f, encoding="utf-8-sig") as fh:
             for line in fh:
                 line = line.strip()
@@ -89,15 +96,29 @@ def audit_counts(files: list[Path], fails: list[str]) -> dict:
                     continue
                 n += 1
                 row = json.loads(line)
+                rid = row.get("id")
+                # per_file 恒记文件原值（manifest 对数口径）
                 for t, g in (row.get("labels") or {}).items():
                     d = c.setdefault(t, Counter())
+                    d["pos" if g.get("label") == "pos" else "neg"] += 1
+                # 聚合口径 = 装载器语义：split 内按 id 去重
+                chash = hashlib.sha256(
+                    json.dumps(row, sort_keys=True, ensure_ascii=False)
+                    .encode("utf-8")).hexdigest()
+                if rid in seen:
+                    if seen[rid] != chash:
+                        twin_mismatch += 1
+                    continue
+                seen[rid] = chash
+                for t, g in (row.get("labels") or {}).items():
+                    d = agg.setdefault((sp, t), Counter())
                     d["pos" if g.get("label") == "pos" else "neg"] += 1
         per_file[str(f.relative_to(DM)).replace("\\", "/")] = {
             "split": sp, "n": n,
             "label_counts": {t: {"pos": d["pos"], "neg": d["neg"]}
                              for t, d in sorted(c.items())}}
-        for t, d in c.items():
-            agg.setdefault((sp, t), Counter()).update(d)
+    if twin_mismatch:
+        fails.append(f"counts: twin rows with DIFFERENT content: {twin_mismatch}")
     gates = {
         "train pos>=2000/task": all(agg.get(("train", t), Counter())["pos"] >= 2000
                                     for t in TASKS),
@@ -118,6 +139,7 @@ def audit_counts(files: list[Path], fails: list[str]) -> dict:
         print(f"  [{'PASS' if ok else 'FAIL'}] {k}")
         if not ok:
             fails.append(f"gate: {k}")
+    print("  (unique-row caliber: split-level id dedup, loader semantics)")
     for (sp, t), d in sorted(agg.items()):
         print(f"    {sp:15s} {t}: pos={d['pos']:6d} neg={d['neg']:6d}")
     return per_file
