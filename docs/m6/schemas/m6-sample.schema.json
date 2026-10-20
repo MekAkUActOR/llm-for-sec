@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M6 六任务统一样本（数据集行 schema）",
+  "description": "M6 数据集 JSONL 每行一个对象。训练侧（data/m6/{task}/train|dev.jsonl、pool/）与评测侧自建集（data/m6/{task}/heldout.jsonl、data/m6/challenge/、data/m6/ood/）共用本 schema；data/heldout/ 冻结套件由评测 harness 映射为本 schema 的等价行（protocol_text 透传），映射表落 reports/m6/。split 与目录的绑定由 manifest 与校验脚本强制（train/dev 绝不出现在 challenge/ood 目录，反之亦然）。",
+  "required": ["schema", "schema_version", "id", "task", "split", "lang", "kind", "input", "labels"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "m6-sample" },
+    "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:-]*$",
+      "description": "全局唯一。自建行建议 m6- 前缀（如 m6-t2-jb-f1-zh-0001）；harness 映射冻结套件行时保留溯源 id（如 m6x-v023-sec-r1）。"
+    },
+    "task": {
+      "$ref": "m6-common.schema.json#/$defs/TaskId",
+      "description": "主任务（路由/统计/目录归属用）。多任务联合标注行走 pool/，labels 可含多键但必须含 task 键（校验脚本强制，JSON Schema 无法表达动态键约束）。"
+    },
+    "split": { "$ref": "m6-common.schema.json#/$defs/Split" },
+    "lang": { "$ref": "m6-common.schema.json#/$defs/Language" },
+    "kind": { "$ref": "m6-common.schema.json#/$defs/Kind" },
+    "input": { "$ref": "m6-common.schema.json#/$defs/Input" },
+    "labels": { "$ref": "#/$defs/Labels" },
+    "flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ood": { "type": "boolean", "default": false, "description": "OOD 放过验证行（期望：无 flag/弃权→PASS）" },
+        "challenge": { "type": "boolean", "default": false, "description": "挑战集难负例行（危险外观、真良性）" },
+        "holdout_family": { "type": ["string", "null"], "description": "留出攻击族（如 F4/F6）——训练侧行必须为 null，非 null 即违规" },
+        "ambiguous": { "type": "boolean", "default": false, "description": "标注分歧/边界行：计入统计但默认不计入门禁分子分母（评测 harness 过滤）" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "required": ["family"],
+      "additionalProperties": false,
+      "properties": {
+        "family": { "type": "string", "description": "血统家族：m4-capfix|r9-paired|p16-r9|staging-t14|synth-pii-v1|challenge-medical|ood-webhelp|frozen-v023|..." },
+        "src_id": { "type": "string", "description": "源资产内 id（如 dpoC-000199 / jb-f1-zh-01）" },
+        "generator": { "type": ["string", "null"], "description": "生成脚本@git-sha（合成行必填）" },
+        "license": { "type": ["string", "null"] }
+      }
+    },
+    "meta": { "type": "object", "description": "自由附加（难度、构造参数等），不得承载门禁判定所需字段" },
+    "est_tokens": { "type": ["integer", "null"], "minimum": 0, "description": "部署 tokenizer 估算输入 token 数；kind=longctx 必须 >=8000" }
+  },
+  "$defs": {
+    "T1Gold": {
+      "type": "object",
+      "required": ["label"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "m6-common.schema.json#/$defs/GoldLabel" },
+        "label_detail": { "$ref": "m6-common.schema.json#/$defs/T1Detail" },
+        "annotator": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "T2Gold": {
+      "type": "object",
+      "required": ["label"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "m6-common.schema.json#/$defs/GoldLabel" },
+        "label_detail": { "$ref": "m6-common.schema.json#/$defs/T2Detail" },
+        "annotator": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "T3Gold": {
+      "type": "object",
+      "required": ["label"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "m6-common.schema.json#/$defs/GoldLabel" },
+        "label_detail": { "$ref": "m6-common.schema.json#/$defs/T3Detail" },
+        "annotator": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "T4Gold": {
+      "type": "object",
+      "required": ["label", "label_detail"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "m6-common.schema.json#/$defs/GoldLabel" },
+        "label_detail": { "$ref": "m6-common.schema.json#/$defs/T4Detail" },
+        "annotator": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "T5Gold": {
+      "type": "object",
+      "required": ["label"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "m6-common.schema.json#/$defs/GoldLabel" },
+        "label_detail": { "$ref": "m6-common.schema.json#/$defs/T5Detail" },
+        "annotator": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "T6Gold": {
+      "type": "object",
+      "required": ["label"],
+      "additionalProperties": false,
+      "properties": {
+        "label": { "$ref": "m6-common.schema.json#/$defs/GoldLabel", "description": "flag 语义（adr-1b §6.2）：pos ⟺ high-risk；conditional/safe 均为 neg" },
+        "label_detail": { "$ref": "m6-common.schema.json#/$defs/T6Detail" },
+        "annotator": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "required": ["label_detail"], "properties": { "label": { "const": "pos" } } },
+          "then": { "properties": { "label_detail": { "properties": { "t6_class": { "const": "high-risk" } } } } }
+        },
+        {
+          "if": { "properties": { "label_detail": { "properties": { "t6_class": { "enum": ["conditional", "safe"] } }, "required": ["t6_class"] } } },
+          "then": { "properties": { "label": { "const": "neg" } } }
+        },
+        {
+          "if": { "properties": { "label_detail": { "properties": { "t6_class": { "const": "high-risk" } }, "required": ["t6_class"] } } },
+          "then": { "properties": { "label": { "const": "pos" } } }
+        }
+      ],
+      "description": "单一真源（adr-1b §6.2）：flag = (t6_class == high-risk)，三向约束防双字段漂移。t6_class 缺省回退：pos→high-risk / neg→safe。"
+    },
+    "Labels": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 6,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^T1$": { "$ref": "#/$defs/T1Gold" },
+        "^T2$": { "$ref": "#/$defs/T2Gold" },
+        "^T3$": { "$ref": "#/$defs/T3Gold" },
+        "^T4$": { "$ref": "#/$defs/T4Gold" },
+        "^T5$": { "$ref": "#/$defs/T5Gold" },
+        "^T6$": { "$ref": "#/$defs/T6Gold" }
+      },
+      "description": "逐任务 gold（稀疏：只写已标注任务）。主判统一 pos|neg；细粒度在 label_detail（结构按任务固定）。eval 统计按 labels 键逐一计算 recall/FPR，缺键任务不计入该任务分母。"
+    }
+  }
+}

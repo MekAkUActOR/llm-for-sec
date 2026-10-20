@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M6 训练配置（一个 config 驱动全流程：数据清单引用/探针头结构/训练超参/运行点引用）",
+  "description": "configs/m6-*.yaml 的 schema（YAML 加载后按本契约校验；生成脚本 scripts/m6_build_train_config.py 由 deveng 交付）。设计哲学：单一配置源——data.manifest 引用数据指纹，probe 定义头结构（ADR-1 D3/D4/D5），train 定义优化（D10），thresholds_ref 指向初始运行点（qa 后续在 dev 上重标定并冻结 calib/runpoint 文件），eval.gates 固化验收线。",
+  "required": ["m6_config_version", "run_id", "base", "render", "data", "probe", "train", "output_dir"],
+  "additionalProperties": false,
+  "properties": {
+    "m6_config_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
+    "run_id": { "type": "string", "pattern": "^m6-v[0-9]+[a-z0-9.-]*$", "description": "如 m6-v1 / m6-v2" },
+    "base": {
+      "type": "object",
+      "required": ["model_name_or_path"],
+      "additionalProperties": false,
+      "properties": {
+        "model_name_or_path": { "const": "checkpoints/qwen3-06b-sec-m5a-dpo-r5", "description": "唯一基座主干（0.6B/28层/hidden1024/ctx32768），v1 全程冻结（D2）" },
+        "dtype": { "enum": ["bf16", "fp16", "fp32"], "default": "bf16" },
+        "mode": { "enum": ["frozen-cache", "frozen-online", "lora"], "default": "frozen-cache", "description": "D2：v1 = frozen-cache（特征缓存上训头）；v2 触发式 lora（target q/k/v/o_proj @ L14-28, r16, lr 1e-4, 头热启）" }
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "protocol": { "type": "string", "default": "dsh-protocol/0.1", "description": "carrier 输入信封协议（格式规格见 SYS-1 §4.2；模板常量由渲染器模块导出）" },
+        "chat_template": { "type": "boolean", "default": true, "description": "渲染产物 = r5 chat_template.jinja 全序列化，训练/评测字节一致（D9；R5 风险防线）" },
+        "judgment_text": { "type": "boolean", "default": false, "description": "检测 prompt 不引入额外 judgment 文本（qa 基线 v0 才用 judgment prompt，M6 探针恒 false）" },
+        "window_tokens": { "type": "integer", "const": 4096 },
+        "truncation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "policy": { "const": "head-tail" },
+            "head_tokens": { "type": "integer", "const": 512 },
+            "tail_tokens": { "type": "integer", "const": 3584 }
+          }
+        },
+        "token_char_map": { "type": "boolean", "default": true, "description": "渲染器输出 token→原文 char-offset 回映（PII span 回映原始字段坐标的依据，ADR D9）" },
+        "renderer_module": { "type": "string", "description": "唯一渲染器实现（如 secfm.m6.render），训练/评测/线上共用" }
+      }
+    },
+    "data": {
+      "type": "object",
+      "required": ["manifest"],
+      "additionalProperties": false,
+      "properties": {
+        "manifest": { "type": "string", "description": "data/m6/manifest.json（含 manifest_id；训练启动时校验 sha256 一致，防清单漂移）" },
+        "train_splits": { "type": "array", "items": { "$ref": "m6-common.schema.json#/$defs/TrainSplit" }, "minItems": 1, "default": ["train"] },
+        "val_split": { "$ref": "m6-common.schema.json#/$defs/TrainSplit", "default": "dev" },
+        "oversample": {
+          "type": "object",
+          "additionalProperties": { "type": "number", "minimum": 0 },
+          "description": "按主任务加权（{T3: 2.0} = T3 行采样翻倍）"
+        },
+        "excluded_carriers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": ["image_metadata", "av_metadata"],
+          "description": "D12 红线：训练不引入的载体类型（保 v0.3-gen 未见载体读数）；manifest 断言配套"
+        },
+        "seed": { "type": "integer" }
+      }
+    },
+    "probe": {
+      "type": "object",
+      "required": ["tapped_layers", "pooling", "trunk", "heads", "loss"],
+      "additionalProperties": false,
+      "properties": {
+        "tapped_layers": {
+          "type": "array", "items": { "type": "integer", "minimum": 0 },
+          "const": [4, 12, 20, 24, 28],
+          "description": "D3：固定层位（deveng 实测 L8/L16 共线故不取；不裁剪 D11）"
+        },
+        "pooling": {
+          "type": "array", "items": { "enum": ["last", "mean"] },
+          "const": ["last", "mean"],
+          "description": "每层双池化 → 5×2×1024 = 10240 维 trunk 输入。last-token = 序列最后非 pad token（r5 将写 VERDICT 的位置，verdict-coupled 最强位）"
+        },
+        "trunk": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": { "const": "ln-linear-gelu" },
+            "in_dim": { "type": "integer", "const": 10240 },
+            "hidden_dim": { "type": "integer", "const": 1024 },
+            "standardize": { "type": "boolean", "default": true, "description": "LN + 训练集 per-dim 统计标准化双保险（L24-27 outlier 区必须压）" }
+          }
+        },
+        "heads": {
+          "type": "object",
+          "required": ["T1", "T2", "T3", "T4", "T5", "T6"],
+          "additionalProperties": false,
+          "properties": {
+            "T1": { "$ref": "#/$defs/SeqHead" },
+            "T2": { "$ref": "#/$defs/SeqHead" },
+            "T3": { "$ref": "#/$defs/SeqHead" },
+            "T4": { "$ref": "#/$defs/PiiDualHead" },
+            "T5": { "$ref": "#/$defs/SeqHead" },
+            "T6": { "$ref": "#/$defs/SeqHead" }
+          },
+          "description": "D4：6 任务 7 头——5 个二值 MLP + T6 三值 MLP + T4 双头（doc 二值兜底 + token BIO）。T6/T4 见各自 defs 的 classes 覆盖"
+        },
+        "aux_ood": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mechanism": { "const": "mahalanobis" },
+            "classes": { "const": ["benign", "attack"] },
+            "feature": { "const": "trunk_pre_input", "description": "trunk 前的 pooled 原始拼接（10240 维），与特征缓存同源（ADR §11）" },
+            "covariance": { "enum": ["shared-shrinkage", "ledoit-wolf"], "default": "shared-shrinkage" },
+            "shrinkage_lambda": { "type": "number", "default": 0.1 },
+            "fit_on": { "enum": ["train", "dev"], "default": "train" },
+            "is_ood_rule": { "const": "min(d_benign,d_attack) > tau_ood", "description": "离两类流形都远才算 OOD；贴近 attack 流形的未见载体攻击不被压制" }
+          }
+        },
+        "loss": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "task_weights": { "type": "object", "additionalProperties": { "type": "number", "minimum": 0 }, "description": "初始全 1.0（D7）" },
+            "pos_weight_clip": { "type": "array", "prefixItems": [{ "type": "number" }, { "type": "number" }], "default": [1, 20], "description": "pos_weight_i = clip(n_neg/n_pos, 1, 20)，按任务独立计" },
+            "t6_loss": { "const": "ce-3class" },
+            "bio_bi_weight": { "type": "number", "minimum": 1, "default": 15, "description": "B/I 类 CE 权重（相对 O；允许 10-20×）" },
+            "w_tok": { "type": "number", "default": 2.0, "description": "PII token 头损失权重（PII 行少，保收敛）" },
+            "label_masking": { "type": "boolean", "default": true, "description": "稀疏标注：仅对样本 labels 中存在的任务键计损失" },
+            "neg_share_weight": { "type": ["number", "null"], "description": "共享负例池（benign 对全部已标注任务为负）的损失权重" },
+            "negative_transfer_watch": { "type": "string", "description": "dev 分头 AUC 跟踪；ΔAUC>0.03 触发任务专属 rank-64 trunk 降级预案（ADR §9 预留，不默认）" }
+          }
+        }
+      }
+    },
+    "stage_a": {
+      "type": "object",
+      "description": "特征抽取（GPU ~1h；D2/D10 前置）",
+      "additionalProperties": false,
+      "properties": {
+        "cache_dir": { "type": "string", "description": "如 outputs/m6/featcache-v1（每行：id/形态/lang/pack/标签+span/pooled[5×2×1024] fp16；PII 行加 tokfeat[L12+L28]）" },
+        "cache_dtype": { "enum": ["fp16", "bf16"], "default": "fp16" },
+        "token_budget_per_row": { "type": "integer", "default": 4096 },
+        "per_token_layers": { "type": "array", "items": { "type": "integer" }, "const": [12, 28], "description": "仅 PII 相关行缓存 per-token 态（L12+L28 concat 2048 维 = BIO 头输入）" },
+        "dynamic_batch_by_tokens": { "type": "boolean", "default": true }
+      }
+    },
+    "train": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_epochs": { "type": "integer", "maximum": 3, "default": 3, "description": "D10：缓存上训头 ≤3 epochs，early stop（dev macro-recall@precision-floor，patience 1）" },
+        "learning_rate": { "type": "number", "exclusiveMinimum": 0, "default": 0.001 },
+        "lr_scheduler_type": { "const": "cosine", "description": "cosine→0.1×（衰减终点 = 0.1 × 初始 lr）" },
+        "warmup_ratio": { "type": "number", "default": 0.05 },
+        "weight_decay": { "type": "number", "default": 0.01 },
+        "dropout": { "type": "number", "default": 0.1 },
+        "per_device_batch_size": { "type": "integer", "minimum": 1, "default": 256 },
+        "optimizer": { "const": "adamw" },
+        "seed": { "type": "integer" },
+        "val_split_ratio": { "type": "number", "default": 0.05, "description": "train 内再切 5% 作 dev（分层键=六任务标签向量/lang/pack/极性/形态；challenge-mirror ≥1,000 + OOD-mirror ≥500 独立成片，ADR §11）" }
+      }
+    },
+    "thresholds_ref": {
+      "type": "string",
+      "description": "初始运行点（如 configs/m6-calib-v1-init.json，m6-thresholds schema）；qa 在 dev 重标定后接管冻结（ADR 称 calib.json，同一物）"
+    },
+    "eval": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "gates": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "recall_min": { "const": 0.95 },
+            "suite_recall_floor": { "type": "number", "default": 0.9, "description": "任一套件地板（防'靠大头吃小头'；Lead 终裁口径）" },
+            "fpr_max": { "const": 0.005 },
+            "challenge_fpr_max": { "const": 0.001 },
+            "ood_pass_min": { "type": "number", "default": 0.95, "description": "U1 终裁：硬门 ≥95%，目标 98%（双列披露 OOD 侧弃权率 + 分布内攻击侧弃权率）" }
+          }
+        },
+        "suites": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "评测套件名（自建：heldout/challenge/ood；冻结：v023/gen/jb-v0.7/toolout/toolout-reg/document/dilution——映射表 ADR §13）"
+        }
+      }
+    },
+    "output_dir": { "type": "string", "description": "如 checkpoints/m6-v1（产物：probe-heads.pt + ood_centers.json + train_log + calib 副本）" },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "SeqHead": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "seq-mlp" },
+        "dims": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 3, "default": [1024, 256, 2] },
+        "classes": { "type": "integer", "enum": [2, 3], "default": 2, "description": "T6=3（high-risk/conditional/safe），其余=2" },
+        "score_transform": { "const": "sigmoid", "description": "adr-1b §6.1：v1 撤销温度缩放——score = σ(logit) 原始尺度，双带阈值在该尺度定标；温度仅作 calib 元数据不参与决策" }
+      }
+    },
+    "PiiDualHead": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "pii-dual" },
+        "doc": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": { "const": "seq-mlp" },
+            "dims": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 3, "default": [1024, 256, 2] },
+            "description_note": { "const": "doc 级二值兜底：检出率口径不因 span 模型弱点失守（ADR D5）" }
+          }
+        },
+        "bio": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": { "const": "token-bio" },
+            "dims": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 3, "default": [2048, 512, 23] },
+            "input": { "const": "L12+L28-per-token-concat" },
+            "entity_types": { "type": "integer", "const": 11, "description": "BIO 通道数 = 2×|T|+1 = 23（adr-1b §6.3：从词表基数 derive，勿写死通道数；词表 = dataeng 定稿 11 类，见 m6-common PiiType——类型表变更时同步此处与头末层宽度）" },
+            "span_merge": { "enum": ["bio-consecutive", "bio-any"] },
+            "flag_rule": { "const": "doc_head ∨ spans_nonempty" }
+          }
+        }
+      }
+    }
+  }
+}

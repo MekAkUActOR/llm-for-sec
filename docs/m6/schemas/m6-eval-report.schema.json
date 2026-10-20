@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M6 评测结果报告（逐任务 recall/FPR、挑战 FPR、OOD 放过率、门禁判定）",
+  "description": "reports/m6/eval-*.json 的 schema（qa task-9/12 harness 产出）。统计口径（与推理契约同步锁定）：①逐任务 recall/FPR 按 labels 键计算——gold=pos 且 flag=true ⇒ TP；gold=pos 且 flag=false（含弃权抑制）⇒ FN；gold=neg 且 flag=true ⇒ FP；gold=neg 且 flag=false（含弃权）⇒ TN；②缺键任务不计入该任务分母；③challenge FPR = 挑战集（难负例）上的 FPR；④OOD 放过率 = OOD 集 decision=pass 的比例（弃权计 pass）；⑤门禁判定逐项落 checks，verdict=PASS 须全过。",
+  "required": ["schema", "schema_version", "eval_id", "model", "runpoint", "n", "per_task", "challenge", "ood", "abstain", "gates", "artifacts"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "m6-eval-report" },
+    "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
+    "eval_id": { "type": "string", "pattern": "^m6eval-[a-z0-9.-]+-[0-9]{8}T[0-9]{6}$" },
+    "created": { "$ref": "m6-common.schema.json#/$defs/Timestamp" },
+    "model": {
+      "type": "object",
+      "required": ["id", "base_trunk"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "base_trunk": { "const": "checkpoints/qwen3-06b-sec-m5a-dpo-r5" },
+        "heads_sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256" }
+      }
+    },
+    "runpoint": {
+      "type": "object",
+      "required": ["ref"],
+      "additionalProperties": false,
+      "properties": {
+        "ref": { "type": "string", "description": "configs/m6-runpoint-*.json 路径 + sha256" },
+        "thresholds": {
+          "type": "object",
+          "description": "本次评测实际生效的双带阈值快照（复现锚点）",
+          "additionalProperties": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" }
+        }
+      }
+    },
+    "suites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "n"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "description": "如 heldout-m6 / challenge / ood / v023 / jb-v0.7 ..." },
+          "role": { "enum": ["recall", "fpr", "challenge", "ood", "anchor"] },
+          "n": { "type": "integer", "minimum": 1 },
+          "recall": { "type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "透明度骑手（adr-1b §2）：逐套件 recall 点估计必报" },
+          "recall_ci95": { "type": ["array", "null"], "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "精确二项 CI95 [lo, hi]" },
+          "band": { "enum": ["ok", "pass-with-flag", "fail"], "description": "90-95% 带 = pass-with-flag（已知局限，如实写入最终报告，不静默）；<90% = fail（触发 suite_recall_floor）" }
+        }
+      }
+    },
+    "n": { "type": "integer", "minimum": 1, "description": "评测总条目数（去 ambiguous 后）" },
+    "per_task": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 6,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^T[1-6]$": {
+          "type": "object",
+          "required": ["recall", "fpr", "n_pos", "n_neg", "fn_ids", "fp_ids"],
+          "additionalProperties": false,
+          "properties": {
+            "recall": { "type": "number", "minimum": 0, "maximum": 1 },
+            "fpr": { "type": "number", "minimum": 0, "maximum": 1 },
+            "precision": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+            "score_roc_auc": { "type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "阈值敏感性分析辅助（qa 画曲线用 per_item 原始分）" },
+            "n_pos": { "type": "integer", "minimum": 0 },
+            "n_neg": { "type": "integer", "minimum": 0 },
+            "n_flag": { "type": "integer", "minimum": 0 },
+            "n_suppressed": { "type": "integer", "minimum": 0, "description": "中带被 OOD 抑制的正样本数（recall 损失信源）" },
+            "fn_ids": { "type": "array", "items": { "type": "string" } },
+            "fp_ids": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "challenge": {
+      "type": "object",
+      "required": ["fpr", "n", "fp_ids"],
+      "additionalProperties": false,
+      "properties": {
+        "fpr": { "type": "number", "minimum": 0, "maximum": 1 },
+        "ci95": { "type": ["array", "null"], "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "精确二项 CI95（U2：点估计判定 + CI 显著越界标红，0/1200 的 CI 上界 ~0.3% 如实报）" },
+        "n": { "type": "integer", "minimum": 0 },
+        "fp_ids": { "type": "array", "items": { "type": "string" } },
+        "by_task": {
+          "type": "object",
+          "description": "逐任务挑战 FPR（U2 主门口径：任务级逐任务 <0.1%；挑战行按全任务负例复制保证每头 ≥1,200 行分辨率）",
+          "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "ood": {
+      "type": "object",
+      "required": ["pass_rate", "n"],
+      "additionalProperties": false,
+      "properties": {
+        "pass_rate": { "type": "number", "minimum": 0, "maximum": 1, "description": "decision=pass 比例（弃权计 pass）" },
+        "n": { "type": "integer", "minimum": 0 },
+        "flagged_ids": { "type": "array", "items": { "type": "string" }, "description": "OOD 误杀（decision=flag）清单" },
+        "n_abstained": { "type": "integer", "minimum": 0 },
+        "n_is_ood": { "type": "integer", "minimum": 0, "description": "OOD 判定命中数（is_ood=true，与 pass 正交统计）" }
+      }
+    },
+    "abstain": {
+      "type": "object",
+      "required": ["rate"],
+      "additionalProperties": false,
+      "properties": {
+        "rate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "n_abstain": { "type": "integer", "minimum": 0 },
+        "on_pos_rate": { "type": ["number", "null"], "description": "正样本上的弃权率（recall 损失视角）" },
+        "on_neg_rate": { "type": ["number", "null"] },
+        "on_ood_suite_rate": { "type": ["number", "null"], "description": "U1 双列披露①：OOD 集上的弃权率（预期主通道——OOD 抑制的正常工作面）" },
+        "on_in_dist_attack_rate": { "type": ["number", "null"], "description": "U1 双列披露②：分布内攻击侧弃权率（两带设计下构造性趋零；非零 = Mahalanobis 失准的'万物皆弃权'陷阱探针）" },
+        "by_reason": { "type": "object", "additionalProperties": { "type": "integer", "minimum": 0 } }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "required": ["checks", "verdict"],
+      "additionalProperties": false,
+      "properties": {
+        "recall_min": { "const": 0.95 },
+        "suite_recall_floor": { "type": "number", "default": 0.9, "description": "任一套件地板（adr-1b §1 确认：pooled>95% 门 + 单套件 ≥90% 地板；90-95% 带 = pass-with-flag 透明披露）" },
+        "fpr_max": { "const": 0.005 },
+        "challenge_fpr_max": { "const": 0.001 },
+        "ood_pass_min": { "type": "number", "default": 0.95, "description": "U1 终裁：硬门 ≥95%，目标 98%" },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "value", "op", "threshold", "pass"],
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "description": "如 recall_T2 / fpr_T1 / challenge_fpr / ood_pass" },
+              "value": { "type": ["number", "null"] },
+              "op": { "enum": [">=", "<="] },
+              "threshold": { "type": "number" },
+              "pass": { "type": "boolean" },
+              "n": { "type": ["integer", "null"], "description": "该检查的样本基数（recall 检查=n_pos；FPR 检查=n_neg）" }
+            }
+          }
+        },
+        "verdict": { "enum": ["PASS", "FAIL"] }
+      }
+    },
+    "by_suite": {
+      "type": "object",
+      "description": "可选：逐套件 × 逐任务细读（v1/v2 归因用）",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "recall": { "type": ["number", "null"] },
+            "fpr": { "type": ["number", "null"] },
+            "n_pos": { "type": "integer" },
+            "n_neg": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["per_item"],
+      "additionalProperties": false,
+      "properties": {
+        "per_item": { "type": "string", "description": "逐条记录 JSONL 路径（见 #/$defs/PerItem）" },
+        "responses": { "type": "string", "description": "原始推理响应 JSONL（m6-inference Response 全量）" },
+        "config": { "type": "string" },
+        "command": { "type": "string", "description": "复现命令行（含随机种子）" }
+      }
+    }
+  },
+  "$defs": {
+    "PerItem": {
+      "type": "object",
+      "required": ["id", "gold", "score", "flag", "decision"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "suite": { "type": "string" },
+        "gold": { "type": "object", "description": "该条 gold（稀疏）：{T k: pos|neg}", "additionalProperties": { "$ref": "m6-common.schema.json#/$defs/GoldLabel" } },
+        "score": { "type": "object", "description": "六任务原始分全量", "additionalProperties": { "$ref": "m6-common.schema.json#/$defs/Score" } },
+        "flag": { "type": "object", "additionalProperties": { "type": "boolean" } },
+        "suppressed": { "type": "object", "additionalProperties": { "type": "boolean" } },
+        "abstain": { "type": "boolean" },
+        "abstain_reason": { "$ref": "m6-common.schema.json#/$defs/AbstainReason" },
+        "ood": { "type": "object", "properties": { "is_ood": { "type": "boolean" }, "ood_score": { "$ref": "m6-common.schema.json#/$defs/Score" } } },
+        "decision": { "enum": ["pass", "flag"] },
+        "correct": { "type": "object", "description": "逐任务判定对错（供快速过滤）", "additionalProperties": { "type": "boolean" } }
+      }
+    }
+  }
+}

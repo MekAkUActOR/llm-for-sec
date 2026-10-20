@@ -1,0 +1,266 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M6 shared definitions (tasks / enums / input forms / label details)",
+  "description": "M6 检测器全部接口契约的共享定义。兄弟 schema 文件以相对 $ref 引用本文件（如 m6-common.schema.json#/$defs/TaskId）。本文件不含独立载荷，仅作 $defs 库。版本变更必须在 docs/m6/schemas/SCHEMAS.md 登记。架构基线（ADR-1 预对齐 2026-10-21）：M6 = 判别式多头探针（r5 主干单次 forward，无自回归解码）；gold 主判统一 pos|neg，预测侧语义词仅作解释性标注。",
+  "$defs": {
+    "SchemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[A-Za-z0-9.]+)?$",
+      "description": "语义化版本，可带预发布后缀（如 0.2.0-draft1）。",
+      "examples": ["0.2.0", "0.2.0-draft1", "1.0.0"]
+    },
+    "TaskId": {
+      "oneOf": [
+        { "const": "T1", "title": "T1 content-moderation 内容审核" },
+        { "const": "T2", "title": "T2 jailbreak / direct injection 越狱与直接注入" },
+        { "const": "T3", "title": "T3 malicious intent 恶意意图（多轮+长上下文）" },
+        { "const": "T4", "title": "T4 PII 个人身份信息检测" },
+        { "const": "T5", "title": "T5 indirect injection 间接注入（载体携带）" },
+        { "const": "T6", "title": "T6 high-risk instruction 高危指令注入" }
+      ]
+    },
+    "Language": { "enum": ["zh", "en", "mix"] },
+    "Split": {
+      "enum": ["train", "dev", "heldout", "challenge", "ood"],
+      "description": "train/dev = 训练与校准（dev 供阈值/弃权标定）；heldout/challenge/ood = 自建评测集（H6 冻结，只读门禁用）。物理位置约定：全部在 data/m6/ 下按 split 分文件，隔离由 manifest.disjointness 断言强制；data/heldout/ 冻结套件永不映射为 train/dev。"
+    },
+    "TrainSplit": { "enum": ["train", "dev"] },
+    "EvalSplit": { "enum": ["heldout", "challenge", "ood"] },
+    "Kind": {
+      "enum": ["singleturn", "multiturn", "longctx", "carrier", "protocol"],
+      "description": "行级形态标签（管线过滤用）：singleturn=单轮短文本；multiturn=多轮对话（turns 或 messages）；longctx=长文本单轮（est_tokens>=8000）；carrier=结构化载体（运行时渲染协议包装）；protocol=预渲染协议串（冻结套件兼容，原样透传）。"
+    },
+    "Role": { "enum": ["system", "user", "assistant"] },
+    "PolicyPack": { "enum": ["conservative", "default", "professional", "none"] },
+    "CarrierType": {
+      "enum": [
+        "tool_output", "search_result", "email", "doc_fragment", "document",
+        "webpage", "log", "av_metadata", "image_metadata", "code", "other"
+      ]
+    },
+    "GoldLabel": {
+      "enum": ["pos", "neg"],
+      "description": "统一二元主判（六任务同口径，recall/FPR 直接统计）。语义细粒度在 label_detail；预测侧解释词见各任务 PredLabel。标签语义 = 预测 must_refuse（pack 条件化信息随输入序列化进入，检测器 pack-aware）。"
+    },
+    "Score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "ThresholdBand": {
+      "type": "object",
+      "required": ["flag", "strong"],
+      "additionalProperties": false,
+      "properties": {
+        "flag": { "$ref": "#/$defs/Score", "description": "τ_flag：score>τ_flag 且未触发 OOD 抑制 ⇒ FLAG" },
+        "strong": { "$ref": "#/$defs/Score", "description": "τ_strong：score>τ_strong ⇒ FLAG 无视 OOD（强信号永不弃权）" }
+      },
+      "description": "双带阈值（ADR-1）：必须满足 strong >= flag。"
+    },
+    "AbstainReason": {
+      "enum": ["none", "ood", "low_confidence", "input_error"],
+      "description": "none=未弃权；ood=中带分数被 OOD 判定抑制（→PASS，正样本计 FN/负样本计 TN）；low_confidence=保留档（校准回退）；input_error=渲染/前向失败（保守放过，diagnostics.format_ok=false）。"
+    },
+    "PiiType": {
+      "enum": [
+        "person", "phone", "email", "gov_id", "address", "bank_card",
+        "credential", "dob", "license_plate", "medical_id", "other_id"
+      ],
+      "description": "PII 实体类型表（dataeng 定稿 2026-10-21 03:10，源 gen_pii.py；adr-1b §6.3 闭合一环）。type→risk 确定性映射：person=low/phone=medium/email=low/gov_id=high/address=medium/bank_card=high/credential=high/dob=medium/license_plate=medium/medical_id=medium/other_id=medium。gov_id 细分经 span.sub 无损保留（resident_id|passport）。BIO 通道 = 2×11+1 = 23。类型表变更 = schema minor 版 + SCHEMAS.md 登记。"
+    },
+    "PiiRisk": { "enum": ["low", "medium", "high"], "description": "PII 风险级（由类型表确定性派生，Span.risk 与之一致可校验）" },
+    "Span": {
+      "type": "object",
+      "required": ["start", "end", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "start": { "type": "integer", "minimum": 0 },
+        "end": { "type": "integer", "minimum": 1 },
+        "type": { "$ref": "#/$defs/PiiType" },
+        "sub": { "type": "string", "description": "类型内细分（gov_id: resident_id|passport；其余类型生成器确知时可填，无损保留）" },
+        "text": { "type": "string", "description": "可选：span 原文（审计用，校验时必须与切片一致）" },
+        "risk": { "$ref": "#/$defs/PiiRisk" },
+        "message_index": { "type": "integer", "minimum": 0, "description": "multiturn 输入：定位到 messages[message_index].content" },
+        "carrier_id": { "type": "string", "description": "carrier 输入：定位到 carrier.body（id 如 c1）" }
+      },
+      "description": "字符偏移（Unicode 码点，end 排他）。坐标基准 = 原始输入字段（input.text / messages[i].content / carrier.body），绝非渲染后协议信封坐标——渲染器必须提供 token→原文 char-offset 回映（ADR-1 D9）。单文本形态省略 message_index/carrier_id。"
+    },
+    "Sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "Timestamp": { "type": "string", "format": "date-time" },
+
+    "T1Pred": { "enum": ["contains-risk", "clean"] },
+    "T2Pred": { "enum": ["jailbreak", "normal"] },
+    "T3Pred": { "enum": ["malicious", "benign"] },
+    "T4Pred": { "enum": ["contains-pii", "clean"] },
+    "T5Pred": { "enum": ["contains-injection", "clean"] },
+    "T6Pred": { "enum": ["high-risk", "safe", "conditional"] },
+
+    "Message": {
+      "type": "object",
+      "required": ["role", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "role": { "$ref": "#/$defs/Role" },
+        "content": { "type": "string", "minLength": 1 }
+      }
+    },
+    "Carrier": {
+      "type": "object",
+      "required": ["type", "trust", "body"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "$ref": "#/$defs/CarrierType" },
+        "trust": { "const": "untrusted" },
+        "id": { "type": "string", "pattern": "^c[0-9]+$", "default": "c1" },
+        "meta": { "type": "object", "description": "载体元数据（自由键值，渲染进协议 meta 区）" },
+        "body": { "type": "string", "minLength": 1 },
+        "payload_sites": {
+          "type": "array", "items": { "type": "string" },
+          "description": "载荷位点（如 body/meta/dom/urls/relationship_target），T5 证据定位用。"
+        }
+      }
+    },
+    "TextInput": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string", "minLength": 1 },
+        "system": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "TurnsInput": {
+      "type": "object",
+      "required": ["turns"],
+      "properties": {
+        "turns": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "system": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false,
+      "description": "纯 user 轮序列（最后一轮=收割轮）。规范化等价于全 user 角色的 messages。"
+    },
+    "MessagesInput": {
+      "type": "object",
+      "required": ["messages"],
+      "properties": {
+        "messages": { "type": "array", "items": { "$ref": "#/$defs/Message" }, "minItems": 1 },
+        "system": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "CarrierInput": {
+      "type": "object",
+      "required": ["operator_task", "carrier"],
+      "properties": {
+        "operator_task": { "type": "string", "minLength": 1 },
+        "carrier": { "$ref": "#/$defs/Carrier" },
+        "user_turn": { "type": "string" },
+        "system": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false,
+      "description": "结构化载体输入：运行时由唯一渲染器渲染为 dsh-protocol 包装文本（协议版本登记于 manifest.render_protocol_version）。"
+    },
+    "ProtocolInput": {
+      "type": "object",
+      "required": ["protocol_text"],
+      "properties": {
+        "protocol_text": { "type": "string", "minLength": 1 },
+        "system": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false,
+      "description": "预渲染协议串（冻结套件兼容）：原样作为 user 内容透传，不做二次渲染。"
+    },
+    "Input": {
+      "oneOf": [
+        { "$ref": "#/$defs/TextInput" },
+        { "$ref": "#/$defs/TurnsInput" },
+        { "$ref": "#/$defs/MessagesInput" },
+        { "$ref": "#/$defs/CarrierInput" },
+        { "$ref": "#/$defs/ProtocolInput" }
+      ],
+      "description": "结构化输入五形态（互斥，oneOf 强制）。与行级 kind 标签的对应：singleturn/longctx=>text；multiturn=>turns|messages；carrier=>carrier 包；protocol=>protocol_text。"
+    },
+
+    "TaskLabel": {
+      "type": "object",
+      "required": ["label"],
+      "properties": {
+        "label": { "$ref": "#/$defs/GoldLabel" },
+        "label_detail": { "type": "object" },
+        "annotator": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "description": "单任务 gold 标注。label_detail 的按任务结构见 T1Detail..T6Detail（sample schema 按 T 键强制）。"
+    },
+    "T1Detail": {
+      "type": "object",
+      "properties": {
+        "risk_domain": { "type": "string", "description": "风险域子类（对齐 r9 payload pool 域；枚举由 dataeng 在 manifest 登记，schema 后续 minor 版收严）" }
+      },
+      "additionalProperties": false
+    },
+    "T2Detail": {
+      "type": "object",
+      "properties": {
+        "framework": { "enum": ["roleplay", "hypothetical", "multiturn", "authority", "encoding", "other"] }
+      },
+      "additionalProperties": false
+    },
+    "T3Detail": {
+      "type": "object",
+      "properties": {
+        "trigger": { "enum": ["multiturn-accumulation", "longctx-buried", "singleturn"] }
+      },
+      "additionalProperties": false
+    },
+    "T4Detail": {
+      "type": "object",
+      "required": ["spans"],
+      "properties": {
+        "spans": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["start", "end", "type"],
+            "properties": {
+              "start": { "type": "integer", "minimum": 0 },
+              "end": { "type": "integer", "minimum": 1 },
+              "type": { "$ref": "#/$defs/PiiType" },
+              "text": { "type": "string" },
+              "message_index": { "type": "integer", "minimum": 0 },
+              "carrier_id": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false,
+      "description": "T4 gold 必须给出码点偏移 span 列表（pos 时 >=1 个，neg 时空数组）。多轮/载体输入用 message_index/carrier_id 定位基准文本。"
+    },
+    "T5Detail": {
+      "type": "object",
+      "properties": {
+        "carrier": { "$ref": "#/$defs/CarrierType" },
+        "mechanism": {
+          "enum": [
+            "ai_directive", "fake_system_prompt", "policy_claim", "task_hijack",
+            "exfil_authorize", "verdict_suppress", "encoding_obfuscation",
+            "relationship_target", "hidden_text", "other"
+          ]
+        },
+        "carrier_site": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "T6Detail": {
+      "type": "object",
+      "properties": {
+        "t6_class": {
+          "enum": ["high-risk", "conditional", "safe"],
+          "description": "T6 三值类（adr-1b §6.2 契约字段名）。单一真源：label=pos ⟺ t6_class=high-risk；conditional/safe 均 flag 阴性。缺省回退：pos→high-risk / neg→safe"
+        },
+        "op": {
+          "enum": ["delete", "privilege_escalation", "exfiltrate", "execute_payload", "irreversible", "mass_action", "other"]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

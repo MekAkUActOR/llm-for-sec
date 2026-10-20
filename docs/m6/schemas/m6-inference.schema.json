@@ -1,0 +1,183 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M6 推理 API（输入/输出契约：单次前向返回六任务结果+弃权标志）",
+  "description": "m6_infer（deveng task-7）的线上契约，同时是 qa task-9/12 harness 的批量喂入口径。架构（ADR-1 冻结）：判别式多头探针——r5 主干单次 forward 抽 {4,12,20,24,28}×{last,mean} 池化 + PII 行 per-token 态 → 共享 trunk + 7 头（5 二值 + T6 三值 + T4 doc/BIO 双头）并行 logits → wrapper 组装本 JSON（零自回归）。命名终裁（SYS-1，对 ADR 附录 A 草案的定稿）：任务键 = T1..T6（与数据集 labels/阈值/评测 per_task 同一命名空间）；decision 值 = 小写 pass|flag（ADR 附录大写为显示记法）；ood.score = 原始 Mahalanobis 距离（未归一化，≥0）。",
+  "$defs": {
+    "Request": {
+      "type": "object",
+      "required": ["input"],
+      "additionalProperties": false,
+      "properties": {
+        "request_id": { "type": "string", "description": "调用方幂等 id；批量行缺省时用行 id 回填" },
+        "input": { "$ref": "m6-common.schema.json#/$defs/Input" },
+        "options": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "policy_pack": { "$ref": "m6-common.schema.json#/$defs/PolicyPack" },
+            "thresholds": {
+              "type": "object",
+              "description": "每任务双带阈值覆盖（部分键即可）",
+              "additionalProperties": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" }
+            },
+            "ood_threshold_override": { "type": "number", "minimum": 0, "description": "τ_ood 覆盖（原始 Mahalanobis 距离口径）" },
+            "system": { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+    "BatchLine": {
+      "description": "qa harness 批量 JSONL 行（三形态）：{id,text} | {id,turns} | {id,input}。前两种为速记，m6_infer 规范化为 input={text} / input={turns}。",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["id", "text"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string" },
+            "text": { "type": "string", "minLength": 1 },
+            "options": { "$ref": "#/$defs/Request/properties/options" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["id", "turns"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string" },
+            "turns": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+            "options": { "$ref": "#/$defs/Request/properties/options" }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["id", "input"],
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string" },
+            "input": { "$ref": "m6-common.schema.json#/$defs/Input" },
+            "options": { "$ref": "#/$defs/Request/properties/options" }
+          }
+        }
+      ]
+    },
+    "TaskResult": {
+      "type": "object",
+      "required": ["flag", "score"],
+      "additionalProperties": false,
+      "properties": {
+        "flag": { "type": "boolean", "description": "双带派生（ADR-1 §8）：score>τ_strong ⇒ true；τ_flag<score≤τ_strong ⇒ ¬is_ood；score≤τ_flag ⇒ false。弃权时恒 false。T4 特例：flag = doc 头双带结果 ∨ (spans 非空)" },
+        "score": { "$ref": "m6-common.schema.json#/$defs/Score", "description": "原始分（阈值前，温度校准后）：正类概率（T6 = P(high-risk)；T4 = doc 头分数）。任何情况必须输出" },
+        "label": {
+          "type": ["string", "null"],
+          "description": "解释性判词（wrapper 从头 logits 组装）：T1 contains-risk|clean；T2 jailbreak|normal；T3 malicious|benign；T4 contains-pii|clean；T5 contains-injection|clean；T6 high-risk|safe|conditional（conditional 不触发 flag）"
+        },
+        "suppressed": { "type": "boolean", "description": "本任务分数落入弱带且被 OOD 抑制（flag 被压 false 的审计标记；decision=flag 时仍可为 true，供归因）" },
+        "findings": { "type": "array", "items": { "type": "string" }, "description": "证据片段；仅 FLAG 时非空（ADR 附录 A）。T5 建议含载体位点（如 'carrier c1: 尾部裁决篡改指令'）" },
+        "spans": {
+          "type": "array",
+          "items": { "$ref": "m6-common.schema.json#/$defs/Span" },
+          "description": "仅 T4：BIO 解码 + token→char 回映的 PII span 列表（原文坐标；无 span 时空数组）。spans 非空 ⇒ T4 flag=true（doc 头 ∨ span 并集）"
+        },
+        "detail": {
+          "type": ["object", "null"],
+          "description": "任务特定预测细节：T5 => {carrier_site: str, mechanism: str|null}；T4 可含 {doc_score: number}（doc 头分数，spans 来自 BIO 头）；T6 三值类即 label 字段本身（high-risk|conditional|safe，adr-1b §6.2）；其余 null"
+        }
+      }
+    },
+    "Tasks": {
+      "type": "object",
+      "required": ["T1", "T2", "T3", "T4", "T5", "T6"],
+      "additionalProperties": false,
+      "properties": {
+        "T1": { "$ref": "#/$defs/TaskResult" },
+        "T2": { "$ref": "#/$defs/TaskResult" },
+        "T3": { "$ref": "#/$defs/TaskResult" },
+        "T4": { "$ref": "#/$defs/TaskResult" },
+        "T5": { "$ref": "#/$defs/TaskResult" },
+        "T6": { "$ref": "#/$defs/TaskResult" }
+      }
+    },
+    "OodState": {
+      "type": "object",
+      "required": ["is_ood", "score"],
+      "additionalProperties": false,
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "description": "Mahalanobis 距离（原始、未归一化；ADR 附录 A 示例 12.3）。is_ood = min(d_benign, d_attack) > τ_ood" },
+        "is_ood": { "type": "boolean", "description": "trunk 特征对 benign/attack 双中心的 Mahalanobis 判定（离两类流形都远才算 OOD——贴近 attack 流形的未见载体攻击不是 OOD，不被压制）" },
+        "mechanism": { "const": "mahalanobis-aux" }
+      }
+    },
+    "ThresholdsApplied": {
+      "type": "object",
+      "required": ["T1", "T2", "T3", "T4", "T5", "T6", "source", "tau_ood"],
+      "additionalProperties": false,
+      "properties": {
+        "T1": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T2": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T3": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T4": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T5": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T6": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "tau_ood": { "type": "number", "minimum": 0, "description": "生效的 OOD 距离阈值" },
+        "source": { "enum": ["config-default", "runpoint-file", "request-override"] }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "required": ["schema", "schema_version", "request_id", "decision", "abstain", "abstain_reason", "ood", "tasks", "thresholds_applied", "latency_ms"],
+      "additionalProperties": false,
+      "properties": {
+        "schema": { "const": "m6-inference-response" },
+        "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
+        "request_id": { "type": "string" },
+        "decision": {
+          "enum": ["pass", "flag"],
+          "description": "全局决策 = 六任务 flag 之 OR（ADR-1 §8；联合 OR 门）。检测器只表达检测结论，处置由下游策略决定"
+        },
+        "abstain": {
+          "type": "boolean",
+          "description": "弃权标志（ADR-1 §8 公式）：abstain = (decision==pass ∧ is_ood ∧ 任一任务分数曾落入弱带)；input_error 保守放过时亦为 true。验收口径：abstain 记 PASS；正样本上 abstain 计 FN、负样本上计 TN"
+        },
+        "abstain_reason": { "$ref": "m6-common.schema.json#/$defs/AbstainReason" },
+        "ood": { "$ref": "#/$defs/OodState" },
+        "tasks": { "$ref": "#/$defs/Tasks" },
+        "thresholds_applied": { "$ref": "#/$defs/ThresholdsApplied" },
+        "latency_ms": { "type": "number", "minimum": 0, "description": "端到端（渲染+前向+头+组装）；0.6B bf16 @4k ctx 参考值 ~40ms 级（D11）" },
+        "model": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "id": { "type": "string", "description": "如 m6-v1" },
+            "version": { "type": "string" },
+            "base_trunk": { "type": "string", "const": "checkpoints/qwen3-06b-sec-m5a-dpo-r5" },
+            "heads_ref": { "type": "string", "description": "探针头权重文件（如 checkpoints/m6-v1/probe-heads.pt）" }
+          }
+        },
+        "diagnostics": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "prompt_tokens": { "type": "integer", "minimum": 0 },
+            "truncation_applied": { "type": "boolean", "description": "输入超 4096 窗口时 head+tail 截断（首512+尾3584）是否触发" },
+            "render_kind": { "type": "string", "description": "实际渲染形态（singleturn/multiturn/carrier/protocol）" },
+            "score_source": { "const": "logit", "description": "探针路径恒为 logit 组装（qa 基线 v0 的 logprob 口径走独立通道，不经本 schema）" },
+            "format_ok": { "type": "boolean", "description": "渲染/前向/组装全部成功（false ⇒ 保守放过+abstain_reason=input_error）" }
+          }
+        },
+        "verdict_line": { "type": "string", "description": "wrapper 组装的 'M6VERDICT: {...}' 单行 JSON（审计/落盘复打分用；与 tasks 同源同值）" }
+      },
+      "if": { "properties": { "abstain": { "const": true } } },
+      "then": {
+        "properties": {
+          "tasks": {
+            "patternProperties": {
+              "^T[1-6]$": { "properties": { "flag": { "const": false } } }
+            }
+          },
+          "decision": { "const": "pass" }
+        }
+      }
+    }
+  }
+}

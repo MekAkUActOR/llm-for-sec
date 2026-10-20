@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M6 数据清单 manifest（数据管线输出 / 训练与评测的引用锚点）",
+  "description": "data/m6/manifest.json 的 schema。单一事实源：训练 config（data.manifest）、泄漏审计（task-6）、评测 harness（task-9）全部引用本文件登记的文件清单与 sha256。任何 data/m6/ 内容变更必须重建 manifest 并递增 manifest_id 版本；H6 数据冻结后 manifest 指纹入 git tag 由 Lead 确认。",
+  "required": ["schema", "schema_version", "manifest_id", "created", "generator", "files", "coverage", "disjointness"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "m6-manifest" },
+    "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
+    "manifest_id": { "type": "string", "pattern": "^m6-data-v[0-9]+$" },
+    "created": { "$ref": "m6-common.schema.json#/$defs/Timestamp" },
+    "generator": {
+      "type": "object",
+      "required": ["script"],
+      "additionalProperties": false,
+      "properties": {
+        "script": { "type": "string", "description": "如 scripts/m6_build_manifest.py" },
+        "git_sha": { "type": "string" },
+        "config": { "type": "string", "description": "构建配置（如 configs/m6-data-v1.yaml）" }
+      }
+    },
+    "render_protocol_version": { "type": "string", "default": "dsh-protocol/0.1", "description": "carrier 输入渲染所用的协议版本（渲染器唯一，训练/评测共用）" },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "split", "task", "format", "n", "sha256", "label_counts"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "description": "相对 data/m6/ 的路径，正斜杠（如 t2-jailbreak/train.jsonl、pool/train.jsonl、challenge/challenge.jsonl、ood/ood.jsonl）" },
+          "split": { "$ref": "m6-common.schema.json#/$defs/Split" },
+          "task": {
+            "description": "文件归属：主任务 id 或共享池",
+            "oneOf": [
+              { "$ref": "m6-common.schema.json#/$defs/TaskId" },
+              { "const": "pool" },
+              { "const": "multi" }
+            ]
+          },
+          "format": { "const": "m6-sample-jsonl" },
+          "n": { "type": "integer", "minimum": 1 },
+          "sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256" },
+          "label_counts": {
+            "type": "object",
+            "description": "按 labels 键统计（不是 task 字段）：{T1: {pos: n, neg: n}, ...}",
+            "additionalProperties": {
+              "type": "object",
+              "required": ["pos", "neg"],
+              "additionalProperties": false,
+              "properties": {
+                "pos": { "type": "integer", "minimum": 0 },
+                "neg": { "type": "integer", "minimum": 0 }
+              }
+            }
+          },
+          "flags": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ood": { "type": "integer", "minimum": 0 },
+              "challenge": { "type": "integer", "minimum": 0 },
+              "ambiguous": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "est_tokens_p50": { "type": ["integer", "null"] },
+          "est_tokens_p95": { "type": ["integer", "null"] }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "description": "六任务 × 五切分的 pos/neg 汇总（按 labels 键统计）。key=T1..T6。",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "required": ["pos", "neg"],
+          "additionalProperties": false,
+          "properties": {
+            "pos": { "type": "integer", "minimum": 0 },
+            "neg": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "scale_gates": {
+      "type": "object",
+      "description": "规模门（qa 倒推的最低量）：train 正/负各>=2000/任务；heldout 正>=200、负>=1000/任务；challenge>=1200；ood>=500。status=pass|fail 逐项。",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["status"],
+        "additionalProperties": true,
+        "properties": {
+          "status": { "enum": ["pass", "fail"] }
+        }
+      }
+    },
+    "frozen_suites": {
+      "type": "array",
+      "description": "data/heldout/ 冻结套件登记（乙醇纪律：只读，永不进训练/调参/阈值标定）。评测 harness 引用此处指纹。",
+      "items": {
+        "type": "object",
+        "required": ["name", "path", "role", "sha256"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "description": "如 v023 / gen / jb-v0.7 / toolout / toolout-reg / document / longctx / dilution" },
+          "path": { "type": "string", "description": "data/heldout/ 下相对路径" },
+          "role": { "enum": ["recall", "fpr", "challenge", "ood", "anchor"] },
+          "n": { "type": "integer" },
+          "sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256" }
+        }
+      }
+    },
+    "disjointness": {
+      "type": "object",
+      "required": ["assertions"],
+      "additionalProperties": false,
+      "properties": {
+        "assertions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "机器可执行断言清单，如：A1 train/dev 与 challenge/ood 目录零交集（路径级）；A2 全部行 8-gram 与 data/heldout/** 零重叠（check_dilution_suite.py A5 同款）；A3 flags.holdout_family 非空行仅允许出现在 split=heldout；A4 训练 config 引用的文件全部 split in {train,dev}。"
+        },
+        "checked_by": { "type": "string", "description": "如 scripts/m6_check_staging.py（task-6 交付）" },
+        "audit_report": { "type": "string", "description": "reports/m6/ 下审计结论路径" }
+      }
+    }
+  }
+}

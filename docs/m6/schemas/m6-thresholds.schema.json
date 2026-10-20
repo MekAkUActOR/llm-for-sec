@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "M6 运行点文件（双带阈值 + OOD 判定参数；qa-m6 管理）",
+  "description": "configs/m6-runpoint-*.json 的 schema（qa 拥有与冻结；deveng 推理器加载、评测 harness 引用）。标定纪律：只能用 data/m6/ 的 dev 切分标定（challenge/heldout/ood 与 data/heldout/ 冻结套件绝不参与标定）；运行点文件变更=新文件+登记，不原地改。",
+  "required": ["schema", "schema_version", "runpoint_id", "calibrated_on", "thresholds", "ood"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "m6-thresholds" },
+    "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
+    "runpoint_id": { "type": "string", "pattern": "^m6-runpoint-v[0-9]+[a-z0-9.-]*$" },
+    "created": { "$ref": "m6-common.schema.json#/$defs/Timestamp" },
+    "owner": { "const": "qa-m6" },
+    "calibrated_on": {
+      "type": "object",
+      "required": ["split", "manifest", "n"],
+      "additionalProperties": false,
+      "properties": {
+        "split": { "const": "dev" },
+        "manifest": { "type": "string", "description": "data/m6/manifest.json 的 manifest_id + sha256（标定时的清单指纹）" },
+        "n": { "type": "integer", "minimum": 1 },
+        "method": { "type": "string", "description": "标定方法（如：τ_flag 取 dev 上 FPR<=0.4% 的最大召回点；τ_strong 取 dev 攻击分布 P99 分位下确界）" },
+        "curves": { "type": "string", "description": "阈值敏感性曲线数据文件路径（reports/m6/）" }
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "required": ["T1", "T2", "T3", "T4", "T5", "T6"],
+      "additionalProperties": false,
+      "properties": {
+        "T1": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T2": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T3": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T4": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T5": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" },
+        "T6": { "$ref": "m6-common.schema.json#/$defs/ThresholdBand" }
+      }
+    },
+    "temperatures": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "温度元数据（adr-1b §6.1：v1 撤销温度缩放——实测 NLL 最优 T→0 使 σ(logit/T) 饱和、破坏双带分数分辨率。score = σ(logit) 原始尺度，全部阈值在该尺度定标；本块仅作记录性元数据 + CLI 开关保留，不参与决策，v2 LoRA 后可复议）",
+      "properties": {
+        "T1": { "type": "number", "exclusiveMinimum": 0 },
+        "T2": { "type": "number", "exclusiveMinimum": 0 },
+        "T3": { "type": "number", "exclusiveMinimum": 0 },
+        "T4": { "type": "number", "exclusiveMinimum": 0 },
+        "T5": { "type": "number", "exclusiveMinimum": 0 },
+        "T6": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "ood": {
+      "type": "object",
+      "required": ["mechanism"],
+      "additionalProperties": false,
+      "properties": {
+        "mechanism": { "const": "mahalanobis-aux" },
+        "tau_ood": { "type": "number", "minimum": 0, "description": "OOD 距离阈值（原始 Mahalanobis 距离口径；定标 = dev-benign 距离 q99.5，定标集须含长度匹配样本防长文漂移误判）" },
+        "is_ood_rule": { "const": "min(d_benign,d_attack) > tau_ood" },
+        "centers_ref": { "type": "string", "description": "类条件高斯中心/协方差文件（如 checkpoints/m6-v1/ood_centers.json）" },
+        "suppression": {
+          "const": "two-band",
+          "description": "抑制规则固定为双带：仅弱带 (τ_flag, τ_strong] 分数可被 OOD 抑制；score>τ_strong 永不抑制（强信号防线）"
+        }
+      }
+    },
+    "calibration_method": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "strategy": { "const": "joint-or-gate", "description": "D8 联合 OR 门校准：网格搜索 (τ_flag_1..6)，约束 = 并集决策在 dev-benign ∪ dev-challenge-mirror 上 FP=0 且 margin≥δ，最大化加权力 recall" },
+        "tau_strong_rule": { "const": "max(dev真阳分数q10, tau_flag+margin)" },
+        "margin_delta": { "type": "number" },
+        "curves": { "type": "string", "description": "(τ, recall, FP) 三元组曲线数据文件（reports/m6/）——敏感性分析 Lead 换点依据（ADR §10-4）" }
+      }
+    },
+    "applies_to": {
+      "type": "object",
+      "properties": {
+        "model_id": { "type": "string" },
+        "heads_sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256" }
+      },
+      "additionalProperties": false,
+      "description": "运行点绑定的探针头指纹（换头必须重标定）"
+    },
+    "notes": { "type": "string" },
+    "git_sha": { "type": "string" }
+  }
+}
