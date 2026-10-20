@@ -117,6 +117,28 @@ def forward_extract(model, input_ids, attention_mask, layers, pooling,
     return pooled.float().cpu(), tok.float().cpu()
 
 
+def forward_extract_grad(model, input_ids, attention_mask, layers, pooling,
+                         token_layers):
+    """Grad-flowing variant of forward_extract (v2 LoRA training).
+
+    Same single-pass contract and same math, but: no inference_mode, tensors
+    stay ON DEVICE (no .cpu()) so autograd reaches the backbone through the
+    pooled/token features. Casts to fp32 preserve grads.
+    """
+    n_layers = model.config.num_hidden_layers
+    out = model(input_ids=input_ids, attention_mask=attention_mask,
+                output_hidden_states=True, use_cache=False)
+    hs = out.hidden_states
+    assert len(hs) == n_layers + 1, f"hidden_states len {len(hs)} != {n_layers + 1}"
+    idxs = sorted(set(layers))
+    pooled = torch.cat([_pool(hs[L], attention_mask, pooling) for L in idxs],
+                       dim=-1)
+    tidx = sorted(set(token_layers))
+    tok = torch.cat([hs[L] for L in tidx], dim=-1)
+    tok = tok * attention_mask.unsqueeze(-1).to(tok.dtype)
+    return pooled.float(), tok.float()
+
+
 @torch.inference_mode()
 def forward_pooled(model, input_ids, attention_mask, layers, pooling):
     """One forward on a pre-tokenized (padded) batch -> pooled features.

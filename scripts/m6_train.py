@@ -250,6 +250,49 @@ def stage_a(cfg, backbone, tok, rows, split, out_dir, device):
     return cache
 
 
+def refresh_cache_labels(cfg, out_dir):
+    """Hot-fix path: rewrite ONLY the label arrays inside feat_cache npz.
+
+    Pooled features are label-independent; when a label-only data fix lands
+    (e.g. the reserve-cval T1 polarity flip) this avoids the 22-min GPU
+    re-extraction. HARD FAILS if the row-id set/order changed (that kind of
+    drift needs a full re-extract). tokfeats caches are validated for id-set
+    equality (T1-only flips cannot change the PII-annotated row set, but a
+    general check is cheap).
+    """
+    for split in ("train", "dev"):
+        path = out_dir / "feat_cache" / f"feats_{split}.npz"
+        if not path.is_file():
+            print(f"[m6_train] refresh-labels: no cache for {split}, skip")
+            continue
+        rows = rows_for_split(cfg, split)
+        z = np.load(path, allow_pickle=True)
+        old_ids = [str(x) for x in z["ids"]]
+        new_ids = [r["id"] for r in rows]
+        assert old_ids == new_ids, (
+            f"feats_{split}.npz row set/order changed "
+            f"({len(old_ids)} -> {len(new_ids)}): label refresh not safe, "
+            f"full re-extract required")
+        Y, t6c, neg_all, mirror, pii_idx, pii_spans = derive_labels(rows)
+        n_flip_y = int((Y != z["Y"]).sum())
+        n_flip_neg = int((neg_all != z["neg_all"]).sum())
+        n_flip_mir = int((mirror != z["mirror"]).sum())
+        np.savez_compressed(
+            path, pooled=z["pooled"], ids=z["ids"],
+            Y=Y, t6c=t6c, neg_all=neg_all, mirror=mirror, trunc=z["trunc"],
+            layers=z["layers"], pooling=z["pooling"])
+        print(f"[m6_train] refresh-labels [{split}]: Y cells flipped="
+              f"{n_flip_y}, neg_all flips={n_flip_neg}, mirror flips="
+              f"{n_flip_mir} -> {path.name}")
+        tok_path = out_dir / "feat_cache" / f"tokfeats_{split}.npz"
+        if tok_path.is_file():
+            tz = np.load(tok_path, allow_pickle=True)
+            old_tok_ids = {str(x) for x in tz["ids"]}
+            want = {rows[i]["id"] for i in pii_idx}
+            assert old_tok_ids == want, (
+                f"tokfeats_{split}.npz PII row set changed: re-extract required")
+
+
 # --------------------------------------------------------------------------- #
 # stage B: heads
 # --------------------------------------------------------------------------- #
@@ -608,6 +651,9 @@ def main():
     ap.add_argument("--recalibrate", action="store_true",
                     help="skip stage B training; load out_dir/probe-heads.pt "
                          "and re-run calibration only (weights untouched)")
+    ap.add_argument("--refresh-labels", action="store_true",
+                    help="rewrite label arrays in feat_cache from current "
+                         "data (label-only hot-fix; features untouched)")
     args = ap.parse_args()
 
     cfg = load_config(args.config)
@@ -616,6 +662,9 @@ def main():
     t_start = time.time()
 
     cache_dir = out_dir / "feat_cache"
+    if args.refresh_labels:
+        refresh_cache_labels(cfg, out_dir)
+        return 0
     have_cache = (cache_dir / "feats_train.npz").is_file() and \
                  (cache_dir / "feats_dev.npz").is_file()
     if have_cache and args.reuse_cache:
