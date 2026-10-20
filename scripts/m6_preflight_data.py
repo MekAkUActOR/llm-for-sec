@@ -18,18 +18,17 @@ from m6_train import TASKS, derive_labels, load_config, rows_for_split
 
 cfg = load_config(REPO / "configs" / "m6-v1.yaml")
 man = json.loads((REPO / "data/m6/manifest.json").read_text(encoding="utf-8-sig"))
-print(f"manifest files: {len(man['files'])}  (lightweight index; schema "
-      f"manifest + manifest_id land at task-6 freeze)")
+print(f"manifest_id: {man.get('manifest_id')}  files: {len(man['files'])}")
 
-# pre-flight uses explicit globs (train/dev only; heldout/challenge/ood never
-# read here). pool/ = union of task rows + shared benign negatives; per-task
-# dirs are subset views (reading both duplicates ids). At H6 freeze the v1
-# config switches to the schema manifest.
+# NOTE: data/m6/heldout-shared/benign-heldout.jsonl is registered
+# split=dev in the manifest but its ROWS carry split=heldout (dataeng
+# registration bug, reported). Reader honors row-level split (fail-closed),
+# so dev pre-flight uses explicit patterns until the manifest is fixed.
 cfg["data"] = {
-    "train_patterns": ["data/m6/pool/train.jsonl"],
-    "dev_patterns": ["data/m6/pool/dev.jsonl"],  # dev-mirror = pure subset
+    "dev_patterns": ["data/m6/t*/dev.jsonl", "data/m6/pool/dev.jsonl"],
     "prefix_rows": "exclude",
 }
+
 
 for split in ("train", "dev"):
     t0 = time.time()

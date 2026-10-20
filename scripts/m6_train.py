@@ -84,11 +84,21 @@ def rows_for_split(cfg: dict, split: str) -> list[dict]:
         for p in pats:
             files.extend(sorted(REPO.glob(p)))
     else:
-        man = json.loads((REPO / d["manifest"]).read_text(encoding="utf-8-sig"))
-        files = [REPO / f for f in man["splits"][split]["files"]]
+        # m6-manifest schema: flat files[] with split/path fields
+        man_path = REPO / d["manifest"]
+        man = json.loads(man_path.read_text(encoding="utf-8-sig"))
+        base = man_path.parent
+        files = [base / f["path"] for f in man["files"] if f["split"] == split]
+        # sha256 verification guard (drift detection, cheap skip option)
+        if not cfg.get("data", {}).get("skip_sha_check", False):
+            import hashlib
+            for f, ent in zip(files, (e for e in man["files"] if e["split"] == split)):
+                h = hashlib.sha256(Path(f).read_bytes()).hexdigest()
+                assert h == ent["sha256"], \
+                    f"manifest sha256 mismatch: {f} (data drift?)"
     assert files, f"no files for split {split}"
     mode = d.get("prefix_rows", "exclude")
-    rows, seen = [], set()
+    rows, seen_map, ndup = [], {}, 0
     for f in files:
         for r in load_jsonl(f):
             assert r.get("schema") == "m6-sample", f"{f}: not m6-sample ({r.get('schema')})"
@@ -99,9 +109,20 @@ def rows_for_split(cfg: dict, split: str) -> list[dict]:
                 continue
             if mode == "only" and not is_prefix:
                 continue
-            assert r["id"] not in seen, f"duplicate id {r['id']}"
-            seen.add(r["id"])
+            if r["id"] in seen_map:
+                # shared rows legitimately appear in task files AND pool
+                # (verified byte-identical); a CONTENT mismatch is a data bug
+                prev = seen_map[r["id"]]
+                assert json.dumps(prev, sort_keys=True, ensure_ascii=False) == \
+                    json.dumps(r, sort_keys=True, ensure_ascii=False), \
+                    f"duplicate id {r['id']} with DIFFERENT content in {f}"
+                ndup += 1
+                continue
+            seen_map[r["id"]] = r
             rows.append(r)
+    if ndup:
+        print(f"[m6_train] {split}: {ndup} shared rows deduped "
+              f"(task files ∩ pool, byte-identical)")
     return rows
 
 
@@ -164,24 +185,22 @@ def stage_a(cfg, backbone, tok, rows, split, out_dir, device):
     rendered_all, tok_info = [], []
     for r in rows:
         inp = normalize_input(r)
-        rendered, msg_spans = render(tok, inp)
+        rendered, msg_spans, fmap = render(tok, inp)
         tw = tokenize_windowed(tok, rendered)
         rendered_all.append(rendered)
-        tok_info.append({"tw": tw, "msg_spans": msg_spans})
+        tok_info.append({"tw": tw, "msg_spans": msg_spans, "fmap": fmap})
 
     N, D = len(rows), len(layers) * backbone.config.hidden_size * 2
     pooled = np.zeros((N, D), dtype=np.float16)
     trunc_flags = np.zeros(N, dtype=bool)
     pad_id = tok.pad_token_id or 151643
 
-    # token feats only for T4-annotated rows
+    # token feats only for T4-annotated rows -- FLAT packing (variable lengths;
+    # dense [K, maxT, C] would explode at real-data scale: 10k rows x 1024
+    # tokens x 2048 ch x 2B = 42GB)
     K = len(pii_idx)
-    maxT = min(max((len(tok_info[i]["tw"]["input_ids"]) for i in pii_idx), default=1),
-               bio_max_tokens)
     C = len(tok_layers) * backbone.config.hidden_size
-    tokfeats = np.zeros((K, maxT, C), dtype=np.float16)
-    tokattn = np.zeros((K, maxT), dtype=np.int8)
-    bio_labels = np.zeros((K, maxT), dtype=np.int8)
+    tok_flat, bio_flat, tok_lens = [], [], []
     pii_row_to_k = {int(i): k for k, i in enumerate(pii_idx)}
 
     pos = 0
@@ -197,12 +216,13 @@ def stage_a(cfg, backbone, tok, rows, split, out_dir, device):
             k = pii_row_to_k.get(i)
             if k is not None:
                 row_len = len(tok_info[i]["tw"]["input_ids"])
-                L = min(row_len, maxT)
-                tokfeats[k, :L] = tf[chunk.index(i), :L].numpy().astype(np.float16)
-                tokattn[k, :L] = 1
-                bio_labels[k, :L] = spans_to_bio(
+                L = min(row_len, bio_max_tokens)
+                tok_flat.append(tf[chunk.index(i), :L].numpy().astype(np.float16))
+                bio_flat.append(np.array(spans_to_bio(
                     pii_spans[k], tok_info[i]["tw"]["offsets"][:L],
-                    tok_info[i]["msg_spans"])
+                    tok_info[i]["msg_spans"], tok_info[i]["fmap"]),
+                    dtype=np.int8))
+                tok_lens.append(L)
         pos += batch_rows
 
     cache = out_dir / "feat_cache"
@@ -216,11 +236,15 @@ def stage_a(cfg, backbone, tok, rows, split, out_dir, device):
     if K:
         np.savez_compressed(
             cache / f"tokfeats_{split}.npz",
-            feats=tokfeats, attn=tokattn, bio=bio_labels,
+            feats=(np.concatenate(tok_flat) if tok_flat
+                   else np.zeros((0, C), dtype=np.float16)),
+            bio=(np.concatenate(bio_flat) if bio_flat
+                 else np.zeros((0,), dtype=np.int8)),
+            lens=np.array(tok_lens, dtype=np.int32),
             ids=np.array([rows[i]["id"] for i in pii_idx]),
         )
     print(f"[m6_train] stage A [{split}]: {N} rows pooled {pooled.shape} "
-          f"(fp16), {K} PII rows tokfeats {tokfeats.shape}, "
+          f"(fp16), {K} PII rows tokfeats flat {sum(tok_lens)} tokens, "
           f"trunc={int(trunc_flags.sum())}, {time.time() - t0:.0f}s")
     return cache
 
@@ -284,6 +308,21 @@ def _pos_weights(Y):
     return w
 
 
+def _gather_bio_batch(TFf, BFf, offs, bidx, device):
+    """Gather variable-length BIO rows (flat storage) into a padded batch.
+    Labels pad with ignore_index=-100; feat rows pad with zeros."""
+    L = [int(offs[i + 1] - offs[i]) for i in bidx]
+    T = max(L) if L else 1
+    B = len(bidx)
+    xt = torch.zeros(B, T, TFf.shape[1], device=device)
+    xb = torch.full((B, T), -100, dtype=torch.long, device=device)
+    for j, i in enumerate(bidx):
+        s, e = int(offs[i]), int(offs[i + 1])
+        xt[j, :L[j]] = TFf[s:e]
+        xb[j, :L[j]] = BFf[s:e]
+    return xt, xb
+
+
 def train_stage_b(cfg, cache_dir, out_dir, device):
     t0 = time.time()
     torch.manual_seed(cfg["train"].get("seed", 42))
@@ -321,7 +360,14 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
     ntypes = len(PII_TYPES)
     cw = torch.ones(nbio, device=device)
     cw[1:] = bio_pos_w  # B/I upweighted vs O
-    cebio = nn.CrossEntropyLoss(weight=cw)
+    cebio = nn.CrossEntropyLoss(weight=cw, ignore_index=-100)
+
+    TFf = BFf = offs = None
+    if TB is not None and len(TB["lens"]):
+        TFf = torch.tensor(TB["feats"].astype(np.float32)).to(device)
+        BFf = torch.tensor(TB["bio"].astype(np.int64)).to(device)
+        offs = np.concatenate([[0], np.cumsum(TB["lens"])])
+        n_bio_rows = len(TB["lens"])
 
     steps_per_epoch = math.ceil(len(Xtr) / bs)
     total_steps = steps_per_epoch * epochs
@@ -341,11 +387,11 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
     LABEL_TO_HEAD = {"T1": "T1", "T2": "T2", "T3": "T3", "T4": "T4doc", "T5": "T5"}
     COL = {t: j for j, t in enumerate(TASKS)}
 
-    if TB is not None:
-        BT = torch.tensor(TB["feats"].astype(np.float32)).to(device)
-        Bab = torch.tensor(TB["attn"]).to(device)
-        Bbio = torch.tensor(TB["bio"].astype(np.int64)).to(device)
-        Bsel = (Bab == 1)  # valid token positions
+    if TB is not None and len(TB["lens"]):
+        TFf = torch.tensor(TB["feats"].astype(np.float32)).to(device)
+        BFf = torch.tensor(TB["bio"].astype(np.int64)).to(device)
+        offs = np.concatenate([[0], np.cumsum(TB["lens"])])
+        n_bio_rows = len(TB["lens"])
 
     logf = open(out_dir / "train_log.jsonl", "w", encoding="utf-8")
     best_key, best_state, best_ep, bad = -1.0, None, -1, 0
@@ -369,13 +415,13 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
             m6 = t6tr_t[idx] >= 0
             if m6.any():
                 loss = loss + ce6(out["T6"][m6], t6tr_t[idx][m6])
-            if TB is not None:
-                bidx = torch.randint(0, BT.shape[0], (min(8, BT.shape[0]),),
+            if TFf is not None:
+                bidx = torch.randint(0, n_bio_rows, (min(8, n_bio_rows),),
                                      device=device)
-                logits = model.forward_bio(BT[bidx])
-                lo, la, lb = logits[Bsel[bidx]], Bab[bidx][Bsel[bidx]], Bbio[bidx][Bsel[bidx]]
-                if len(lb):
-                    loss = loss + w_tok * cebio(lo, lb)
+                xt, xb = _gather_bio_batch(TFf, BFf, offs, bidx.tolist(), device)
+                logits = model.forward_bio(xt)
+                loss = loss + w_tok * cebio(
+                    logits.reshape(-1, nbio), xb.reshape(-1))
             opt.zero_grad()
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -562,17 +608,21 @@ def main():
 
     model, A, D, TB, TBd = train_stage_b(cfg, cache_dir, out_dir, args.device)
 
-    # BIO head dev metrics (token-level, if data exists)
+    # BIO head dev metrics (token-level, flat storage gather)
     bio_metrics = {}
-    if TBd is not None and len(TBd["bio"]):
+    if TBd is not None and len(TBd["lens"]):
         with torch.no_grad():
-            Xt = torch.tensor(TBd["feats"].astype(np.float32)).to(args.device)
-            logits = model.forward_bio(Xt).cpu().numpy()
-        attn, gold = TBd["attn"], TBd["bio"]
-        pred = logits.argmax(-1)
-        m = attn == 1
-        tp = int(((pred == gold) & (gold > 0) & m).sum())
-        fn = int(((pred != gold) & (gold > 0) & m).sum())
+            TFd = torch.tensor(TBd["feats"].astype(np.float32)).to(args.device)
+            BFd = torch.tensor(TBd["bio"].astype(np.int64)).to(args.device)
+            offs_d = np.concatenate([[0], np.cumsum(TBd["lens"])])
+            tp = fn = 0
+            for i in range(len(TBd["lens"])):
+                s, e = int(offs_d[i]), int(offs_d[i + 1])
+                logits = model.forward_bio(TFd[s:e])[0].cpu().numpy()
+                pred = logits.argmax(-1)
+                gold = TBd["bio"][s:e]
+                tp += int(((pred == gold) & (gold > 0)).sum())
+                fn += int(((pred != gold) & (gold > 0)).sum())
         bio_metrics = {"token_recall_pos": round(tp / max(1, tp + fn), 4),
                        "n_pos_tokens": tp + fn}
 
