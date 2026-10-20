@@ -145,6 +145,14 @@ def err_path(e) -> str:
     return f"{loc}: {e.message[:110]}"
 
 
+def _rel(path: Path) -> str:
+    """相对 REPO 显示路径；外部路径原样（防 relative_to 崩，dataeng 报告）。"""
+    try:
+        return str(path.resolve().relative_to(REPO))
+    except ValueError:
+        return str(path)
+
+
 def check_file(path: Path, mode: str, limit: int | None) -> dict:
     validator = get_validator("m6-sample")
     n = valid = invalid = 0
@@ -181,7 +189,7 @@ def check_file(path: Path, mode: str, limit: int | None) -> dict:
                     err_examples.setdefault(k, str(row.get("id")))
             else:
                 valid += 1
-    return {"file": str(path.relative_to(REPO)), "n": n, "valid": valid,
+    return {"file": _rel(path), "n": n, "valid": valid,
             "invalid": invalid,
             "warnings": dict(warns.most_common(5)),
             "warn_examples": warn_examples,
@@ -203,6 +211,11 @@ def main() -> int:
             files += sorted(pp.rglob("*.jsonl"))
         else:
             files.append(pp)
+    if args.mode == "final":
+        # final 模式跳过下划线目录（_staging 等中间格式区，dataeng 报告：
+        # 扫父目录时误入 staging 文件必然 FAIL）
+        files = [f for f in files
+                 if not any(part.startswith("_") for part in f.parts)]
 
     total_inv = 0
     for fp in files:
