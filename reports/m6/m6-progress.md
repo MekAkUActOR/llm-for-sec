@@ -25,7 +25,7 @@
 |--------|------|--------|------|------|
 | H1 | 10-21 02:30 | 设计冻结：ADR-1（task-1）+ 数据映射 DATA-1（task-3） | ✅ ~01:23 达成 | 运行时钟提前 ~67min（自报 02:05；三次校正后 turn 插值映射，见 §8） |
 | H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | ✅ ~01:35 达成（提前 ~115min） | 5/5 全清：task-2 ✅ + schema v0.3.1 ✅（F1/F2 修复，自检 14/14，commit 7c4071d）+ QA-1 v1.2 FROZEN ✅ + task-7/9 双 claim ✅ + arch 咬合审查闭环 ✅（adr-1b §6.6）；关键路径转 dataeng T04/05/06 + deveng task-7 |
-| H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | 🔴 整改中 | arch 复核绿（~02:05）但 qa 泄漏检查发现 2 处硬违规（train↔heldout 精确重合 472 行 + t4 实体复用）——整改单已发，H6 前必修；顺延 vs 带留痕冻结待 Lead 裁决 |
+| H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | 🟡 重冻流程中 | Lead 终裁先修后冻（~02:03）；修复 ETA ~02:50 → **冻结门 = qa 协议复跑绿**（非 manifest 断言）→ arch 三方合并复验 → task-6 complete → 门恢复；调和：实算 961 行（>472，定性同） |
 | H10 | 10-21 11:00 | v1 模型 + 首轮评测读数（task-8/9） | ⏳ | 训练窗口 H7-H9（GPU 预锁） |
 | H16 | 10-21 17:00 | v2 模型迭代（task-11） | ⏳ | 数据增补 H10-12 / 训练 H12-15（GPU 预锁） |
 | H20 | 10-21 21:00 | 验收轮：acceptance harness 全量（task-12） | ⏳ | 验收窗口 H20-H21（GPU 预锁） |
@@ -42,7 +42,7 @@
 ### H6 数据冻结验收清单（pm 维护，07:00 检查点仪器）
 
 1. task-4 train/dev 落盘：六任务正例覆盖全部子类，规模达配比与功效要求（U5：heldout 正例 ≥200/任务、benign 负例 ≥1000）
-2. m4 勘误已应用（adr-1b §3）：标签一律取 chosen VERDICT + 每 dpo_class 极性分布断言通过（防 bt330 1,904 / carrier_inject_obedient 2,360 正例误入负例侧）
+2. ✅ m4 勘误已应用 + 极性纯度断言 **PASS**（~02:22 dataeng 自报，零冲突零静默修正）：bt330 1,904 / carrier_obedient 2,360 / carrier_hollow 2,320 正例位正确；overrefusal neg 1,226+cond 94；reserve 1,118（4,592 非拒答域行弃用，零噪优先已批准）；policy 组化保留 2,000（pos_flip 1,023/cond_flip 753/neg_flip 224）——adr-1b §3 口径全过（Lead 盯防项收口）
 3. T4 自建 span 级 heldout 落盘（data/m6/t4，adr-1b §4；冻结套件无 span 级 PII 正例，v0.2.3 privacy 仅参照）
 4. 挑战集（≥1200，含"全任务负例"复制行）+ OOD 集（≥300）落盘，qa 会审通过
 5. manifest 全量（文件/行数/来源/六任务标签分布/切分指纹）+ U4 dev 难负例标记落实
@@ -50,16 +50,17 @@
 7. arch 六项 pool schema 要求落实（六维标签向量 / T6 三类 / 信封多样化 / reveal_turn / PII risk 映射 / T4 主门）
 8. arch 咬合审查连带行动项（已直发 dataeng）：OOD 集 PII-free（T4 span 通道绕过 OOD 抑制的架构后果）/ 占位符形凭证入 T4 难负例 / T3 双形态覆盖确认
 
-> ~02:05 arch 独立验证（语义侧逐项跑数）：项 1/3/4/7/8 绿——OOD 500 PII-free、挑战 1,500（345 医疗 span）、T4 heldout 300/300 十一类全覆盖、规模门全过（t6 pos 2,050 贴线）+ pool 46,732、mirror 分片 1,100/500/3,500、T5 配对锁、train↔eval exact_overlap=0；manifest t3 note 文字修正 + t6 conditional 871 追溯注（reserve 弃用所致，合规）记录在案。
-> **~02:08 qa 泄漏检查（task-15 仪器首跑）推翻项 6**：train↔heldout 全文精确重合 472 行（t1/t3 legacy 池未按文本去重，不同 id 同文本）+ t4 实体级复用（heldout 与 train 共享电话/地址/护照号实体值，T4 span 读数虚高）——两处硬违规，整改单已发，H6 冻结前必修。干净面：红队 vs train 0 ✓、冻结套件 vs train 0 ✓（**乙醇红线未破**，违规属 data/m6 内部切分完整性）。
+> ~01:58 arch 独立验证（语义侧逐项跑数）：项 1/3/4/7/8 绿——OOD 500 PII-free、挑战 1,500（345 医疗 span）、T4 heldout 300/300 十一类全覆盖、规模门全过（t6 pos 2,050 贴线）+ pool 46,732、mirror 分片 1,100/500/3,500、T5 配对锁；manifest t3 note 文字修正 + t6 conditional 871 追溯注（reserve 弃用所致，合规）记录在案。〔注：其中 train↔eval exact_overlap=0 一项后被调和推翻——见下〕
+> **~02:00 qa 泄漏检查（task-15 仪器首跑）推翻项 6**：train↔heldout 全文精确重合 472 行（t1/t3 legacy 池未按文本去重，不同 id 同文本）+ t4 实体级复用（heldout 与 train 共享电话/地址/护照号实体值，T4 span 读数虚高）——两处硬违规，整改单已发，H6 冻结前必修。干净面：红队 vs train 0 ✓、冻结套件 vs train 0 ✓（**乙醇红线未破**，违规属 data/m6 内部切分完整性）。
+> **02:04:45 arch 调和结论（adr-1b §6.8）**：arch 的 exact_overlap=0 系转述 manifest.disjointness 断言而非独立计算（断言未记方法/范围，欠规格）——**manifest 断言作为证据无效**；arch 独立轻归一化复算 t1/t3 heldout 重合 **961 行**（485+476，~19%/套件，比 qa 472 更重，差额为归一化协议细节，定性同）。修复前真实状态 = t1/t3 heldout 污染。arch 自记验证缺陷：泄漏关键字段不得以"断言通过"代理"性质实测"。**冻结门 = qa 协议复跑绿（非 manifest 断言）**。现场注记：dataeng 整改波实时进行（arch 两轮扫描间 t4 train 5,750→6,300），arch 待"稳定信号"后三方合并复验。
 
 ### v1 提前开训四条件门（Lead 预裁 ~02:00，pm 02:30 轮执行仪器）
 
 | # | 条件 | 责任人 | 状态 |
 |---|------|--------|------|
-| 1 | task-4/5/6 板上 complete（含 manifest + t4_pos span 补齐） | dataeng | 🔶 在途 |
-| 2 | 泄漏审计会签通过（sha256 精确交集空 + 可疑对解释） | qa | 🔴 首跑发现 2 硬违规（472 行重合 + t4 实体复用），整改中 |
-| 3 | H6 复核报告 PASS（十项断言） | arch | ⚠️ 绿但待调和：arch "train↔eval exact_overlap=0" vs qa "train↔heldout 472 行重合"（疑范围/方法差） |
+| 1 | task-4/5/6 板上 complete（含 manifest + t4_pos span 补齐） | dataeng | 🔶 4/5 ✅（02:22）；6 in_progress 等 qa 复检证书 |
+| 2 | 泄漏审计会签通过（sha256 精确交集空 + 可疑对解释） | qa | 🔴 重冻流程中：修复 ~02:50 落地 → qa 重跑 leak-check 出 PASS 证书 |
+| 3 | H6 复核报告 PASS（十项断言） | arch | ⚠️ 调和闭环（02:04:45）：原 exact_overlap=0 系转述 manifest 欠规格断言（**证据无效**）；实测定性 = t1/t3 heldout 污染（961 行轻归一化 > 472 NFKC，协议细节差）；重验 = 修复后三方合并（arch 扫描 + qa 协议 + sysdesign --limit 0） |
 | 4 | v0 基线跑完 GPU 释放 | qa | 🔶 计划 04:40 |
 
 全绿 → pm 放行 deveng：Stage A 特征缓存（~1h，CPU+GPU 混合）→ 头训练（分钟级）→ qa 评测；GPU 窗口登记 + 预锁表标注"实际提前，理由=四条件全绿"。m4 断言若 >5% 行受影响 → 立即升级 Lead（不动摇则按 adr-1b §3 断言表处理）。
@@ -70,13 +71,13 @@
 |----|------|--------|------|------|------|
 | task-1 | 架构 ADR：六任务统一检测设计 | arch-m6 | — | H1 02:30 | ✅ completed（板上 rev3；运行钟 ~01:22） |
 | task-2 | 系统设计：推理协议/阈值/弃权 | sysdesign-m6 | — | H1.5 03:30 | ✅ completed（板上 rev3；SYS-1 v1.0.0 + schema v0.3.0，commits e95c012/bb18c37 待 Lead push） |
-| task-3 | 数据映射：数据源映射与配比 | dataeng-m6 | — | H1 02:30 | in_progress（DATA-1 草案在盘 docs/m6/data-mapping.md） |
-| task-4 | 数据构建：六任务 train/dev | dataeng-m6 | 3 | H6 07:00 | pending |
-| task-5 | 数据构建：挑战集 + OOD 集 | dataeng-m6 | 3 | H6 07:00 | pending |
-| task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4,5 | H6 07:00 | pending |
+| task-3 | 数据映射：数据源映射与配比 | dataeng-m6 | — | H1 02:30 | ✅ completed（rev3；arch 会签；m4 断言 PASS 收口） |
+| task-4 | 数据构建：六任务 train/dev | dataeng-m6 | 3✓ | H6 07:00 | ✅ completed（rev4；arch H6 复核绿 + qa 会审过；泄漏修复 ~02:50 落地经 qa 复检链） |
+| task-5 | 数据构建：挑战集 + OOD 集 | dataeng-m6 | 3✓ | H6 07:00 | ✅ completed（rev4；挑战 1,500 含 345 医疗 span + OOD 500 PII-free） |
+| task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4✓,5✓ | H6 07:00 | in_progress（leak-audit.md 已落盘自侧 PASS：精确 0/正文近似 0/14 B1 模板共祖归因；等 qa 重跑复检 PASS 证书后 complete） |
 | task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | ✅ completed（rev4；单测 25/25、契约 v0.3.1、12 bug 修复；**ADR 忠实性复核 PASS——D-5/D-6/D-7 关闭**；N-1/N-2 修复在途 deveng、N-3 schema 修正在途 sysdesign，均不阻塞 v1） |
 | task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4,6,7 | H10 11:00 | pending（就绪态：configs/m6-v1.yaml 已指向 data/m6/manifest.json，H6 冻结即开跑；仅剩 4/6 依赖） |
-| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | in_progress（已 claim；QA-1 v1.2 FROZEN，harness 三件对 stub 冒烟中，基线 v0 H6-H8） |
+| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | in_progress（已 claim；v0 冻结套件读数落盘 FAIL 对照线 + 111 miss 清单；全量 02:00-04:40 在跑） |
 | task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | pending |
 | task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | pending |
 | task-12 | 验收：acceptance 全量轮 | qa-m6 | 11 | H20 21:00 | pending |
@@ -122,7 +123,7 @@
 
 | 时间 | Blocker | 影响 | 升级对象 | 状态 |
 |------|---------|------|----------|------|
-| ~02:08 | data/m6 内部泄漏两处：①train↔heldout 全文精确重合 472 行（t1/t3 legacy 池未文本去重）②t4 实体级复用（heldout↔train 共享 PII 实体值，T4 span 读数虚高） | 四条件门②失败、v1 提前开训暂停放行；heldout/T4 读数可信度 | dataeng（qa 整改单已发）→ Lead（顺延 vs 带留痕冻结待裁） | 🔴 整改中：修复 ETA 待 dataeng 回复；pm 推荐=先修后冻（带 472 行精确重合留痕冻结会直接虚高 heldout 读数，不可取）；02:30 报 Lead 裁决 |
+| ~02:00 | data/m6 内部泄漏两处：①train↔heldout 全文精确重合（qa NFKC 口径 472 行 / arch 轻归一化 961 行，定性同）②t4 实体级复用（heldout↔train 共享 PII 实体值，T4 span 读数虚高） | 四条件门②失败、v1 提前开训暂停放行；heldout/T4 读数可信度 | dataeng（qa 整改单已发）→ Lead（已终裁 ~02:03 先修后冻） | 🟡 修复中（ETA **~02:50**，<90min 阈值无需范围裁剪）：根因 NFKC 缺失已修+并查集结构锁；T4 实体键池 hash 分桶 70/20/10 数学不相交+disjointness 断言进 manifest。**调和补强（02:04:45 arch）**：manifest 断言证据无效（欠规格转述）；冻结门 = qa 协议复跑绿（非 manifest 断言）；arch 待"整改波稳定"信号后三方合并复验（arch 扫描 + qa 协议 + sysdesign --limit 0） |
 
 ## 6. 决策日志（Lead 终裁 / 团队共识）
 
@@ -154,6 +155,10 @@
 - ~02:05 arch-m6 H6 数据冻结复核结论：绿，放行冻结（语义侧逐项跑数 + sysdesign 格式预检合并）——OOD 500 行 PII-free（t4_pos=0 全扫）；挑战集 1,500（345 医疗正例带真 span + 1,155 负例）；T4 主门自建 heldout 300/300 pos 带 span、11 类全覆盖；六任务规模门全过（t6 pos 2,050 贴线达标）+ pool 46,732；dev 内 mirror 分片 1,100/500/3,500（D8 双带定标难负压到位）；T5 最小对 1,589 组 0 跨切分、翻转保留 868 组、跨任务同输入并查集锁；train↔eval exact_overlap=0。一处文字修正不阻塞：manifest shape_mix.t3 note 与计数方向相反（实际 with-assistant 61%/user-only 39%），dataeng 改 note，列入 task-10 观察项。追溯注：t6 conditional 871 行 vs 早前 ~3.9k 估计，差额来自已批准 reserve 弃用，路径合规。adr-1b §6.8 记录随后落。
 - ~02:08 qa-m6 泄漏检查（task-15 仪器首跑）发现 dataeng 数据两处硬违规（整改单已发，H6 前必修）：①train↔heldout 全文精确重合 472 行（t1/t3 legacy 池切分未按文本去重，不同 id 同文本）②t4 实体级复用（heldout 与 train 共享同一 PII 实体值：电话/地址/护照号——T4 span 读数会虚高）。干净面：红队 vs train 交集 0 ✓、冻结套件 vs train 0 ✓（**乙醇红线未破**，违规属 data/m6 内部切分完整性）；5-gram 模板相似降级结构性噪声披露。若 H6 前修不完 → Lead 裁决顺延或带留痕冻结。另 v0 基线冻结套件读数文件已出（reports/m6/preds/baseline-v0-out.jsonl + baseline-v0-out.scores.csv；qa-baseline-v0-frozen.md 生成中）。**与 arch 复核矛盾待调和：arch "train↔eval exact_overlap=0" vs qa "train↔heldout 472 行重合"——疑检查范围（eval≠heldout）或方法差（id 基 vs 文本归一化哈希）。**
 - ~02:12 qa-m6 v0 基线冻结套件读数落盘（reports/m6/qa-baseline-v0-frozen.md，01:58:40 运行时钟）：verdict **FAIL（意料之中——无探针头原样模型即 v1 对照线）**；G1-G4 n/a（data/m6 切分读数待全量 04:40 后 qa-baseline-v0-full.md）；G5 红队总检出 **34.71%**（59/170，REDTEAM-WEAK），逐任务 T1 16.9%/T2 24.6%/T3 22.9%/T4 30%/T5 50%/T6 20%；冻结套件 pooled recall **78.60%**（911 pos，门 >95%）——gen 98.91% 但 FPR 97.30%（近乎全 flag）、v023 36.90%/FPR 60%、toolout-reg 93.99% pass-with-flag、dilution 71.88%。**基线双向失守（欠检+过报），判别式探针头两轴均有超越空间**；§4.0 已镜像。全量读数 04:40 后补。
+- ~02:18 qa-m6：①红队 111 条 miss 完整清单+逐族分解落盘 reports/m6/qa-baseline-v0-miss-ids.json（task-10 归因直取）；②"先修后冻"背书+影响方向补强——472 行重合全为 t1/t3 legacy（130+342）直接虚高 G1 的 T1/T3 recall 分子，t4 实体复用虚高 T4 span/融合旗标——两处均在主门 G1 分子侧而非披露层噪声，"带病冻结等于把 G1 的尺子弄弯"；③stub 回归 hash 再漂移（4b59c856 ≠ deveng 01:55 登记 e9d148fd，v0.3.1 改动所致）——已提醒 deveng 终版重发；验收轮以 v1 真头+冻结 hash 为准，stub 只验管线（非阻塞）。
+- ~02:20 Lead 终裁【H6 冻结线，现在不等 02:30】：①**先修后冻**（pm 推荐采纳）——472 行精确重合不可带痕冻结（脏掉 v1 对照线=全链归因失效），硬规则；②修复方向裁定：重合行**从 train 侧移除**（heldout 是参照系不可动，train 45k 损 472 无伤）；T4 实体复用→**实体不相交切分**（train 实体不得出现在 heldout span，T4 主门效力前提）；③arch-qa 矛盾调和：两人用**同一脚本同一归一化**（精确+归一化双口径）重跑 train↔heldout 与 train↔eval 两对，差异原因写进调和记录——过程信任比数字更需闭环；④重冻流程：修复→qa 重审计会签→arch 复核（增量即可）→task-4/5/6 complete→四条件门恢复计绿→v1 开跑；⑤v0 基线定性确认：FAIL 意料之中，双向失守画像作为对照线有效性反而增强——v1 若不过线即真问题；⑥dataeng ETA 到手即报，>90min（威胁 07:00）升级范围裁剪。定调：乙醇红线完好+缓冲 4.75h——流程内伤非纪律破防，按流程修，全队不必惊慌。
+- ~02:04（校正前标 ~02:22） dataeng-m6 三合一答复：①**修复 ETA ~02:50 全链完成**——472 行重合根因=norm_text 缺 NFKC 归一（qa 口径有），已修（NFKC→lower→空白折叠）+convert_legacy 重跑去重+build_all sig 文本锁（并查集）按 NFKC 口径强制同文本同 split，**472 类重合结构上不再可能**；T4 实体复用→gen_pii 三段产出（train/dev/heldout 独立文件+独立实体域）：组合实体按"键池"（姓氏/路名/街道/年份桶）hash 分桶 70/20/10——键池值只属一个 split，组合实体跨 split 数学不相交；build_all 固化断言 heldout T4 span 实体 vs train 全文子串匹配=0（进 manifest.disjointness.t4_entity_overlap）；L4 5-gram 降级披露同意。②**m4 chosen 断言 PASS**（Lead 盯防项收口）：极性纯度断言全过、零极性冲突、无一静默修正（明细见 H6 清单项 2）。③板上收口：task-3 ✅（arch 会签）/task-4 ✅/task-5 ✅（arch H6 复核绿+qa 会审过）/task-6 in_progress——leak-audit.md 已落盘（自侧口径 PASS：精确 0/正文近似 0/14 B1 模板共祖归因），等 qa 重跑复检 PASS 证书后 complete；乙醇红线 data/heldout/ 只读、训练侧零引用 ✓。
+- 02:04:45 arch-m6 矛盾调和结论（adr-1b §6.8 将记）：**根因**——arch 的 "train↔eval exact_overlap=0 ✓" 系转述 manifest.disjointness 断言而非独立计算，断言未记方法/范围（欠规格）→ **manifest 断言作为证据无效**；qa 的 QA-1 §6 冻结协议（归一化文本哈希精确交集）是约束性标准。**独立复算（轻归一化：空白折叠+小写）**：t1 heldout 2,500 行中 485 行与 train 全文重合、t3 476 行，合计 **961 行（~19%/套件）**——比 qa 472 更重（差额=归一化协议细节，定性同）；修复前真实状态 = t1/t3 heldout 污染。**arch 自记验证缺陷**：泄漏关键字段不得以"断言通过"代理"性质实测"。冻结建议先修后冻（与 Lead 终裁一致），修复外科手术级便宜：train 侧弃重合行（961/103,576=0.9%，heldout 不动）+ T4 实体池分区重生成 + manifest v2 记录方法与范围 + **冻结门 = qa 协议复跑绿（非 manifest 断言）**。现场注记：dataeng 整改波实时进行（两轮扫描间 t4 train 5,750→6,300，heldout 读到写入中文件），arch 待"整改波稳定"信号后三方合并复验（独立扫描 + qa 协议 + sysdesign --limit 0）。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -198,6 +203,10 @@
 - ~02:00 Lead 预裁：**v1 提前开训四条件门**（02:30 轮 pm 直接执行，无需再请示）——四条件门表格已建（§2 下）；m4 断言分级处理（良性→adr-1b §3 断言表；>5% 行受影响→立即升级）；已转达 deveng（Stage A 序列）/arch（十项断言报告=条件③）/qa（审计会签+v0 完成=条件②④）。
 - ~02:05-02:08 arch H6 复核绿（放行冻结）→ qa 泄漏检查首跑发现 2 硬违规（472 行重合 + t4 实体复用）——**首个 blocker 登记 §5**，四条件门 ②🔴 / ③⚠️（arch-qa 矛盾待调和，已请 arch 在 §6.8 记录调和结论）；U4/U5 收口（arch 验证）；v0 读数文件收到（§4.0 待镜像）。02:30 报 Lead：修复 ETA + 顺延/留痕冻结推荐（pm 倾向先修后冻）。
 - ~02:12 qa v0 冻结套件读数落盘并**镜像 §4.0**（verdict FAIL 意料之中——基线即对照线；红队 34.71%、冻结 pooled 78.60%、多套件 FPR 60-97% 双向失守）；已复 qa（读法确认请求：乙醇红线未破/内部切分完整性）+ 已请 arch 调和 exact_overlap 矛盾 + 已催 dataeng 修复 ETA/m4 断言/收口计划三合一回复。
+- ~02:18 qa miss 清单落盘（qa-baseline-v0-miss-ids.json）+ 影响方向补强（472=130 t1+342 t3 虚高 G1 T1/T3 分子）→ 先修后冻获 qa 背书；stub hash 再漂移（4b59c856≠e9d148fd）非阻塞、deveng 待重发终版 hash。
+- ~02:03（校正前标 ~02:20-02:22） **Lead 终裁先修后冻（6 项）+ dataeng 三合一**：ETA **~02:50**（<90min 阈值，无需范围裁剪）、m4 断言 PASS（盯防项收口）、根因 NFKC+结构锁+实体键池隔离（与裁定方向一致且更强）；board task-3/4/5 ✅、task-6 等 qa 证书。pm：ETA 已即报 Lead（第 6 项指令执行）；裁决已转达 arch（调和协议+增量复核）/qa（证书签发方）/dataeng（方向确认+hash 重发提醒）；流程小注报 Lead：task-4/5 在修复落地前 complete——实质由门①（含 task-6）+②（qa 会签）兜住。
+- 02:04:45 arch 调和结论到达（manifest 断言证据无效；实算 961 行 > 472 定性同；冻结门=qa 协议复跑绿；arch 自记验证缺陷；整改波实时、待稳定信号三方合并复验）——已并入 pm 给 Lead 的即时报。
+- **02:04:45 【时钟源声明·四次校正】** 新锚点（arch turn12 采样）。01:54:44 之后的 pm 插值标签再次系统性超前 10-18min：映射 ~02:00→~01:56（Lead 预裁）、~02:05→~01:58（arch H6 复核绿）、~02:08→~02:00（qa 泄漏发现）、~02:12→~02:01（qa v0 读数；其 harness 自报生成 01:58:40 相符）、~02:18→~02:02（qa miss 清单）、~02:20→~02:03（Lead H6 终裁）、~02:22→~02:04（dataeng 三合一）。事件序与真实性不受影响（板面/磁盘/commit 为证）；协议维持：新条目只标事件序或 ~近似值，每个运行时采样点校准；最终报告时间线以 §8 归一口径为准。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
