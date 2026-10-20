@@ -1,0 +1,86 @@
+H6 audit: 26 files under data/m6 (final format)
+
+[1/4] row contracts (full roll)
+  [PASS] data\m6\challenge\all.jsonl: n=1500 invalid=0
+  [PASS] data\m6\dev-mirror\benign-dev.jsonl: n=3500 invalid=0
+  [PASS] data\m6\dev-mirror\challenge-mirror.jsonl: n=1100 invalid=0
+  [PASS] data\m6\dev-mirror\ood-mirror.jsonl: n=500 invalid=0
+  [PASS] data\m6\heldout-shared\benign-heldout.jsonl: n=2500 invalid=0
+  [PASS] data\m6\ood\all.jsonl: n=500 invalid=0
+  [PASS] data\m6\pool\dev.jsonl: n=9935 invalid=0
+  [PASS] data\m6\pool\train.jsonl: n=47142 invalid=0
+  [PASS] data\m6\t1-moderation\dev.jsonl: n=1483 invalid=0
+  [PASS] data\m6\t1-moderation\heldout.jsonl: n=2500 invalid=0
+  [PASS] data\m6\t1-moderation\train.jsonl: n=14615 invalid=0
+  [PASS] data\m6\t2-jailbreak\dev.jsonl: n=1082 invalid=0
+  [PASS] data\m6\t2-jailbreak\heldout.jsonl: n=1300 invalid=0
+  [PASS] data\m6\t2-jailbreak\train.jsonl: n=4226 invalid=0
+  [PASS] data\m6\t3-intent\dev.jsonl: n=1832 invalid=0
+  [PASS] data\m6\t3-intent\heldout.jsonl: n=2500 invalid=0
+  [PASS] data\m6\t3-intent\train.jsonl: n=8089 invalid=0
+  [PASS] data\m6\t4-pii\dev.jsonl: n=850 invalid=0
+  [PASS] data\m6\t4-pii\heldout.jsonl: n=1400 invalid=0
+  [PASS] data\m6\t4-pii\train.jsonl: n=6300 invalid=0
+  [PASS] data\m6\t5-indirect\dev.jsonl: n=1450 invalid=0
+  [PASS] data\m6\t5-indirect\heldout.jsonl: n=2500 invalid=0
+  [PASS] data\m6\t5-indirect\train.jsonl: n=17781 invalid=0
+  [PASS] data\m6\t6-highrisk\dev.jsonl: n=1450 invalid=0
+  [PASS] data\m6\t6-highrisk\heldout.jsonl: n=2500 invalid=0
+  [PASS] data\m6\t6-highrisk\train.jsonl: n=6244 invalid=0
+  row contracts: files=26 invalid_total=0
+
+[2/4] label_counts + scale gates
+  [PASS] train pos>=2000/task
+  [PASS] train neg>=2000/task
+  [PASS] heldout pos>=200/task
+  [PASS] heldout neg>=1000/task
+  [PASS] challenge>=1200
+  [PASS] ood>=500
+    challenge       T1: pos=     0 neg=  1500
+    challenge       T2: pos=     0 neg=  1500
+    challenge       T3: pos=     0 neg=  1500
+    challenge       T4: pos=   345 neg=  1155
+    challenge       T5: pos=     0 neg=  1500
+    challenge       T6: pos=     0 neg=  1500
+    dev             T1: pos=   541 neg=  6872
+    dev             T2: pos=   500 neg=  6164
+    dev             T3: pos=  1225 neg=  6680
+    dev             T4: pos=   938 neg=  5862
+    dev             T5: pos=   500 neg=  6900
+    dev             T6: pos=   500 neg=  6900
+    heldout         T1: pos=   300 neg=  2200
+    heldout         T2: pos=   300 neg=  1000
+    heldout         T3: pos=   300 neg=  2200
+    heldout         T4: pos=   300 neg=  1100
+    heldout         T5: pos=   300 neg=  2200
+    heldout         T6: pos=   300 neg=  2200
+    heldout-shared  T1: pos=     0 neg=  2500
+    heldout-shared  T2: pos=     0 neg=  2500
+    heldout-shared  T3: pos=     0 neg=  2500
+    heldout-shared  T4: pos=     0 neg=  2500
+    heldout-shared  T5: pos=     0 neg=  2500
+    heldout-shared  T6: pos=     0 neg=  2500
+    ood             T1: pos=     0 neg=   500
+    ood             T2: pos=     0 neg=   500
+    ood             T3: pos=     0 neg=   500
+    ood             T4: pos=     0 neg=   500
+    ood             T5: pos=     0 neg=   500
+    ood             T6: pos=     0 neg=   500
+    train           T1: pos= 16887 neg= 13411
+    train           T2: pos=  4252 neg=  5600
+    train           T3: pos=  6099 neg= 10698
+    train           T4: pos=  5200 neg= 10900
+    train           T5: pos= 20525 neg= 14437
+    train           T6: pos=  4100 neg=  9788
+
+[3/4] eval_family coverage
+  [PASS] eval_family dev-mirror\benign-dev.jsonl: rows=3500 missing=0 bad=0
+  [PASS] eval_family dev-mirror\challenge-mirror.jsonl: rows=1100 missing=0 bad=0
+  [PASS] eval_family dev-mirror\ood-mirror.jsonl: rows=500 missing=0 bad=0
+  [PASS] eval_family pool\dev.jsonl: rows=9935 benign=3500 challenge=1100 ood=500 flagged_mismatch=0
+
+[4/4] manifest contract + cross-check
+  [PASS] manifest schema: 0 violation(s)
+  manifest cross-check: entries=23 issues=0
+
+H6 audit: PASS
