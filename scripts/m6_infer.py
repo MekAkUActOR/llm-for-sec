@@ -1,0 +1,420 @@
+# -*- coding: utf-8 -*-
+"""M6 DEV-3 v2: single-pass six-task inference runtime (m6-inference schema).
+
+One forward pass per input through the r5 backbone -> pooled features ->
+shared trunk + heads -> two-band decision + OOD suppression -> Response.
+
+Output rows (JSONL) conform to docs/m6/schemas/m6-inference.schema.json:
+  {schema, schema_version, request_id, abstain, abstain_reason, ood,
+   results:{T1..T6:{flag,score,label,suppressed,findings,detail}},
+   thresholds_applied:{T1..T6:{flag,strong},source}, action,
+   model?, diagnostics?, verdict_line}
+
+Decision (ADR-1 §8, two-band):
+  score > tau_strong            -> flag (OOD cannot suppress)
+  tau_flag < score <= tau_strong-> flag unless is_ood (suppressed marker)
+  score <= tau_flag             -> pass
+  T4 flag = doc-band OR spans nonempty (spans = strong evidence)
+  abstain = any task suppressed; action = flag if any flag else pass
+  score = sigmoid(logit) raw scale (adr-1b 6.1: NO temperature applied);
+  T6 score = P(high-risk) via softmax.
+
+Threshold priority: request override (--thresholds-json, partial ok)
+  > runpoint file (--runpoint, m6-thresholds schema)
+  > checkpoint calib.json (config-default).
+
+Determinism: fixed input-order batching, fp32 pooling aggregation, no
+timing fields inside output rows.
+
+Usage:
+  .venv\\Scripts\\python.exe -X utf8 scripts\\m6_infer.py --head checkpoints\\m6-v1 \
+      --input in.jsonl --output out.jsonl [--runpoint configs/m6-runpoint-*.json] \
+      [--thresholds-json ovr.json] [--ood-threshold 0.9] [--determinism-check]
+  stub (qa bring-up): --stub --head <any-empty-dir>
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import sys
+import time
+from pathlib import Path
+
+import numpy as np
+import torch
+
+REPO = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO / "scripts"))
+from m6_feat_probe import load_backbone, forward_extract  # noqa: E402
+from m6_render import (  # noqa: E402
+    PII_TYPES, bio_to_spans, normalize_input, render, tokenize_windowed)
+from m6_train import M6Probe, TASKS  # noqa: E402
+
+DEFAULT_CKPT = "checkpoints/qwen3-06b-sec-m5a-dpo-r5"
+SCHEMA_VERSION = "0.3.1"
+
+
+def _read_tau_ood(ood_cfg: dict, src: str) -> float:
+    """D-7 fail-closed: read ood.tau_ood (contract key); legacy 'threshold'
+    tolerated with a warning; missing entirely is a hard error (silent
+    fallback would disable abstention -- raw-distance scale ~1.0 never fires).
+    """
+    if "tau_ood" in ood_cfg:
+        return float(ood_cfg["tau_ood"])
+    if "threshold" in ood_cfg:
+        print(f"[m6_infer] WARN: {src} uses legacy key 'ood.threshold'; "
+              f"contract key is 'ood.tau_ood' (read anyway)")
+        return float(ood_cfg["threshold"])
+    raise KeyError(f"{src}: missing ood.tau_ood (fail-closed, D-7)")
+PRED_LABELS = {
+    "T1": ("contains-risk", "clean"), "T2": ("jailbreak", "normal"),
+    "T3": ("malicious", "benign"), "T4": ("contains-pii", "clean"),
+    "T5": ("contains-injection", "clean"),
+}
+T6_CLASSES = ["high-risk", "safe", "conditional"]
+
+
+def _pad_batch(seqs, pad_id, device):
+    T = max(len(s) for s in seqs)
+    ids = torch.full((len(seqs), T), pad_id, dtype=torch.long)
+    attn = torch.zeros((len(seqs), T), dtype=torch.long)
+    for i, s in enumerate(seqs):
+        ids[i, :len(s)] = torch.tensor(s, dtype=torch.long)
+        attn[i, :len(s)] = 1
+    return ids.to(device), attn.to(device)
+
+
+class M6Inferencer:
+    def __init__(self, head_dir: str, backbone_ckpt: str = DEFAULT_CKPT,
+                 runpoint: str | None = None, threshold_overrides: dict | None = None,
+                 ood_threshold_override: float | None = None,
+                 device: str = "cuda", dtype: str = "bf16", batch_size: int = 8,
+                 stub: bool = False, stub_seed: int = 1234,
+                 with_latency: bool = False):
+        self.device = device
+        self.batch_size = batch_size
+        self.stub = stub
+        self.with_latency = with_latency
+        self._row_latency_ms = 0.0
+        hd = Path(head_dir)
+
+        # ---- heads ----
+        if stub:
+            hd.mkdir(parents=True, exist_ok=True)
+            torch.manual_seed(stub_seed)
+            self.model = M6Probe(in_dim=10240).to(device).eval()
+            for p in self.model.parameters():
+                torch.nn.init.normal_(p, 0.0, 0.05)
+            self.model_id, self.heads_ref = "m6-stub", "stub"
+        else:
+            for need in ("probe-heads.pt", "head_structure.json",
+                         "calib.json", "ood_centers.json"):
+                assert (hd / need).is_file(), f"head ckpt missing {need} in {hd}"
+            struct = json.loads((hd / "head_structure.json").read_text(encoding="utf-8"))
+            self.model = M6Probe(**{k: struct[k] for k in
+                                    ("in_dim", "trunk_hidden", "head_hidden",
+                                     "dropout", "n_bio", "tok_feat_dim",
+                                     "bio_hidden")}).to(device).eval()
+            state = torch.load(hd / "probe-heads.pt", map_location="cpu",
+                               weights_only=True)
+            self.model.load_state_dict(state["state"])
+            self.model_id = hd.name
+            try:
+                self.heads_ref = str((hd / "probe-heads.pt").resolve()
+                                     .relative_to(REPO))
+            except ValueError:
+                self.heads_ref = str((hd / "probe-heads.pt").resolve())
+
+        # ---- thresholds (priority: request > runpoint > config-default) ----
+        calib = None if stub else json.loads(
+            (hd / "calib.json").read_text(encoding="utf-8-sig"))
+        base_thr = {t: dict(calib["thresholds"][t]) for t in TASKS} if calib else \
+            {t: {"flag": 0.5, "strong": 0.9} for t in TASKS}
+        self.ood_cfg = (calib or {}).get("ood", {})
+        self.tau_ood = _read_tau_ood(self.ood_cfg, f"{hd}/calib.json") if calib \
+            else 1.0
+        if runpoint:
+            rp = json.loads(Path(runpoint).read_text(encoding="utf-8-sig"))
+            for t in TASKS:
+                base_thr[t] = dict(rp["thresholds"][t])
+            self.tau_ood = _read_tau_ood(rp.get("ood", {}), runpoint)
+            self.source = "runpoint-file"
+        else:
+            self.source = "config-default" if not stub else "config-default"
+        if threshold_overrides:
+            for t, v in threshold_overrides.items():
+                assert t in TASKS, f"unknown task key {t}"
+                if isinstance(v, (int, float)):
+                    base_thr[t] = {"flag": float(v),
+                                   "strong": base_thr[t]["strong"]}
+                else:
+                    base_thr[t] = {"flag": float(v["flag"]),
+                                   "strong": float(v["strong"])}
+            self.source = "request-override"
+        if ood_threshold_override is not None:
+            self.tau_ood = float(ood_threshold_override)
+        for t in TASKS:
+            assert base_thr[t]["strong"] >= base_thr[t]["flag"] - 1e-9, \
+                f"{t}: strong < flag violates ThresholdBand"
+        self.thresholds = base_thr
+
+        # ---- OOD Mahalanobis (disabled in stub); ood.score = RAW distance ----
+        self.ood_centers = None
+        if not stub:
+            oc = json.loads((hd / "ood_centers.json").read_text(encoding="utf-8-sig"))
+            self.ood_centers = oc["mahalanobis"]
+
+        # ---- backbone (real pipeline in stub mode too) ----
+        self.backbone, self.tok = load_backbone(backbone_ckpt, dtype, device)
+        self.pad_id = self.tok.pad_token_id or 151643
+
+    # ------------------------------------------------------------------ #
+    def _ood(self, Z):
+        """Returns (raw_distance [N], is_ood [N] bool). ood.score = raw
+        Mahalanobis distance (sysdesign v0.3.0: unnormalized, >=0)."""
+        if self.ood_centers is None:
+            return np.zeros(len(Z)), np.zeros(len(Z), dtype=bool)
+        mu_b = np.array(self.ood_centers["mu_benign"], dtype=np.float64)
+        mu_a = np.array(self.ood_centers["mu_attack"], dtype=np.float64)
+        Si = np.array(self.ood_centers["sigma_inv"], dtype=np.float64)
+        db = np.einsum("ij,jk,ik->i", Z - mu_b, Si, Z - mu_b)
+        da = np.einsum("ij,jk,ik->i", Z - mu_a, Si, Z - mu_a)
+        d = np.minimum(db, da)
+        return d, d >= self.tau_ood
+
+    # ------------------------------------------------------------------ #
+    @torch.inference_mode()
+    def infer_records(self, records: list[dict]) -> list[dict]:
+        t0 = time.time()
+        prepared = []
+        for r in records:
+            try:
+                inp = normalize_input(r)
+                rendered, msg_spans = render(self.tok, inp)
+                tw = tokenize_windowed(self.tok, rendered)
+                prepared.append({"ok": True, "inp": inp, "tw": tw,
+                                 "msg_spans": msg_spans, "kind": inp["kind"]})
+            except Exception as e:  # conservative pass on render failure
+                prepared.append({"ok": False, "err": str(e), "kind": "?"})
+
+        rows = []
+        pos = 0
+        while pos < len(records):
+            tb = time.time()
+            chunk = prepared[pos:pos + self.batch_size]
+            ok_idx = [i for i, p in enumerate(chunk) if p["ok"]]
+            feats, tokfeats = None, None
+            if ok_idx:
+                ids, attn = _pad_batch([chunk[i]["tw"]["input_ids"] for i in ok_idx],
+                                       self.pad_id, self.device)
+                # SINGLE backbone forward for pooled + token states (mission
+                # requirement: one forward pass per input)
+                f, tf = forward_extract(self.backbone, ids, attn,
+                                        [4, 12, 20, 24, 28], "mean+last", [12, 28])
+                feats = f.numpy()
+                tokfeats = tf.numpy()
+            batch_ms = (time.time() - tb) * 1000 / max(1, len(chunk))
+            for ci, p in enumerate(chunk):
+                rec = records[pos + ci]
+                self._row_latency_ms = batch_ms
+                row = self._build_row(rec, p, ci, ok_idx, feats, tokfeats)
+                rows.append(row)
+            pos += self.batch_size
+        dt = (time.time() - t0) * 1000
+        print(f"[m6_infer] {len(records)} rows in {dt:.0f} ms "
+              f"({dt / max(1, len(records)):.1f} ms/row)")
+        return rows
+
+    def _build_row(self, rec, p, ci, ok_idx, feats, tokfeats):
+        rid = str(rec.get("id", rec.get("request_id", "")))
+        base = {
+            "schema": "m6-inference-response", "schema_version": SCHEMA_VERSION,
+            "request_id": rid, "abstain": False, "abstain_reason": "none",
+            "ood": {"is_ood": False, "score": 0.0,
+                    "mechanism": "mahalanobis-aux"},
+            "tasks": {}, "thresholds_applied": {
+                **{t: dict(self.thresholds[t]) for t in TASKS},
+                "source": self.source, "tau_ood": self.tau_ood},
+            "decision": "pass",
+        }
+        if not p["ok"]:
+            base.update(abstain=True, abstain_reason="input_error")
+            for t in TASKS:
+                base["tasks"][t] = {
+                    "flag": False, "score": 0.0, "label": None,
+                    "suppressed": False, "findings": [], "detail": None}
+            base["verdict_line"] = json.dumps(
+                {"model": self.model_id, "decision": "PASS", "abstain": True,
+                 "abstain_reason": "input_error", "tasks": {}}, ensure_ascii=False)
+            return base
+
+        k = ok_idx.index(ci)
+        x = torch.tensor(feats[k:k + 1], dtype=torch.float32).to(self.device)
+        out = self.model(x)
+        scores = {t: float(torch.sigmoid(out[t][0])) for t in
+                  ("T1", "T2", "T3", "T4doc", "T5")}
+        p6 = torch.softmax(out["T6"][0], dim=-1).cpu().numpy()
+        scores["T6"] = float(p6[0])
+        pred6 = int(out["T6"][0].argmax())
+
+        # PII spans from BIO head (slice to real token count; batch pads beyond)
+        xt = torch.tensor(tokfeats[k:k + 1], dtype=torch.float32).to(self.device)
+        bio_logits = self.model.forward_bio(xt)[0].cpu().numpy()  # [T_pad, n_bio]
+        tw, msg_spans = p["tw"], p["msg_spans"]
+        bio = bio_logits.argmax(-1)[:len(tw["input_ids"])].tolist()
+        msgs = _addressable_messages(p["inp"])
+        spans = bio_to_spans(
+            bio, tw["offsets"], msg_spans,
+            lambda mi: msgs[mi] if mi < len(msgs) else (msgs[0] if msgs else ""))
+
+        # OOD on trunk features (raw distance)
+        with torch.no_grad():
+            Z = self.model.trunk(x).cpu().numpy()
+        d_ood, is_ood = self._ood(Z)
+        is_ood = bool(is_ood[0])
+
+        any_suppressed = False
+        tasks = {}
+        for t in TASKS:
+            s = scores["T4doc"] if t == "T4" else scores[t]
+            thr = self.thresholds[t]
+            strong = s > thr["strong"]
+            mid = thr["flag"] < s <= thr["strong"]
+            if t == "T4":
+                strong = strong or len(spans) > 0
+            if strong:
+                flag, supp = True, False
+            elif mid:
+                supp = is_ood
+                flag = not is_ood
+                any_suppressed = any_suppressed or supp
+            else:
+                flag, supp = False, False
+            if t == "T6":
+                label = T6_CLASSES[pred6]
+            else:
+                label = PRED_LABELS[t][0 if flag else 1]
+            # D-6: T4 spans are a first-class field (detail reserved for
+            # doc_score audit); T6 3-class IS the label (detail null)
+            entry = {"flag": bool(flag), "score": round(s, 6),
+                     "label": label, "suppressed": bool(supp),
+                     "findings": []}
+            if t == "T4":
+                entry["spans"] = spans
+                entry["detail"] = {"doc_score": round(s, 6)}
+            else:
+                entry["detail"] = None
+            tasks[t] = entry
+
+        decision = "flag" if any(r["flag"] for r in tasks.values()) else "pass"
+        # ADR-1 §8: abstain = (decision==PASS ∧ is_ood ∧ weak-band hit).
+        # If another task flags, the response is not an abstention; the
+        # suppressed markers stay as task-level audit trail only.
+        abstain = any_suppressed and decision == "pass"
+        base.update(
+            abstain=abstain,
+            abstain_reason="ood" if abstain else "none",
+            ood={"is_ood": is_ood, "score": round(float(d_ood[0]), 6),
+                 "mechanism": "mahalanobis-aux"},
+            tasks=tasks, decision=decision)
+        if self.with_latency:
+            # determinism note: only enabled for interactive use, never in
+            # batch files (qa hashes byte-identical outputs)
+            base["latency_ms"] = round(self._row_latency_ms, 3)
+        base["verdict_line"] = json.dumps({
+            "model": self.model_id,
+            "decision": "FLAG" if decision == "flag" else "PASS",
+            "abstain": any_suppressed, "ood": base["ood"],
+            "tasks": {t: {"label": tasks[t]["label"], "score": tasks[t]["score"],
+                          "flag": tasks[t]["flag"]} for t in TASKS},
+            "pii": {"spans": spans}}, ensure_ascii=False)
+        return base
+
+    def infer_file(self, input_path: str, output_path: str) -> dict:
+        records = []
+        with open(input_path, "r", encoding="utf-8-sig") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    records.append(json.loads(line))
+        rows = self.infer_records(records)
+        with open(output_path, "w", encoding="utf-8") as f:
+            for r in rows:
+                f.write(json.dumps(r, ensure_ascii=False) + "\n")
+        return {"n": len(rows), "output": output_path}
+
+
+def _addressable_messages(inp: dict) -> list[str]:
+    """Original-text contents of user/assistant messages (span coordinates)."""
+    k = inp["kind"]
+    if k == "text":
+        return [inp["text"]]
+    if k == "turns":
+        return list(inp["turns"])
+    if k == "messages":
+        return [m["content"] for m in inp["messages"]]
+    if k == "protocol":
+        return [inp["protocol_text"]]
+    if k == "carrier":
+        return [inp["carrier"]["body"]]
+    return [""]
+
+
+def sha256_file(path: str) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def load_overrides(path):
+    if not path:
+        return None
+    return json.loads(Path(path).read_text(encoding="utf-8-sig"))
+
+
+def main():
+    ap = argparse.ArgumentParser(description="M6 single-pass six-task inference")
+    ap.add_argument("--input", required=True)
+    ap.add_argument("--output", required=True)
+    ap.add_argument("--head", default="checkpoints/m6-v1")
+    ap.add_argument("--backbone", default=DEFAULT_CKPT)
+    ap.add_argument("--runpoint", default=None,
+                    help="m6-thresholds runpoint json (priority over ckpt calib)")
+    ap.add_argument("--thresholds-json", default=None,
+                    help="request-level partial overrides {T?: float|{flag,strong}}")
+    ap.add_argument("--ood-threshold", type=float, default=None)
+    ap.add_argument("--stub", action="store_true")
+    ap.add_argument("--stub-seed", type=int, default=1234)
+    ap.add_argument("--batch-size", type=int, default=8)
+    ap.add_argument("--dtype", default="bf16", choices=["bf16", "fp16", "fp32"])
+    ap.add_argument("--determinism-check", action="store_true")
+    ap.add_argument("--with-latency", action="store_true",
+                    help="include latency_ms top-level (breaks byte determinism; "
+                         "interactive use only)")
+    ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
+    args = ap.parse_args()
+
+    inf = M6Inferencer(args.head, args.backbone, args.runpoint,
+                       load_overrides(args.thresholds_json), args.ood_threshold,
+                       args.device, args.dtype, args.batch_size,
+                       args.stub, args.stub_seed, args.with_latency)
+    summary = inf.infer_file(args.input, args.output)
+    digest = sha256_file(args.output)
+    print(f"[m6_infer] {summary['n']} rows -> {args.output} sha256={digest}")
+    if args.determinism_check:
+        tmp = args.output + ".detcheck"
+        inf.infer_file(args.input, tmp)
+        d2 = sha256_file(tmp)
+        ok = d2 == digest
+        print(f"[m6_infer] determinism check: {'PASS' if ok else 'FAIL'} ({d2})")
+        Path(tmp).unlink()
+        if not ok:
+            return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
