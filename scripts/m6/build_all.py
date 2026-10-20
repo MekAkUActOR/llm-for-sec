@@ -650,24 +650,34 @@ def main():
     # only valid on rows where both extractors score ZERO hits; any hit row
     # stays single-key (conservative — no wrong gold, arch rules on manual
     # pos+spans if a hit ever fires).
+    # arch T4 construct ruling (context-conditional detection): form decides
+    # entityhood (person-shaped local => entity; role/service-shaped => not),
+    # context decides polarity. Gate rule cascade:
+    #   1) role-shaped local (analyst/security/ops/...) — exempt outright
+    #      (non-personal identifier, lawful ops context)
+    #   2) person-shaped/entity hit — withheld, then AUTO-RELEASED to neg when
+    #      t6_class in {conditional, safe} (constructively verified lawful
+    #      context; logged). Non-cond/safe hits would go to arch for manual
+    #      ruling (none possible in the current candidate pool).
+    _GATE_EXEMPT_LOCAL = ("noreply", "no-reply", "test", "postmaster", "admin",
+                          "info", "analyst", "security", "ops", "support",
+                          "contact", "team", "helpdesk", "service", "sales",
+                          "hr", "webmaster", "billing")
+    _LA = "|".join(__import__("re").escape(x) + r"[\w.+-]*@"
+                   for x in _GATE_EXEMPT_LOCAL)
     _PROJ_GATE_PII = __import__("re").compile(
         r"(?<!\d)1[3-9]\d{9}(?!\d)"                      # zh mobile
         r"|(?<!\d)\d{17}[\dXx](?!\d)"                    # resident id
         r"|(?<!\d)62\d{14,17}(?!\d)"                     # bank card
         r"|(?<!\d)\d{3,4}-\d{7,8}(?!\d)"                 # landline
-        # person-shaped email: ANY domain (example.* included — T4 gold marks
-        # person-shaped example-domain emails as pos, 106/540 in current T4
-        # views; the gate must stay CONSISTENT with that labeling practice).
-        # Service-shaped locals (noreply/test/postmaster/admin/info) are the
-        # placeholder form and stay exempt.
-        r"|(?<![\w.+-])(?!noreply[\w.+-]*@|test[\w.+-]*@|postmaster[\w.+-]*@"
-        r"|admin[\w.+-]*@|info[\w.+-]*@)[\w.+-]+@[\w.-]+")
+        r"|(?<![\w.+-])(?!%s)[\w.+-]+@[\w.-]+" % _LA)    # person-shaped email
     _PROJ_GATE_INJ = __import__("re").compile(
         r"忽略(?:之前|以上|前面)|无视(?:之前|以上)"
         r"|ignore (?:the )?(?:previous|above)|disregard (?:the )?(?:above|previous)"
         r"|system prompt|系统提示词", __import__("re").I)
     gate_blocked = []
     gate_hits = []
+    gate_released = []
     gate_scope = collections.Counter()
     gate_pii_hits = gate_inj_hits = 0
 
@@ -689,14 +699,27 @@ def main():
             pii_m = _PROJ_GATE_PII.search(t)
             inj_m = _PROJ_GATE_INJ.search(t)
             if pii_m or inj_m:
-                gate_blocked.append(r["id"])
-                gate_hits.append((r["id"], pii_m.group(0) if pii_m else None,
-                                  inj_m.group(0) if inj_m else None))
-                if pii_m:
-                    gate_pii_hits += 1
-                if inj_m:
-                    gate_inj_hits += 1
-                continue  # stay single-key — no blanket T4/T5-neg on pattern hits
+                cls = (r["labels"]["T6"].get("label_detail") or {}).get("t6_class")
+                if cls in ("conditional", "safe"):
+                    # arch context ruling: constructively verified lawful
+                    # context => auto-release to neg; visibility preserved
+                    # (logged, counted in manifest as context_released)
+                    gate_released.append((r["id"], pii_m.group(0) if pii_m else None,
+                                          inj_m.group(0) if inj_m else None, cls))
+                    if pii_m:
+                        gate_pii_hits += 1
+                    if inj_m:
+                        gate_inj_hits += 1
+                    # fall through to projection below
+                else:
+                    gate_blocked.append(r["id"])
+                    gate_hits.append((r["id"], pii_m.group(0) if pii_m else None,
+                                      inj_m.group(0) if inj_m else None, cls))
+                    if pii_m:
+                        gate_pii_hits += 1
+                    if inj_m:
+                        gate_inj_hits += 1
+                    continue  # stay single-key — manual ruling path
             for tk, det in _PROJ_DETAIL.items():
                 r["labels"][tk] = {"label": "neg"}
                 if det is not None:
@@ -711,23 +734,30 @@ def main():
         for g in leaked[:10]:
             print("  -", g)
         raise SystemExit(3)
+    if gate_released:
+        print("projection gate: %d hit rows context-released (conditional/safe, logged):"
+              % len(gate_released))
+        for g in gate_released[:10]:
+            print("  -", g)
     if gate_hits:
-        print("projection gate: %d candidate rows withheld (pattern hits, kept single-key):"
+        print("projection gate: %d candidate rows withheld (manual ruling):"
               % len(gate_hits))
         for g in gate_hits[:10]:
             print("  -", g)
     print("cross-task neg projection (pool/train, T6 synth-instr cond+safe, gate-passed): %d rows" % n_proj)
     projection_gate = {
-        "checked": n_proj + len(gate_blocked),
+        "checked": n_proj + len(gate_blocked) + len(gate_released),
         "t4_hits": gate_pii_hits,
         "t5_hits": gate_inj_hits,
         "revoked_to_pos": 0,   # hit rows converted to T4 pos+spans (none — arch rules manually if ever)
-        "revoked_exit": len(gate_blocked),  # hit rows kept single-key
+        "revoked_exit": len(gate_blocked),  # hit rows kept single-key (manual ruling)
+        "context_released": len(gate_released),  # hits auto-released by lawful-context rule (logged)
         "assert": "PASS" if not leaked else "FAIL",
         "scope": {"classes_gated": dict(gate_scope)},
-        "note": "gate extractors: real-shaped PII regex (RFC 5737 ranges + "
-                "example.* treated as placeholder semantics) + injection "
-                "marker regex; hits stay single-key (no blanket T4/T5-neg)",
+        "note": "gate: person-shaped entity regex (role/service locals exempt) + "
+                "injection markers; conditional/safe hits auto-release to neg "
+                "(constructively verified lawful context); others stay "
+                "single-key for manual ruling",
     }
     # shared benign as six-key negatives in pool
     for r in benign[6000:9500]:
