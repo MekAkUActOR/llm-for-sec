@@ -109,7 +109,9 @@
         "trust": { "const": "untrusted" },
         "id": { "type": "string", "pattern": "^c[0-9]+$", "default": "c1" },
         "meta": { "type": "object", "description": "载体元数据（自由键值，渲染进协议 meta 区）" },
+        "dom": { "type": "string", "description": "可选：文档结构位点视图（v0.6-document 型载体；渲染进协议 dom 区）" },
         "body": { "type": "string", "minLength": 1 },
+        "urls": { "type": "string", "description": "可选：外链清单视图（渲染进协议 urls 区）" },
         "payload_sites": {
           "type": "array", "items": { "type": "string" },
           "description": "载荷位点（如 body/meta/dom/urls/relationship_target），T5 证据定位用。"
