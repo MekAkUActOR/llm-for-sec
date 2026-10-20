@@ -1097,8 +1097,13 @@ def _finalize(model, A, D, TB, TBd, out_dir, cfg, t_start, args):
                     "tau_ood": round(tau_ood, 4),
                     "ood_score_def": "min(d_benign,d_attack); normalized "
                                      "ood_score = d/(2*tau_ood) clipped [0,1]",
-                    "is_ood": "d >= tau_ood"}, ensure_ascii=False, indent=2),
-        encoding="utf-8")
+                    "is_ood": "d >= tau_ood",
+                    # qa signal-3 (task-10): "strong-too" extends OOD
+                    # suppression to the strong band (G4 default-PASS fix);
+                    # default remains ADR-1 §8 two-band
+                    "suppression_mode": cfg.get("train", {}).get(
+                        "suppression_mode", "two-band")},
+                   ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "calib.json").write_text(
         json.dumps({"schema": "m6-thresholds", "schema_version": "0.1.0-deveng",
                     "runpoint_id": f"{cfg['run_id']}-init",

@@ -15,7 +15,9 @@ arch §6.12 draft): when the runpoint provides flag_logit/strong_logit the
 bands compare LOGITS (fp32 sigmoid saturates to 1.0 at logit>~16.6, which
 collapses score resolution); the score fields are display values computed
 in fp64 (interim measure pending ADR-2 full logit-domain unification):
-  logit > strong_logit              -> flag (OOD cannot suppress)
+  logit > strong_logit              -> flag (OOD cannot suppress; unless the
+                                       runpoint sets suppression_mode=
+                                       "strong-too" - qa signal-3, G4 fix)
   flag_logit < logit <= strong_logit-> flag unless is_ood (suppressed marker)
   logit <= flag_logit               -> pass
 Without logit keys (legacy runpoints, T6 softmax prob): score-space bands.
@@ -198,9 +200,17 @@ class M6Inferencer:
 
         # ---- OOD Mahalanobis (disabled in stub); ood.score = RAW distance ----
         self.ood_centers = None
+        # suppression mode from the runpoint (qa signal-3, task-10): default
+        # "two-band" = strong band flags regardless of OOD (ADR-1 §8);
+        # "strong-too" = strong band is also suppressed when is_ood (G4 fix:
+        # OOD-suite rows that leak into the strong band keep default-PASS)
+        self.ood_suppress_strong = False
         if not stub:
-            oc = json.loads((hd / "ood_centers.json").read_text(encoding="utf-8-sig"))
+            oc = json.loads((hd / "ood_centers.json").read_text(
+                encoding="utf-8-sig"))
             self.ood_centers = oc["mahalanobis"]
+            self.ood_suppress_strong = \
+                oc.get("suppression_mode") == "strong-too"
 
         # ---- backbone (real pipeline in stub mode too) ----
         self.backbone, self.tok = load_backbone(backbone_ckpt, dtype, device)
@@ -354,7 +364,13 @@ class M6Inferencer:
             if t == "T4":
                 strong = strong or len(spans) > 0
             if strong:
-                flag, supp = True, False
+                if self.ood_suppress_strong and is_ood:
+                    # qa signal-3 mode: OOD strong-band hits are suppressed
+                    # (default-PASS philosophy extends to the strong band)
+                    flag, supp = False, True
+                    any_suppressed = True
+                else:
+                    flag, supp = True, False
             elif mid:
                 supp = is_ood
                 flag = not is_ood
