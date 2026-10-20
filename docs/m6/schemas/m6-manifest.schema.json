@@ -1,49 +1,52 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "M6 数据清单 manifest（数据管线输出 / 训练与评测的引用锚点）",
-  "description": "data/m6/manifest.json 的 schema。单一事实源：训练 config（data.manifest）、泄漏审计（task-6）、评测 harness（task-9）全部引用本文件登记的文件清单与 sha256。任何 data/m6/ 内容变更必须重建 manifest 并递增 manifest_id 版本；H6 数据冻结后 manifest 指纹入 git tag 由 Lead 确认。",
-  "required": ["schema", "schema_version", "manifest_id", "created", "generator", "files", "coverage", "disjointness"],
+  "description": "data/m6/manifest.json 的 schema。单一事实源：训练 config（data.manifest）、泄漏审计（task-6）、评测 harness（task-9）、qa calib（calibrated_on.manifest）全部引用本文件的清单与指纹。任何 data/m6/ 内容变更必须重建 manifest 并递增 manifest_id 版本；H6 数据冻结后 manifest 指纹入 git tag 由 Lead 确认。v0.3.8：吸收 dataeng 实际结构（generator_seed/risk_domain_enum/pii_type_table/shape_mix/pair_integrity/notes + 扁平 scale_gates + 实测形 disjointness 块），保留完整性硬要求（manifest_id/generator/files[].sha256+label_counts）。",
+  "required": ["schema", "schema_version", "manifest_id", "created", "generator", "files", "disjointness"],
   "additionalProperties": false,
   "properties": {
     "schema": { "const": "m6-manifest" },
     "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
-    "manifest_id": { "type": "string", "pattern": "^m6-data-v[0-9]+$" },
+    "manifest_id": { "type": "string", "pattern": "^m6-data-v[0-9]+$", "description": "清单指纹 id（qa calib 的 calibrated_on.manifest 引用 'manifest_id:sha256前12' 形态）" },
     "created": { "$ref": "m6-common.schema.json#/$defs/Timestamp" },
     "generator": {
       "type": "object",
       "required": ["script"],
       "additionalProperties": false,
       "properties": {
-        "script": { "type": "string", "description": "如 scripts/m6_build_manifest.py" },
+        "script": { "type": "string", "description": "如 scripts/m6/build_all.py" },
         "git_sha": { "type": "string" },
         "config": { "type": "string", "description": "构建配置（如 configs/m6-data-v1.yaml）" }
       }
     },
+    "generator_seed": { "type": "integer", "description": "构建随机种子（可复现性）" },
     "render_protocol_version": { "type": "string", "default": "dsh-protocol/0.1", "description": "carrier 输入渲染所用的协议版本（渲染器唯一，训练/评测共用）" },
     "files": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["path", "split", "task", "format", "n", "sha256", "label_counts"],
+        "required": ["path", "split", "task", "sha256", "label_counts"],
         "additionalProperties": false,
         "properties": {
-          "path": { "type": "string", "description": "相对 data/m6/ 的路径，正斜杠（如 t2-jailbreak/train.jsonl、pool/train.jsonl、challenge/challenge.jsonl、ood/ood.jsonl）" },
+          "path": { "type": "string", "pattern": "^[a-z0-9_][a-z0-9_./-]*\\.jsonl$", "description": "相对 data/m6/ 的路径，**正斜杠**（Windows 构建须 .replace('\\\\','/')）" },
           "split": { "$ref": "m6-common.schema.json#/$defs/Split" },
           "task": {
-            "description": "文件归属：主任务 id 或共享池",
+            "description": "文件归属：主任务 id / 共享池 pool / 镜像区 mirror",
             "oneOf": [
               { "$ref": "m6-common.schema.json#/$defs/TaskId" },
               { "const": "pool" },
-              { "const": "multi" }
+              { "const": "mirror" },
+              { "const": "shared-benign" }
             ]
           },
-          "format": { "const": "m6-sample-jsonl" },
-          "n": { "type": "integer", "minimum": 1 },
-          "sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256" },
+          "format": { "const": "m6-sample-jsonl", "default": "m6-sample-jsonl" },
+          "n": { "type": "integer", "minimum": 1, "description": "行数（与 rows 二选一，建议 n）" },
+          "rows": { "type": "integer", "minimum": 1, "description": "行数（dataeng 现行键，n 的别名）" },
+          "sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256", "description": "文件指纹——训练启动校验（防清单漂移）与审计复算的锚点" },
           "label_counts": {
             "type": "object",
-            "description": "按 labels 键统计（不是 task 字段）：{T1: {pos: n, neg: n}, ...}",
+            "description": "按 labels 键统计（不是 task 字段）：{T1: {pos: n, neg: n}, ...}——D7 pos_weight 与规模门验证的数据源",
             "additionalProperties": {
               "type": "object",
               "required": ["pos", "neg"],
@@ -70,7 +73,7 @@
     },
     "coverage": {
       "type": "object",
-      "description": "六任务 × 五切分的 pos/neg 汇总（按 labels 键统计）。key=T1..T6。",
+      "description": "六任务 × 五切分的 pos/neg 汇总（可从 files[].label_counts 推导；提供则便于直读）。",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": {
@@ -86,22 +89,31 @@
     },
     "scale_gates": {
       "type": "object",
-      "description": "规模门（qa 倒推的最低量）：train 正/负各>=2000/任务；heldout 正>=200、负>=1000/任务；challenge>=1200；ood>=500。status=pass|fail 逐项。",
-      "additionalProperties": {
-        "type": "object",
-        "required": ["status"],
-        "additionalProperties": true,
-        "properties": {
-          "status": { "enum": ["pass", "fail"] }
-        }
-      }
+      "description": "规模门阈值（qa 倒推的最低量；扁平整数字段，如 heldout_pos_min_per_task/train_pos_min_per_task/challenge_min/ood_min）。达标判定由校验器对 files[].label_counts 汇总后执行。",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "risk_domain_enum": { "type": "array", "items": { "type": "string" }, "description": "T1 risk_domain 标注词表（manifest 登记，后续 schema minor 收严）" },
+    "pii_type_table": {
+      "type": "object",
+      "description": "PII 类型→risk 确定性映射（与 m6-common PiiType/PiiRisk 冻结版一致）",
+      "additionalProperties": { "enum": ["low", "medium", "high"] }
+    },
+    "shape_mix": {
+      "type": "object",
+      "description": "输入形态配比（t3: user_only/messages_with_assistant/text_longctx；t5: text_legacy/carrier_structured:<style>）——形态覆盖度审计与归因读数用",
+      "additionalProperties": true
+    },
+    "pair_integrity": {
+      "type": "object",
+      "description": "配对/对话完整性（sig/pair/dialog 并查集锁）：跨切分配对数必须全 0",
+      "additionalProperties": true
     },
     "frozen_suites": {
       "type": "array",
-      "description": "data/heldout/ 冻结套件登记（乙醇纪律：只读，永不进训练/调参/阈值标定）。评测 harness 引用此处指纹。",
+      "description": "data/heldout/ 冻结套件登记（乙醇纪律：只读，永不进训练/调参/阈值标定）。评测 harness 引用此处指纹。建议登记（qa §2.3 映射的锚点）。",
       "items": {
         "type": "object",
-        "required": ["name", "path", "role", "sha256"],
+        "required": ["name", "path", "role"],
         "additionalProperties": false,
         "properties": {
           "name": { "type": "string", "description": "如 v023 / gen / jb-v0.7 / toolout / toolout-reg / document / longctx / dilution" },
@@ -114,17 +126,20 @@
     },
     "disjointness": {
       "type": "object",
-      "required": ["assertions"],
+      "required": ["assert"],
       "additionalProperties": false,
       "properties": {
-        "assertions": {
-          "type": "array",
-          "items": { "type": "string" },
-          "description": "机器可执行断言清单，如：A1 train/dev 与 challenge/ood 目录零交集（路径级）；A2 全部行 8-gram 与 data/heldout/** 零重叠（check_dilution_suite.py A5 同款）；A3 flags.holdout_family 非空行仅允许出现在 split=heldout；A4 训练 config 引用的文件全部 split in {train,dev}。"
-        },
-        "checked_by": { "type": "string", "description": "如 scripts/m6_check_staging.py（task-6 交付）" },
+        "train_rows": { "type": "integer", "minimum": 0 },
+        "eval_rows": { "type": "integer", "minimum": 0 },
+        "exact_overlap": { "type": "integer", "minimum": 0, "description": "train∪dev vs heldout∪challenge∪ood 精确重叠行数（必须 0）" },
+        "mirror_eval_overlap": { "type": "integer", "minimum": 0, "description": "dev-mirror 与评测资产重叠行数（必须 0）" },
+        "ood_t4_pos_rows": { "type": "integer", "minimum": 0, "description": "OOD 集中 T4 正例行数（必须 0——arch 裁定 OOD PII-free，T4 span 绕过 OOD 抑制）" },
+        "assert": { "enum": ["PASS", "FAIL"], "description": "总断言（任何一项违规则 FAIL）" },
+        "near_dup": { "type": ["integer", "null"], "description": "近似重叠（n-gram）计数——qa m6_leak_check 的 5-gram 审计结果回填（精确 0 + 近似可疑对解释义务）" },
+        "checked_by": { "type": "string", "description": "断言脚本（如 scripts/m6_check_staging.py）" },
         "audit_report": { "type": "string", "description": "reports/m6/ 下审计结论路径" }
       }
-    }
+    },
+    "notes": { "type": "array", "items": { "type": "string" } }
   }
 }

@@ -49,8 +49,8 @@ def validator(name, entry=None):
 
 ## 不可破坏的不变量（跨文件一致）
 
-1. **单次前向**：`results` 六键全在；`score` 永远输出（阈值前原始分）；`flag` 永远由双带阈值 + OOD 抑制规则派生。
-2. **弃权语义**：`abstain=true` ⇒ 六任务 `flag` 全 false、`action=pass`；验收口径 abstain 记 PASS；正样本 abstain 计 FN、负样本计 TN；**score>τ_strong 永不被 OOD 抑制**。
+1. **单次前向**：`tasks` 六键全在；`score` 永远输出（阈值前原始分，σ(logit) 无温度）；`flag` 永远由双带阈值 + OOD 抑制规则派生。
+2. **弃权语义**：`abstain=true` ⇒ 六任务 `flag` 全 false、`decision=pass`；验收口径 abstain 记 PASS；正样本 abstain 计 FN、负样本计 TN；**score>τ_strong 永不被 OOD 抑制**；decision=flag 时 abstain 必为 false（D-5）。
 3. **gold 口径**：主判统一 `pos|neg`（六任务同口径）；细粒度只在 `label_detail`；`labels` 稀疏（缺键不计该任务分母）；多任务联合行必须含 `task` 键。
 4. **坐标口径**：PII span 一律 Unicode 码点、end 排他、基准=原始输入字段（text/messages[i].content/carrier.body），**绝不使用渲染后协议信封坐标**（渲染器提供 token→原文回映）。
 5. **物理纪律**：`data/m6/` 的 train/dev 与 heldout/challenge/ood 由 manifest 不相交断言隔离；`data/heldout/` 冻结套件只读（映射为 protocol 透传行），永不进训练/调参/阈值标定；阈值标定只用 dev。
@@ -66,4 +66,5 @@ def validator(name, entry=None):
 - 2026-10-21 04:05 · 0.3.4 · sysdesign-m6 · **arch 裁定 Option A 落地**（载体形态接口）：①新增 `EnvelopeStyle` 枚举（std_tag/simple_tag/markdown/plain，权威源 = scripts/m6/gen_indirect.py::envelope_variant）；②`Carrier.envelope_style`（缺省 std_tag，渲染器选载体块模板）；③`T5Detail.envelope` 从自由字符串收紧为同枚举（终稿载荷未存在，收紧无破坏）。SYS-1 §4.2.1 定义四变体模板语义 + 渲染器/数据侧义务 + "裸片段不进 input.carrier 路径"分布注记。
 - 2026-10-21 04:15 · 0.3.5 · sysdesign-m6 · **N-3 裁定修正**：`aux_ood.feature` "trunk_pre_input"（10240 维原始拼接）→ **"trunk_output"**（1024 维）——deveng train/infer 两端实现一致且忠于 ADR §8 原文（"trunk 1024 维特征上的 Mahalanobis 距离"），schema 为偏出者让位。理由入描述：trunk 入口 LN 已做标准化（协方差条件数更好）、1024 维协方差估计更稳、与六头同空间（距离度量语义自洽）。SYS-1 §6 同步。
 - 2026-10-21 04:25 · 0.3.6 · sysdesign-m6 · **m6-v1.yaml 配置对齐**（consumer 键名采纳，schema 向实现现实收敛）：①base+frozen；②probe.pooling 转可选（缺省双池化）；③probe.token_layers（const [12,28]，自 stage_a 上移）；④PiiDualHead 的 input/flag_rule 升 T4 级（值对齐 deveng 写法 "doc_head_or_spans_nonempty"）、doc+classes；⑤loss 键名对齐：w_tok→**bio_weight**、bio_bi_weight→**bio_pos_weight**；⑥aux_ood：shrinkage_lambda→**lambda**；⑦data+prefix_rows（include|exclude，多轮前缀行策略）；⑧train+grad_clip/early_stop_patience/bio_max_tokens/extract_batch_rows。**deveng 侧待办一词**：configs/m6-v1.yaml 的 `aux_ood.feature: trunk` → `trunk_output`（N-3 契约值）。自检新增第 4 层：configs/m6-*.yaml 存在时自动过 train-config 契约。
-- 2026-10-21 04:30 · 0.3.7 · sysdesign-m6 · **smoke 配置豁免**（m6-smoke.yaml 驱动）：①run_id 式放宽 `^m6-[a-z0-9][a-z0-9.-]*$`（容纳 m6-smoke*）；②data.manifest 转可选 + train_patterns/dev_patterns glob 字段——smoke/调试配置天然无 manifest（正式训练仍必须提供，由任务板 task-6 门禁强制，schema 描述显式注明）。
+- 2026-10-21 04:30 · 0.3.7 · sysdesign-m6 · **smoke 配置豁免**（m6-smoke.yaml 驱动）：①run_id 式放宽 `^m6-[a-z0-9][a-z0-9.-]*$`（容纳 m6-smoke*）；②data.manifest 转可选 + train_patterns/dev_patterns glob 字段——smoke/调试配置天然无 manifest（正式训练仍必须提供，由任务板 task-6 门禁强制，schema 描述显式注明）。另：不变量区 1/2 的 results/action 旧词同步为 tasks/decision（0.3.0 更名残留）。
+- 2026-10-21 04:50 · 0.3.8 · sysdesign-m6 · **manifest schema 对齐 dataeng 实际结构（吸收）+ 完整性硬要求（坚守）**：吸收——generator_seed / risk_domain_enum / pii_type_table / shape_mix / pair_integrity / notes 顶层字段；disjointness 改实测形块（train_rows/eval_rows/exact_overlap/mirror_eval_overlap/ood_t4_pos_rows/assert，近似项 near_dup 待 qa 泄漏审计回填）；scale_gates 扁平阈值形；files[].rows 作为 n 别名。坚守——manifest_id / generator / files[]{split,task,sha256,label_counts}（训练启动指纹校验、D7 pos_weight 数据源、qa calib 引用锚）；path 强制正斜杠。coverage 转可选（可从 label_counts 推导）。当前 manifest.json（commit 5b760ec）差 5 项：manifest_id、generator、files[].split/task/sha256/label_counts、path 反斜杠——dataeng v2 待补。
