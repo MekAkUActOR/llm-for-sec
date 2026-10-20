@@ -1,0 +1,2 @@
+HEARTBEAT-START 2026-10-20 15:26:50 wrapper_pid=30124 attempt=1 mode=detached-wmi arm=r9-tmpl
+CHAIN-SPAWNED chain_pid=5240 start=15:26:50 gpu=[20 %, 882 MiB]

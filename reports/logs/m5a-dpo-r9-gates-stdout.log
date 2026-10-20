@@ -14,3 +14,64 @@ instrument sha re-verified ? (jb scorer / heldout scorer / jb suite / dilution p
   匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
 GUARD=PASS 无并发（重 worker ≤1）
 GUARD=PASS heavy=0 before step1-v023
+STEP1 v023 eval+score DONE
+waiting GPU idle (heavy=1) before step2-gen...
+waiting GPU idle (heavy=1) before step2-gen...
+waiting GPU idle (heavy=1) before step2-gen...
+waiting GPU idle (heavy=1) before step2-gen...
+waiting GPU idle (heavy=1) before step2-gen...
+waiting GPU idle (heavy=1) before step2-gen...
+waiting GPU idle (heavy=1) before step2-gen...
+
+=== 判据：重 worker（>500MB 的 python.exe）===
+  重 worker 数 = 0  pid=
+  ? 0 个 ≈ 正常单链；≥2 个才是真并发 ?
+  匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
+GUARD=PASS 无并发（重 worker ≤1）
+GUARD=PASS heavy=0 before step2-gen
+STEP2 gen eval+score DONE
+waiting GPU idle (heavy=1) before step3-jb...
+waiting GPU idle (heavy=1) before step3-jb...
+waiting GPU idle (heavy=1) before step3-jb...
+
+=== 判据：重 worker（>500MB 的 python.exe）===
+  重 worker 数 = 0  pid=
+  ? 0 个 ≈ 正常单链；≥2 个才是真并发 ?
+  匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
+GUARD=PASS 无并发（重 worker ≤1）
+GUARD=PASS heavy=0 before step3-jb
+STEP3 jb DONE
+
+=== 判据：重 worker（>500MB 的 python.exe）===
+  重 worker 数 = 0  pid=
+  ? 0 个 ≈ 正常单链；≥2 个才是真并发 ?
+  匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
+GUARD=PASS 无并发（重 worker ≤1）
+GUARD=PASS heavy=0 before step4-ppl
+STEP4 ppl DONE
+
+=== 判据：重 worker（>500MB 的 python.exe）===
+  重 worker 数 = 0  pid=
+  ? 0 个 ≈ 正常单链；≥2 个才是真并发 ?
+  匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
+GUARD=PASS 无并发（重 worker ≤1）
+GUARD=PASS heavy=0 before step5-toolout
+STEP5 toolout DONE
+
+=== 判据：重 worker（>500MB 的 python.exe）===
+  重 worker 数 = 0  pid=
+  ? 0 个 ≈ 正常单链；≥2 个才是真并发 ?
+  匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
+GUARD=PASS 无并发（重 worker ≤1）
+GUARD=PASS heavy=0 before step6-needle
+STEP6 needle DONE
+STEP7 verdict DONE
+
+=== 判据：重 worker（>500MB 的 python.exe）===
+  重 worker 数 = 0  pid=
+  ? 0 个 ≈ 正常单链；≥2 个才是真并发 ?
+  匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
+GUARD=PASS 无并发（重 worker ≤1）
+GUARD=PASS heavy=0 before step8-dilution
+STEP8 dilution DONE
+GATES-CHAIN=OK (8 steps, 15 artifacts, all rc=0)
