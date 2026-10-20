@@ -100,7 +100,7 @@ def rows_for_split(cfg: dict, split: str) -> list[dict]:
                     f"manifest sha256 mismatch: {f} (data drift?)"
     assert files, f"no files for split {split}"
     mode = d.get("prefix_rows", "exclude")
-    rows, seen_map, ndup = [], {}, 0
+    rows, seen_map, ndup, nproj = [], {}, 0, 0
     for f in files:
         for r in load_jsonl(f):
             assert r.get("schema") == "m6-sample", f"{f}: not m6-sample ({r.get('schema')})"
@@ -112,19 +112,42 @@ def rows_for_split(cfg: dict, split: str) -> list[dict]:
             if mode == "only" and not is_prefix:
                 continue
             if r["id"] in seen_map:
-                # shared rows legitimately appear in task files AND pool
-                # (verified byte-identical); a CONTENT mismatch is a data bug
+                # shared rows legitimately appear in task files AND pool.
                 prev = seen_map[r["id"]]
-                assert json.dumps(prev, sort_keys=True, ensure_ascii=False) == \
-                    json.dumps(r, sort_keys=True, ensure_ascii=False), \
-                    f"duplicate id {r['id']} with DIFFERENT content in {f}"
-                ndup += 1
+                if json.dumps(prev, sort_keys=True, ensure_ascii=False) == \
+                        json.dumps(r, sort_keys=True, ensure_ascii=False):
+                    ndup += 1
+                    continue
+                # label-projection precedence (dataeng+arch ruling): the pool
+                # copy of a projected row carries MORE label keys (six-key
+                # cross-task neg supervision) while the task-view copy stays
+                # single-key by contract. Text must still be identical --
+                # only the labels may diverge; anything else is a data bug.
+                def _nolab(x):
+                    return {k: v for k, v in x.items() if k != "labels"}
+                assert json.dumps(_nolab(prev), sort_keys=True,
+                                  ensure_ascii=False) == \
+                    json.dumps(_nolab(r), sort_keys=True, ensure_ascii=False), \
+                    f"duplicate id {r['id']} with DIFFERENT non-label content in {f}"
+                nk_prev = len((prev.get("labels") or {}))
+                nk_new = len((r.get("labels") or {}))
+                if nk_new > nk_prev:
+                    rows[rows.index(prev)] = r
+                    seen_map[r["id"]] = r
+                    nproj += 1
+                    if nproj <= 3:
+                        print(f"[m6_train] {split}: projection precedence "
+                              f"{r['id']} -> {nk_new}-key copy "
+                              f"(was {nk_prev}-key)")
                 continue
             seen_map[r["id"]] = r
             rows.append(r)
     if ndup:
         print(f"[m6_train] {split}: {ndup} shared rows deduped "
               f"(task files ∩ pool, byte-identical)")
+    if nproj:
+        print(f"[m6_train] {split}: {nproj} rows took label-projection "
+              f"precedence (pool multi-key > task-view single-key)")
     return rows
 
 
