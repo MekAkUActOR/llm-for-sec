@@ -1,9 +1,10 @@
 # v2 config: LoRA joint training per ADR-1 §16 (trigger conditions met;
 # arch task-10 baseline: v1-2). Focus allocation T1>T3>T2 via task_weights.
-# NOTE: data patterns unchanged - dataeng will land the cross-key negative
-# projection (T6 conditional/safe -> T2-neg supervision, pending arch's
-# mask-vs-neg semantic ruling) by regenerating the same files; the config
-# stays valid either way (manifest-driven).
+# NOTE: data patterns unchanged - dataeng lands the cross-key negative
+# projection (T6 conditional/safe -> uniform T1-T5+T4 neg supervision;
+# arch ruled uniform neg over mask; high-risk NOT projected - polarity
+# undetermined) by regenerating the same files; the config stays valid
+# (manifest-driven).
 base:
   model_name_or_path: checkpoints/qwen3-06b-sec-m5a-dpo-r5
   dtype: bf16

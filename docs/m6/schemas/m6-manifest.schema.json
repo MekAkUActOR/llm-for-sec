@@ -155,18 +155,18 @@
       "type": "object",
       "required": ["checked", "t4_hits", "t5_hits", "revoked_to_pos", "revoked_exit", "assert", "scope"],
       "additionalProperties": false,
-      "description": "投影门断言（dataeng 构造时验证，arch 裁定 adr-1b §6.14：标签真值在构造时验证，不在读数时发现）：T4 span 提取器 + T5 注入模式提取器对投影行（blanket T1-T5 neg 投影）零命中核查。RFC 5737 / example.* 等文档保留段豁免（非真实形 PII）。命中行处置：revoked_exit = 退出投影保持单键（保守默认）；revoked_to_pos = 转 T4 pos+spans（保留键，发生时须 arch 手工裁定登记）。",
+      "description": "投影门断言（dataeng 构造时验证，arch 裁定 adr-1b §6.14：标签真值在构造时验证，不在读数时发现）：T4 span 提取器 + T5 注入模式提取器对投影行（blanket T1-T5 neg 投影）核查。**人形邮箱域无关命中**（与 T4 标注实践一致：T4 pos 含 106 个人形 example/保留域邮箱 span，如 analyst@203.0.113.7 渗出目标——数字域非豁免理由）；纯保留段（裸 IP/无收件人形）仍豁免。投影范围 = T6 conditional+safe 子类（arch 收紧：high-risk 不投，极性未定不猜）。命中行处置：revoked_exit = 退出投影保持单键；revoked_to_pos = 转 T4 pos+spans（保留键，发生时须 arch 手工裁定登记）。基线锚点（正式波）：checked 3,039 / t4_hits 81 / t5_hits 0 / revoked_exit 81。",
       "properties": {
         "checked": { "type": "integer", "minimum": 0, "description": "过门投影行数" },
-        "t4_hits": { "type": "integer", "minimum": 0, "description": "T4 客观模式（span 提取器）命中数——预期 0（sysdesign 存量粗扫基线：2,046 行零命中）" },
-        "t5_hits": { "type": "integer", "minimum": 0, "description": "T5 注入模式命中数——预期 0" },
+        "t4_hits": { "type": "integer", "minimum": 0, "description": "T4 客观模式命中数（人形邮箱域无关口径）——非零即真信息：渗出目标人形邮箱行的 T4-neg 投影是错金，须扣留" },
+        "t5_hits": { "type": "integer", "minimum": 0, "description": "T5 注入模式命中数" },
         "revoked_to_pos": { "type": "integer", "minimum": 0, "description": "命中转 pos+spans 行数（当前策略恒 0，arch 手工裁定通道）" },
-        "revoked_exit": { "type": "integer", "minimum": 0, "description": "命中退出投影（保持单键）行数" },
+        "revoked_exit": { "type": "integer", "minimum": 0, "description": "命中退出投影（保持单键）行数——基线 81（analyst@203.0.113.7 类渗出目标人形邮箱）" },
         "assert": { "enum": ["PASS", "FAIL"] },
         "scope": {
           "type": "object",
           "additionalProperties": true,
-          "description": "过门行按类分桶——使收紧裁定本身可审计：high-risk 误入投影门会在 layer-4 scope 漂移显形（而非只靠内容断言兜底）",
+          "description": "过门行按类分桶——投影范围的硬边界（arch 收紧：仅 conditional+safe；high-risk 不投，极性未定不猜）。high-risk 键出现 = scope 违规，layer-4 显形",
           "properties": {
             "classes_gated": {
               "type": "object",
