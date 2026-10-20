@@ -1,0 +1,83 @@
+{
+  "script": "scripts/m6_feat_probe.py",
+  "ckpt": "checkpoints/qwen3-06b-sec-m5a-dpo-r5",
+  "model": {
+    "arch": "Qwen3ForCausalLM",
+    "n_layers": 28,
+    "hidden_size": 1024
+  },
+  "feature_spec": {
+    "layers": [
+      8,
+      16,
+      24,
+      28
+    ],
+    "pooling": "last",
+    "chat_mode": "chat",
+    "n_layers_total": 28,
+    "hidden_size": 1024,
+    "feat_dim": 4096,
+    "n_tokens": [
+      22,
+      25,
+      25,
+      35,
+      34,
+      57,
+      33,
+      32,
+      29,
+      83
+    ]
+  },
+  "n_samples": 10,
+  "layer_mean_norms_hidden0_to_28": [
+    0.27,
+    4.781,
+    7.438,
+    348.0,
+    350.0,
+    350.0,
+    352.0,
+    352.0,
+    352.0,
+    352.0,
+    356.0,
+    360.0,
+    364.0,
+    366.0,
+    368.0,
+    366.0,
+    372.0,
+    376.0,
+    384.0,
+    396.0,
+    412.0,
+    440.0,
+    484.0,
+    532.0,
+    576.0,
+    648.0,
+    720.0,
+    764.0,
+    97.0
+  ],
+  "layer_cosine_selected": {
+    "L8_vs_L16": 1.0,
+    "L8_vs_L24": 0.9453,
+    "L8_vs_L28": -0.0134,
+    "L16_vs_L24": 0.9492,
+    "L16_vs_L28": 0.0024,
+    "L24_vs_L28": 0.127
+  },
+  "feat_stats": {
+    "global_min": -64.0,
+    "global_max": 228.0,
+    "global_mean": 0.12570858001708984,
+    "global_std": 5.806454181671143,
+    "n_nonfinite": 0
+  },
+  "gpu_peak_gib": 1.219,
+  "elapsed_sec": 4.1
+}

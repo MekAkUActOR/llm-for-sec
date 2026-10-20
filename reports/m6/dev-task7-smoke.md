@@ -12,7 +12,7 @@
 | 推理运行时 | `scripts/m6_infer.py` | m6-inference v0.3.1 契约（tasks/decision/ood.score 原始距离/T4 spans 一等字段/abstain=(pass∧ood∧弱带)/suppressed 审计标记）；阈值三级优先（request>runpoint>config-default）；τ_ood fail-closed 双读；单次前向；确定性（无计时字段进输出行） |
 | 配置生成 | `scripts/m6_build_train_config.py` | 产出 `configs/m6-smoke.yaml` / `configs/m6-v1.yaml`（v1 指向 data/m6/manifest.json，含 T3 前缀消融开关） |
 | smoke 数据 | `scripts/m6_smoke_data.py` | m6-sample 格式 171 train/63 dev 行：六任务±、T4 spans（终版词表）、T6 三值、多轮+reveal_turn 前缀行、挑战镜像行 |
-| 单测 | `tests/test_m6_pipeline.py` | **25/25 通过**（渲染/截断/BIO 往返/标签派生/头形状/Mahalanobis/合成端到端） |
+| 单测 | `tests/test_m6_pipeline.py` | **30/30 通过**（渲染/四变体逐字节/BIO 往返含 markdown 投影/截断/标签派生/头形状/Mahalanobis/合成端到端） |
 
 ## Smoke 运行记录
 
@@ -37,9 +37,19 @@
 
 ### 回归 hash（qa 锁定用，stub seed=1234）
 - 输入：`reports/m6/regression/m6_regression_inputs.jsonl`（10 条固定）
-- stub v2 输出：`reports/m6/regression/stub_regression_out_v2.jsonl` sha256=`e9d148fd675e4a2ef32d1e46d1d360af26dd41bf8f7c3a6093953ebb62be3907`
-- 真头（m6-smoke3）输出：`outputs/m6/regression_realhead.jsonl` sha256=`e91094a3735d6dd6f50011dbfb2232102cb4eaa8e71673ea52d17d354e7dcaf7`
-- 注：旧 hash（56550639…/ffcb20b3…）基于 v0 字段名，作废
+- stub v2 输出：`reports/m6/regression/stub_regression_out_v2.jsonl` sha256=`4b59c8562a8aea6544bf2f2cd657c9c0f8e81d6fcbcc3cb91d7b5b4cda689582`（N-1/N-2 修后）
+- 真头（m6-smoke3）输出：`outputs/m6/regression_realhead.jsonl` sha256=`2840d488e3a02c9f04e3bf68c1e85e7700ecac9c9c902299a710826a40320a2c`
+- 注：旧 hash（56550639…/ffcb20b3…/e9d148fd…/e91094a3…/653d0e45…/64d94390…）基于 v0 字段名/修复前代码，作废
+
+## 契约对齐补丁（sysdesign/arch 复核后）
+- D-5 abstain=(pass∧ood∧弱带) ✓ / D-6 T4 spans 一等字段 ✓ / D-7 τ_ood fail-closed ✓（arch+sysdesign 双确认关闭）
+- N-1 verdict_line 单一组装函数（两路径共用，decision 小写枚举，suppressed_any 独立审计键）✓
+- N-2 docstring 同步 ✓
+- envelope_style 四变体（std_tag/simple_tag/markdown/plain，权威源 gen_indirect.py::envelope_variant 逐字节复现，zh/en）+ body chunk 投影（T4 span 回映 carrier.body 原文坐标，markdown 每行一 chunk）✓
+- aux_ood.feature=trunk_output（N-3，schema 侧修正让位）/ m6_config_version=0.3.7 / configs 双绿（m6_check_schemas.py 第 4 层）
+
+### 载体变体端到端（新）
+- `outputs/m6/carrier_variants_out.jsonl`：7 行（4 样式×en + 3×zh）全链路通过——渲染→单次前向→T4 spans（chunk 投影）→确定性 PASS（sha256=fde12874…）
 
 ## 修复记录（smoke 期间抓出的真实 bug）
 1. `_pool` last 分支 float 索引崩溃（单测抓出）
