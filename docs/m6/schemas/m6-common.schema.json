@@ -56,10 +56,18 @@
       "required": ["flag", "strong"],
       "additionalProperties": false,
       "properties": {
-        "flag": { "$ref": "#/$defs/Score", "description": "τ_flag：score>τ_flag 且未触发 OOD 抑制 ⇒ FLAG" },
-        "strong": { "$ref": "#/$defs/Score", "description": "τ_strong：score>τ_strong ⇒ FLAG 无视 OOD（强信号永不弃权）" }
+        "flag": { "$ref": "#/$defs/Score", "description": "τ_flag：score>τ_flag 且未触发 OOD 抑制 ⇒ FLAG（若 flag_logit 存在则此处为 σ(τ_l) 等价回显，决策比较在 logit 空间）" },
+        "strong": { "$ref": "#/$defs/Score", "description": "τ_strong：score>τ_strong ⇒ FLAG 无视 OOD（强信号永不弃权）（若 strong_logit 存在则此处为 σ(τ_l) 等价回显）" },
+        "flag_logit": {
+          "type": ["number", "null"],
+          "description": "τ_flag 的 logit 空间值（fp32 sigmoid 饱和修复，deveng v1-1）：存在且非空时决策带用 logit 比较（logit > τ_l），D8 零 FP 构造与 margin δ=1.0 在 logit 空间成立；T6（softmax 概率）与其他 score 空间运行的 runpoint 缺省此字段=行为与旧版完全一致（向后兼容）。须满足 strong_logit >= flag_logit。"
+        },
+        "strong_logit": {
+          "type": ["number", "null"],
+          "description": "τ_strong 的 logit 空间值；存在且非空时强带判定在 logit 空间。score 字段仍是 σ(logit) 原始回显（adr-1b §6.1 不变）。"
+        }
       },
-      "description": "双带阈值（ADR-1）：必须满足 strong >= flag。"
+      "description": "双带阈值（ADR-1）：score 空间必须满足 strong >= flag；logit 字段（若存在）同样 strong_logit >= flag_logit（σ 单调保序）。"
     },
     "AbstainReason": {
       "enum": ["none", "ood", "low_confidence", "input_error"],

@@ -74,6 +74,21 @@ def check_row(i: int, r: dict, fails: list[str]) -> None:
     for t in TASKS:
         if t not in ta or not {"flag", "strong"} <= set(ta[t]):
             fails.append(f"row{i}({rid}) thresholds.{t} band missing")
+            continue
+        band = ta[t]
+        if band["strong"] < band["flag"]:
+            fails.append(f"row{i}({rid}) {t} band strong<flag (score space)")
+        fl, sl = band.get("flag_logit"), band.get("strong_logit")
+        if fl is not None and sl is not None and sl < fl:
+            fails.append(f"row{i}({rid}) {t} band strong_logit<flag_logit")
+        # logit 回显一致性：flag == sigma(flag_logit)（fp32 容差 1e-3——饱和
+        # 区回显可为 1.0，容差覆盖；仅双方存在时校验）
+        if fl is not None and abs(1.0 / (1.0 + 2.718281828459045 ** (-fl))
+                                  - band["flag"]) > 1e-3:
+            fails.append(f"row{i}({rid}) {t} flag != sigmoid(flag_logit)")
+        if sl is not None and abs(1.0 / (1.0 + 2.718281828459045 ** (-sl))
+                                  - band["strong"]) > 1e-3:
+            fails.append(f"row{i}({rid}) {t} strong != sigmoid(strong_logit)")
     if "tau_ood" not in ta or "source" not in ta:
         fails.append(f"row{i}({rid}) thresholds tau_ood/source missing")
 

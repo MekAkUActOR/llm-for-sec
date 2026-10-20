@@ -7,18 +7,18 @@
   "properties": {
     "schema": { "const": "m6-thresholds" },
     "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
-    "runpoint_id": { "type": "string", "pattern": "^m6-runpoint-v[0-9]+[a-z0-9.-]*$" },
+    "runpoint_id": { "type": "string", "pattern": "^m6-[a-z0-9][a-z0-9.-]*$", "description": "如 m6-runpoint-v1（qa 定稿）/ m6-v1-init（ckpt 初始 calib，deveng 产出、qa 重冻结）" },
     "created": { "$ref": "m6-common.schema.json#/$defs/Timestamp" },
-    "owner": { "const": "qa-m6" },
+    "owner": { "type": "string", "description": "产出方：qa-m6（定稿 runpoint，configs/m6-runpoint-*.json）或 deveng-m6（ckpt 初始 calib.json，标注 initial、qa 重冻结）" },
     "calibrated_on": {
       "type": "object",
-      "required": ["split", "manifest", "n"],
+      "required": ["split"],
       "additionalProperties": false,
       "properties": {
         "split": { "const": "dev" },
-        "manifest": { "type": "string", "description": "data/m6/manifest.json 的 manifest_id + sha256（标定时的清单指纹）" },
+        "manifest": { "type": "string", "description": "data/m6/manifest.json 的 manifest_id + sha256（标定时的清单指纹；qa 定稿 runpoint 必填，ckpt 初始 calib 可缺省）" },
         "n": { "type": "integer", "minimum": 1 },
-        "method": { "type": "string", "description": "标定方法（如：τ_flag 取 dev 上 FPR<=0.4% 的最大召回点；τ_strong 取 dev 攻击分布 P99 分位下确界）" },
+        "method": { "type": "string", "description": "标定方法（如：τ_flag 取 dev 上 FPR<=0.4% 的最大召回点；τ_strong 取 dev 攻击分布 P99 分位下确界；logit 空间校准：τ_l = neg_max_logit + δ, δ=1.0）" },
         "curves": { "type": "string", "description": "阈值敏感性曲线数据文件路径（reports/m6/）" }
       }
     },
@@ -71,6 +71,32 @@
         "tau_strong_rule": { "const": "max(dev真阳分数q10, tau_flag+margin)" },
         "margin_delta": { "type": "number" },
         "curves": { "type": "string", "description": "(τ, recall, FP) 三元组曲线数据文件（reports/m6/）——敏感性分析 Lead 换点依据（ADR §10-4）" }
+      }
+    },
+    "temperature_applied": {
+      "type": "boolean",
+      "description": "决策是否应用了温度缩放（adr-1b §6.1：v1 撤销——默认 false；与 temperatures 元数据块互为印证）"
+    },
+    "score_def": {
+      "type": "string",
+      "description": "score 语义声明（如 \"sigmoid(logit); T6 = P(high-risk)\"——与 adr-1b §6.1 同源）"
+    },
+    "curves": {
+      "type": "object",
+      "description": "每任务阈值敏感性曲线（ckpt 初始 calib 随附；qa 定稿 runpoint 可用 reports/m6/ 路径替代）",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["tau", "recall", "fp", "n_neg"],
+          "additionalProperties": false,
+          "properties": {
+            "tau": { "type": "number", "description": "扫描阈值（与该任务阈值同空间：sigmoid 任务为 score/logit，T6 为概率）" },
+            "recall": { "type": "number", "minimum": 0, "maximum": 1 },
+            "fp": { "type": "integer", "minimum": 0 },
+            "n_neg": { "type": "integer", "minimum": 0 }
+          }
+        }
       }
     },
     "applies_to": {
