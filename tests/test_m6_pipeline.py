@@ -76,7 +76,7 @@ class TestCarrierRender(unittest.TestCase):
             "carrier": {"type": "email", "trust": "untrusted", "id": "c2",
                         "meta": {"from": "x@y.z"}, "body": "BODY LINE"},
             "user_turn": "please summarize"}})
-        s = render_carrier(inp, "default", "zh")
+        s, chunks = render_carrier(inp, "default", "zh")
         self.assertIn('<dsh-protocol v="0.1">', s)
         self.assertIn("<system>", s)
         self.assertIn("policy: default", s)
@@ -86,16 +86,88 @@ class TestCarrierRender(unittest.TestCase):
         self.assertIn("<body>\nBODY LINE\n</body>", s)
         self.assertIn("<user>\nplease summarize\n</user>", s)
         self.assertTrue(s.endswith("</dsh-protocol>"))
+        # body chunk projection: exactly the verbatim body range
+        self.assertEqual(len(chunks), 1)
+        cs, ce, co = chunks[0]
+        self.assertEqual(s[cs:ce], "BODY LINE")
+        self.assertEqual(co, 0)
 
     def test_en_defaults(self):
         inp = normalize_input({"id": "a", "input": {
             "operator_task": "t", "carrier": {"type": "doc_fragment",
                                               "trust": "untrusted",
                                               "body": "b"}}})
-        s = render_carrier(inp, "none", "en")
+        s, _ = render_carrier(inp, "none", "en")
         self.assertIn("role: security-analysis-assistant", s)
         self.assertIn("policy: none", s)
         self.assertIn("请给出整理结果。", s)  # default user_turn
+
+    def _carrier_inp(self, style, lang="zh", body="L1 has PII here\nL2 more text"):
+        return normalize_input({"id": "a", "lang": lang, "input": {
+            "operator_task": "t",
+            "carrier": {"type": "email", "trust": "untrusted", "id": "c1",
+                        "envelope_style": style, "body": body}}})
+
+    def test_variant_byte_exact_simple_tag(self):
+        # authority: scripts/m6/gen_indirect.py::envelope_variant
+        body = "hello body"
+        s, chunks = render_carrier(self._carrier_inp("simple_tag", "zh", body),
+                                   "default", "zh")
+        self.assertIn("【外部邮件】\n" + body, s)
+        s2, _ = render_carrier(self._carrier_inp("simple_tag", "en", body),
+                               "default", "en")
+        self.assertIn("[EXTERNAL EMAIL]\n" + body + "\n<user>", s2)
+        self.assertEqual(len(chunks), 1)
+        cs, ce, co = chunks[0]
+        self.assertEqual(co, 0)
+        self.assertEqual(s[cs:ce], body)
+
+    def test_variant_byte_exact_markdown(self):
+        body = "line one\nline two"
+        s, chunks = render_carrier(self._carrier_inp("markdown", "zh", body),
+                                   "default", "zh")
+        self.assertIn("> 来源：外部邮件（不可信外部内容）\n> \n"
+                      "> line one\n> line two", s)
+        # per-line chunks project into original body coords
+        self.assertEqual(len(chunks), 2)
+        (r1s, r1e, o1), (r2s, r2e, o2) = chunks
+        self.assertEqual(s[r1s:r1e], "line one")
+        self.assertEqual(s[r2s:r2e], "line two")
+        self.assertEqual(body[o1:o1 + (r1e - r1s)], "line one")
+        self.assertEqual(body[o2:o2 + (r2e - r2s)], "line two")
+        en, _ = render_carrier(self._carrier_inp("markdown", "en", body),
+                               "default", "en")
+        self.assertIn("> source: external email (untrusted external content)\n"
+                      "> \n> line one\n> line two", en)
+
+    def test_variant_plain(self):
+        body = "just the body"
+        s, chunks = render_carrier(self._carrier_inp("plain", "en", body),
+                                   "default", "en")
+        self.assertIn("\n" + body + "\n", s)
+        self.assertEqual(chunks, [(s.index(body), s.index(body) + len(body), 0)])
+
+    def test_unknown_style_raises(self):
+        with self.assertRaises(ValueError):
+            render_carrier(self._carrier_inp("nope"))
+
+    def test_markdown_span_projection_roundtrip(self):
+        body = "call 138-1234 now\nsecond line"
+        gold_phone = {"start": 5, "end": 13, "type": "phone",
+                      "message_index": 0}
+        s, chunks = render_carrier(self._carrier_inp("markdown", "zh", body))
+        fmap = {0: {"chunks": chunks, "text": body}}
+        # token grid over the whole envelope (fine grid: 2-char tokens)
+        offsets = [(i, i + 2) for i in range(0, len(s) - 1, 2)]
+        bio = spans_to_bio([gold_phone], offsets, [(0, 0, len(s))], fmap)
+        self.assertIn(1 + PII_TYPES.index("phone"), bio)
+        back = bio_to_spans(bio, offsets, [(0, 0, len(s))],
+                            lambda mi: body, fmap)
+        self.assertEqual(len(back), 1)
+        self.assertEqual(back[0]["type"], "phone")
+        # projected span stays inside the gold neighborhood (line-1 chunk)
+        self.assertLessEqual(abs(back[0]["start"] - 5), 2)
+        self.assertLessEqual(abs(back[0]["end"] - 13), 2)
 
 
 class TestTokenizeWindowed(unittest.TestCase):

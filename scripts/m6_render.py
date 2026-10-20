@@ -106,16 +106,96 @@ def render_kind(inp: dict) -> str:
 
 
 # --------------------------------------------------------------------------- #
-# carrier placeholder rendering (SYS-1 dsh-protocol/0.1 pending)
+# carrier rendering (dsh-protocol/0.1 + envelope_style variants)
 # --------------------------------------------------------------------------- #
-def render_carrier(inp: dict, policy_pack: str = "default", lang: str = "zh") -> str:
-    """dsh-protocol/0.1 envelope (sysdesign final spec, frozen-suite verified).
-    The whole envelope is the chat-template USER message. carrier.body is
-    verbatim (span coordinates stay valid). Optional <dom>/<urls> blocks
-    render only when the fields exist (v0.6-document carriers)."""
+# Authority source for the four carrier-block variants (arch Option A ruling,
+# schema v0.3.4): scripts/m6/gen_indirect.py::envelope_variant (L331-343),
+# reproduced BYTE-EXACT below (zh/en).
+CARRIER_LABEL_ZH = {
+    "search_result": "外部搜索结果", "email": "外部邮件",
+    "doc_fragment": "外部文档片段", "tool_output": "工具返回",
+    "webpage": "网页正文", "log": "系统日志",
+}
+CARRIER_LABEL_EN = {
+    "search_result": "external search results", "email": "external email",
+    "doc_fragment": "external document fragment", "tool_output": "tool output",
+    "webpage": "webpage content", "log": "system log",
+}
+ENVELOPE_STYLES = ("std_tag", "simple_tag", "markdown", "plain")
+
+
+def _carrier_block(c: dict, lang: str) -> tuple[str, list[tuple[int, int, int]]]:
+    """Variant carrier block -> (block, body_chunks).
+
+    body_chunks: [(rel_start, rel_end, orig_start)] maps each contiguous
+    verbatim chunk of carrier.body into block-relative coords; orig_start is
+    the chunk's start in ORIGINAL body coords (span projection both ways).
+    """
+    style = c.get("envelope_style") or "std_tag"
+    body = c["body"]
+    ctype = c.get("type", "other")
+    if style == "std_tag":
+        head = ['<carrier type="%s" trust="untrusted" id="%s">'
+                % (ctype, c.get("id", "c1"))]
+        meta = c.get("meta") or {}
+        if meta:
+            head.append("<meta>")
+            head.extend(f"{k}: {v}" for k, v in meta.items())
+            head.append("</meta>")
+        head.append("<body>")
+        prefix = "\n".join(head) + "\n"
+        tail = ["</body>"]
+        dom = c.get("dom") or meta.get("dom")
+        if dom:
+            tail += ["<dom>", str(dom), "</dom>"]
+        urls = c.get("urls") or meta.get("urls")
+        if urls:
+            seq = urls if isinstance(urls, list) else [urls]
+            tail.append("<urls>")
+            tail.extend(str(u) for u in seq)
+            tail.append("</urls>")
+        tail.append("</carrier>")
+        block = prefix + body + "\n" + "\n".join(tail)
+        return block, [(len(prefix), len(prefix) + len(body), 0)]
+    if style == "simple_tag":
+        if lang == "zh":
+            pre = "【%s】\n" % CARRIER_LABEL_ZH.get(ctype, ctype)
+        else:
+            pre = "[%s]\n" % CARRIER_LABEL_EN.get(ctype, ctype).upper()
+        return pre + body, [(len(pre), len(pre) + len(body), 0)]
+    if style == "markdown":
+        if lang == "zh":
+            pre = "> 来源：%s（不可信外部内容）\n> \n" \
+                % CARRIER_LABEL_ZH.get(ctype, ctype)
+        else:
+            pre = "> source: %s (untrusted external content)\n> \n" \
+                % CARRIER_LABEL_EN.get(ctype, ctype)
+        quoted = "\n".join("> " + l for l in body.split("\n"))
+        chunks = []
+        pos, opos = len(pre), 0
+        for l in body.split("\n"):
+            chunks.append((pos + 2, pos + 2 + len(l), opos))  # skip "> "
+            pos += 2 + len(l) + 1
+            opos += len(l) + 1
+        return pre + quoted, chunks
+    if style == "plain":
+        return body, [(0, len(body), 0)]
+    raise ValueError(f"unknown envelope_style={style!r} "
+                     f"(expected one of {ENVELOPE_STYLES})")
+
+
+def render_carrier(inp: dict, policy_pack: str = "default",
+                   lang: str = "zh") -> tuple[str, list[tuple[int, int, int]]]:
+    """dsh-protocol/0.1 envelope -> (envelope_text, body_chunks_abs).
+
+    The whole envelope is the chat-template USER message. The carrier block
+    between </operator> and <user> follows input.carrier.envelope_style
+    (std_tag default). body_chunks_abs maps carrier.body into ABSOLUTE
+    envelope coords for span projection (T4 gold/predicted spans live in
+    carrier.body original coordinates per m6-sample)."""
     c = inp["carrier"]
     role = "security-analysis-assistant" if lang == "en" else "安全分析助手"
-    lines = [
+    head = "\n".join([
         '<dsh-protocol v="0.1">',
         "<system>",
         f"role: {role}",
@@ -126,28 +206,13 @@ def render_carrier(inp: dict, policy_pack: str = "default", lang: str = "zh") ->
         "<operator>",
         str(inp.get("operator_task", "")),
         "</operator>",
-        f'<carrier type="{c.get("type", "other")}" trust="untrusted" '
-        f'id="{c.get("id", "c1")}">',
-    ]
-    meta = c.get("meta") or {}
-    if meta:
-        lines.append("<meta>")
-        lines.extend(f"{k}: {v}" for k, v in meta.items())
-        lines.append("</meta>")
-    lines += ["<body>", c["body"], "</body>"]
-    dom = c.get("dom") or meta.get("dom")
-    if dom:
-        lines += ["<dom>", str(dom), "</dom>"]
-    urls = c.get("urls") or meta.get("urls")
-    if urls:
-        seq = urls if isinstance(urls, list) else [urls]
-        lines.append("<urls>")
-        lines.extend(str(u) for u in seq)
-        lines.append("</urls>")
-    lines += ["</carrier>", "<user>",
-              str(inp.get("user_turn") or "请给出整理结果。"), "</user>",
-              "</dsh-protocol>"]
-    return "\n".join(lines)
+    ])
+    block, chunks = _carrier_block(c, lang)
+    user = str(inp.get("user_turn") or "请给出整理结果。")
+    tail = "\n".join(["<user>", user, "</user>", "</dsh-protocol>"])
+    text = head + "\n" + block + "\n" + tail
+    off = len(head) + 1
+    return text, [(s + off, e + off, o) for (s, e, o) in chunks]
 
 
 # --------------------------------------------------------------------------- #
@@ -156,7 +221,8 @@ def render_carrier(inp: dict, policy_pack: str = "default", lang: str = "zh") ->
 def _chat_messages(inp: dict) -> tuple[list[dict], list[dict]]:
     """Build (messages_for_template, content_messages_for_span_location).
     The second list only contains messages whose content is span-addressable
-    (user/assistant turns; system excluded per m6-common Span semantics)."""
+    (user/assistant turns; system excluded per m6-common Span semantics).
+    Carrier messages carry a private '_fmap' (body chunk projection)."""
     k = inp["kind"]
     if k == "text":
         msgs = [{"role": "user", "content": inp["text"]}]
@@ -167,9 +233,10 @@ def _chat_messages(inp: dict) -> tuple[list[dict], list[dict]]:
     elif k == "protocol":
         msgs = [{"role": "user", "content": inp["protocol_text"]}]
     elif k == "carrier":
-        msgs = [{"role": "user",
-                 "content": render_carrier(inp, inp.get("policy_pack", "default"),
-                                           inp.get("lang", "zh"))}]
+        content, chunks = render_carrier(
+            inp, inp.get("policy_pack", "default"), inp.get("lang", "zh"))
+        msgs = [{"role": "user", "content": content,
+                 "_fmap": {"chunks": chunks, "text": inp["carrier"]["body"]}}]
     else:
         raise ValueError(k)
     template_msgs = ([{"role": "system", "content": inp["system"]}]
@@ -177,18 +244,22 @@ def _chat_messages(inp: dict) -> tuple[list[dict], list[dict]]:
     return template_msgs, msgs
 
 
-def render(tok, inp: dict) -> tuple[str, list[tuple[int, int, int]]]:
+def render(tok, inp: dict) -> tuple[str, list, dict | None]:
     """Full serialization via r5 chat template (byte-identical everywhere).
 
-    Returns (rendered, msg_spans) where msg_spans[i] = (msg_index, start, end)
-    gives the char range of message i's content within `rendered`
-    (msg_index counts only user/assistant messages, 0-based, aligned with
-    m6-common Span.message_index).
+    Returns (rendered, msg_spans, field_maps):
+      msg_spans[i] = (msg_index, start, end) char range of message i's
+        content within `rendered` (msg_index counts only user/assistant
+        messages, 0-based, aligned with m6-common Span.message_index);
+      field_maps = {msg_index: {"chunks": [(abs_s, abs_e, orig_s)],
+      "text": str}} for carrier messages (span projection into
+      carrier.body original coords), else None.
     """
     template_msgs, msgs = _chat_messages(inp)
     rendered = tok.apply_chat_template(template_msgs, tokenize=False,
                                        add_generation_prompt=True)
     msg_spans = []
+    field_maps = {}
     pos = 0
     for mi, m in enumerate(msgs):
         c = m["content"]
@@ -197,8 +268,14 @@ def render(tok, inp: dict) -> tuple[str, list[tuple[int, int, int]]]:
             f"render span location failed for message {mi} "
             f"(id-context); template output did not contain content verbatim")
         msg_spans.append((mi, idx, idx + len(c)))
+        if "_fmap" in m:
+            fm = m["_fmap"]
+            field_maps[mi] = {
+                "chunks": [(s + idx, e + idx, o) for (s, e, o) in fm["chunks"]],
+                "text": fm["text"],
+            }
         pos = idx + len(c)
-    return rendered, msg_spans
+    return rendered, msg_spans, (field_maps or None)
 
 
 # --------------------------------------------------------------------------- #
@@ -226,13 +303,24 @@ def tokenize_windowed(tok, rendered: str, window: int = WINDOW_TOKENS,
 # --------------------------------------------------------------------------- #
 # PII span <-> BIO conversion
 # --------------------------------------------------------------------------- #
-def _locate_span_abs(span: dict, msg_spans) -> tuple[int, int, int]:
-    """Map a gold span (original-field coords) to absolute rendered coords.
-    Returns (start_abs, end_abs, type_index)."""
+def _locate_span_abs(span: dict, msg_spans, fmap=None) -> tuple[int, list]:
+    """Map a gold span (original-field coords) to absolute rendered ranges.
+    Returns (type_index, [(start_abs, end_abs), ...]) -- markdown-style
+    variants yield one range per covered body line chunk."""
     t = span.get("type", "other_id")
     t = PII_TYPE_ALIASES.get(t, t)
     t_idx = PII_TYPE_INDEX.get(t, PII_TYPE_INDEX["other_id"])
+    s0, e0 = int(span["start"]), int(span["end"])
     mi = span.get("message_index", 0)
+    fm = (fmap or {}).get(mi)
+    if fm:
+        ranges = []
+        for (rs, re_, os_) in fm["chunks"]:
+            s = max(s0, os_)
+            e = min(e0, os_ + (re_ - rs))
+            if e > s:
+                ranges.append((rs + (s - os_), rs + (e - os_)))
+        return t_idx, ranges
     base = None
     for (mi_, s, e) in msg_spans:
         if mi_ == mi:
@@ -242,31 +330,54 @@ def _locate_span_abs(span: dict, msg_spans) -> tuple[int, int, int]:
         # carrier / single-text forms: span coords are relative to the single
         # addressable message (index 0 semantics)
         base = msg_spans[0][1], msg_spans[0][2]
-    return base[0] + int(span["start"]), base[0] + int(span["end"]), t_idx
+    return t_idx, [(base[0] + s0, base[0] + e0)]
 
 
-def spans_to_bio(spans: list[dict], offsets, msg_spans,
+def spans_to_bio(spans: list[dict], offsets, msg_spans, fmap=None,
                  n_types: int = len(PII_TYPES)) -> list[int]:
     """Gold spans -> per-token BIO labels (channel index).
     O = 0; B-type = 1 + t_idx; I-type = 1 + n_types + t_idx.
-    A token is inside a span if its char range overlaps the span range."""
+    A token is inside a span if its char range overlaps ANY projected range."""
     labels = [0] * len(offsets)
     for span in spans or []:
-        s_abs, e_abs, t_idx = _locate_span_abs(span, msg_spans)
-        first = True
-        for ti, (ts, te) in enumerate(offsets):
-            if te <= s_abs or ts >= e_abs:
-                continue
-            if labels[ti] == 0:
-                labels[ti] = (1 + t_idx) if first else (1 + n_types + t_idx)
-            first = False
+        t_idx, ranges = _locate_span_abs(span, msg_spans, fmap)
+        for (s_abs, e_abs) in ranges:
+            first = True
+            for ti, (ts, te) in enumerate(offsets):
+                if te <= s_abs or ts >= e_abs:
+                    continue
+                if labels[ti] == 0:
+                    labels[ti] = (1 + t_idx) if first else (1 + n_types + t_idx)
+                first = False
     return labels
 
 
+def _proj_to_body(abs_pos: int, chunks: list, forward: bool) -> int:
+    """Project an absolute rendered position into original body coords.
+    forward=True snaps gaps to the NEXT chunk start (a token covering a
+    line prefix belongs to that line); forward=False snaps to the PREVIOUS
+    chunk end (content ended before the gap)."""
+    if not chunks:
+        return 0
+    for (rs, re_, os_) in chunks:
+        if rs <= abs_pos < re_:
+            return os_ + (abs_pos - rs)
+    if forward:
+        for (rs, re_, os_) in chunks:
+            if abs_pos < rs:
+                return os_
+        return chunks[-1][2] + (chunks[-1][1] - chunks[-1][0])
+    for (rs, re_, os_) in reversed(chunks):
+        if abs_pos >= re_:
+            return os_ + (re_ - rs)
+    return chunks[0][2]
+
+
 def bio_to_spans(bio: list[int], offsets, msg_spans, text_of_message,
-                 n_types: int = len(PII_TYPES)) -> list[dict]:
+                 fmap=None, n_types: int = len(PII_TYPES)) -> list[dict]:
     """Predicted per-token BIO -> spans in original-field coordinates.
-    text_of_message: callable(msg_index) -> original text of that message.
+    text_of_message: callable(msg_index) -> original text of that message
+    (fallback when no field map; carrier rows use their body map instead).
     Consecutive same-type B/I runs merge into one span (bio-consecutive)."""
     spans = []
     cur = None  # [type_idx, start_tok, end_tok]
@@ -302,9 +413,17 @@ def bio_to_spans(bio: list[int], offsets, msg_spans, text_of_message,
             if ov > best_ov:
                 best_ov, best_mi = ov, mi
         mi, cs, ce = next((m for m in msg_spans if m[0] == best_mi), msg_spans[0])
-        text = text_of_message(best_mi)
-        start = max(0, s_abs - cs)
-        end = min(len(text), e_abs - cs)
+        fm = (fmap or {}).get(mi)
+        if fm:
+            text = fm["text"]
+            start = _proj_to_body(s_abs, fm["chunks"], forward=True)
+            end = _proj_to_body(e_abs, fm["chunks"], forward=False)
+        else:
+            text = text_of_message(best_mi)
+            start = max(0, s_abs - cs)
+            end = min(len(text), e_abs - cs)
+        start = max(0, min(start, len(text)))
+        end = max(0, min(end, len(text)))
         if end <= start:
             continue
         out.append({
