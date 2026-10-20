@@ -1,0 +1,73 @@
+{
+  "bio_token": {
+    "token_recall_pos": 0.0,
+    "n_pos_tokens": 14307
+  },
+  "tau_ood": 526.4205,
+  "tasks": {
+    "T1": {
+      "recall": 0.6219,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.979637,
+        "strong": 0.992411,
+        "flag_logit": 3.8735,
+        "strong_logit": 4.8735
+      }
+    },
+    "T2": {
+      "recall": 0.82,
+      "fp_dev_neg": 0,
+      "n_neg": 5494,
+      "thresholds": {
+        "flag": 1.0,
+        "strong": 1.0,
+        "flag_logit": 17.3024,
+        "strong_logit": 18.3024
+      }
+    },
+    "T3": {
+      "recall": 0.7333,
+      "fp_dev_neg": 0,
+      "n_neg": 5558,
+      "thresholds": {
+        "flag": 0.997791,
+        "strong": 0.999186,
+        "flag_logit": 6.1129,
+        "strong_logit": 7.1129
+      }
+    },
+    "T4": {
+      "recall": 0.875,
+      "fp_dev_neg": 0,
+      "n_neg": 5262,
+      "thresholds": {
+        "flag": 0.99992,
+        "strong": 0.999971,
+        "flag_logit": 9.436,
+        "strong_logit": 10.436
+      }
+    },
+    "T5": {
+      "recall": 0.748,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.995201,
+        "strong": 0.998229,
+        "flag_logit": 5.3345,
+        "strong_logit": 6.3345
+      }
+    },
+    "T6": {
+      "recall": 0.852,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.967168,
+        "strong": 0.987168
+      }
+    }
+  }
+}
