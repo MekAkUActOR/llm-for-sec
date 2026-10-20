@@ -60,8 +60,8 @@
 | task-4 | 数据构建：六任务 train/dev | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-5 | 数据构建：挑战集 + OOD 集 | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4,5 | H6 07:00 | pending |
-| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | in_progress（已 claim；sysdesign 预检检出 D-5/D-6/D-7 三处实现偏差已发 deveng，arch 复核清单逐项跟踪关闭） |
-| task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4,6,7 | H10 11:00 | pending |
+| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | ✅ completed（板上 rev4；单测 25/25、契约输出 v0.3.1、12 bug 修复含两次前向违规；D-5/D-6/D-7 待 arch 复核关闭） |
+| task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4,6,7 | H10 11:00 | pending（就绪态：configs/m6-v1.yaml 已指向 data/m6/manifest.json，H6 冻结即开跑；仅剩 4/6 依赖） |
 | task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | in_progress（已 claim；QA-1 v1.2 FROZEN，harness 三件对 stub 冒烟中，基线 v0 H6-H8） |
 | task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | pending |
 | task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | pending |
@@ -128,6 +128,7 @@
 - ~01:32 arch-m6 SYS-1 咬合审查结论：通过带修订——F1 必改（m6-inference.schema L70 score 描述"温度校准后"与 adr-1b §6.1 温度撤销矛盾，纯文本级）+ F2 建议（§4.2 信封模板补权威源注记，权威源=训练侧 secfm/carriers，heldout 仅格式交叉验证）；偏差 D-1..D-4 全批准；PiiType/PiiDualHead/t6_class/aux_ood/loss 配置面/spans 坐标/abstain 条件式逐项核验一致；suppressed 审计字段（弱带抑制标记）超预期采纳为正式契约；连带 dataeng 行动项 2+1：OOD 集 PII-free、占位符形凭证入 T4 难负例（T4 span 通道绕过 OOD 抑制的架构后果）、T3 双形态覆盖确认。
 - ~01:34 qa-m6 QA-1 v1.2 FROZEN（reports/m6/qa-1-acceptance-spec.md）：判读规则全 LOCKED（预测函数：弃权→PASS/正例弃权记 FN/raw 取或；G1-G5 门；Clopper-Pearson CI95 标红；OOD 双列弃权披露；T4 两层口径；透明度骑手）；运行点协议 §4（QA 独立选点：网格 0.05-0.95 预冻结、FPR≤0.4%/chFPR≤0.08% 可行域、argmax recall、并列取保守、无可行点即 NO-FEASIBLE-POINT=FAIL；calib.json 推荐点双报交叉验证；THRESHOLD-FISHING 审计）；接口对齐 SYS-1 v0.3.0 终稿（tasks/decision/ood.score/suppressed/thresholds-json）；红队集 v1：170 条六族（A 话术/B 编码/C 多轮剧本/D 伪造指令注入/E 隐蔽载体/F PII 隐蔽形态），build 校验通过（id 唯一/编码可解码断言/零武器化粗筛保留域检查），T4 覆盖补齐；冻结套件映射器跑通：1770 行（v023 434/gen 258/jb 150/toolout 397/topup 85/document 80/dilution 96）→ reports/m6/frozen-suite-mapping.json；harness 主体（m6_acceptance.py/m6_metrics.py/m6_heldout_map.py）写完，对 deveng stub 冒烟中；task-9 已 claim。
 - ~01:36 arch-m6 确认 H1.5 5/5 达成：SYS-1 r1 冻结——F1（score 温度表述，实证核验 L70 修复无残留）/ F2（信封权威源纪律段）均修复，schema v0.3.1 + 自检 14/14，commit 7c4071d，adr-1b §6.6 闭环记录落盘。sysdesign 预检 deveng 在途 m6_infer.py 检出 3 处实现偏差（D-5 abstain 公式 / D-6 spans 字段位 / D-7 τ_ood 键名+静默 fallback）——已发 deveng 修正、登记 SYS-1 §12，不影响 SYS-1 冻结，三项转 arch task-7 复核清单逐项验证关闭。关键路径：dataeng T04/05/06（H6 数据冻结）+ deveng task-7（管线）。
+- ~01:40 deveng-m6 task-7 complete（板上 rev4）：证据 reports/m6/dev-task7-smoke.md——训练全链路（configs/m6-smoke.yaml → checkpoints/m6-smoke3/ 十件产物：probe-heads/head_structure/ood_centers/calib/metrics/train_log/config/feat_cache×4）；推理契约输出 outputs/m6/infer_v2_out.jsonl（schema v0.3.1）+ PII 端到端 outputs/m6/pii_check_out.jsonl；单测 25/25 绿（tests/test_m6_pipeline.py）；回归 hash 交 qa（stub e9d148fd…/真头 e91094a3…，确定性自验 PASS）。交付：m6_render.py（五形态+D9 三项）/m6_feat_probe.py（单次前向 forward_extract）/m6_train.py（三阶段 config 驱动）/m6_infer.py（契约推理器）/m6_build_train_config.py/m6_smoke_data.py/configs/m6-{smoke,v1}.yaml/tests。smoke 期间修复 12 个真实 bug，两项关键：①**两次前向违规（已合并单次——使命红线）**②BIO pad 越界（qa 回归集崩溃根因）。D-5/D-6/D-7 修正待 arch 复核清单逐项关闭。task-8 就绪：m6-v1.yaml 已指向 data/m6/manifest.json，H6 冻结即开跑。关键路径收敛为 dataeng T04/05/06 单线。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -166,6 +167,7 @@
 - 01:47 Lead 确认：push 完成（git log 可证）、催办与 02:30 收口照准；m4 断言勘误列活跃盯防项（02:30 前无 dataeng 消息即点名）。
 - 01:37 H1.5 冲刺记录（事件窗口 01:27-01:37）：arch 咬合审查通过带修订（~01:32）→ qa QA-1 v1.2 FROZEN + task-9 claim（~01:34）→ arch 确认 SYS-1 r1 冻结 v0.3.1（commit 7c4071d，adr-1b §6.6）→ **H1.5 5/5 全清（~01:35，提前 ~115min）**。连带吸收：arch 2+1 dataeng 行动项入 H6 清单 #8；D-5/D-6/D-7 实现偏差转 task-7 复核清单（sysdesign 预检）。关键路径：dataeng T04/05/06 + deveng task-7。
 - 01:37 【时钟源声明·三次校正】新锚点 turn7=01:37:10（前值 T1=01:06:05 / T3=01:16:31 / T6=01:26:50）。上采样后写入的 01:33-01:47 系列为插值估计、系统性超前 3-16min——该窗口全部事件实际发生于 01:27-01:37；映射：01:33→~01:28、01:38→~01:29、01:42→~01:30、01:47→~01:31。早期映射修正（turn 插值）：02:05→~01:23、02:15→~01:26、02:20→~01:27。**协议升级**：PM 新条目此后只标事件序或 ~近似值，墙钟在每个运行时采样点统一校准；里程碑以"真实达成 + 提前量"在检查点表维护（H1 ~01:23 提前 ~67min；H1.5 ~01:35 提前 ~115min）。
+- ~01:40 deveng task-7 complete（rev4；单测 25/25、契约 v0.3.1、12 bug 修复含两次前向违规合并——使命红线）；GPU smoke 累计 <2.5min 已登记 §9；task-8 就绪待数据（m6-v1.yaml → manifest）。关键路径收敛为 dataeng T04/05/06 单线；已请 arch 启动 D-5/D-6/D-7 复核关闭。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
@@ -174,3 +176,4 @@
 | 时间 | 占用方 | 步骤 | 时长 | 纪律 |
 |------|--------|------|------|------|
 | 01:07–02:10 | deveng-m6 | 特征探针 ×2（各 ~6s）、训练 smoke ×2（12s/17s）、推理 smoke ×3（各 ~1s） | 累计 <1min | 每次前查 nvidia-smi；无遗留进程；已全部结束，当前空闲 |
+| ~01:40（task-7 轮） | deveng-m6 | smoke 训练 ×4（9-17s/次，fp16 缓存后 2-7s）+ 推理 smoke ×8（~1-6s/次） | 累计 <2.5min | 全部已结束；当前空闲；下一窗口 task-8 v1 训练 H7-H9 预锁不变 |
