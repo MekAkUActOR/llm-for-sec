@@ -15,6 +15,8 @@
       "additionalProperties": false,
       "properties": {
         "script": { "type": "string", "description": "如 scripts/m6/build_all.py" },
+        "seed": { "type": "integer", "description": "构建随机种子（generator_seed 的规范位）" },
+        "staging_generators": { "type": "array", "items": { "type": "string" }, "description": "staging 生成器清单（gen_indirect.py 等——血缘审计入口）" },
         "git_sha": { "type": "string" },
         "config": { "type": "string", "description": "构建配置（如 configs/m6-data-v1.yaml）" }
       }
@@ -109,21 +111,15 @@
       "additionalProperties": true
     },
     "frozen_suites": {
-      "type": "array",
-      "description": "data/heldout/ 冻结套件登记（乙醇纪律：只读，永不进训练/调参/阈值标定）。评测 harness 引用此处指纹。建议登记（qa §2.3 映射的锚点）。",
-      "items": {
-        "type": "object",
-        "required": ["name", "path", "role"],
-        "additionalProperties": false,
-        "properties": {
-          "name": { "type": "string", "description": "如 v023 / gen / jb-v0.7 / toolout / toolout-reg / document / longctx / dilution" },
-          "path": { "type": "string", "description": "data/heldout/ 下相对路径" },
-          "role": { "enum": ["recall", "fpr", "challenge", "ood", "anchor"] },
-          "n": { "type": "integer" },
-          "sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256" }
-        }
+      "type": "object",
+      "description": "冻结套件引用（乙醇纪律：data/heldout/ 只读，永不进训练/调参/阈值标定）。对象形（dataeng 现行）：reference = 套件目录引用；leak_audit = 泄漏审计结论路径。",
+      "additionalProperties": true,
+      "properties": {
+        "reference": { "type": "string", "description": "如 'data/heldout/ (v0.2.3 / v0.3-gen / ...)'——qa §2.3 映射的锚点" },
+        "leak_audit": { "type": "string", "description": "泄漏审计报告路径（近似重叠结论与可疑对解释义务落此处）" }
       }
     },
+    "dev_mirror_note": { "type": "string", "description": "dev-mirror/*.jsonl 与 pool/dev.jsonl 的子集关系说明（字节相同子集视图，qa/loader 便利文件——不入 files[]、聚合统计须去重防双计）" },
     "disjointness": {
       "type": "object",
       "required": ["assert"],
@@ -134,6 +130,8 @@
         "exact_overlap": { "type": "integer", "minimum": 0, "description": "train∪dev vs heldout∪challenge∪ood 精确重叠行数（必须 0）" },
         "mirror_eval_overlap": { "type": "integer", "minimum": 0, "description": "dev-mirror 与评测资产重叠行数（必须 0）" },
         "ood_t4_pos_rows": { "type": "integer", "minimum": 0, "description": "OOD 集中 T4 正例行数（必须 0——arch 裁定 OOD PII-free，T4 span 绕过 OOD 抑制）" },
+        "t4_entity_overlap": { "type": "integer", "minimum": 0, "description": "T4 实体级重叠数（train 与 heldout 出现同一 PII 实体——span 记忆化风险；冻结目标 0 或逐条解释）" },
+        "t4_heldout_entities_checked": { "type": "integer", "minimum": 0, "description": "T4 heldout 实体核查覆盖数（t4_entity_overlap 的分母）" },
         "assert": { "enum": ["PASS", "FAIL"], "description": "总断言（任何一项违规则 FAIL）" },
         "near_dup": { "type": ["integer", "null"], "description": "近似重叠（n-gram）计数——qa m6_leak_check 的 5-gram 审计结果回填（精确 0 + 近似可疑对解释义务）" },
         "checked_by": { "type": "string", "description": "断言脚本（如 scripts/m6_check_staging.py）" },

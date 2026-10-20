@@ -262,6 +262,7 @@ BIO 通道 = 2×11+1 = **23**（从词表基数 derive，勿写死）。T4 主�
 | D-9 | 2026-10-21 | m6_infer 默认不写 latency_ms（--with-latency 开关，保逐字节确定性） | deveng 设计 | **schema 侧放宽**（v0.3.1）：latency_ms 转 optional——字节可复现优先，理由正当 |
 | D-10 | 2026-10-21 | m6_infer T4 实现：spans 非空直接进 strong 带（不可被 OOD 抑制） | deveng 实现 | **采纳为契约澄清**：spans = token 级确凿证据，语义上强于 doc 头分数；SYS-1 §6 T4 特例行据此更新 |
 | D-11 | 2026-10-21 | m6_infer verdict_line 内 `"abstain": any_suppressed` 与顶层 abstain（`any_suppressed ∧ decision==pass`）语义分叉 | sysdesign 检出 | **已关闭（2026-10-21，arch N-1(b) 同根）**：deveng 修复 = 单一组装函数 `_verdict_line(base, tasks, spans)` 从响应对象序列化（常规+input_error 两路径共用），verdict_line.abstain 镜像顶层，抑制审计独立键 `suppressed_any`。**验证双绿**：deveng 30/30 单测 + sysdesign 独立 stub 验证（scripts/m6_check_response.py，同源同值断言全过，10/10 行含 fail-soft/input_error 路径） |
+| D-12 | 2026-10-21 | t5-indirect/train.jsonl 753 行 t5-legacy（m4-capfix dpoCAR）`labels.T5.label="cond"`——T5 GoldLabel 仅 pos\|neg，cond 是 m4 三值残留 | sysdesign H6 审计检出（grep 实证 753 行；另 manifest label_counts 以 pos10774/neg6254/cond753 记账而非文件真值 neg7007） | **待裁定+修复**：建议投影 cond→neg（与 T6 cond→neg+t6_class=conditional 同型：conditional 是不触发 flag 的非阳性态；T5 行不承载 t6_class）。manifest label_counts 必须记文件真值。归 arch 裁定 adr-1b §3 对 T5-legacy conditional verdict 的方向解释 |
 
 ## 13. 版本与变更控制
 
