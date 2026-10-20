@@ -628,6 +628,26 @@ def main():
         for r in rows:
             if r["split"] in ("train", "dev"):
                 pool_rows.append(r)
+    # arch ruling (post-v1-2 saturation review, uniform-neg projection):
+    # T6 synth-instr TRAIN rows carry cross-task neg labels in the pool view —
+    # closes the zero-supervision gap that made the T2 head fire on
+    # authorized-ops phrasing. DEV/HELDOUT rows stay single-key (calibration
+    # tau guard: no projection enters the calibration pool or FPR denominators)
+    _PROJ_DETAIL = {
+        "T1": None, "T2": None, "T3": None,
+        "T4": {"spans": []},
+        "T5": {"carrier": "other", "mechanism": None, "carrier_site": ""},
+    }
+    n_proj = 0
+    for r in pool_rows:
+        if (r["task"] == "T6" and r["split"] == "train"
+                and (r.get("source") or {}).get("family") == "synth-instr-v1"):
+            for tk, det in _PROJ_DETAIL.items():
+                r["labels"][tk] = {"label": "neg"}
+                if det is not None:
+                    r["labels"][tk]["label_detail"] = det
+            n_proj += 1
+    print("cross-task neg projection (pool/train, T6 synth-instr): %d rows" % n_proj)
     # shared benign as six-key negatives in pool
     for r in benign[6000:9500]:
         base = staging_to_final(r, "train", task_override="pool", force_label="neg")
