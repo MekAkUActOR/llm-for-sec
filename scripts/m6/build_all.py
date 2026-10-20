@@ -644,6 +644,25 @@ def main():
         "T4": {"spans": []},
         "T5": {"carrier": "other", "mechanism": None, "carrier_site": ""},
     }
+    # arch pre-condition (projection gate): T4/T5 are OBJECTIVE pattern
+    # detectors — an authorized-ops narrative does not exempt real-shaped PII
+    # or injection patterns from their gold. Blanket T4/T5-neg projection is
+    # only valid on rows where both extractors score ZERO hits; any hit row
+    # stays single-key (conservative — no wrong gold, arch rules on manual
+    # pos+spans if a hit ever fires).
+    _PROJ_GATE_PII = __import__("re").compile(
+        r"(?<!\d)1[3-9]\d{9}(?!\d)"                      # zh mobile
+        r"|(?<!\d)\d{17}[\dXx](?!\d)"                    # resident id
+        r"|(?<!\d)62\d{14,17}(?!\d)"                     # bank card
+        r"|(?<!\d)\d{3,4}-\d{7,8}(?!\d)"                 # landline
+        r"|[\w.+-]+@(?!example\.(?:com|org)\b)[\w-]+\.[\w.]+")  # real-domain email
+    _PROJ_GATE_INJ = __import__("re").compile(
+        r"忽略(?:之前|以上|前面)|无视(?:之前|以上)"
+        r"|ignore (?:the )?(?:previous|above)|disregard (?:the )?(?:above|previous)"
+        r"|system prompt|系统提示词", __import__("re").I)
+    gate_blocked = []
+    gate_hits = []
+
     n_proj = 0
     for r in pool_rows:
         if (r["task"] == "T6" and r["split"] == "train"
@@ -656,12 +675,34 @@ def main():
             # be guessing (the cvalues failure mode).
             if r["labels"]["T6"]["label"] != "neg":
                 continue
+            t = _input_text(r)
+            pii_m = _PROJ_GATE_PII.search(t)
+            inj_m = _PROJ_GATE_INJ.search(t)
+            if pii_m or inj_m:
+                gate_blocked.append(r["id"])
+                gate_hits.append((r["id"], pii_m.group(0) if pii_m else None,
+                                  inj_m.group(0) if inj_m else None))
+                continue  # stay single-key — no blanket T4/T5-neg on pattern hits
             for tk, det in _PROJ_DETAIL.items():
                 r["labels"][tk] = {"label": "neg"}
                 if det is not None:
                     r["labels"][tk]["label_detail"] = det
             n_proj += 1
-    print("cross-task neg projection (pool/train, T6 synth-instr cond+safe): %d rows" % n_proj)
+    # hard assertion: any projected row with a gate hit is a build failure
+    # (same discipline as the cvalues purity assertion)
+    leaked = [g for g in gate_hits
+              if any(rr["id"] == g[0] and len(rr["labels"]) >= 6 for rr in pool_rows)]
+    if leaked:
+        print("PROJECTION GATE FAIL: %d rows projected despite pattern hits" % len(leaked))
+        for g in leaked[:10]:
+            print("  -", g)
+        raise SystemExit(3)
+    if gate_hits:
+        print("projection gate: %d candidate rows withheld (pattern hits, kept single-key):"
+              % len(gate_hits))
+        for g in gate_hits[:10]:
+            print("  -", g)
+    print("cross-task neg projection (pool/train, T6 synth-instr cond+safe, gate-passed): %d rows" % n_proj)
     # shared benign as six-key negatives in pool
     for r in benign[6000:9500]:
         base = staging_to_final(r, "train", task_override="pool", force_label="neg")
