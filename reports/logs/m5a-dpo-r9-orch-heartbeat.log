@@ -2,3 +2,11 @@ ORCH-START 2026-10-20 00:28:37 pid=45032（r9 三杠杆轮；Lead 2026-10-20 00:
 ORCH-START 2026-10-20 01:10:32 pid=12224（r9 三杠杆轮；Lead 2026-10-20 00:2x 指令，全同 r8 纪律）
 ORCH-FATAL PhaseA: train rc=-1 (nonzero)
 ORCH-FATAL orchestrator lock exists (previous run?)
+ORCH-FATAL orchestrator lock exists (previous run?)
+ORCH-START 2026-10-20 06:11:09 pid=25620（r9 三杠杆轮；Lead 2026-10-20 00:2x 指令，全同 r8 纪律）
+PHASE-A train rc=0 confirmed @ 06:11:09
+PHASE-B GUARD=PASS x3
+PHASE-C adapter ok (666MB, rank64 expect ~4x r8)
+PHASE-D launching export (CPU)
+PHASE-D export exit=0
+ORCH-FATAL PhaseE: merge check rc=1

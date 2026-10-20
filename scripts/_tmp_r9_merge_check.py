@@ -45,7 +45,9 @@ def main() -> int:
         with sf.open("rb") as fh:
             n = struct.unpack("<Q", fh.read(8))[0]
             hdr = json.loads(fh.read(n))
-        actual = set(hdr.keys())
+        # __metadata__ = safetensors 结构键（r9 导出器写入 {format:pt}；r8 版未写故旧检查通过）。
+        # 非模型张量，剔除后再比对（erratum 2026-10-20 06:20，merge 本体完好：399/399 映射 0 缺失）。
+        actual = {k for k in hdr.keys() if k != "__metadata__"}
         missing = shard_tensors[shard] - actual
         extra = actual - shard_tensors[shard]
         check(not missing and not extra,

@@ -1,1 +1,1 @@
-ORCH-FATAL orchestrator lock exists (previous run?) @ 2026-10-20 01:29:10
+ORCH-FATAL PhaseE: merge check rc=1 @ 2026-10-20 06:15:18

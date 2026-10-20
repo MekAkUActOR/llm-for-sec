@@ -1,0 +1,10 @@
+# m5a-dpo-r9 门禁链日志（attempt-4，600 步减量版（Lead 裁 A + erratum 登记）；Phase F/G 由 r7-runner 手动接管——编排器 PhaseE 在 __metadata__ 结构键虚警上 FATAL（已修检查件+复验 PASS，merge 本体完好 399/399）
+# 训练: TRAIN-RC=0 @ 06:10:00（rank64/alpha128/600 步 = 23.7% 数据消费（原 1200 步设计因内在步速 ~25-30s/步减量）；attempt-1/2 = 用户清场、attempt-3 = 金丝雀 FATAL（30s/步>20s 旧门），详见 trace
+# 合并: export CPU bf16 06:12-06:15 exit=0（句柄钉住生效），MERGE-CHECK=PASS（399 权重 4 分片 0 缺失 0 悬多，__metadata__ 结构键过滤后）
+# 步序（同 r8 定案）：v023→gen→jb→ppl→toolout→longctx→verdict→dilution（Y 前置；topup_verdict 依赖 longctx 产物）
+# 门禁评测对象 = LoRA 合并后完整模型 checkpoints\qwen3-8b-sec-m5a-dpo-r9-merged，分片 sha256：
+#   model-00001-of-00004.safetensors: c0eeaabb9d1424669287fe35ad4d9610fecf9d48d18a8b261b432a0c7fdc3d90
+#   model-00002-of-00004.safetensors: c0a018198eecee827f50abadd541784d01232bd9e9a25f6cd11182bacadd41a0
+#   model-00003-of-00004.safetensors: b639c5967e6cde8ea19415c1ac0921c3621a4493bfc7a4c52733750c06ac708e
+#   model-00004-of-00004.safetensors: 994063e183947bd09ac1710f92715b61de28e3dfb44b9ac7eddd600c05997ccd
+#   model.safetensors.index.json: 5d970bebe2bdab04739798ba0735338dc9e6b8afa7ab796118678643c5848bfb

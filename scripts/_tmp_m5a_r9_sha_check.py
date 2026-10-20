@@ -6,6 +6,9 @@ r9 gates chain pre-launch gate (run_m5a_r9_gates.ps1 Step 0):
   this round training config configs/m5a-dpo-r9.yaml = r8 copy + 6 functional-line diff
   (lora_rank 16->64 / lora_alpha 32->128 / max_steps 300->1200 / dataset_dir m5a-r9-run /
    dataset r9 names / output_dir r9; see configs/m5a-dpo-r9.yaml header).
+  ERRATUM 2026-10-20 01:55 (Lead ruling A, registered in config header + trace):
+  max_steps 1200 -> 600 (attempt-3 canary: intrinsic steady ~30s/step; 600 steps = 5h
+  full-chain in-window; dose narrative kept: 23.7% consumption = 2x r8; rank64 intact).
   New sha registered below. fail-closed: any mismatch -> rc=1.
 Whole-file rewrite (errata discipline: no string surgery).
 """
@@ -21,8 +24,8 @@ CHECKS = [
     ("scripts/score_heldout_v2.py", "83d50c8bfb8a500e", "52bcb1da"),
     ("data/heldout/v0.7-jailbreak/jailbreak.jsonl", "cbad0fed25d3490b", "20f816cb"),
     ("data/heldout/v0.6-dilution/risk_payloads.jsonl", "c6eabceecdffa05f", "fd5ef09f"),
-    # r9 training config (r8 copy + 6-line diff, registered in configs/m5a-dpo-r9.yaml header)
-    ("configs/m5a-dpo-r9.yaml", "289e6b1a14a625ac", "34cf502d"),
+    # r9 training config (r8 copy + 6-line diff + erratum max_steps 600; see header)
+    ("configs/m5a-dpo-r9.yaml", "ae1dc3c0ce1ee294", "a53d25217"),
 ]
 
 

@@ -1,0 +1,7 @@
+[INFO|2026-10-20 06:14:16] llamafactory.model.model_utils.kv_cache:144 >> KV cache is enabled for faster generation.
+[INFO|2026-10-20 06:14:51] llamafactory.model.model_utils.attention:144 >> Using torch SDPA for faster training and inference.
+[INFO|2026-10-20 06:15:07] llamafactory.model.adapter:144 >> Merged 1 adapter(s).
+[INFO|2026-10-20 06:15:07] llamafactory.model.adapter:144 >> Loaded adapter(s): J:\Projects\llm_for_sec\checkpoints\qwen3-8b-sec-m5a-dpo-r9
+[INFO|2026-10-20 06:15:07] llamafactory.model.loader:144 >> all params: 8,190,735,360
+[INFO|2026-10-20 06:15:07] llamafactory.train.tuner:144 >> Convert model dtype to: torch.bfloat16.
+[INFO|2026-10-20 06:15:15] llamafactory.train.tuner:144 >> Ollama modelfile saved in J:\Projects\llm_for_sec\checkpoints\qwen3-8b-sec-m5a-dpo-r9-merged\Modelfile

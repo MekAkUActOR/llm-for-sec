@@ -1,0 +1,16 @@
+PREFLIGHT 15 targets NOT-EXIST ?
+tag intact: m5a-dpo-r9 / model: checkpoints\qwen3-8b-sec-m5a-dpo-r9-merged
+[OK] scripts/probe_jailbreak.py: 6cd4390f7848719b...20a6881b
+[OK] scripts/score_heldout_v2.py: 83d50c8bfb8a500e...52bcb1da
+[OK] data/heldout/v0.7-jailbreak/jailbreak.jsonl: cbad0fed25d3490b...20f816cb
+[OK] data/heldout/v0.6-dilution/risk_payloads.jsonl: c6eabceecdffa05f...fd5ef09f
+[OK] configs/m5a-dpo-r9.yaml: ae1dc3c0ce1ee294...53d25217
+INSTRUMENT-SHA=PASS (jb scorer / heldout scorer / jb suite / dilution pool / r9 config)
+instrument sha re-verified ? (jb scorer / heldout scorer / jb suite / dilution pool / r9 config)
+
+=== 判据：重 worker（>500MB 的 python.exe）===
+  重 worker 数 = 0  pid=
+  ? 0 个 ≈ 正常单链；≥2 个才是真并发 ?
+  匹配进程数 = 0（★这个数不能用来判并发：trampoline/包装shell/子脚本都会计入）
+GUARD=PASS 无并发（重 worker ≤1）
+GUARD=PASS heavy=0 before step1-v023

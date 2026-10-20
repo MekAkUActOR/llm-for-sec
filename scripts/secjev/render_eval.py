@@ -48,10 +48,16 @@ class DecisionModel:
         self.torch = torch
         ckpt_dir = Path(ckpt_dir)
         self._cfg = json.loads((ckpt_dir / "slots.json").read_text(encoding="utf-8"))
-        self.tok = AutoTokenizer.from_pretrained(self._cfg["base"])
-        base = AutoModelForCausalLM.from_pretrained(
-            self._cfg["base"], dtype=torch.bfloat16, device_map="cuda")
-        self.model = PeftModel.from_pretrained(base, ckpt_dir / "adapter")
+        if (ckpt_dir / "adapter").exists():  # 训练布局：base + LoRA
+            self.tok = AutoTokenizer.from_pretrained(self._cfg["base"])
+            base = AutoModelForCausalLM.from_pretrained(
+                self._cfg["base"], dtype=torch.bfloat16, device_map="cuda")
+            self.model = PeftModel.from_pretrained(base, ckpt_dir / "adapter")
+        else:  # 发布布局：已合并自包含（HF 仓库即此布局）
+            self.tok = AutoTokenizer.from_pretrained(ckpt_dir)
+            base = AutoModelForCausalLM.from_pretrained(
+                ckpt_dir, dtype=torch.bfloat16, device_map="cuda")
+            self.model = base
         self.model.eval()
         cfg = self._cfg
         self.slots = cfg["slots"]

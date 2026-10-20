@@ -37,7 +37,12 @@ per_device_train_batch_size: 1
 gradient_accumulation_steps: 16
 learning_rate: 5.0e-5
 # ★ r9 剂量杠杆：1,200 步（r6/r7/r8 均 300 步仅消费 11.9% 数据 → 47%）
-max_steps: 1200
+# ⚠ ERRATUM 2026-10-20 01:55（Lead 裁 A，登记于 trace + 本行）：max_steps 1200 → 600。
+#   依据：attempt-3 金丝雀实测稳态 ~30s/步（rank64×4 + 对抗对长序列 + fp32 上转，内在原因，
+#   非争抢）——1200 步 = 10h 训练零窗口容错；600 步 = 5h 全链窗内完成（~16:00）。
+#   剂量叙事保留：600×16 = 9,600 examples = 23.7% 消费 = 2× r8 的 11.9%。
+#   rank64 容量杠杆（契约 0.0 主嫌）完整不受损。若 A 见信号，r10 提剂量 + 提速工程。
+max_steps: 600
 lr_scheduler_type: cosine
 warmup_steps: 20
 weight_decay: 0.0
