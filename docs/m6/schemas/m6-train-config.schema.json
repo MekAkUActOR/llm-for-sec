@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "properties": {
     "m6_config_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
-    "run_id": { "type": "string", "pattern": "^m6-v[0-9]+[a-z0-9.-]*$", "description": "如 m6-v1 / m6-v2" },
+    "run_id": { "type": "string", "pattern": "^m6-[a-z0-9][a-z0-9.-]*$", "description": "如 m6-v1 / m6-v2 / m6-smoke（smoke 配置豁免正式命名式）" },
     "base": {
       "type": "object",
       "required": ["model_name_or_path"],
@@ -14,6 +14,7 @@
       "properties": {
         "model_name_or_path": { "const": "checkpoints/qwen3-06b-sec-m5a-dpo-r5", "description": "唯一基座主干（0.6B/28层/hidden1024/ctx32768），v1 全程冻结（D2）" },
         "dtype": { "enum": ["bf16", "fp16", "fp32"], "default": "bf16" },
+        "frozen": { "type": "boolean", "default": true, "description": "主干冻结显式标记（与 mode 语义冗余但自文档化；v1 恒 true）" },
         "mode": { "enum": ["frozen-cache", "frozen-online", "lora"], "default": "frozen-cache", "description": "D2：v1 = frozen-cache（特征缓存上训头）；v2 触发式 lora（target q/k/v/o_proj @ L14-28, r16, lr 1e-4, 头热启）" }
       }
     },
@@ -40,12 +41,14 @@
     },
     "data": {
       "type": "object",
-      "required": ["manifest"],
       "additionalProperties": false,
       "properties": {
-        "manifest": { "type": "string", "description": "data/m6/manifest.json（含 manifest_id；训练启动时校验 sha256 一致，防清单漂移）" },
+        "manifest": { "type": "string", "description": "data/m6/manifest.json（含 manifest_id；训练启动时校验 sha256 一致，防清单漂移）。**正式训练（task-8）必须提供**——由任务板 task-6 门禁强制；smoke 配置可省略（改用 patterns）" },
+        "train_patterns": { "type": "array", "items": { "type": "string" }, "description": "smoke/调试用：直接按 glob 选训练文件（如 data/m6/_staging/_smoke_*.jsonl），绕过 manifest——正式训练禁用" },
+        "dev_patterns": { "type": "array", "items": { "type": "string" }, "description": "smoke/调试用：dev 文件 glob（同上，正式训练禁用）" },
         "train_splits": { "type": "array", "items": { "$ref": "m6-common.schema.json#/$defs/TrainSplit" }, "minItems": 1, "default": ["train"] },
         "val_split": { "$ref": "m6-common.schema.json#/$defs/TrainSplit", "default": "dev" },
+        "prefix_rows": { "enum": ["exclude", "include"], "default": "exclude", "description": "多轮前缀行（is_prefix=true 的部分对话行）训练策略：exclude=只用完整对话（收割轮标签干净）；include=前缀行也计损失（累积意图的中间态监督）" },
         "oversample": {
           "type": "object",
           "additionalProperties": { "type": "number", "minimum": 0 },
@@ -62,7 +65,7 @@
     },
     "probe": {
       "type": "object",
-      "required": ["tapped_layers", "pooling", "trunk", "heads", "loss"],
+      "required": ["tapped_layers", "trunk", "heads", "loss"],
       "additionalProperties": false,
       "properties": {
         "tapped_layers": {
@@ -72,8 +75,13 @@
         },
         "pooling": {
           "type": "array", "items": { "enum": ["last", "mean"] },
-          "const": ["last", "mean"],
-          "description": "每层双池化 → 5×2×1024 = 10240 维 trunk 输入。last-token = 序列最后非 pad token（r5 将写 VERDICT 的位置，verdict-coupled 最强位）"
+          "default": ["last", "mean"],
+          "description": "每层双池化 → 5×2×1024 = 10240 维 trunk 输入（可省略，缺省即双池化）。last-token = 序列最后非 pad token（r5 将写 VERDICT 的位置，verdict-coupled 最强位）"
+        },
+        "token_layers": {
+          "type": "array", "items": { "type": "integer", "minimum": 0 },
+          "const": [12, 28],
+          "description": "PII per-token 态抽取层（L12+L28 concat 2048 维 = BIO 头输入；D5）"
         },
         "trunk": {
           "type": "object",
@@ -105,9 +113,9 @@
           "properties": {
             "mechanism": { "const": "mahalanobis" },
             "classes": { "const": ["benign", "attack"] },
-            "feature": { "const": "trunk_output", "description": "trunk 输出（1024 维）上的 Mahalanobis——ADR §8 原文口径（N-3 裁定修正，原 'trunk_pre_input' 为 schema 偏出）：①trunk 入口 LN 已标准化（L24-27 outlier 区压掉），协方差条件数更好；②1024 维协方差估计比 10240 维更稳；③与六头同空间，距离度量在头工作的空间里语义自洽。deveng train/infer 两端已按此实现一致。" },
+            "feature": { "const": "trunk_output", "description": "trunk 输出（1024 维）上的 Mahalanobis——ADR §8 原文口径（N-3 裁定修正，原 'trunk_pre_input' 为 schema 偏出）：①trunk 入口 LN 已标准化（L24-27 outlier 区压掉），协方差条件数更好；②1024 维协方差估计比 10240 维更稳；③与六头同空间，距离度量在头工作的空间里语义自洽。deveng train/infer 两端已按此实现一致（注意：值为 'trunk_output'，勿写 'trunk'）。" },
             "covariance": { "enum": ["shared-shrinkage", "ledoit-wolf"], "default": "shared-shrinkage" },
-            "shrinkage_lambda": { "type": "number", "default": 0.1 },
+            "lambda": { "type": "number", "minimum": 0, "default": 0.1, "description": "收缩系数（原 shrinkage_lambda 改名对齐 deveng 配置键）" },
             "fit_on": { "enum": ["train", "dev"], "default": "train" },
             "is_ood_rule": { "const": "min(d_benign,d_attack) > tau_ood", "description": "离两类流形都远才算 OOD；贴近 attack 流形的未见载体攻击不被压制" }
           }
@@ -117,10 +125,10 @@
           "additionalProperties": false,
           "properties": {
             "task_weights": { "type": "object", "additionalProperties": { "type": "number", "minimum": 0 }, "description": "初始全 1.0（D7）" },
-            "pos_weight_clip": { "type": "array", "prefixItems": [{ "type": "number" }, { "type": "number" }], "default": [1, 20], "description": "pos_weight_i = clip(n_neg/n_pos, 1, 20)，按任务独立计" },
+            "pos_weight_clip": { "type": "array", "prefixItems": [{ "type": "number" }, { "type": "number" }], "default": [1, 20], "description": "pos_weight_i = clip(n_neg/n_pos, 1, 20)，按任务独立计（D7；trainer 内置时可不在 config 显式）" },
             "t6_loss": { "const": "ce-3class" },
-            "bio_bi_weight": { "type": "number", "minimum": 1, "default": 15, "description": "B/I 类 CE 权重（相对 O；允许 10-20×）" },
-            "w_tok": { "type": "number", "default": 2.0, "description": "PII token 头损失权重（PII 行少，保收敛）" },
+            "bio_weight": { "type": "number", "minimum": 0, "default": 2.0, "description": "PII token 头损失权重（PII 行少，保收敛；原 w_tok 改名对齐 deveng 配置键）" },
+            "bio_pos_weight": { "type": "number", "minimum": 1, "default": 15, "description": "BIO B/I 类 CE 权重（相对 O；允许 10-20×；原 bio_bi_weight 改名对齐 deveng 配置键）" },
             "label_masking": { "type": "boolean", "default": true, "description": "稀疏标注：仅对样本 labels 中存在的任务键计损失" },
             "neg_share_weight": { "type": ["number", "null"], "description": "共享负例池（benign 对全部已标注任务为负）的损失权重" },
             "negative_transfer_watch": { "type": "string", "description": "dev 分头 AUC 跟踪；ΔAUC>0.03 触发任务专属 rank-64 trunk 降级预案（ADR §9 预留，不默认）" }
@@ -130,13 +138,12 @@
     },
     "stage_a": {
       "type": "object",
-      "description": "特征抽取（GPU ~1h；D2/D10 前置）",
+      "description": "特征抽取（GPU ~1h；D2/D10 前置）。per-token 层位在 probe.token_layers（勿在此重复配置）",
       "additionalProperties": false,
       "properties": {
         "cache_dir": { "type": "string", "description": "如 outputs/m6/featcache-v1（每行：id/形态/lang/pack/标签+span/pooled[5×2×1024] fp16；PII 行加 tokfeat[L12+L28]）" },
         "cache_dtype": { "enum": ["fp16", "bf16"], "default": "fp16" },
         "token_budget_per_row": { "type": "integer", "default": 4096 },
-        "per_token_layers": { "type": "array", "items": { "type": "integer" }, "const": [12, 28], "description": "仅 PII 相关行缓存 per-token 态（L12+L28 concat 2048 维 = BIO 头输入）" },
         "dynamic_batch_by_tokens": { "type": "boolean", "default": true }
       }
     },
@@ -144,7 +151,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "max_epochs": { "type": "integer", "maximum": 3, "default": 3, "description": "D10：缓存上训头 ≤3 epochs，early stop（dev macro-recall@precision-floor，patience 1）" },
+        "max_epochs": { "type": "integer", "maximum": 3, "default": 3, "description": "D10：缓存上训头 ≤3 epochs" },
         "learning_rate": { "type": "number", "exclusiveMinimum": 0, "default": 0.001 },
         "lr_scheduler_type": { "const": "cosine", "description": "cosine→0.1×（衰减终点 = 0.1 × 初始 lr）" },
         "warmup_ratio": { "type": "number", "default": 0.05 },
@@ -152,6 +159,10 @@
         "dropout": { "type": "number", "default": 0.1 },
         "per_device_batch_size": { "type": "integer", "minimum": 1, "default": 256 },
         "optimizer": { "const": "adamw" },
+        "grad_clip": { "type": "number", "exclusiveMinimum": 0, "default": 1.0 },
+        "early_stop_patience": { "type": "integer", "minimum": 1, "default": 1, "description": "D10：early stop（dev macro-recall@precision-floor）" },
+        "bio_max_tokens": { "type": "integer", "minimum": 1, "default": 1024, "description": "PII 行 per-token 态缓存/训练的 token 上限（超长 PII 文档截断，省显存）" },
+        "extract_batch_rows": { "type": "integer", "minimum": 1, "default": 16, "description": "Stage A 特征抽取按 token 预算的动态批行数初值" },
         "seed": { "type": "integer" },
         "val_split_ratio": { "type": "number", "default": 0.05, "description": "train 内再切 5% 作 dev（分层键=六任务标签向量/lang/pack/极性/形态；challenge-mirror ≥1,000 + OOD-mirror ≥500 独立成片，ADR §11）" }
       }
@@ -201,12 +212,15 @@
       "additionalProperties": false,
       "properties": {
         "type": { "const": "pii-dual" },
+        "input": { "const": "L12+L28-per-token-concat", "description": "BIO 头输入（T4 级字段，与 token_layers 对应）" },
+        "flag_rule": { "const": "doc_head_or_spans_nonempty", "description": "T4 flag = doc 头双带结果 ∨ spans 并集非空（ADR D5；spans 非空按 strong 带处理不可被 OOD 抑制，D-10）" },
         "doc": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
             "type": { "const": "seq-mlp" },
             "dims": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 3, "default": [1024, 256, 2] },
+            "classes": { "type": "integer", "enum": [2], "default": 2 },
             "description_note": { "const": "doc 级二值兜底：检出率口径不因 span 模型弱点失守（ADR D5）" }
           }
         },
@@ -216,10 +230,8 @@
           "properties": {
             "type": { "const": "token-bio" },
             "dims": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 3, "default": [2048, 512, 23] },
-            "input": { "const": "L12+L28-per-token-concat" },
             "entity_types": { "type": "integer", "const": 11, "description": "BIO 通道数 = 2×|T|+1 = 23（adr-1b §6.3：从词表基数 derive，勿写死通道数；词表 = dataeng 定稿 11 类，见 m6-common PiiType——类型表变更时同步此处与头末层宽度）" },
-            "span_merge": { "enum": ["bio-consecutive", "bio-any"] },
-            "flag_rule": { "const": "doc_head ∨ spans_nonempty" }
+            "span_merge": { "enum": ["bio-consecutive", "bio-any"] }
           }
         }
       }

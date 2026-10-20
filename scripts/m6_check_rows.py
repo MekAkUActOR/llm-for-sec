@@ -71,17 +71,38 @@ def project_staging(row: dict) -> tuple[dict, list[str]]:
         msgs = [{"role": t.get("role", "user"), "content": t.get("content", "")}
                 for t in row["turns"]]
         out["input"] = {"messages": msgs}
-    elif isinstance(row.get("text"), str) and row["text"].startswith("<carrier "):
-        m = CARRIER_RE.match(row["text"])
-        if not m:
-            out["input"] = {"text": row["text"]}
+    elif row.get("kind") == "carrier" and isinstance(row.get("text"), str):
+        # 四变体载体行 -> input.carrier + envelope_style（SYS-1 §4.2.1 Option A）
+        ld0 = row.get("label_detail") or {}
+        style = ld0.get("envelope") or "std_tag"
+        ctype = ld0.get("carrier") or "other"
+        text = row["text"]
+        body = None
+        if style == "std_tag":
+            m = CARRIER_RE.match(text)
+            if m:
+                body = m.group("body")
+                ctype = m.group("type")
+        elif style == "simple_tag":
+            # 【载体中文名】\n{body} / [EN LABEL]\n{body}
+            body = text.split("\n", 1)[1] if "\n" in text else text
+        elif style == "markdown":
+            # > 来源：…（不可信外部内容）\n> \n{body 逐行 "> " 前缀}
+            lines = text.split("\n")
+            body = "\n".join(
+                (l[2:] if l.startswith("> ") else ("" if l == ">" else l))
+                for l in lines[2:])
+        elif style == "plain":
+            body = text
+        if body is None:
+            out["input"] = {"text": text}
             w.append("carrier_fragment_unparsed")
         else:
             out["input"] = {
                 "operator_task": (row.get("meta") or {}).get("operator_task")
                                  or "请给出整理结果。",
-                "carrier": {"type": m.group("type"), "trust": m.group("trust"),
-                            "id": m.group("id") or "c1", "body": m.group("body")},
+                "carrier": {"type": ctype, "trust": "untrusted",
+                            "id": "c1", "envelope_style": style, "body": body},
                 "user_turn": "请给出整理结果。",
             }
     else:

@@ -286,15 +286,48 @@ def smoke() -> bool:
     return all(r)
 
 
+def configs_check() -> bool:
+    """第 4 层（可选）：configs/m6-*.yaml 存在时校验 train-config 契约。"""
+    try:
+        import yaml
+    except ImportError:
+        return True
+    import pathlib
+    cfgs = sorted(pathlib.Path(ROOT / "configs").glob("m6-*.yaml"))
+    if not cfgs:
+        return True
+    schema = RESOURCES["m6-train-config.schema.json"]
+    v = Draft202012Validator(schema, registry=REGISTRY)
+    ok_all = True
+    for cfgp in cfgs:
+        try:
+            doc = yaml.safe_load(cfgp.read_text(encoding="utf-8"))
+            errs = sorted(v.iter_errors(doc), key=lambda e: list(e.absolute_path))
+        except Exception as ex:
+            print(f"[FAIL] config {cfgp.name}: load error: {ex}")
+            ok_all = False
+            continue
+        if errs:
+            ok_all = False
+            print(f"[FAIL] config {cfgp.name}: {len(errs)} violation(s)")
+            for e in errs[:5]:
+                loc = "/".join(str(p) for p in e.absolute_path) or "<root>"
+                print(f"    {loc}: {e.message[:110]}")
+        else:
+            print(f"[PASS] config {cfgp.name} 契约符合")
+    return ok_all
+
+
 def main() -> int:
     bad_refs = check_refs(RESOURCES)
     print(f"[{'PASS' if bad_refs == 0 else 'FAIL'}] $ref 完整性（{bad_refs} 悬空）")
     ok_smoke = smoke()
-    n = 10
+    ok_cfg = configs_check()
     print()
     print(f"contract checks: refs={'OK' if bad_refs == 0 else 'BAD'}, "
-          f"smoke={'OK' if ok_smoke else 'BAD'}")
-    return 0 if (bad_refs == 0 and ok_smoke) else 1
+          f"smoke={'OK' if ok_smoke else 'BAD'}, "
+          f"configs={'OK' if ok_cfg else 'BAD'}")
+    return 0 if (bad_refs == 0 and ok_smoke and ok_cfg) else 1
 
 
 if __name__ == "__main__":
