@@ -2,10 +2,10 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "M6 训练配置（一个 config 驱动全流程：数据清单引用/探针头结构/训练超参/运行点引用）",
   "description": "configs/m6-*.yaml 的 schema（YAML 加载后按本契约校验；生成脚本 scripts/m6_build_train_config.py 由 deveng 交付）。设计哲学：单一配置源——data.manifest 引用数据指纹，probe 定义头结构（ADR-1 D3/D4/D5），train 定义优化（D10），thresholds_ref 指向初始运行点（qa 后续在 dev 上重标定并冻结 calib/runpoint 文件），eval.gates 固化验收线。",
-  "required": ["m6_config_version", "run_id", "base", "render", "data", "probe", "train", "output_dir"],
+  "required": ["run_id", "base", "data", "probe", "train", "output_dir"],
   "additionalProperties": false,
   "properties": {
-    "m6_config_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
+    "m6_config_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion", "description": "配置自述版本（v1 代携带；v2 代配置省略——装载器不读此键，schema 侧转可选以双代兼容）" },
     "run_id": { "type": "string", "pattern": "^m6-[a-z0-9][a-z0-9.-]*$", "description": "如 m6-v1 / m6-v2 / m6-smoke（smoke 配置豁免正式命名式）" },
     "base": {
       "type": "object",
@@ -20,6 +20,7 @@
     },
     "render": {
       "type": "object",
+      "description": "渲染参数块（v1 代携带；v2 代配置省略——渲染常量由 m6_render 模块导出，schema 侧转可选以双代兼容）",
       "additionalProperties": false,
       "properties": {
         "protocol": { "type": "string", "default": "dsh-protocol/0.1", "description": "carrier 输入信封协议（格式规格见 SYS-1 §4.2；模板常量由渲染器模块导出）" },
@@ -65,7 +66,7 @@
     },
     "probe": {
       "type": "object",
-      "required": ["tapped_layers", "trunk", "heads", "loss"],
+      "required": ["tapped_layers", "heads", "loss"],
       "additionalProperties": false,
       "properties": {
         "tapped_layers": {
@@ -85,6 +86,7 @@
         },
         "trunk": {
           "type": "object",
+          "description": "trunk MLP（v1 代显式配置；v2 代省略=代码默认同构 ln-linear-gelu 10240→1024）",
           "additionalProperties": false,
           "properties": {
             "type": { "const": "ln-linear-gelu" },
@@ -151,7 +153,7 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "max_epochs": { "type": "integer", "maximum": 3, "default": 3, "description": "D10：缓存上训头 ≤3 epochs" },
+        "max_epochs": { "type": "integer", "maximum": 6, "default": 3, "description": "D10：v1 缓存上训头 ≤3 epochs；v2 LoRA 联合训练 arch 批准 5（early_stop_patience 2 配套）——上限 6 兜底" },
         "learning_rate": { "type": "number", "exclusiveMinimum": 0, "default": 0.001 },
         "lr_scheduler_type": { "const": "cosine", "description": "cosine→0.1×（衰减终点 = 0.1 × 初始 lr）" },
         "warmup_ratio": { "type": "number", "default": 0.05 },
@@ -164,7 +166,29 @@
         "bio_max_tokens": { "type": "integer", "minimum": 1, "default": 1024, "description": "PII 行 per-token 态缓存/训练的 token 上限（超长 PII 文档截断，省显存）" },
         "extract_batch_rows": { "type": "integer", "minimum": 1, "default": 16, "description": "Stage A 特征抽取按 token 预算的动态批行数初值" },
         "seed": { "type": "integer" },
-        "val_split_ratio": { "type": "number", "default": 0.05, "description": "train 内再切 5% 作 dev（分层键=六任务标签向量/lang/pack/极性/形态；challenge-mirror ≥1,000 + OOD-mirror ≥500 独立成片，ADR §11）" }
+        "val_split_ratio": { "type": "number", "default": 0.05, "description": "train 内再切 5% 作 dev（分层键=六任务标签向量/lang/pack/极性/形态；challenge-mirror ≥1,000 + OOD-mirror ≥500 独立成片，ADR §11）" },
+        "lora": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "v2 LoRA 联合训练块（ADR-1 §16 触发条件满足；base.mode='lora'）",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "r": { "type": "integer", "minimum": 1, "description": "LoRA 秩（v2 主线 16，smoke 8）" },
+            "alpha": { "type": "integer", "minimum": 1 },
+            "dropout": { "type": "number", "minimum": 0, "maximum": 1 },
+            "lr": { "type": "number", "exclusiveMinimum": 0, "description": "LoRA 参数独立学习率（头用 train.learning_rate）" },
+            "target_modules": { "type": "array", "items": { "type": "string" }, "description": "如 [q_proj, k_proj, v_proj, o_proj]" },
+            "layer_from": { "type": "integer", "minimum": 0 },
+            "layer_to": { "type": "integer", "minimum": 0 },
+            "lora_bio_extra_rows": { "type": "integer", "minimum": 0, "description": "PII 行 per-token 态的 LoRA 路径额外采样行数" }
+          }
+        },
+        "lora_center_max_rows": { "type": "integer", "minimum": 1, "default": 20000, "description": "aux_ood Mahalanobis 中心估计的行数上限（LoRA 在线特征下防中心漂移的截断；代码默认 20000）" },
+        "baseline_readings": {
+          "type": "object",
+          "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 },
+          "description": "arch task-10 基线读数（逐任务）：任一任务回退 >1pp 取消该 epoch 的 best-selection 资格（回归护栏，v1-2 基线锚点）"
+        }
       }
     },
     "thresholds_ref": {
