@@ -24,7 +24,7 @@
 | 检查点 | 时刻 | 里程碑 | 状态 | 备注 |
 |--------|------|--------|------|------|
 | H1 | 10-21 02:30 | 设计冻结：ADR-1（task-1）+ 数据映射 DATA-1（task-3） | ✅ ~01:18 达成 | 运行时钟提前 ~72min（自报 02:05；时钟源声明见 §8） |
-| H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | ⏳ | 章程里程碑；QA-1 v1.0 已落盘，待 U3 |
+| H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | 🔶 3/5 | task-2 ✅ ~01:42（SYS-1 v1.0.0 + schema v0.3.0 + 自检 14/14）+ U3 收口；剩 QA-1 冻结确认 + arch 咬合审查 |
 | H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | ⏳ | v1 训练硬前置 |
 | H10 | 10-21 11:00 | v1 模型 + 首轮评测读数（task-8/9） | ⏳ | 训练窗口 H7-H9（GPU 预锁） |
 | H16 | 10-21 17:00 | v2 模型迭代（task-11） | ⏳ | 数据增补 H10-12 / 训练 H12-15（GPU 预锁） |
@@ -54,14 +54,14 @@
 | ID | 任务 | 负责人 | 依赖 | 截止 | 状态 |
 |----|------|--------|------|------|------|
 | task-1 | 架构 ADR：六任务统一检测设计 | arch-m6 | — | H1 02:30 | ✅ completed（板上 rev3；运行钟 ~01:22） |
-| task-2 | 系统设计：推理协议/阈值/弃权 | sysdesign-m6 | — | H1.5 03:30 | in_progress（七份 schema+SCHEMAS.md 在盘） |
+| task-2 | 系统设计：推理协议/阈值/弃权 | sysdesign-m6 | — | H1.5 03:30 | ✅ completed（板上 rev3；SYS-1 v1.0.0 + schema v0.3.0，commits e95c012/bb18c37 待 Lead push） |
 | task-3 | 数据映射：数据源映射与配比 | dataeng-m6 | — | H1 02:30 | in_progress（DATA-1 草案在盘 docs/m6/data-mapping.md） |
 | task-4 | 数据构建：六任务 train/dev | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-5 | 数据构建：挑战集 + OOD 集 | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4,5 | H6 07:00 | pending |
-| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2 | H1.5–H6 | pending（预研就绪；task-1 已解锁，仅剩 task-2 SYS-1 03:30） |
+| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | ready（双解锁已确认；已催 deveng claim，预研就绪即冲 complete） |
 | task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4,6,7 | H10 11:00 | pending |
-| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2 | H9 10:00 | pending（task-1 已解锁，仅剩 task-2；QA-1 03:30 冻结） |
+| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | ready（双解锁已确认；已催 qa claim + QA-1 最终冻结确认） |
 | task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | pending |
 | task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | pending |
 | task-12 | 验收：acceptance 全量轮 | qa-m6 | 11 | H20 21:00 | pending |
@@ -121,6 +121,8 @@
 - 01:26 arch-m6 确认 T4 口径两层读法并给出精确措辞（QA-1 冻结对齐用）：T4 主门指标 = 条目级，在自建 data/m6/t4 heldout（span 标注）上测，融合旗标 pii.flag = doc 头 ∨ span 并集非空（ADR §4/D5 定义，非单 doc 头）；span 级逐类型 precision/recall = 附加诊断列不进门；v0.2.3 privacy 仅参照。另确认 m4 chosen 断言 dataeng 已在跑（"冲突停下上报"纪律）。
 - 01:28 qa-m6 QA-1 冻结前状态：T4 两层措辞已改毕（与 ADR-1b §4 完全一致）；三大读数纪律全 LOCKED（透明度骑手入 §5 参照门、U1 双列弃权披露入 §3.5、U2 逐任务挑战门 + Clopper-Pearson CI95 标红入 §3.4/§3.8）；§4.0 新增校准咬合（推荐运行点主读数 + QA 独立选点交叉验证双报；calib.json 只用 dev 入 task-15 审计项）；乙醇红线延伸登记（t4 heldout 独立成集，task-5/6 会审核对 manifest 切分目录绑定 + 8-gram 断言）；红队 A-E 五族 160 条完成、build 校验脚本进行中；无遗留未决项，U3 随 SYS-1 schema 消化。
 - 01:33 Lead 确认时钟源处理协议（确立为惯例）：事件真实性以板面/磁盘/commit 为证、时刻以运行时采样为准、自报时刻引用须注明；Lead 检查点闹钟挂真实墙钟（02:30/07:00/11:00/17:00/21:00/00:00）不受自报影响；02:30 轮重点 = SYS-1/QA-1 冻结确认。
+- 01:38 arch-m6 执行时钟勘误：adr-1b §5.1 追加（append-only，不改写历史）——声明 01:20 后自报时刻为无时钟估计值、系统性超前 40-50min，附自报标签→运行时钟校正表；后续修订一律用运行时钟。层级确认：**最终报告时间线以本文档 §8 归一口径为准**（运行时 turn 采样为唯一锚点：01:06:05 / 01:16:31 / 01:26:50；个体事件锚点估计差 ≤5min，不影响事件序）；arch 后续消息时刻遵守同口径或只标事件序。
+- 01:42 sysdesign-m6 task-2 complete（SYS-1 v1.0.0）：docs/m6/m6-system-spec.md（模块分解 M1-M8、输出协议终裁、渲染器契约含 dsh-protocol/0.1 信封模板、阈值分层与校准 dev-only 联合 OR 门、OOD 弃权判据、时延/显存预算、词表章节 PII 11 类 + T6 t6_class、偏差登记表 D-1..D-4 append-only）+ schemas 七件套 v0.3.0（对齐 ADR-1/adr-1b §6.1-6.3 + U1/U2/透明度骑手）+ scripts/m6_check_schemas.py 契约自检（$ref 完整性 + 14 冒烟用例含弃权不变量与 t6_class 漂移负例，14/14 过）。U3 终稿已发 qa/deveng（deveng 4 处更名：results→tasks / action→decision / ood.score 原始距离 / latency_ms 顶层），task-7/9 双解锁（板上 ready:true 确认）；commits e95c012+bb18c37 待 Lead push。sysdesign 转迭代期职责（规格-实现一致性/偏差登记表/schema 版本管理/阈值弃权支持），Lead 评审意见 1h 内出修订。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -128,7 +130,7 @@
 |---|------|------|--------|------|
 | U1 | OOD 放过率门数字（kickoff 仅定性"默认放过"） | qa：硬门 ≥95% + 目标 98% + 弃权率单独披露 | Lead | ✅ 01:16 终裁采纳 + 补充条款（OOD 放过率/攻击侧弃权率并列两列） |
 | U2 | G3 挑战集主门口径：任务级 vs 样本级 | qa：任务级主门 + 样本级双报 | Lead | ✅ 01:16 终裁采纳 + 统计强化（点估计判定 + 精确二项 CI95 标红制） |
-| U3 | m6_infer 输出字段名（六任务键、abstain） | — | sysdesign（SYS-1） | ✅ 已随 SYS-1 schema 消化（qa 确认；待 task-2 冻结正式收口） |
+| U3 | m6_infer 输出字段名（六任务键、abstain） | — | sysdesign（SYS-1） | ✅ 正式收口（SYS-1 定稿；deveng 4 处更名：results→tasks / action→decision / ood.score 原始距离 / latency_ms 顶层） |
 | U4 | dev 内难负例子集标记（chFPR 替代约束） | — | dataeng | 进行中 |
 | U5 | data/m6 切分规模 vs 功效要求（heldout 正例≥200/任务、benign≥1000、challenge≥1200、ood≥300） | — | dataeng | 进行中 |
 
@@ -155,6 +157,7 @@
 - 01:26 arch 回复：T4 两层读法确认 + 精确措辞（pii.flag = doc 头 ∨ span 并集非空）已由 arch 直达 qa；m4 chosen 断言 dataeng 在跑（"冲突停下上报"纪律）。
 - 01:27 【时钟源声明·二次校正】运行时采样：turn1=01:06:05 / turn3=01:16:31 / turn6=01:26:50 → 真实时刻 ~01:27。队友自报时刻（Lead "02:05"、arch "02:15"、qa "03:25" 等）为无时钟访问下的估计值，整体超前 40min+；事件本身真实（板面/磁盘/commit 可证）。时间映射：02:05→~01:18、02:15→~01:22、02:20→~01:25。实际含义：H1 实际提前 ~72min 达成；项目真实进度比叙事更超前。此后 PM 新条目只用运行时采样时刻；最终报告时间线以运行时钟为准，引用队友自报时刻须注明。
 - 01:28 qa 状态同步（QA-1 冻结前）：详见决策日志 01:28 条——T4 措辞/三大纪律 LOCKED/校准咬合/乙醇红线延伸/红队 160 条；U3 已消化（未决项表收口）。
+- 01:42 sysdesign 交付 task-2（SYS-1 v1.0.0 + schema v0.3.0 + 自检 14/14），H1.5 达成 3/5——剩 QA-1 最终冻结确认 + arch 咬合审查（已点开）；task-7/9 双解锁（板上 ready:true），已催 deveng/qa claim；已报 Lead 里程碑。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
