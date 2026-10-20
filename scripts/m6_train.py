@@ -47,7 +47,8 @@ import yaml
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "scripts"))
-from m6_feat_probe import load_backbone, forward_extract  # noqa: E402
+from m6_feat_probe import (load_backbone, forward_extract,  # noqa: E402
+                           forward_extract_grad)
 from m6_render import (  # noqa: E402
     N_BIO_CHANNELS, PII_TYPES, load_jsonl, normalize_input, render,
     spans_to_bio, tokenize_windowed,
@@ -527,6 +528,326 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
 
 
 # --------------------------------------------------------------------------- #
+# stage B (v2): LoRA joint training -- backbone adapted on the fly
+# --------------------------------------------------------------------------- #
+def train_stage_b_lora(cfg, out_dir, device):
+    """ADR-1 §16 v2 path: LoRA (r16, q/k/v/o, L14-28) + heads trained jointly.
+
+    No feature cache (LoRA changes features from L14 on). Length-bucketed
+    batches; gradient checkpointing; two param groups (LoRA lr << head lr).
+    After training, re-extracts (inference) the arrays calibrate() needs:
+    train all-neg trunk features (Mahalanobis centers) + dev pooled.
+    Saves adapter state to out_dir/adapter.pt next to probe-heads.pt.
+    """
+    import copy
+
+    from peft import LoraConfig, get_peft_model
+
+    t0 = time.time()
+    torch.manual_seed(cfg["train"].get("seed", 42))
+    np.random.seed(cfg["train"].get("seed", 42))
+    tr = cfg["train"]
+    lc = tr.get("lora", {})
+    epochs = tr.get("max_epochs", 3)
+    bs = tr.get("per_device_batch_size", 256)
+    head_lr = tr.get("learning_rate", 1e-3)
+    lora_lr = float(lc.get("lr", 1e-4))
+    wd = tr.get("weight_decay", 0.01)
+    warmup = tr.get("warmup_ratio", 0.05)
+    patience = tr.get("early_stop_patience", 1)
+    w_tok = cfg["probe"].get("loss", {}).get("bio_weight", 2.0)
+    bio_pos_w = cfg["probe"].get("loss", {}).get("bio_pos_weight", 15.0)
+    bio_extra = int(tr.get("lora_bio_extra_rows", 2))
+    # arch §16: per-task regression guard baseline (v1-2 readings);
+    # epochs where ANY task regresses >1pp are not best-epoch candidates
+    baseline = {k: float(v) for k, v in
+                (tr.get("baseline_readings") or {}).items()} or None
+    if baseline:
+        print(f"[m6_train] v2 regression-guard baseline: {baseline}")
+
+    backbone, tok = load_backbone(cfg["base"]["model_name_or_path"],
+                                  cfg["base"].get("dtype", "bf16"), device)
+    if hasattr(backbone, "gradient_checkpointing_enable"):
+        backbone.gradient_checkpointing_enable()
+        backbone.config.use_cache = False
+    lcfg = LoraConfig(
+        r=int(lc.get("r", 16)),
+        lora_alpha=float(lc.get("alpha", 32)),
+        lora_dropout=float(lc.get("dropout", 0.05)),
+        bias="none",
+        target_modules=list(lc.get("target_modules",
+                                   ["q_proj", "k_proj", "v_proj", "o_proj"])),
+        layers_to_transform=list(range(int(lc.get("layer_from", 14)),
+                                       int(lc.get("layer_to", 28)) + 1)),
+        task_type="FEATURE_EXTRACTION")
+    pmodel = get_peft_model(backbone, lcfg)
+    try:
+        pmodel.get_base_model().enable_input_require_grads()
+    except Exception:
+        pass
+    pmodel.print_trainable_parameters()
+    pmodel.train()
+
+    rows_tr = rows_for_split(cfg, "train")
+    rows_dv = rows_for_split(cfg, "dev")
+    Y, t6c, neg_all, mirror, pii_idx, pii_spans = derive_labels(rows_tr)
+    Ydv, t6dv, neg_dv, mirror_dv, _, _ = derive_labels(rows_dv)
+    print(f"[m6_train] v2 rows: train={len(rows_tr)} dev={len(rows_dv)} "
+          f"(PII train rows={len(pii_idx)})")
+
+    def tokenize_all(rows):
+        infos = []
+        for r in rows:
+            inp = normalize_input(r)
+            rendered, msg_spans, fmap = render(tok, inp)
+            tw = tokenize_windowed(tok, rendered)
+            infos.append({"tw": tw, "msg_spans": msg_spans, "fmap": fmap,
+                          "spans": None})
+        return infos
+
+    tokinfo_tr = tokenize_all(rows_tr)
+    # gold BIO for PII rows
+    bio_meta = {}
+    for k, i in enumerate(pii_idx):
+        tw = tokinfo_tr[i]["tw"]
+        L = min(len(tw["input_ids"]), tr.get("bio_max_tokens", 1024))
+        bio_meta[int(i)] = np.array(spans_to_bio(
+            pii_spans[k], tw["offsets"][:L], tokinfo_tr[i]["msg_spans"],
+            tokinfo_tr[i]["fmap"]), dtype=np.int64)
+    tokinfo_dv = tokenize_all(rows_dv)
+
+    p = cfg["probe"]
+    layers = p["tapped_layers"]
+    tok_layers = p.get("token_layers", [12, 28])
+    in_dim = len(layers) * backbone.config.hidden_size * 2
+    model = M6Probe(in_dim).to(device)
+    pw = _pos_weights(Y)
+    print(f"[m6_train] pos_weights: " + ", ".join(f"{t}={pw[t]:.1f}" for t in TASKS))
+
+    bce = {t: nn.BCEWithLogitsLoss(
+        pos_weight=torch.tensor([pw[t]], device=device)) for t in TASKS}
+    ce6 = nn.CrossEntropyLoss()
+    nbio = model.struct["n_bio"]
+    ntypes = len(PII_TYPES)
+    cebio = nn.CrossEntropyLoss(
+        weight=torch.tensor([1.0] + [bio_pos_w] * (nbio - 1), device=device),
+        ignore_index=-100)
+
+    lora_params = [q for n, q in pmodel.named_parameters() if q.requires_grad]
+    head_params = list(model.parameters())
+    opt = torch.optim.AdamW(
+        [{"params": lora_params, "lr": lora_lr},
+         {"params": head_params, "lr": head_lr}], weight_decay=wd)
+
+    # length-bucketed batches: sort by token len, chunk, shuffle chunk order
+    order = sorted(range(len(rows_tr)), key=lambda i: len(tokinfo_tr[i]["tw"]["input_ids"]))
+    batches = [order[i:i + bs] for i in range(0, len(order), bs)]
+    total_steps = len(batches) * epochs
+    sched = torch.optim.lr_scheduler.LambdaLR(
+        opt, lambda s: (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * min(1.0, s / total_steps))))) \
+        if total_steps else None
+    pad_id = tok.pad_token_id or 151643
+    LABEL_TO_HEAD = {"T1": "T1", "T2": "T2", "T3": "T3", "T4": "T4doc", "T5": "T5"}
+    pii_list = [int(i) for i in pii_idx]
+
+    logf = open(out_dir / "train_log.jsonl", "w", encoding="utf-8")
+    best_key, best_state, best_lora, best_ep, bad = -1.0, None, None, -1, 0
+    step = 0
+    for ep in range(1, epochs + 1):
+        model.train()
+        pmodel.train()
+        rng = np.random.default_rng(cfg["train"].get("seed", 42) + ep)
+        rng.shuffle(batches)
+        for bidx in batches:
+            ids, attn = _pad_batch([tokinfo_tr[i]["tw"]["input_ids"] for i in bidx],
+                                   pad_id, device)
+            pooled, tokf = forward_extract_grad(
+                pmodel, ids, attn, layers, "mean+last", tok_layers)
+            out = model(pooled)
+            loss = 0.0
+            yb = Y[bidx]
+            t6b = t6c[bidx]
+            for lt, ht in LABEL_TO_HEAD.items():
+                m = torch.tensor(yb[:, TASKS.index(lt)] >= 0, device=device)
+                if m.any():
+                    yv = torch.tensor(
+                        np.where(yb[:, TASKS.index(lt)] >= 0,
+                                 yb[:, TASKS.index(lt)], 0),
+                        dtype=torch.float32, device=device)
+                    loss = loss + bce[lt](out[ht][m], yv[m])
+            m6 = torch.tensor(t6b >= 0, device=device)
+            if m6.any():
+                t6v = torch.tensor(np.where(t6b >= 0, t6b, 0),
+                                   dtype=torch.long, device=device)
+                loss = loss + ce6(out["T6"][m6], t6v[m6])
+            # BIO: in-batch PII rows + a few random extras (gradient density)
+            bio_rows = [i for i in bidx if i in bio_meta]
+            extra = [i for i in rng.choice(pii_list, size=min(bio_extra, len(pii_list)),
+                                           replace=False).tolist()
+                     if i not in bio_rows] if pii_list else []
+            if bio_rows or extra:
+                xt, xb = [], []
+                for i in bio_rows + extra:
+                    L = len(bio_meta[i])
+                    rpos = bidx.index(i) if i in bio_rows else -1
+                    if rpos >= 0:
+                        xt.append(tokf[rpos, :L])
+                        xb.append(torch.tensor(bio_meta[i], device=device))
+                    else:
+                        ids1, attn1 = _pad_batch(
+                            [tokinfo_tr[i]["tw"]["input_ids"]], pad_id, device)
+                        _, tf1 = forward_extract_grad(
+                            pmodel, ids1, attn1, layers, "mean+last", tok_layers)
+                        xt.append(tf1[0, :L])
+                        xb.append(torch.tensor(bio_meta[i], device=device))
+                xt = torch.nn.utils.rnn.pad_sequence(xt, batch_first=True)
+                xb = torch.nn.utils.rnn.pad_sequence(xb, batch_first=True,
+                                                     padding_value=-100)
+                logits = model.forward_bio(xt)
+                loss = loss + w_tok * cebio(
+                    logits.reshape(-1, nbio), xb.reshape(-1))
+            opt.zero_grad()
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(
+                list(lora_params) + list(head_params), 1.0)
+            opt.step()
+            if sched is not None:
+                sched.step()
+            step += 1
+            if step % 200 == 0:
+                print(f"[m6_train] v2 ep{ep} step {step}/{total_steps} "
+                      f"loss={float(loss):.4f} ({time.time() - t0:.0f}s)")
+
+        # dev eval (inference forward over dev rows, pooled only)
+        model.eval()
+        pmodel.eval()
+        Xdv = np.zeros((len(rows_dv), in_dim), dtype=np.float32)
+        pos = 0
+        with torch.no_grad():
+            while pos < len(rows_dv):
+                chunk = list(range(pos, min(pos + 32, len(rows_dv))))
+                ids, attn = _pad_batch(
+                    [tokinfo_dv[i]["tw"]["input_ids"] for i in chunk],
+                    pad_id, device)
+                f, _ = forward_extract(pmodel.get_base_model(), ids, attn,
+                                       layers, "mean+last", tok_layers)
+                Xdv[chunk] = f.numpy()
+                pos += len(chunk)
+            out_d = model(torch.tensor(Xdv).to(device))
+        scores = {t: torch.sigmoid(out_d[t]).cpu().numpy() for t in
+                  ("T1", "T2", "T3", "T4doc", "T5")}
+        entry = {"epoch": ep, "tasks": {}}
+        rs = []
+        for lt, ht in LABEL_TO_HEAD.items():
+            s = scores[ht]
+            g = Ydv[:, TASKS.index(lt)]
+            m = g >= 0
+            pos_s, neg_s = s[m & (g == 1)], s[m & neg_dv]
+            r = None
+            if len(pos_s) and len(neg_s):
+                thr = float(neg_s.max())
+                r = round(float((pos_s > thr).mean()), 4)
+                rs.append(r)
+            entry["tasks"][lt] = {"recall@zeroFP": r,
+                                  "n_pos": int(len(pos_s)), "n_neg": int(len(neg_s))}
+        entry["macro_recall_zeroFP"] = round(sum(rs) / max(1, len(rs)), 4)
+        # arch §16 protection rule: per-task regression guard vs v1-2
+        # baseline -- an epoch whose ANY task regresses >1pp is not a
+        # valid best-epoch candidate (feature drift protection for
+        # T5/T6-class heads that are already at/near target)
+        regress = {}
+        if baseline:
+            for lt in entry["tasks"]:
+                r_now = entry["tasks"][lt].get("recall@zeroFP")
+                r_base = baseline.get(lt)
+                if r_now is not None and r_base is not None:
+                    if r_now < r_base - 0.01:
+                        regress[lt] = round(r_base - r_now, 4)
+        entry["regression_vs_baseline"] = regress
+        logf.write(json.dumps(entry, ensure_ascii=False) + "\n")
+        logf.flush()
+        star = ""
+        if entry["macro_recall_zeroFP"] > best_key and not regress:
+            best_key, best_ep, bad = entry["macro_recall_zeroFP"], ep, 0
+            best_state = {k: v.detach().cpu().clone()
+                          for k, v in model.state_dict().items()}
+            from peft.utils import get_peft_model_state_dict
+            best_lora = copy.deepcopy(get_peft_model_state_dict(pmodel))
+            star = " *best*"
+        else:
+            bad += 1
+        reg_note = f" REGRESSION={regress}" if regress else ""
+        print(f"[m6_train] v2 ep{ep} macroR@zeroFP="
+              f"{entry['macro_recall_zeroFP']:.4f}{star}{reg_note}")
+        if bad >= patience:
+            print(f"[m6_train] v2 early stop (patience {patience})")
+            break
+    logf.close()
+    if best_state is None:
+        # every epoch tripped the regression guard: keep the LAST epoch
+        # (fail-visible; the run report shows which tasks regressed)
+        print("[m6_train] v2 WARN: no epoch passed the regression guard; "
+              "keeping last epoch state")
+        best_state = {k: v.detach().cpu().clone()
+                      for k, v in model.state_dict().items()}
+        best_ep = -1
+        from peft.utils import get_peft_model_state_dict
+        best_lora = copy.deepcopy(get_peft_model_state_dict(pmodel))
+    model.load_state_dict(best_state)
+    model.eval()
+
+    # restore best LoRA state and re-extract what calibrate() needs:
+    # dev pooled + train all-neg trunk inputs (inference mode)
+    from peft.utils import set_peft_model_state_dict
+    set_peft_model_state_dict(pmodel, best_lora)
+    pmodel.eval()
+    print(f"[m6_train] v2 best epoch {best_ep} ({best_key:.4f}), "
+          f"{time.time() - t0:.0f}s; extracting calib arrays")
+    pos = 0
+    with torch.no_grad():
+        while pos < len(rows_dv):
+            chunk = list(range(pos, min(pos + 32, len(rows_dv))))
+            ids, attn = _pad_batch(
+                [tokinfo_dv[i]["tw"]["input_ids"] for i in chunk], pad_id, device)
+            f, _ = forward_extract(pmodel.get_base_model(), ids, attn,
+                                   layers, "mean+last", tok_layers)
+            Xdv[chunk] = f.numpy()
+            pos += len(chunk)
+    neg_idx = np.where(neg_all)[0]
+    A = {"pooled": Xdv, "Y": Ydv, "t6c": t6dv, "neg_all": neg_dv,
+         "mirror": mirror_dv}
+    # D dict for calibrate() = dev arrays (same as A here)
+    D = {"pooled": Xdv, "Y": Ydv, "t6c": t6dv, "neg_all": neg_dv,
+         "mirror": mirror_dv}
+    # trunk inputs for centers come from train rows through the SAME probe
+    # trunk: extract pooled train (all-neg subset is what centers use, but
+    # fit_mahalanobis selects by Y; extract a capped subsample for speed)
+    cap = int(tr.get("lora_center_max_rows", 20000))
+    sel = rng.choice(len(rows_tr), size=min(cap, len(rows_tr)),
+                     replace=False).tolist() if len(rows_tr) > cap \
+        else list(range(len(rows_tr)))
+    Xtr = np.zeros((len(sel), in_dim), dtype=np.float32)
+    pos = 0
+    with torch.no_grad():
+        while pos < len(sel):
+            chunk = sel[pos:pos + 32]
+            ids, attn = _pad_batch(
+                [tokinfo_tr[i]["tw"]["input_ids"] for i in chunk], pad_id, device)
+            f, _ = forward_extract(pmodel.get_base_model(), ids, attn,
+                                   layers, "mean+last", tok_layers)
+            Xtr[pos:pos + len(chunk)] = f.numpy()
+            pos += len(chunk)
+    A = {"pooled": Xtr, "Y": Y[sel], "t6c": t6c[sel], "neg_all": neg_all[sel],
+         "mirror": mirror[sel]}
+    # save adapter next to heads (peft directory format: adapter_config.json
+    # + adapter_model.safetensors, loadable via PeftModel.from_pretrained)
+    pmodel.save_pretrained(str(out_dir / "adapter"))
+    print(f"[m6_train] v2 adapter saved to {out_dir / 'adapter'}")
+    TB = TBd = None  # BIO handled on-the-fly in v2; calibrate uses pooled only
+    return model, A, D, TB, TBd
+
+
+# --------------------------------------------------------------------------- #
 # stage C: Mahalanobis OOD + two-band calibration (dev-only)
 # --------------------------------------------------------------------------- #
 def trunk_features(model, X):
@@ -660,11 +981,23 @@ def main():
     out_dir = REPO / cfg["output_dir"]
     out_dir.mkdir(parents=True, exist_ok=True)
     t_start = time.time()
+    lora_mode = bool(cfg.get("train", {}).get("lora", {}).get("enabled"))
 
     cache_dir = out_dir / "feat_cache"
     if args.refresh_labels:
         refresh_cache_labels(cfg, out_dir)
         return 0
+    if lora_mode:
+        # v2 (ADR-1 §16): backbone adapted on the fly -- feature cache is
+        # meaningless (features change during training); train_stage_b_lora
+        # extracts what calibrate() needs post-training.
+        assert not args.recalibrate, "--recalibrate is cache-mode only"
+        if args.device.startswith("cuda"):
+            os_report = torch.cuda.is_available()
+            print(f"[m6_train] GPU check (cuda={os_report})")
+        model, A, D, TB, TBd = train_stage_b_lora(cfg, out_dir, args.device)
+        return _finalize(model, A, D, TB, TBd, out_dir, cfg, t_start, args)
+
     have_cache = (cache_dir / "feats_train.npz").is_file() and \
                  (cache_dir / "feats_dev.npz").is_file()
     if have_cache and args.reuse_cache:
@@ -702,6 +1035,14 @@ def main():
     else:
         model, A, D, TB, TBd = train_stage_b(cfg, cache_dir, out_dir, args.device)
 
+    return _finalize(model, A, D, TB, TBd, out_dir, cfg, t_start, args)
+
+
+# --------------------------------------------------------------------------- #
+# finalize: BIO dev metrics + calibration + artifacts + operating-point report
+# (shared by cache-mode and v2 LoRA-mode runs)
+# --------------------------------------------------------------------------- #
+def _finalize(model, A, D, TB, TBd, out_dir, cfg, t_start, args):
     # BIO head dev metrics (token-level, flat storage gather)
     bio_metrics = {}
     if TBd is not None and len(TBd["lens"]):
@@ -759,6 +1100,13 @@ def main():
                        .to(next(model.parameters()).device))
     logits_dv = {t: out_dv["T4doc" if t == "T4" else t].cpu().numpy()
                  for t in ("T1", "T2", "T3", "T4", "T5")}
+    # arch task-10 observation item: benign rows whose DISPLAY-layer score
+    # saturates (logit > 16.6 -> fp32 sigmoid reports exactly 1.0; ADR-2
+    # evidence base). Decision layer is immune (logit-domain bands).
+    benign_sat = {t: int((logits_dv[t][neg] > 16.6).sum()) for t in
+                  ("T1", "T2", "T3", "T4", "T5")}
+    metrics["benign_saturated_display_16.6"] = benign_sat
+    print(f"[m6_train] benign display-saturated rows (logit>16.6): {benign_sat}")
     for j, t in enumerate(TASKS):
         s = scores["T4doc"] if t == "T4" else scores[t]
         lg = logits_dv.get(t)

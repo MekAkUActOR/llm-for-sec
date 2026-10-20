@@ -205,6 +205,17 @@ class M6Inferencer:
         # ---- backbone (real pipeline in stub mode too) ----
         self.backbone, self.tok = load_backbone(backbone_ckpt, dtype, device)
         self.pad_id = self.tok.pad_token_id or 151643
+        # v2 LoRA checkpoints carry a peft adapter dir next to the heads:
+        # load it onto the backbone (no-op for v1-class dirs without it)
+        adapter_dir = hd / "adapter"
+        if adapter_dir.is_dir():
+            from peft import PeftModel
+            pmodel = PeftModel.from_pretrained(self.backbone, str(adapter_dir))
+            pmodel.eval()
+            # forward through the peft-wrapped model (LoRA layers active);
+            # .config proxies to the base transformer
+            self.backbone = pmodel
+            print(f"[m6_infer] loaded LoRA adapter from {adapter_dir}")
 
     # ------------------------------------------------------------------ #
     def _ood(self, Z):
