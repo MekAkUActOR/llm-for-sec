@@ -284,6 +284,24 @@ def row_sig(r):
     return sha16(norm_text(t))
 
 
+def content_sig(r):
+    """CONTENT-only signature (system prompt excluded) — the qa L1 leak
+    protocol: identical user-facing text must never straddle two splits even
+    when one row carries a policy-pack system and the other is bare (e.g.
+    m4-capfix pack rows vs reserve-cvalues bare rows share the same query)."""
+    inp = r.get("input") or {}
+    if inp.get("carrier"):
+        t = inp["carrier"].get("body") or ""
+    else:
+        parts = []
+        for x in (inp.get("messages") or inp.get("turns") or []):
+            parts.append(x.get("content") if isinstance(x, dict) else x)
+        if inp.get("text"):
+            parts.append(inp["text"])
+        t = "\n".join(parts)
+    return sha16(norm_text(t))
+
+
 def group_key(r):
     """Split-lock key: rows sharing input text must land in the same split
     (highest priority — prevents cross-task and same-task text leakage);
@@ -324,6 +342,15 @@ def assign_splits(rows, quotas, rng):
             union(i, sig_map[s])
         else:
             sig_map[s] = i
+    # content-only lock (qa L1 protocol): same user-facing text -> same split,
+    # even across (query,pack) vs bare-query variants
+    cs_map = {}
+    for i, r in enumerate(rows):
+        c = content_sig(r)
+        if c in cs_map:
+            union(i, cs_map[c])
+        else:
+            cs_map[c] = i
     g_map = {}
     for i, r in enumerate(rows):
         gk = group_key(r)
@@ -805,6 +832,10 @@ def isolation_report(out):
             eval_rows.extend(load(p))
     tr, ev = sigs(train_rows), sigs(eval_rows)
     inter = tr & ev
+    # qa L1 protocol: content-only overlap (system prompt excluded) must be 0
+    cs_tr = set(content_sig(r) for r in train_rows)
+    cs_ev = set(content_sig(r) for r in eval_rows)
+    content_overlap = len(cs_tr & cs_ev)
 
     # A3: dev-mirror (calibration) must be disjoint from challenge/ood eval sets
     mirror_rows = []
@@ -845,10 +876,12 @@ def isolation_report(out):
     train_blob = "\x00".join(train_texts)
     t4_ent_overlap = sum(1 for e in t4_held_entities if e and e in train_blob)
 
-    ok = not inter and not mirror_overlap and ood_t4_pos == 0 and t4_ent_overlap == 0
+    ok = (not inter and not content_overlap and not mirror_overlap
+          and ood_t4_pos == 0 and t4_ent_overlap == 0)
     return {
         "train_rows": len(train_rows), "eval_rows": len(eval_rows),
         "exact_overlap": len(inter),
+        "content_overlap_qa_l1": content_overlap,
         "mirror_eval_overlap": mirror_overlap,
         "ood_t4_pos_rows": ood_t4_pos,
         "t4_entity_overlap": t4_ent_overlap,

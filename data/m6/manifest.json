@@ -20,28 +20,28 @@
  "files": [
   {
    "path": "t1-moderation/train.jsonl",
-   "n": 14648,
-   "rows": 14648,
+   "n": 14615,
+   "rows": 14615,
    "split": "train",
    "task": "T1",
-   "sha256": "445328303b63a474a1641462c83851c4493c84951030823dcfd511b14e1f05f5",
+   "sha256": "241c3b823e8ce5fd932e65fe2332a35733a96630b8ba60012fa4a42beecd2db9",
    "label_counts": {
     "T1": {
-     "pos": 8560,
+     "pos": 8527,
      "neg": 6088
     }
    }
   },
   {
    "path": "t1-moderation/dev.jsonl",
-   "n": 1450,
-   "rows": 1450,
+   "n": 1483,
+   "rows": 1483,
    "split": "dev",
    "task": "T1",
-   "sha256": "52fcfdd848626d7bfe07833ddb2b1499b6940901114b8c4835faffe348459a1b",
+   "sha256": "d4d358ed182068916bf4daa0dc84f2a86d33017dc56d53ed03405363239d547d",
    "label_counts": {
     "T1": {
-     "pos": 250,
+     "pos": 283,
      "neg": 1200
     }
    }
@@ -52,7 +52,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T1",
-   "sha256": "f95c68df2ecf1776e92498844e60705997ec69af5e2edafe04219bd668c70687",
+   "sha256": "72aca92f4e52586b8dd2c06588fe6ebf8a61101236bec64244c5f3bde99370b5",
    "label_counts": {
     "T1": {
      "pos": 300,
@@ -66,7 +66,7 @@
    "rows": 4226,
    "split": "train",
    "task": "T2",
-   "sha256": "6da95d6a6b38c11046d782496e0b018340a959c208acf4729aa6fd3193c4ea36",
+   "sha256": "c2d2039e97a7703fc93041dce42377df43262bc375711f9b83048d53677a5b22",
    "label_counts": {
     "T2": {
      "pos": 2126,
@@ -80,7 +80,7 @@
    "rows": 1082,
    "split": "dev",
    "task": "T2",
-   "sha256": "9dfef14072394794e2040c31265a428d34237e8271f93bf1936bd4242ca4666f",
+   "sha256": "51a4e34b5d05985f0e44b0497726eeee7d5892357e5911c41c3fe7f22dd3e996",
    "label_counts": {
     "T2": {
      "pos": 250,
@@ -94,7 +94,7 @@
    "rows": 1300,
    "split": "heldout",
    "task": "T2",
-   "sha256": "4acc7d0c69cf720401fe1680a60d132c2e08ef09c9e8f65fc65023f6cc6041f9",
+   "sha256": "97fa062b106211328f0658703afb26f9ce08b176c7accc34bcd4ceb9f241516c",
    "label_counts": {
     "T2": {
      "pos": 300,
@@ -104,28 +104,28 @@
   },
   {
    "path": "t3-intent/train.jsonl",
-   "n": 8195,
-   "rows": 8195,
+   "n": 8089,
+   "rows": 8089,
    "split": "train",
    "task": "T3",
-   "sha256": "0b981e418f6faabe262948c0482e065563d96cac8292b65920e05cbfd3e20e9d",
+   "sha256": "0cb9359360bf14057b0d8e90bb9f38f857412ced8951b640caaa25243395c706",
    "label_counts": {
     "T3": {
-     "pos": 3261,
+     "pos": 3155,
      "neg": 4934
     }
    }
   },
   {
    "path": "t3-intent/dev.jsonl",
-   "n": 1726,
-   "rows": 1726,
+   "n": 1832,
+   "rows": 1832,
    "split": "dev",
    "task": "T3",
-   "sha256": "84952058bb6766468acb7211384d08d220f8291827b4397dfc0145ef2663fb3c",
+   "sha256": "db8bfdec7f7df4f3444a934861faafec8437c38f0531f7563d97d1034135238f",
    "label_counts": {
     "T3": {
-     "pos": 526,
+     "pos": 632,
      "neg": 1200
     }
    }
@@ -136,7 +136,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T3",
-   "sha256": "ce7855126bbfca716067b2729d0ac6c4e19427e902da304fc8f4ae306a8b379c",
+   "sha256": "7adaaec8d38d5428d7bc5d117230d1d673d313a041ffb31a25dd3544e4272e88",
    "label_counts": {
     "T3": {
      "pos": 300,
@@ -150,7 +150,7 @@
    "rows": 17781,
    "split": "train",
    "task": "T5",
-   "sha256": "a3f761269611f9ad551f6e0e2fa5467612778674724929263cc56fb27f0219af",
+   "sha256": "1cb501fe79955110c24ac12c4a61427d58b02646a4d3983a6e7cd914c3097095",
    "label_counts": {
     "T5": {
      "pos": 10774,
@@ -164,7 +164,7 @@
    "rows": 1450,
    "split": "dev",
    "task": "T5",
-   "sha256": "4bd52109e17915d3caeb89507f4b05df8bbc548387ad6e4d0c7e94bee114fe20",
+   "sha256": "25e98b64cbe99ce3740c1c32f86c88c93120191697549485d8191590d79a99a9",
    "label_counts": {
     "T5": {
      "pos": 250,
@@ -178,7 +178,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T5",
-   "sha256": "14079c1e0c01b8173cb74a4c10ce4ec71d5aa4cd1c0232a921e6156116db821d",
+   "sha256": "1128d73a109ff9e377bf94abfcfe1644212afabc8edb8987439748f4f0707e9e",
    "label_counts": {
     "T5": {
      "pos": 300,
@@ -192,7 +192,7 @@
    "rows": 6244,
    "split": "train",
    "task": "T6",
-   "sha256": "08e84163803637a2046fa0edc4c71eb82b74b4cfb5a9c6ee3219ec3288403ee5",
+   "sha256": "9f8fc535250b992def16b770b9077e6c843c100eec3abc2720ed789ee013532a",
    "label_counts": {
     "T6": {
      "pos": 2050,
@@ -206,7 +206,7 @@
    "rows": 1450,
    "split": "dev",
    "task": "T6",
-   "sha256": "594d19038543685290f1453f05e12922d621e978580db9ae61b4fa2ad2efece5",
+   "sha256": "9840432f3509990db0fb2df448e09e6cce7eeb50adfde6f4eef7f69bbcaa6f3f",
    "label_counts": {
     "T6": {
      "pos": 250,
@@ -220,7 +220,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T6",
-   "sha256": "c5502f08ca8ad274027727c4b81162a1d9930c71daa0249db8e67bc3b7923441",
+   "sha256": "17096fbc1ec5152cf8fc0398f61b127334cacc7e3d97c97c40a556661e960e8c",
    "label_counts": {
     "T6": {
      "pos": 300,
@@ -374,23 +374,23 @@
   },
   {
    "path": "pool/train.jsonl",
-   "n": 47282,
-   "rows": 47282,
+   "n": 47142,
+   "rows": 47142,
    "split": "train",
    "task": "pool",
-   "sha256": "5217b881e5f564490949325a96bed13d3d148d84d0f88c02eb7c0dc8992d4968",
+   "sha256": "badbe164fc05a205cd23a5d89826791fc4f88b63b938f3f48a7e2a14f0f2e15e",
    "label_counts": {
     "T1": {
-     "pos": 8392,
-     "neg": 7320
+     "pos": 8360,
+     "neg": 7323
     },
     "T2": {
      "pos": 2126,
      "neg": 3500
     },
     "T3": {
-     "pos": 3054,
-     "neg": 5765
+     "pos": 2944,
+     "neg": 5764
     },
     "T5": {
      "pos": 9751,
@@ -408,22 +408,22 @@
   },
   {
    "path": "pool/dev.jsonl",
-   "n": 9800,
-   "rows": 9800,
+   "n": 9935,
+   "rows": 9935,
    "split": "dev",
    "task": "pool",
-   "sha256": "607fd8f7a99f9cb411b16a0279e2ed6aacd9051ee66e7150878b24a6527a18e0",
+   "sha256": "b191656b9b4f4d1fc47d0ee4992a71e2091be3b4f2ca647c0c13772e435862d7",
    "label_counts": {
     "T1": {
-     "pos": 230,
-     "neg": 5677
+     "pos": 258,
+     "neg": 5672
     },
     "T2": {
      "pos": 250,
      "neg": 5332
     },
     "T3": {
-     "pos": 481,
+     "pos": 593,
      "neg": 5480
     },
     "T5": {
@@ -506,9 +506,10 @@
   "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits attributed to shared policy-pack template ancestry)"
  },
  "disjointness": {
-  "train_rows": 104676,
+  "train_rows": 104397,
   "eval_rows": 16700,
   "exact_overlap": 0,
+  "content_overlap_qa_l1": 0,
   "mirror_eval_overlap": 0,
   "ood_t4_pos_rows": 0,
   "t4_entity_overlap": 0,

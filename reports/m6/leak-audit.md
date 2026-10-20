@@ -1,6 +1,6 @@
 # M6 H6 泄漏审计（data/m6/ vs data/heldout/）
 
-- 审计范围：训练侧 127584 行（t*/train+dev、pool/train+dev、dev-mirror）vs 冻结套件 1401 行（v0.2.3 / v0.3-gen / v0.4-toolout / v0.5-toolout-reg / v0.5-topup / v0.6-document / v0.6-dilution / v0.7-jailbreak）
+- 审计范围：训练侧 127579 行（t*/train+dev、pool/train+dev、dev-mirror）vs 冻结套件 1401 行（v0.2.3 / v0.3-gen / v0.4-toolout / v0.5-toolout-reg / v0.5-topup / v0.6-document / v0.6-dilution / v0.7-jailbreak）
 - A 精确匹配：规范化文本 sha16 交集 = **0**
 - B1 近似（含 system 模板，8-gram 覆盖率>30%）= 14 —— 全部为 v0.5-topup 的 policy-pack 系统提示模板共祖（pack 声明头部为渲染器脚手架，两侧语料共有），详见 B2
 - B2 近似（剥离 system 模板，正文级 8-gram 覆盖率>30%）= **0**
