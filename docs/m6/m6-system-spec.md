@@ -98,7 +98,7 @@ output-mode: structured
 </dsh-protocol>
 ```
 
-模板常量由渲染器模块导出（单一事实源），格式逆向核实自冻结套件 v0.4-toolout / v0.3-gen / v0.6-document。协议版本登记于 `manifest.render_protocol_version`；变更 = 新版本号 + SCHEMAS.md 登记。
+模板常量由渲染器模块导出（单一事实源）。**权威源纪律**：本模板的权威源 = **训练侧 secfm/carriers 序列化**（r5 特征在训练侧渲染上塑形，训练侧才是分布源头）；对冻结套件（v0.4-toolout / v0.3-gen / v0.6-document）的逆向核实定位为**格式交叉验证**（只验结构，不取 payload/措辞）——qa task-15 乙醇审计线索：sysdesign 未从 heldout 取任何内容进训练分布。两源有出入时以训练侧为准并登记偏差表。协议版本登记于 `manifest.render_protocol_version`；变更 = 新版本号 + SCHEMAS.md 登记。
 
 ## 5. 阈值分层与校准策略（M5；recall>95% 与 FPR<0.5%/挑战<0.1% 张力的化解）
 
@@ -129,7 +129,7 @@ d = min(d_benign, d_attack)；is_ood = (d > τ_ood)
     score_i > τ_strong_i            → flag_i = true              （强信号，OOD 无权压制）
     τ_flag_i < score_i ≤ τ_strong_i → flag_i = ¬is_ood            （弱带：OOD 抑制）
     score_i ≤ τ_flag_i              → flag_i = false
-T4 特例：flag_T4 = (上式 doc 头结果) ∨ (spans 并集非空)
+T4 特例：spans 非空 ⇒ 直接按 strong 带处理（flag=true 且不可被 OOD 抑制——token 级确凿证据，强于 doc 头分数，偏差 D-10）；否则 doc 头按上式双带
 decision = OR(flag_1..6)
 abstain  = (decision==pass ∧ is_ood ∧ ∃i: τ_flag_i < score_i ≤ τ_strong_i)
            ∨ input_error（渲染/前向失败 → 保守放过，format_ok=false）
@@ -234,6 +234,12 @@ BIO 通道 = 2×11+1 = **23**（从词表基数 derive，勿写死）。T4 主�
 | D-2 | 2026-10-21 | decision 值小写 pass\|flag（ADR 附录显示记法为大写） | sysdesign | SYS-1 终裁：沿 repo JSON 惯例（score_heldout_v2 词表全小写） |
 | D-3 | 2026-10-21 | calib.json 增 tau_ood/温度元数据/定标方法记录（超出 ADR §10 列举） | sysdesign | 补充性扩展，schema minor 版登记 |
 | D-4 | 2026-10-21 | docs/design/ → docs/m6/ 落盘位迁移 | sysdesign | 任务板 task-2 口径（与 ADR 同根）；简报原路径作废 |
+| D-5 | 2026-10-21 | m6_infer abstain 公式实现为 `any_suppressed`，应为 `(decision==pass ∧ is_ood ∧ ∃弱带)`（ADR §8 / SYS-1 §6） | sysdesign 检出 | **待 deveng 修**：decision=flag 时 abstain 必须 false（否则与"abstain 记 PASS"的验收口径矛盾）；被抑制任务的 suppressed 标记保留审计 |
+| D-6 | 2026-10-21 | m6_infer 将 T4 spans 放 `detail.spans`、T6 三值重复放 `detail.class` | sysdesign 检出 | **待 deveng 修**：spans 为一等字段 `tasks.T4.spans`（SYS-1 §3/ADR 附录 A）；T6 三值即 `label`，detail=null（adr-1b §6.2） |
+| D-7 | 2026-10-21 | m6_infer 读 calib/runpoint 的 `ood.threshold`，契约键为 `tau_ood`；缺键时静默 fallback 1.0 | sysdesign 检出 | **待 deveng 修（fail-closed）**：改读 `tau_ood`（过渡期双读+双键同现时 tau_ood 优先并告警）；缺键必须报错退出——原始距离尺度上 1.0 几乎恒不触发 OOD = 弃权机制静默失效；同时 thresholds_applied 须回显 `tau_ood`，载荷 `schema_version` 应为 "0.3.1" |
+| D-8 | 2026-10-21 | m6_infer verdict_line 内 decision 用大写 FLAG/PASS | sysdesign 检出 | **可接受**：verdict_line 为人读审计串（与 ADR 附录 A 显示记法一致）；机器读数走 `decision`（小写）。qa 复打分一律用 tasks/decision 字段 |
+| D-9 | 2026-10-21 | m6_infer 默认不写 latency_ms（--with-latency 开关，保逐字节确定性） | deveng 设计 | **schema 侧放宽**（v0.3.1）：latency_ms 转 optional——字节可复现优先，理由正当 |
+| D-10 | 2026-10-21 | m6_infer T4 实现：spans 非空直接进 strong 带（不可被 OOD 抑制） | deveng 实现 | **采纳为契约澄清**：spans = token 级确凿证据，语义上强于 doc 头分数；SYS-1 §6 T4 特例行据此更新 |
 
 ## 13. 版本与变更控制
 

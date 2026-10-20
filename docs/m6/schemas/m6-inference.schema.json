@@ -67,7 +67,7 @@
       "additionalProperties": false,
       "properties": {
         "flag": { "type": "boolean", "description": "双带派生（ADR-1 §8）：score>τ_strong ⇒ true；τ_flag<score≤τ_strong ⇒ ¬is_ood；score≤τ_flag ⇒ false。弃权时恒 false。T4 特例：flag = doc 头双带结果 ∨ (spans 非空)" },
-        "score": { "$ref": "m6-common.schema.json#/$defs/Score", "description": "原始分（阈值前，温度校准后）：正类概率（T6 = P(high-risk)；T4 = doc 头分数）。任何情况必须输出" },
+        "score": { "$ref": "m6-common.schema.json#/$defs/Score", "description": "原始分（阈值前，无温度缩放，score = σ(logit)——adr-1b §6.1 撤销温度）：正类概率（T6 = P(high-risk)；T4 = doc 头分数）。任何情况必须输出" },
         "label": {
           "type": ["string", "null"],
           "description": "解释性判词（wrapper 从头 logits 组装）：T1 contains-risk|clean；T2 jailbreak|normal；T3 malicious|benign；T4 contains-pii|clean；T5 contains-injection|clean；T6 high-risk|safe|conditional（conditional 不触发 flag）"
@@ -125,7 +125,7 @@
     },
     "Response": {
       "type": "object",
-      "required": ["schema", "schema_version", "request_id", "decision", "abstain", "abstain_reason", "ood", "tasks", "thresholds_applied", "latency_ms"],
+      "required": ["schema", "schema_version", "request_id", "decision", "abstain", "abstain_reason", "ood", "tasks", "thresholds_applied"],
       "additionalProperties": false,
       "properties": {
         "schema": { "const": "m6-inference-response" },
@@ -137,13 +137,13 @@
         },
         "abstain": {
           "type": "boolean",
-          "description": "弃权标志（ADR-1 §8 公式）：abstain = (decision==pass ∧ is_ood ∧ 任一任务分数曾落入弱带)；input_error 保守放过时亦为 true。验收口径：abstain 记 PASS；正样本上 abstain 计 FN、负样本上计 TN"
+          "description": "弃权标志（ADR-1 §8 公式）：abstain = (decision==pass ∧ is_ood ∧ 任一任务分数曾落入弱带)；input_error 保守放过时亦为 true。注意：decision=flag 时 abstain 必为 false（强信号在场则不称弃权；被抑制任务的 suppressed 标记保留供审计）。验收口径：abstain 记 PASS；正样本上 abstain 计 FN、负样本上计 TN"
         },
         "abstain_reason": { "$ref": "m6-common.schema.json#/$defs/AbstainReason" },
         "ood": { "$ref": "#/$defs/OodState" },
         "tasks": { "$ref": "#/$defs/Tasks" },
         "thresholds_applied": { "$ref": "#/$defs/ThresholdsApplied" },
-        "latency_ms": { "type": "number", "minimum": 0, "description": "端到端（渲染+前向+头+组装）；0.6B bf16 @4k ctx 参考值 ~40ms 级（D11）" },
+        "latency_ms": { "type": "number", "minimum": 0, "description": "可选（v0.3.1 起）：端到端时延。批量评测默认省略以保逐字节可复现（qa 哈希比对），交互式调用或 --with-latency 时写入。参考量级：0.6B bf16 @4k ctx ~40ms（D11）" },
         "model": {
           "type": "object",
           "additionalProperties": false,
