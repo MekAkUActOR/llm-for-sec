@@ -1,0 +1,53 @@
+# v1-3: head-only baseline refresh on the task-10 data wave (T4 benign-PII
+# negatives + form top-ups). No LoRA - separates data effects (v1-3 - v1-2)
+# from LoRA effects (v2 - v1-3) per arch task-10 ruling.
+base:
+  model_name_or_path: checkpoints/qwen3-06b-sec-m5a-dpo-r5
+  dtype: bf16
+probe:
+  tapped_layers: [4, 12, 20, 24, 28]
+  token_layers: [12, 28]
+  heads:
+    T1: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T2: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T3: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T4:
+      type: pii-dual
+      doc: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+      bio: {type: token-bio, dims: [2048, 512, 23], entity_types: 11, span_merge: bio-consecutive}
+      input: L12+L28-per-token-concat
+      flag_rule: doc_head_or_spans_nonempty
+    T5: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T6: {type: seq-mlp, dims: [1024, 256, 3], classes: 3}
+  aux_ood:
+    mechanism: mahalanobis
+    classes: [benign, attack]
+    feature: trunk_output
+    fit_on: train
+    lambda: 0.1
+  loss:
+    task_weights: {}
+    bio_weight: 2.0
+    bio_pos_weight: 15.0
+    label_masking: true
+run_id: m6-v1-3
+data:
+  manifest: data/m6/manifest.json
+  prefix_rows: exclude
+  seed: 42
+train:
+  max_epochs: 3
+  learning_rate: 0.001
+  optimizer: adamw
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.05
+  per_device_batch_size: 16
+  weight_decay: 0.01
+  grad_clip: 1.0
+  seed: 42
+  early_stop_patience: 1
+  bio_max_tokens: 512
+  extract_batch_rows: 16
+output_dir: checkpoints/m6-v1-3
+notes: 'v1-3 head-only refresh on task-10 data wave - guard baseline for v2
+  (data-effect vs LoRA-effect separation per arch task-10)'
