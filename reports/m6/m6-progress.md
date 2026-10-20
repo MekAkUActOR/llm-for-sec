@@ -23,8 +23,8 @@
 
 | 检查点 | 时刻 | 里程碑 | 状态 | 备注 |
 |--------|------|--------|------|------|
-| H1 | 10-21 02:30 | 设计冻结：ADR-1（task-1）+ 数据映射 DATA-1（task-3） | ✅ ~01:18 达成 | 运行时钟提前 ~72min（自报 02:05；时钟源声明见 §8） |
-| H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | 🔶 3/5 | task-2 ✅ ~01:42（SYS-1 v1.0.0 + schema v0.3.0 + 自检 14/14）+ U3 收口；剩 QA-1 冻结确认 + arch 咬合审查 |
+| H1 | 10-21 02:30 | 设计冻结：ADR-1（task-1）+ 数据映射 DATA-1（task-3） | ✅ ~01:23 达成 | 运行时钟提前 ~67min（自报 02:05；三次校正后 turn 插值映射，见 §8） |
+| H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | ✅ ~01:35 达成（提前 ~115min） | 5/5 全清：task-2 ✅ + schema v0.3.1 ✅（F1/F2 修复，自检 14/14，commit 7c4071d）+ QA-1 v1.2 FROZEN ✅ + task-7/9 双 claim ✅ + arch 咬合审查闭环 ✅（adr-1b §6.6）；关键路径转 dataeng T04/05/06 + deveng task-7 |
 | H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | ⏳ | v1 训练硬前置 |
 | H10 | 10-21 11:00 | v1 模型 + 首轮评测读数（task-8/9） | ⏳ | 训练窗口 H7-H9（GPU 预锁） |
 | H16 | 10-21 17:00 | v2 模型迭代（task-11） | ⏳ | 数据增补 H10-12 / 训练 H12-15（GPU 预锁） |
@@ -33,11 +33,11 @@
 
 ### H1.5 冻结验收清单（pm 维护，02:30 闹钟轮仪器）
 
-1. task-2 板上 complete（SYS-1 系统规格 + schema 契约冻结）
-2. SCHEMAS.md + 七份 schema 定稿（U3 字段名正式收口，deveng 锁 infer 输出 schema）
-3. QA-1 冻结版落盘（三大读数纪律 LOCKED 已确认；T4 两层措辞入冻结版）
-4. task-7/task-9 双解锁 → deveng claim task-7（预研就绪，claim 后即冲 complete）；qa 正式 claim task-9
-5. arch 咬合审查结论（SYS-1 与 ADR-1/1b 接口一致）记录在案
+1. ✅ task-2 板上 complete（SYS-1 v1.0.0 冻结）
+2. ✅ SCHEMAS.md + 七份 schema 定稿（v0.3.1：F1 温度表述 + F2 信封权威源修复，自检 14/14，commit 7c4071d）
+3. ✅ QA-1 v1.2 FROZEN（判读规则/运行点协议/接口对齐/红队 170 条六族/冻结套件映射 1770 行全 LOCKED）
+4. ✅ task-7/task-9 双 claim（板上 in_progress 确认）
+5. ✅ arch 咬合审查闭环：通过带修订 → SYS-1 r1 冻结（F1 实证核验 L70 无残留）；D-1..D-4 全批准；suppressed 审计字段入正式契约；adr-1b §6.6 闭环记录
 
 ### H6 数据冻结验收清单（pm 维护，07:00 检查点仪器）
 
@@ -48,6 +48,7 @@
 5. manifest 全量（文件/行数/来源/六任务标签分布/切分指纹）+ U4 dev 难负例标记落实
 6. 泄漏审计零泄漏（sha256 精确交集空 + 5-gram 可疑对逐对解释），qa 复核签字
 7. arch 六项 pool schema 要求落实（六维标签向量 / T6 三类 / 信封多样化 / reveal_turn / PII risk 映射 / T4 主门）
+8. arch 咬合审查连带行动项（已直发 dataeng）：OOD 集 PII-free（T4 span 通道绕过 OOD 抑制的架构后果）/ 占位符形凭证入 T4 难负例 / T3 双形态覆盖确认
 
 ## 3. WBS 任务板镜像（权威状态看 team_task_list；依赖已由 Lead 硬化 11 条边，readiness 门禁生效）
 
@@ -59,9 +60,9 @@
 | task-4 | 数据构建：六任务 train/dev | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-5 | 数据构建：挑战集 + OOD 集 | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4,5 | H6 07:00 | pending |
-| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | ready（双解锁已确认；已催 deveng claim，预研就绪即冲 complete） |
+| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | in_progress（已 claim；sysdesign 预检检出 D-5/D-6/D-7 三处实现偏差已发 deveng，arch 复核清单逐项跟踪关闭） |
 | task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4,6,7 | H10 11:00 | pending |
-| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | ready（双解锁已确认；已催 qa claim + QA-1 最终冻结确认） |
+| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | in_progress（已 claim；QA-1 v1.2 FROZEN，harness 三件对 stub 冒烟中，基线 v0 H6-H8） |
 | task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | pending |
 | task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | pending |
 | task-12 | 验收：acceptance 全量轮 | qa-m6 | 11 | H20 21:00 | pending |
@@ -124,6 +125,9 @@
 - 01:38 arch-m6 执行时钟勘误：adr-1b §5.1 追加（append-only，不改写历史）——声明 01:20 后自报时刻为无时钟估计值、系统性超前 40-50min，附自报标签→运行时钟校正表；后续修订一律用运行时钟。层级确认：**最终报告时间线以本文档 §8 归一口径为准**（运行时 turn 采样为唯一锚点：01:06:05 / 01:16:31 / 01:26:50；个体事件锚点估计差 ≤5min，不影响事件序）；arch 后续消息时刻遵守同口径或只标事件序。
 - 01:42 sysdesign-m6 task-2 complete（SYS-1 v1.0.0）：docs/m6/m6-system-spec.md（模块分解 M1-M8、输出协议终裁、渲染器契约含 dsh-protocol/0.1 信封模板、阈值分层与校准 dev-only 联合 OR 门、OOD 弃权判据、时延/显存预算、词表章节 PII 11 类 + T6 t6_class、偏差登记表 D-1..D-4 append-only）+ schemas 七件套 v0.3.0（对齐 ADR-1/adr-1b §6.1-6.3 + U1/U2/透明度骑手）+ scripts/m6_check_schemas.py 契约自检（$ref 完整性 + 14 冒烟用例含弃权不变量与 t6_class 漂移负例，14/14 过）。U3 终稿已发 qa/deveng（deveng 4 处更名：results→tasks / action→decision / ood.score 原始距离 / latency_ms 顶层），task-7/9 双解锁（板上 ready:true 确认）；commits e95c012+bb18c37 待 Lead push。sysdesign 转迭代期职责（规格-实现一致性/偏差登记表/schema 版本管理/阈值弃权支持），Lead 评审意见 1h 内出修订。
 - 01:47 Lead：sysdesign commits 已 push（HEAD eb9d829 连同 pm 活文档系列，git log 可证）；task-7/9 催办与 02:30 按 H1.5 清单收口照准；**点名盯防 m4 断言勘误（H6 清单#2 硬项）**——列为 pm 活跃盯防项：02:30 前无 dataeng 消息则该轮点名核查。
+- ~01:32 arch-m6 SYS-1 咬合审查结论：通过带修订——F1 必改（m6-inference.schema L70 score 描述"温度校准后"与 adr-1b §6.1 温度撤销矛盾，纯文本级）+ F2 建议（§4.2 信封模板补权威源注记，权威源=训练侧 secfm/carriers，heldout 仅格式交叉验证）；偏差 D-1..D-4 全批准；PiiType/PiiDualHead/t6_class/aux_ood/loss 配置面/spans 坐标/abstain 条件式逐项核验一致；suppressed 审计字段（弱带抑制标记）超预期采纳为正式契约；连带 dataeng 行动项 2+1：OOD 集 PII-free、占位符形凭证入 T4 难负例（T4 span 通道绕过 OOD 抑制的架构后果）、T3 双形态覆盖确认。
+- ~01:34 qa-m6 QA-1 v1.2 FROZEN（reports/m6/qa-1-acceptance-spec.md）：判读规则全 LOCKED（预测函数：弃权→PASS/正例弃权记 FN/raw 取或；G1-G5 门；Clopper-Pearson CI95 标红；OOD 双列弃权披露；T4 两层口径；透明度骑手）；运行点协议 §4（QA 独立选点：网格 0.05-0.95 预冻结、FPR≤0.4%/chFPR≤0.08% 可行域、argmax recall、并列取保守、无可行点即 NO-FEASIBLE-POINT=FAIL；calib.json 推荐点双报交叉验证；THRESHOLD-FISHING 审计）；接口对齐 SYS-1 v0.3.0 终稿（tasks/decision/ood.score/suppressed/thresholds-json）；红队集 v1：170 条六族（A 话术/B 编码/C 多轮剧本/D 伪造指令注入/E 隐蔽载体/F PII 隐蔽形态），build 校验通过（id 唯一/编码可解码断言/零武器化粗筛保留域检查），T4 覆盖补齐；冻结套件映射器跑通：1770 行（v023 434/gen 258/jb 150/toolout 397/topup 85/document 80/dilution 96）→ reports/m6/frozen-suite-mapping.json；harness 主体（m6_acceptance.py/m6_metrics.py/m6_heldout_map.py）写完，对 deveng stub 冒烟中；task-9 已 claim。
+- ~01:36 arch-m6 确认 H1.5 5/5 达成：SYS-1 r1 冻结——F1（score 温度表述，实证核验 L70 修复无残留）/ F2（信封权威源纪律段）均修复，schema v0.3.1 + 自检 14/14，commit 7c4071d，adr-1b §6.6 闭环记录落盘。sysdesign 预检 deveng 在途 m6_infer.py 检出 3 处实现偏差（D-5 abstain 公式 / D-6 spans 字段位 / D-7 τ_ood 键名+静默 fallback）——已发 deveng 修正、登记 SYS-1 §12，不影响 SYS-1 冻结，三项转 arch task-7 复核清单逐项验证关闭。关键路径：dataeng T04/05/06（H6 数据冻结）+ deveng task-7（管线）。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -160,6 +164,8 @@
 - 01:28 qa 状态同步（QA-1 冻结前）：详见决策日志 01:28 条——T4 措辞/三大纪律 LOCKED/校准咬合/乙醇红线延伸/红队 160 条；U3 已消化（未决项表收口）。
 - 01:42 sysdesign 交付 task-2（SYS-1 v1.0.0 + schema v0.3.0 + 自检 14/14），H1.5 达成 3/5——剩 QA-1 最终冻结确认 + arch 咬合审查（已点开）；task-7/9 双解锁（板上 ready:true），已催 deveng/qa claim；已报 Lead 里程碑。
 - 01:47 Lead 确认：push 完成（git log 可证）、催办与 02:30 收口照准；m4 断言勘误列活跃盯防项（02:30 前无 dataeng 消息即点名）。
+- 01:37 H1.5 冲刺记录（事件窗口 01:27-01:37）：arch 咬合审查通过带修订（~01:32）→ qa QA-1 v1.2 FROZEN + task-9 claim（~01:34）→ arch 确认 SYS-1 r1 冻结 v0.3.1（commit 7c4071d，adr-1b §6.6）→ **H1.5 5/5 全清（~01:35，提前 ~115min）**。连带吸收：arch 2+1 dataeng 行动项入 H6 清单 #8；D-5/D-6/D-7 实现偏差转 task-7 复核清单（sysdesign 预检）。关键路径：dataeng T04/05/06 + deveng task-7。
+- 01:37 【时钟源声明·三次校正】新锚点 turn7=01:37:10（前值 T1=01:06:05 / T3=01:16:31 / T6=01:26:50）。上采样后写入的 01:33-01:47 系列为插值估计、系统性超前 3-16min——该窗口全部事件实际发生于 01:27-01:37；映射：01:33→~01:28、01:38→~01:29、01:42→~01:30、01:47→~01:31。早期映射修正（turn 插值）：02:05→~01:23、02:15→~01:26、02:20→~01:27。**协议升级**：PM 新条目此后只标事件序或 ~近似值，墙钟在每个运行时采样点统一校准；里程碑以"真实达成 + 提前量"在检查点表维护（H1 ~01:23 提前 ~67min；H1.5 ~01:35 提前 ~115min）。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
