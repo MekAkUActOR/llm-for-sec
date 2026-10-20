@@ -6,18 +6,21 @@ shared trunk + heads -> two-band decision + OOD suppression -> Response.
 
 Output rows (JSONL) conform to docs/m6/schemas/m6-inference.schema.json:
   {schema, schema_version, request_id, abstain, abstain_reason, ood,
-   results:{T1..T6:{flag,score,label,suppressed,findings,detail}},
-   thresholds_applied:{T1..T6:{flag,strong},source}, action,
-   model?, diagnostics?, verdict_line}
+   tasks:{T1..T6:{flag,score,label,suppressed,findings,spans?,detail?}},
+   thresholds_applied:{T1..T6:{flag,strong},source,tau_ood}, decision,
+   latency_ms?, verdict_line}
 
 Decision (ADR-1 §8, two-band):
   score > tau_strong            -> flag (OOD cannot suppress)
   tau_flag < score <= tau_strong-> flag unless is_ood (suppressed marker)
   score <= tau_flag             -> pass
   T4 flag = doc-band OR spans nonempty (spans = strong evidence)
-  abstain = any task suppressed; action = flag if any flag else pass
+  abstain = (decision==pass AND is_ood AND weak-band hit)   [ADR-1 §8;
+    suppressed task markers stay as audit trail even when abstain=false]
+  decision = flag if any task flag else pass (lowercase enum, D-2)
   score = sigmoid(logit) raw scale (adr-1b 6.1: NO temperature applied);
-  T6 score = P(high-risk) via softmax.
+  T6 score = P(high-risk) via softmax; ood.score = RAW Mahalanobis
+  distance (>=0, unnormalized; sysdesign v0.3.0).
 
 Threshold priority: request override (--thresholds-json, partial ok)
   > runpoint file (--runpoint, m6-thresholds schema)
@@ -191,10 +194,11 @@ class M6Inferencer:
         for r in records:
             try:
                 inp = normalize_input(r)
-                rendered, msg_spans = render(self.tok, inp)
+                rendered, msg_spans, fmap = render(self.tok, inp)
                 tw = tokenize_windowed(self.tok, rendered)
                 prepared.append({"ok": True, "inp": inp, "tw": tw,
-                                 "msg_spans": msg_spans, "kind": inp["kind"]})
+                                 "msg_spans": msg_spans, "fmap": fmap,
+                                 "kind": inp["kind"]})
             except Exception as e:  # conservative pass on render failure
                 prepared.append({"ok": False, "err": str(e), "kind": "?"})
 
@@ -226,6 +230,22 @@ class M6Inferencer:
               f"({dt / max(1, len(records)):.1f} ms/row)")
         return rows
 
+    def _verdict_line(self, base, tasks, spans):
+        """Single-source verdict_line (SYS-1 §3: same source, same values as
+        the response body). decision mirrors the lowercase top-level enum;
+        raw suppression audit lives in suppressed_any, never in abstain."""
+        return json.dumps({
+            "model": self.model_id,
+            "decision": base["decision"],
+            "abstain": base["abstain"],
+            "abstain_reason": base["abstain_reason"],
+            "suppressed_any": any(t.get("suppressed") for t in tasks.values()),
+            "ood": base["ood"],
+            "tasks": {t: {"label": tasks[t]["label"],
+                          "score": tasks[t]["score"],
+                          "flag": tasks[t]["flag"]} for t in TASKS},
+            "pii": {"spans": spans}}, ensure_ascii=False)
+
     def _build_row(self, rec, p, ci, ok_idx, feats, tokfeats):
         rid = str(rec.get("id", rec.get("request_id", "")))
         base = {
@@ -244,9 +264,8 @@ class M6Inferencer:
                 base["tasks"][t] = {
                     "flag": False, "score": 0.0, "label": None,
                     "suppressed": False, "findings": [], "detail": None}
-            base["verdict_line"] = json.dumps(
-                {"model": self.model_id, "decision": "PASS", "abstain": True,
-                 "abstain_reason": "input_error", "tasks": {}}, ensure_ascii=False)
+            base["verdict_line"] = self._verdict_line(
+                base, base["tasks"], [])
             return base
 
         k = ok_idx.index(ci)
@@ -254,6 +273,7 @@ class M6Inferencer:
         out = self.model(x)
         scores = {t: float(torch.sigmoid(out[t][0])) for t in
                   ("T1", "T2", "T3", "T4doc", "T5")}
+        logits = {t: float(out[t][0]) for t in ("T1", "T2", "T3", "T4doc", "T5")}
         p6 = torch.softmax(out["T6"][0], dim=-1).cpu().numpy()
         scores["T6"] = float(p6[0])
         pred6 = int(out["T6"][0].argmax())
@@ -261,12 +281,13 @@ class M6Inferencer:
         # PII spans from BIO head (slice to real token count; batch pads beyond)
         xt = torch.tensor(tokfeats[k:k + 1], dtype=torch.float32).to(self.device)
         bio_logits = self.model.forward_bio(xt)[0].cpu().numpy()  # [T_pad, n_bio]
-        tw, msg_spans = p["tw"], p["msg_spans"]
+        tw, msg_spans, fmap = p["tw"], p["msg_spans"], p.get("fmap")
         bio = bio_logits.argmax(-1)[:len(tw["input_ids"])].tolist()
         msgs = _addressable_messages(p["inp"])
         spans = bio_to_spans(
             bio, tw["offsets"], msg_spans,
-            lambda mi: msgs[mi] if mi < len(msgs) else (msgs[0] if msgs else ""))
+            lambda mi: msgs[mi] if mi < len(msgs) else (msgs[0] if msgs else ""),
+            fmap)
 
         # OOD on trunk features (raw distance)
         with torch.no_grad():
@@ -279,8 +300,17 @@ class M6Inferencer:
         for t in TASKS:
             s = scores["T4doc"] if t == "T4" else scores[t]
             thr = self.thresholds[t]
-            strong = s > thr["strong"]
-            mid = thr["flag"] < s <= thr["strong"]
+            # band comparison: logit-space when the runpoint provides
+            # flag_logit/strong_logit (fp32 sigmoid saturates to 1.0 at
+            # logit>~16.6 collapsing score resolution); else score-space
+            fl, sl = thr.get("flag_logit"), thr.get("strong_logit")
+            if t == "T6" or fl is None:
+                strong = s > thr["strong"]
+                mid = thr["flag"] < s <= thr["strong"]
+            else:
+                lv = logits["T4doc"] if t == "T4" else logits[t]
+                strong = lv > sl
+                mid = fl < lv <= sl
             if t == "T4":
                 strong = strong or len(spans) > 0
             if strong:
@@ -322,13 +352,7 @@ class M6Inferencer:
             # determinism note: only enabled for interactive use, never in
             # batch files (qa hashes byte-identical outputs)
             base["latency_ms"] = round(self._row_latency_ms, 3)
-        base["verdict_line"] = json.dumps({
-            "model": self.model_id,
-            "decision": "FLAG" if decision == "flag" else "PASS",
-            "abstain": any_suppressed, "ood": base["ood"],
-            "tasks": {t: {"label": tasks[t]["label"], "score": tasks[t]["score"],
-                          "flag": tasks[t]["flag"]} for t in TASKS},
-            "pii": {"spans": spans}}, ensure_ascii=False)
+        base["verdict_line"] = self._verdict_line(base, tasks, spans)
         return base
 
     def infer_file(self, input_path: str, output_path: str) -> dict:

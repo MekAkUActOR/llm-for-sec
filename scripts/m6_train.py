@@ -553,15 +553,40 @@ def calibrate(model, A, D, out_dir, cfg):
             thresholds[t] = {"flag": 0.5, "strong": 0.9}
             curves[t] = []
             continue
-        neg_max = float(neg_s.max())
-        pos_q05 = float(np.quantile(pos_s, 0.05))
-        delta = pos_q05 - neg_max
-        if delta <= 0:
-            delta = 0.02
-        tau_flag = min(0.999, neg_max + delta)
-        pos_q10 = float(np.quantile(pos_s, 0.10))
-        tau_strong = min(0.9999, max(pos_q10, tau_flag + 0.02))
-        thresholds[t] = {"flag": round(tau_flag, 6), "strong": round(tau_strong, 6)}
+        if t == "T6":
+            # T6 score = softmax P(high-risk) (bounded, no sigmoid-style
+            # saturation at benign max 0.947): score-space thresholds
+            neg_max = float(neg_s.max())
+            pos_q05 = float(np.quantile(pos_s, 0.05))
+            delta = pos_q05 - neg_max
+            if delta <= 0:
+                delta = 0.02
+            tau_flag = min(0.999, neg_max + delta)
+            pos_q10 = float(np.quantile(pos_s, 0.10))
+            tau_strong = min(0.9999, max(pos_q10, tau_flag + 0.02))
+            thresholds[t] = {"flag": round(tau_flag, 6),
+                             "strong": round(tau_strong, 6)}
+        else:
+            # T1-T5: LOGIT-SPACE calibration (ADR D8 zero-FP construction):
+            # fp32 sigmoid saturates to 1.0 at logit>~16.6, collapsing score
+            # resolution; a score cap (min(0.999,...)) breaks zero-FP whenever
+            # benign rows saturate. Thresholds derived on logits, echoed as
+            # scores.
+            lg = out_d["T4doc" if t == "T4" else t].cpu().numpy()
+            pos_l, neg_l = lg[m & (g == 1)], lg[m & calib_neg]
+            neg_max = float(neg_l.max())
+            pos_q05 = float(np.quantile(pos_l, 0.05))
+            delta = pos_q05 - neg_max
+            if delta <= 0:
+                delta = 1.0  # logit-scale margin (adr-1b: margin, no temp)
+            tau_flag_l = neg_max + delta
+            pos_q10 = float(np.quantile(pos_l, 0.10))
+            tau_strong_l = max(pos_q10, tau_flag_l + 1.0)
+            thresholds[t] = {
+                "flag": round(float(torch.sigmoid(torch.tensor(tau_flag_l))), 6),
+                "strong": round(float(torch.sigmoid(torch.tensor(tau_strong_l))), 6),
+                "flag_logit": round(tau_flag_l, 4),
+                "strong_logit": round(tau_strong_l, 4)}
         grid = np.unique(np.concatenate([
             np.quantile(pos_s, np.linspace(0, 1, 21)),
             np.quantile(neg_s, np.linspace(0, 1, 21))]))
@@ -580,6 +605,9 @@ def main():
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--reuse-cache", action="store_true",
                     help="skip stage A if caches exist")
+    ap.add_argument("--recalibrate", action="store_true",
+                    help="skip stage B training; load out_dir/probe-heads.pt "
+                         "and re-run calibration only (weights untouched)")
     args = ap.parse_args()
 
     cfg = load_config(args.config)
@@ -607,7 +635,23 @@ def main():
         if args.device.startswith("cuda"):
             torch.cuda.empty_cache()
 
-    model, A, D, TB, TBd = train_stage_b(cfg, cache_dir, out_dir, args.device)
+    if args.recalibrate:
+        # calibration-only pass on existing weights: model unchanged,
+        # thresholds recomputed (e.g. logit-space fix on a frozen v1)
+        A = np.load(cache_dir / "feats_train.npz", allow_pickle=True)
+        D = np.load(cache_dir / "feats_dev.npz", allow_pickle=True)
+        ckpt = torch.load(out_dir / "probe-heads.pt", map_location="cpu",
+                          weights_only=True)
+        sd = ckpt["state"] if isinstance(ckpt, dict) and "state" in ckpt else ckpt
+        model = M6Probe(A["pooled"].shape[1]).to(args.device)
+        model.load_state_dict(sd)
+        model.eval()
+        bio_dev_path = cache_dir / "tokfeats_dev.npz"
+        TBd = np.load(bio_dev_path, allow_pickle=True) if bio_dev_path.is_file() else None
+        TB = None
+        print(f"[m6_train] recalibrate-only: loaded {out_dir / 'probe-heads.pt'}")
+    else:
+        model, A, D, TB, TBd = train_stage_b(cfg, cache_dir, out_dir, args.device)
 
     # BIO head dev metrics (token-level, flat storage gather)
     bio_metrics = {}
@@ -656,15 +700,29 @@ def main():
                     "curves": curves}, ensure_ascii=False, indent=2),
         encoding="utf-8")
 
-    # dev metrics at operating point
+    # dev metrics at operating point (LOGIT-space comparison, matching
+    # m6_infer: fp32 sigmoid saturates to 1.0 at logit>~16.6, so score-space
+    # > tau comparisons are unreliable near saturation)
     Ydv, neg = D["Y"], D["neg_all"]
     metrics = {"bio_token": bio_metrics, "tau_ood": round(tau_ood, 4), "tasks": {}}
+    with torch.no_grad():
+        out_dv = model(torch.tensor(D["pooled"].astype(np.float32))
+                       .to(next(model.parameters()).device))
+    logits_dv = {t: out_dv["T4doc" if t == "T4" else t].cpu().numpy()
+                 for t in ("T1", "T2", "T3", "T4", "T5")}
     for j, t in enumerate(TASKS):
         s = scores["T4doc"] if t == "T4" else scores[t]
+        lg = logits_dv.get(t)
         g = Ydv[:, j]
         m = g >= 0
         thr = thresholds[t]["flag"]
-        pred = (s > thr).astype(np.int8)
+        thr_l = thresholds[t].get("flag_logit")
+        if t == "T6":
+            pred = (s > thr).astype(np.int8)  # T6: softmax prob, no saturation
+        elif thr_l is not None:
+            pred = (lg > thr_l).astype(np.int8)
+        else:
+            pred = (s > thr).astype(np.int8)
         gold = (g == 1).astype(np.int8)
         pos_m, neg_m = m & (gold == 1), m & neg
         rec = float((pred[pos_m] == 1).mean()) if pos_m.any() else None
@@ -673,8 +731,11 @@ def main():
             "recall": round(rec, 4) if rec is not None else None,
             "fp_dev_neg": fp, "n_neg": int(neg_m.sum()),
             "thresholds": thresholds[t]}
+        extra = (f" tau_logit=({thr_l},{thresholds[t].get('strong_logit')})"
+                 if thr_l is not None else "")
         print(f"[m6_train] {t}: recall={rec if rec is None else round(rec, 3)} "
-              f"FP={fp}/{int(neg_m.sum())} tau=({thr:.3f},{thresholds[t]['strong']:.3f})")
+              f"FP={fp}/{int(neg_m.sum())} tau=({thr:.3f},{thresholds[t]['strong']:.3f})"
+              f"{extra}")
     (out_dir / "metrics.json").write_text(
         json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "config.json").write_text(
