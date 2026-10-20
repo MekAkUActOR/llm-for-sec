@@ -31,6 +31,14 @@
 | H20 | 10-21 21:00 | 验收轮：acceptance harness 全量（task-12） | ⏳ | 验收窗口 H20-H21（GPU 预锁） |
 | H23 | 10-22 00:00 | 报告/上传/交接收尾（task-13/14） | ⏳ | 窗口 01:04 关闭 |
 
+### H1.5 冻结验收清单（pm 维护，02:30 闹钟轮仪器）
+
+1. task-2 板上 complete（SYS-1 系统规格 + schema 契约冻结）
+2. SCHEMAS.md + 七份 schema 定稿（U3 字段名正式收口，deveng 锁 infer 输出 schema）
+3. QA-1 冻结版落盘（三大读数纪律 LOCKED 已确认；T4 两层措辞入冻结版）
+4. task-7/task-9 双解锁 → deveng claim task-7（预研就绪，claim 后即冲 complete）；qa 正式 claim task-9
+5. arch 咬合审查结论（SYS-1 与 ADR-1/1b 接口一致）记录在案
+
 ### H6 数据冻结验收清单（pm 维护，07:00 检查点仪器）
 
 1. task-4 train/dev 落盘：六任务正例覆盖全部子类，规模达配比与功效要求（U5：heldout 正例 ≥200/任务、benign 负例 ≥1000）
@@ -112,6 +120,7 @@
 - 01:22（arch 自报 02:15）arch-m6 ADR-1b 落盘（docs/arch/m6-adr-1b.md，append-only 与 ADR-1 同效）：①Lead 终裁记录（12 项全过 + §10-3 dev-only / §13 pooled 门两确认 + 透明度骑手操作化：验收报告逐套件 recall 点估计+CI，90-95% 带 pass-with-flag 写入最终报告）；②§3 m4 标签方向实证勘误【约束 dataeng】——标签一律取 chosen VERDICT（action∈{refuse,report}→正例；answer+allow/benign→负例；conditional→T6 条件类；insufficient-context 弃用；reserve 行禁用 action 规则改用源库危害标注），DATA-1 v1 的 rejected 基筛选方向有偏（会把 bt330 1,904 真正例与 carrier_inject_obedient 2,360 T5 正例划入负例侧），task-4 构建前须修正并加每 dpo_class 极性断言；③§4 T4 主门 = 自建 data/m6/t4 heldout（span 级，H6 冻结），v0.2.3 privacy 仅参照曲线（其 must_refuse 测应答者拒答而非文档含 PII）。
 - 01:26 arch-m6 确认 T4 口径两层读法并给出精确措辞（QA-1 冻结对齐用）：T4 主门指标 = 条目级，在自建 data/m6/t4 heldout（span 标注）上测，融合旗标 pii.flag = doc 头 ∨ span 并集非空（ADR §4/D5 定义，非单 doc 头）；span 级逐类型 precision/recall = 附加诊断列不进门；v0.2.3 privacy 仅参照。另确认 m4 chosen 断言 dataeng 已在跑（"冲突停下上报"纪律）。
 - 01:28 qa-m6 QA-1 冻结前状态：T4 两层措辞已改毕（与 ADR-1b §4 完全一致）；三大读数纪律全 LOCKED（透明度骑手入 §5 参照门、U1 双列弃权披露入 §3.5、U2 逐任务挑战门 + Clopper-Pearson CI95 标红入 §3.4/§3.8）；§4.0 新增校准咬合（推荐运行点主读数 + QA 独立选点交叉验证双报；calib.json 只用 dev 入 task-15 审计项）；乙醇红线延伸登记（t4 heldout 独立成集，task-5/6 会审核对 manifest 切分目录绑定 + 8-gram 断言）；红队 A-E 五族 160 条完成、build 校验脚本进行中；无遗留未决项，U3 随 SYS-1 schema 消化。
+- 01:33 Lead 确认时钟源处理协议（确立为惯例）：事件真实性以板面/磁盘/commit 为证、时刻以运行时采样为准、自报时刻引用须注明；Lead 检查点闹钟挂真实墙钟（02:30/07:00/11:00/17:00/21:00/00:00）不受自报影响；02:30 轮重点 = SYS-1/QA-1 冻结确认。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
