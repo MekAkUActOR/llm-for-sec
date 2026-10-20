@@ -261,7 +261,7 @@ BIO 通道 = 2×11+1 = **23**（从词表基数 derive，勿写死）。T4 主�
 | D-8 | 2026-10-21 | m6_infer verdict_line 内 decision 用大写 FLAG/PASS | sysdesign 检出 | **可接受**：verdict_line 为人读审计串（与 ADR 附录 A 显示记法一致）；机器读数走 `decision`（小写）。qa 复打分一律用 tasks/decision 字段 |
 | D-9 | 2026-10-21 | m6_infer 默认不写 latency_ms（--with-latency 开关，保逐字节确定性） | deveng 设计 | **schema 侧放宽**（v0.3.1）：latency_ms 转 optional——字节可复现优先，理由正当 |
 | D-10 | 2026-10-21 | m6_infer T4 实现：spans 非空直接进 strong 带（不可被 OOD 抑制） | deveng 实现 | **采纳为契约澄清**：spans = token 级确凿证据，语义上强于 doc 头分数；SYS-1 §6 T4 特例行据此更新 |
-| D-11 | 2026-10-21 | m6_infer verdict_line 内 `"abstain": any_suppressed` 与顶层 abstain（`any_suppressed ∧ decision==pass`）语义分叉 | sysdesign 检出 | **低优先建议**：decision=flag ∧ 有抑制时两处 abstain 值不同（verdict_line=true / 顶层=false）。建议 verdict_line.abstain 镜像顶层值，原始抑制信息另立键（如 `suppressed_any`）——同一响应内两个同名不同义字段是下游解析陷阱（M6VERDICT 行会被旧仪器解析）。deveng 酌情 |
+| D-11 | 2026-10-21 | m6_infer verdict_line 内 `"abstain": any_suppressed` 与顶层 abstain（`any_suppressed ∧ decision==pass`）语义分叉 | sysdesign 检出 | **已关闭（2026-10-21，arch N-1(b) 同根）**：deveng 修复 = 单一组装函数 `_verdict_line(base, tasks, spans)` 从响应对象序列化（常规+input_error 两路径共用），verdict_line.abstain 镜像顶层，抑制审计独立键 `suppressed_any`。**验证双绿**：deveng 30/30 单测 + sysdesign 独立 stub 验证（scripts/m6_check_response.py，同源同值断言全过，10/10 行含 fail-soft/input_error 路径） |
 
 ## 13. 版本与变更控制
 
