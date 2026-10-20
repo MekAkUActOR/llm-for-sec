@@ -182,3 +182,19 @@ challenge 1,500（四族：sec-research 294/medical-legit 611/dualuse 186/inj-sh
 - t6 conditional 871 vs §6.2 估计 ~3.9k：reserve 弃用（§6.4-5 已批准）+ policy 采样所致，路径合规（arch 追溯注）
 - L4 5-gram containment 高读数为模板数据结构性相似（qa 已降级披露读数）；B2 正文级佐证见 leak-audit.md
 - 复核链：qa leak-check 复检 → sysdesign m6_h6_audit 四层 → arch 独立复验 → 冻结
+
+---
+
+# v2.1 热修补记（H6 冻结后，arch 裁定，commit 35943e2）
+
+**发现**：deveng 从 v1 读数发现 reserve-cvalues 家族行内容为有害 query 却标 T1-neg（T2 头 logit 17-37）。溯源：conv_cvalues 误用 cvalues 的 id 前缀（cv-harm/cv-help）判极性——前缀实为批次标签非极性标签，cv-help 批次同样是有害 prompt + 拒答 chosen 的 DPO 对。~4,000 行（train 2,672 / dev 399 / heldout 929）标签翻转。
+
+**修复**（arch 四条件全执行）：
+1. 同类捷径全清扫：convert_legacy 仅 2 处 id 推断极性——cvalues 前缀（本 bug，已修）；f5 尾缀 -m/-b（全量 1,000 对验证 100% 一致，非 bug，登记在案）。其余路径全走 VERDICT/allowed-map。
+2. 断言覆盖延伸：cvalues 路径极性纯度断言固化（emit 后 sink 内 reserve-cvalues 必须全 pos + converter 零 neg，违者 exit 2）。
+3. 规模门自查：GATES ALL PASS——T1 train p8513/n3025、dev p297/n1200、heldout p300/n1263；reserve-cvalues 终态 train pos 3,843 / dev 75 / heldout 82、零 neg；T1 train neg 构成 = f5-paired 760 + r9-paired 165 + benign 投影 2,100。
+4. 波稳定信号在最终 flush 后发出。
+
+**split 全量重排连带**：T3 dev pos 526→610、t4 swap 3 行；isolation 我侧全 PASS（exact 0 / content_qa_l1 0 / mirror 0 / ood_t4_pos 0 / t4_entity 0/644）。复核链重跑：qa 热修证书 PASS（leak-check-h6-hotfix1.json：L1 0-0 / L2 0 / L3 0 / L5 0）｜arch、sysdesign 在途。
+
+**失效类登记**（pm task-14 素材呼应）：标签语义类 bug 是冻结审计（切分/泄漏向）未覆盖的失效类——防御 = 每家族极性 spot-check 对源批次语义 + 转换路径断言全覆盖（本补记条件 2 已固化）。
