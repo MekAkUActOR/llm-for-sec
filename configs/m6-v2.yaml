@@ -1,0 +1,71 @@
+# v2 config: LoRA joint training per ADR-1 §16 (trigger conditions met;
+# arch task-10 baseline: v1-2). Focus allocation T1>T3>T2 via task_weights.
+# NOTE: data patterns unchanged - dataeng will land the cross-key negative
+# projection (T6 conditional/safe -> T2-neg supervision, pending arch's
+# mask-vs-neg semantic ruling) by regenerating the same files; the config
+# stays valid either way (manifest-driven).
+base:
+  model_name_or_path: checkpoints/qwen3-06b-sec-m5a-dpo-r5
+  dtype: bf16
+probe:
+  tapped_layers: [4, 12, 20, 24, 28]
+  token_layers: [12, 28]
+  heads:
+    T1: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T2: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T3: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T4:
+      type: pii-dual
+      doc: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+      bio: {type: token-bio, dims: [2048, 512, 23], entity_types: 11, span_merge: bio-consecutive}
+      input: L12+L28-per-token-concat
+      flag_rule: doc_head_or_spans_nonempty
+    T5: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T6: {type: seq-mlp, dims: [1024, 256, 3], classes: 3}
+  aux_ood:
+    mechanism: mahalanobis
+    classes: [benign, attack]
+    feature: trunk_output
+    fit_on: train
+    lambda: 0.1
+  loss:
+    task_weights: {T1: 2.0, T2: 1.4, T3: 1.7, T4: 1.0, T5: 1.0, T6: 1.0}
+    bio_weight: 2.0
+    bio_pos_weight: 15.0
+    label_masking: true
+run_id: m6-v2
+data:
+  manifest: data/m6/manifest.json
+  prefix_rows: exclude
+  seed: 42
+train:
+  max_epochs: 5
+  learning_rate: 0.001
+  optimizer: adamw
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.05
+  per_device_batch_size: 16
+  weight_decay: 0.01
+  grad_clip: 1.0
+  seed: 42
+  early_stop_patience: 2
+  bio_max_tokens: 512
+  extract_batch_rows: 16
+  lora:
+    enabled: true
+    r: 16
+    alpha: 32
+    dropout: 0.05
+    lr: 0.0001
+    target_modules: [q_proj, k_proj, v_proj, o_proj]
+    layer_from: 14
+    layer_to: 28
+    lora_bio_extra_rows: 2
+  lora_center_max_rows: 3000
+  # arch task-10 v1-2 baseline: regression guard (>1pp regression on any
+  # task disqualifies the epoch from best-selection)
+  baseline_readings: {T1: 0.680, T2: 0.812, T3: 0.751, T4: 0.885, T5: 0.948, T6: 0.976}
+output_dir: checkpoints/m6-v2
+notes: 'v2 LoRA joint training - focus T1>T3>T2 (task_weights per gap), r16
+  q/k/v/o L14-28, lr 1e-4 lora / 1e-3 heads, 5ep + patience 2 (arch-approved
+  for joint training), regression guard vs v1-2 baseline'
