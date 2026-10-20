@@ -365,35 +365,50 @@ def conv_staging_t13(path, sinks, dd):
     return stats
 
 
-def conv_cvalues(path, sinks, dd, max_pos=4000, max_neg=4000):
+_REFUSE_PAT = __import__("re").compile(
+    r"我不能|我无法|我不会|不能提供|无法提供|我不会提供|抱歉|"
+    r"作为(?:一个)?(?:AI|人工智能)|I (?:cannot|can't|will not|won't)|I'm sorry|Sorry")
+
+
+def _looks_refusal(chosen):
+    """cvalues rows carry no m4 VERDICT — infer refusal-domain from the chosen
+    response text (chosen-first rule: harmful prompt + refusal answer -> pos)."""
+    return bool(_REFUSE_PAT.search(chosen or ""))
+
+
+def conv_cvalues(path, sinks, dd, max_pos=4000):
+    """cvalues conversion — chosen-VERDICT polarity (adr-1b §3).
+
+    The id prefix (cv-harm/cv-help) is a batch label, NOT a polarity label:
+    both batches are harmful-prompt + safe-chosen DPO pairs. Rows whose chosen
+    response is a refusal are pos (harmful content must be detected); rows
+    with a non-refusal chosen are dropped (zero-noise priority, same rule as
+    the reserve dpo_class branch)."""
     stats = collections.Counter()
     rng = __import__("random").Random(20261021)
     rows = []
     for line in open(path, encoding="utf-8"):
         d = json.loads(line)
-        text = d.get("prompt", "")
-        harm = d.get("id", "").startswith("cv-harm")
-        rows.append((text, harm))
+        rows.append((d.get("prompt", ""), d.get("chosen") or ""))
     rng.shuffle(rows)
-    for text, harm in rows:
+    for text, chosen in rows:
+        if not text:
+            stats["empty_skip"] += 1
+            continue
+        if not _looks_refusal(chosen):
+            stats["drop_nonrefuse"] += 1
+            continue
         if dd.is_dup(text, near=False):
             stats["dup_skip"] += 1
             continue
+        if stats["pos"] >= max_pos:
+            stats["pos_cap_skip"] += 1
+            continue
         dd.add(text)
-        if harm:
-            if stats["pos"] >= max_pos:
-                continue
-            stats["pos"] += 1
-            sinks["T1"].append(make_row("T1", "pool", "zh", "singleturn", "pos", {},
-                                        "reserve-cvalues", text=text, difficulty="easy",
-                                        lineage={"source": "data/sft/dpo-reserve/cvalues.jsonl"}))
-        else:
-            if stats["neg"] >= max_neg:
-                continue
-            stats["neg"] += 1
-            sinks["T1"].append(make_row("T1", "pool", "zh", "singleturn", "neg", {},
-                                        "reserve-cvalues", text=text, difficulty="easy",
-                                        lineage={"source": "data/sft/dpo-reserve/cvalues.jsonl"}))
+        stats["pos"] += 1
+        sinks["T1"].append(make_row("T1", "pool", "zh", "singleturn", "pos", {},
+                                    "reserve-cvalues", text=text, difficulty="easy",
+                                    lineage={"source": path}))
     return stats
 
 
@@ -460,7 +475,21 @@ def main():
     print("== docstruct ==", dict(conv_staging_t5(stg + "/doc_structure.jsonl", sinks, dd, "staging-docstruct",
                                                  {("report", "contains-injection"), ("report", "suspicious-pattern"), ("answer", "clean")}).most_common()))
     print("== t13 ==", dict(conv_staging_t13(stg + "/t13_retrieval.jsonl", sinks, dd).most_common()))
-    print("== cvalues ==", dict(conv_cvalues("data/sft/dpo-reserve/cvalues.jsonl", sinks, dd).most_common()))
+    st_cv = conv_cvalues("data/sft/dpo-reserve/cvalues.jsonl", sinks, dd)
+    print("== cvalues ==", dict(st_cv.most_common()))
+    # polarity-purity assertion for the cvalues path (hotfix condition #2):
+    # every emitted reserve-cvalues row must be pos (chosen-first rule); the
+    # id-prefix shortcut produced flipped labels here once — never again.
+    cv_bad = [r for r in sinks["T1"]
+              if (r.get("source") or {}).get("family") == "reserve-cvalues"
+              and r.get("label") != "pos"]
+    if cv_bad:
+        print("ASSERTION FAIL (cvalues polarity purity): %d non-pos rows" % len(cv_bad))
+        sys.exit(2)
+    if st_cv.get("neg"):
+        print("ASSERTION FAIL (cvalues polarity purity): converter emitted neg")
+        sys.exit(2)
+    print("cvalues polarity-purity assertion (chosen-first): PASS")
 
     # write per-task pools
     for task, rows in sinks.items():

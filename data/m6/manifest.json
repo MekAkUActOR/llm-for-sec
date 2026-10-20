@@ -20,43 +20,43 @@
  "files": [
   {
    "path": "t1-moderation/train.jsonl",
-   "n": 14615,
-   "rows": 14615,
+   "n": 11538,
+   "rows": 11538,
    "split": "train",
    "task": "T1",
-   "sha256": "241c3b823e8ce5fd932e65fe2332a35733a96630b8ba60012fa4a42beecd2db9",
+   "sha256": "8c0af6845cf788ee87d034524d6c084958ae437b02be7f83cab302a4b08ee961",
    "label_counts": {
     "T1": {
-     "pos": 8527,
-     "neg": 6088
+     "pos": 8513,
+     "neg": 3025
     }
    }
   },
   {
    "path": "t1-moderation/dev.jsonl",
-   "n": 1483,
-   "rows": 1483,
+   "n": 1497,
+   "rows": 1497,
    "split": "dev",
    "task": "T1",
-   "sha256": "d4d358ed182068916bf4daa0dc84f2a86d33017dc56d53ed03405363239d547d",
+   "sha256": "c0e35c541f3d2fd089f779e82687b6fa0a8b570b37dfe40ada080b1f9501b686",
    "label_counts": {
     "T1": {
-     "pos": 283,
+     "pos": 297,
      "neg": 1200
     }
    }
   },
   {
    "path": "t1-moderation/heldout.jsonl",
-   "n": 2500,
-   "rows": 2500,
+   "n": 1563,
+   "rows": 1563,
    "split": "heldout",
    "task": "T1",
-   "sha256": "72aca92f4e52586b8dd2c06588fe6ebf8a61101236bec64244c5f3bde99370b5",
+   "sha256": "fc05d1697557e0aa2bde26c6e099f9e76acf39551ca85ea9e31d18c3f98fa901",
    "label_counts": {
     "T1": {
      "pos": 300,
-     "neg": 2200
+     "neg": 1263
     }
    }
   },
@@ -66,7 +66,7 @@
    "rows": 4226,
    "split": "train",
    "task": "T2",
-   "sha256": "c2d2039e97a7703fc93041dce42377df43262bc375711f9b83048d53677a5b22",
+   "sha256": "44288fee27c517276b2bc9d66a99b42e2e0118a1264029a65c014781aea6d796",
    "label_counts": {
     "T2": {
      "pos": 2126,
@@ -80,7 +80,7 @@
    "rows": 1082,
    "split": "dev",
    "task": "T2",
-   "sha256": "51a4e34b5d05985f0e44b0497726eeee7d5892357e5911c41c3fe7f22dd3e996",
+   "sha256": "eccd7aaf469eb18fcbcbd2fe3cb795f0497d2bb7d4b21aeddfd9ff9874a3d3a3",
    "label_counts": {
     "T2": {
      "pos": 250,
@@ -94,7 +94,7 @@
    "rows": 1300,
    "split": "heldout",
    "task": "T2",
-   "sha256": "97fa062b106211328f0658703afb26f9ce08b176c7accc34bcd4ceb9f241516c",
+   "sha256": "b9c24e0ed9bd44052aa56f9137c836151d06164b59b6398d3abe48887a27faf4",
    "label_counts": {
     "T2": {
      "pos": 300,
@@ -104,28 +104,28 @@
   },
   {
    "path": "t3-intent/train.jsonl",
-   "n": 8089,
-   "rows": 8089,
+   "n": 8111,
+   "rows": 8111,
    "split": "train",
    "task": "T3",
-   "sha256": "0cb9359360bf14057b0d8e90bb9f38f857412ced8951b640caaa25243395c706",
+   "sha256": "66e07bfe1c7810cee8b24e7a6e1f5bc389b721dc440650de0962855ff48b7c95",
    "label_counts": {
     "T3": {
-     "pos": 3155,
+     "pos": 3177,
      "neg": 4934
     }
    }
   },
   {
    "path": "t3-intent/dev.jsonl",
-   "n": 1832,
-   "rows": 1832,
+   "n": 1810,
+   "rows": 1810,
    "split": "dev",
    "task": "T3",
-   "sha256": "db8bfdec7f7df4f3444a934861faafec8437c38f0531f7563d97d1034135238f",
+   "sha256": "fc86e53a8b74aa1611df74edcbaac76e33f47d0136b309c9562f2ce83f91a054",
    "label_counts": {
     "T3": {
-     "pos": 632,
+     "pos": 610,
      "neg": 1200
     }
    }
@@ -136,7 +136,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T3",
-   "sha256": "7adaaec8d38d5428d7bc5d117230d1d673d313a041ffb31a25dd3544e4272e88",
+   "sha256": "69f799529e0f232a4ae6ea00bb4af4c5f2404d7eae28a16c089f6fa4e130c09b",
    "label_counts": {
     "T3": {
      "pos": 300,
@@ -150,7 +150,7 @@
    "rows": 17781,
    "split": "train",
    "task": "T5",
-   "sha256": "07d0e57f87c8926124ded99fcb05fc00828b0dba6253a48d0bb3695d6e4a5a00",
+   "sha256": "753963748055eefe41f5e46f88cf88d6ddda8d186ce3db91ab94b8d3544c072c",
    "label_counts": {
     "T5": {
      "pos": 10774,
@@ -164,7 +164,7 @@
    "rows": 1450,
    "split": "dev",
    "task": "T5",
-   "sha256": "25e98b64cbe99ce3740c1c32f86c88c93120191697549485d8191590d79a99a9",
+   "sha256": "9781e6805def518977433be7261b42d42947a2c9042602d459732ebc5aa5442d",
    "label_counts": {
     "T5": {
      "pos": 250,
@@ -178,7 +178,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T5",
-   "sha256": "1128d73a109ff9e377bf94abfcfe1644212afabc8edb8987439748f4f0707e9e",
+   "sha256": "57e6cff15e9f57a3aeb1905b04417a09a4f1395e4bab45eda1b062d64081cc3d",
    "label_counts": {
     "T5": {
      "pos": 300,
@@ -192,7 +192,7 @@
    "rows": 6244,
    "split": "train",
    "task": "T6",
-   "sha256": "9f8fc535250b992def16b770b9077e6c843c100eec3abc2720ed789ee013532a",
+   "sha256": "48744b8dd54186332c82d78f2c21d92dff9ea02fda7c3ff7f4f2fd2da32ce76e",
    "label_counts": {
     "T6": {
      "pos": 2050,
@@ -206,7 +206,7 @@
    "rows": 1450,
    "split": "dev",
    "task": "T6",
-   "sha256": "9840432f3509990db0fb2df448e09e6cce7eeb50adfde6f4eef7f69bbcaa6f3f",
+   "sha256": "7d6b5ae0d3598a297c3a9f1cb05e7e77a57696c2195710aa1147b537c5953a26",
    "label_counts": {
     "T6": {
      "pos": 250,
@@ -220,7 +220,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T6",
-   "sha256": "17096fbc1ec5152cf8fc0398f61b127334cacc7e3d97c97c40a556661e960e8c",
+   "sha256": "3092ca7df7a48e71c7e199249a746dfd178f2c501cc617f183b983f94c5b21d3",
    "label_counts": {
     "T6": {
      "pos": 300,
@@ -234,7 +234,7 @@
    "rows": 6300,
    "split": "train",
    "task": "T4",
-   "sha256": "7084651f3811c35d5238e1a97c6318f1db0aa459bfa2bdc8c07d208e3e112748",
+   "sha256": "05862b44662c8140ccbf4c99c17edafced05a8a509e339c8c890e342b17bd0a4",
    "label_counts": {
     "T4": {
      "pos": 2600,
@@ -262,7 +262,7 @@
    "rows": 1400,
    "split": "heldout",
    "task": "T4",
-   "sha256": "4e3f02b65d7cdcb3bc2a11a193f0eeda1bfa0ce0992568f5d5720d4819812878",
+   "sha256": "3010a4534c9eeec939ce584ad76b206560aef55daccc41d9d676d8c4546f2fb6",
    "label_counts": {
     "T4": {
      "pos": 300,
@@ -374,22 +374,22 @@
   },
   {
    "path": "pool/train.jsonl",
-   "n": 47142,
-   "rows": 47142,
+   "n": 44087,
+   "rows": 44087,
    "split": "train",
    "task": "pool",
-   "sha256": "badbe164fc05a205cd23a5d89826791fc4f88b63b938f3f48a7e2a14f0f2e15e",
+   "sha256": "8bac64a4a91d8caf2b8b65b244ab6aca3d89843996de4526f5f3aaa34abd0c99",
    "label_counts": {
     "T1": {
-     "pos": 8360,
-     "neg": 7323
+     "pos": 8346,
+     "neg": 4260
     },
     "T2": {
      "pos": 2126,
      "neg": 3500
     },
     "T3": {
-     "pos": 2944,
+     "pos": 2966,
      "neg": 5764
     },
     "T5": {
@@ -408,14 +408,14 @@
   },
   {
    "path": "pool/dev.jsonl",
-   "n": 9935,
-   "rows": 9935,
+   "n": 9927,
+   "rows": 9927,
    "split": "dev",
    "task": "pool",
-   "sha256": "b191656b9b4f4d1fc47d0ee4992a71e2091be3b4f2ca647c0c13772e435862d7",
+   "sha256": "09cd55e9d6776028ea3c3d027271dcedeeef78436d913a7d5f0a08b02da6c00b",
    "label_counts": {
     "T1": {
-     "pos": 258,
+     "pos": 272,
      "neg": 5672
     },
     "T2": {
@@ -423,7 +423,7 @@
      "neg": 5332
     },
     "T3": {
-     "pos": 593,
+     "pos": 571,
      "neg": 5480
     },
     "T5": {
@@ -506,14 +506,14 @@
   "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits attributed to shared policy-pack template ancestry)"
  },
  "disjointness": {
-  "train_rows": 104397,
-  "eval_rows": 16700,
+  "train_rows": 98287,
+  "eval_rows": 15763,
   "exact_overlap": 0,
   "content_overlap_qa_l1": 0,
   "mirror_eval_overlap": 0,
   "ood_t4_pos_rows": 0,
   "t4_entity_overlap": 0,
-  "t4_heldout_entities_checked": 642,
+  "t4_heldout_entities_checked": 644,
   "assert": "PASS",
   "protocol": {
    "exact": "norm_text = NFKC -> lowercase -> whitespace-collapse; sha256[:16] of full input text (system + content, carrier body fallback); train side (t*/train + pool/train) vs eval side (t*/heldout, challenge/, ood/)",
