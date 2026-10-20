@@ -17,7 +17,15 @@
         { "const": "T4", "title": "T4 PII 个人身份信息检测" },
         { "const": "T5", "title": "T5 indirect injection 间接注入（载体携带）" },
         { "const": "T6", "title": "T6 high-risk instruction 高危指令注入" }
-      ]
+      ],
+      "description": "六任务键（SYS-1 终裁命名空间：数据集 labels / 阈值 / 推理 tasks / 评测 per_task 同源）。推理 tasks 与阈值键只用 T1..T6。"
+    },
+    "RowTask": {
+      "anyOf": [
+        { "$ref": "#/$defs/TaskId" },
+        { "const": "pool", "title": "pool 多任务联合/全任务共享行" }
+      ],
+      "description": "数据行/清单条目的任务归属：单任务行 = T1..T6；多任务联合标注或全任务共享行（benign/challenge/ood 共享负例池）= \"pool\"（labels 承载真实任务键；dataeng 中间格式的 SHARED 终稿投影为 pool）。"
     },
     "Language": { "enum": ["zh", "en", "mix"] },
     "Split": {
@@ -208,7 +216,16 @@
     "T3Detail": {
       "type": "object",
       "properties": {
-        "trigger": { "enum": ["multiturn-accumulation", "longctx-buried", "singleturn"] }
+        "trigger": { "enum": ["multiturn-accumulation", "longctx-buried", "singleturn"] },
+        "position": {
+          "type": ["string", "null"],
+          "description": "longctx 载荷埋藏位（head|middle|tail；最早报警/埋藏位归因用）"
+        },
+        "reveal_turn": {
+          "type": ["integer", "null"],
+          "minimum": 1,
+          "description": "multiturn 收割轮号（1-based）"
+        }
       },
       "additionalProperties": false
     },
@@ -218,36 +235,36 @@
       "properties": {
         "spans": {
           "type": "array",
-          "items": {
-            "type": "object",
-            "required": ["start", "end", "type"],
-            "properties": {
-              "start": { "type": "integer", "minimum": 0 },
-              "end": { "type": "integer", "minimum": 1 },
-              "type": { "$ref": "#/$defs/PiiType" },
-              "text": { "type": "string" },
-              "message_index": { "type": "integer", "minimum": 0 },
-              "carrier_id": { "type": "string" }
-            },
-            "additionalProperties": false
-          }
+          "items": { "$ref": "#/$defs/Span" }
         }
       },
       "additionalProperties": false,
-      "description": "T4 gold 必须给出码点偏移 span 列表（pos 时 >=1 个，neg 时空数组）。多轮/载体输入用 message_index/carrier_id 定位基准文本。"
+      "description": "T4 gold 必须给出码点偏移 span 列表（pos 时 >=1 个，neg 时空数组）。span 结构统一走 $defs/Span（含 sub/risk/message_index/carrier_id）。多轮/载体输入用 message_index/carrier_id 定位基准文本。"
     },
     "T5Detail": {
       "type": "object",
       "properties": {
         "carrier": { "$ref": "#/$defs/CarrierType" },
         "mechanism": {
+          "type": ["string", "null"],
           "enum": [
             "ai_directive", "fake_system_prompt", "policy_claim", "task_hijack",
             "exfil_authorize", "verdict_suppress", "encoding_obfuscation",
-            "relationship_target", "hidden_text", "other"
-          ]
+            "relationship_target", "hidden_text",
+            "authority_disguise", "metacomment", "command_substitution",
+            "backdoor_comment", "destructive_request", "deanon_request",
+            "bulk_extract", "other", null
+          ],
+          "description": "注入机制（neg 行为 null）。词表 = 合成族 ∪ 冻结套件 legacy 分类学（0.3.3 无损合并：authority_disguise/metacomment/command_substitution/backdoor_comment/destructive_request/deanon_request/bulk_extract 来自 toolout 系套件在用标注，12.8K 行已标）。"
         },
-        "carrier_site": { "type": "string" }
+        "carrier_site": {
+          "type": ["string", "null"],
+          "description": "注入位点（body|meta|dom|urls 等；neg 行为 null。dataeng 中间格式叫 position，终稿投影改名 carrier_site）"
+        },
+        "envelope": {
+          "type": "string",
+          "description": "信封变体标记（如 std_tag；T5 评测分段用）"
+        }
       },
       "additionalProperties": false
     },

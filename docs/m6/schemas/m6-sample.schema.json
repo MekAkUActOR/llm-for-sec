@@ -13,8 +13,8 @@
       "description": "全局唯一。自建行建议 m6- 前缀（如 m6-t2-jb-f1-zh-0001）；harness 映射冻结套件行时保留溯源 id（如 m6x-v023-sec-r1）。"
     },
     "task": {
-      "$ref": "m6-common.schema.json#/$defs/TaskId",
-      "description": "主任务（路由/统计/目录归属用）。多任务联合标注行走 pool/，labels 可含多键但必须含 task 键（校验脚本强制，JSON Schema 无法表达动态键约束）。"
+      "$ref": "m6-common.schema.json#/$defs/RowTask",
+      "description": "主任务（路由/统计/目录归属用）。单任务行 = T1..T6；多任务联合/全任务共享行（pool/、benign/challenge/ood 共享负例池）= \"pool\"，labels 承载真实任务键（共享负例行应为全部已判负任务展开键——qa FPR 分母依赖）。"
     },
     "split": { "$ref": "m6-common.schema.json#/$defs/Split" },
     "lang": { "$ref": "m6-common.schema.json#/$defs/Language" },
@@ -117,11 +117,11 @@
           "then": { "properties": { "label_detail": { "properties": { "t6_class": { "const": "high-risk" } } } } }
         },
         {
-          "if": { "properties": { "label_detail": { "properties": { "t6_class": { "enum": ["conditional", "safe"] } }, "required": ["t6_class"] } } },
+          "if": { "required": ["label_detail"], "properties": { "label_detail": { "properties": { "t6_class": { "enum": ["conditional", "safe"] } }, "required": ["t6_class"] } } },
           "then": { "properties": { "label": { "const": "neg" } } }
         },
         {
-          "if": { "properties": { "label_detail": { "properties": { "t6_class": { "const": "high-risk" } }, "required": ["t6_class"] } } },
+          "if": { "required": ["label_detail"], "properties": { "label_detail": { "properties": { "t6_class": { "const": "high-risk" } }, "required": ["t6_class"] } } },
           "then": { "properties": { "label": { "const": "pos" } } }
         }
       ],

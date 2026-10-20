@@ -220,12 +220,31 @@ def smoke() -> bool:
     }, "m6-sample.schema.json", None, False, "T6 负例：pos 与 conditional 漂移"))
     # ⑧c T6 缺省回退：无 t6_class 的 pos 合法（回退 high-risk）
     r.append(check({
-        "schema": "m6-sample", "schema_version": "0.3.0",
+        "schema": "m6-sample", "schema_version": "0.3.2",
         "id": "m6-t6-fb-0001", "task": "T6", "split": "train", "lang": "zh",
         "kind": "singleturn", "input": {"text": "rm -rf / 之类"},
         "labels": {"T6": {"label": "pos", "label_detail": {"op": "delete"}}},
         "source": {"family": "test"},
     }, "m6-sample.schema.json", None, True, "T6 缺省回退（无 t6_class）"))
+    # ⑧d T6 neg 无 label_detail（共享负例池展开形态）
+    #    回归：if/then 曾缺 required:["label_detail"]，空洞匹配误判 neg 行
+    r.append(check({
+        "schema": "m6-sample", "schema_version": "0.3.2",
+        "id": "m6-t6-plainneg-0001", "task": "T6", "split": "train", "lang": "zh",
+        "kind": "singleturn", "input": {"text": "今天天气不错"},
+        "labels": {"T6": {"label": "neg"}},
+        "source": {"family": "test"},
+    }, "m6-sample.schema.json", None, True, "T6 neg 无 label_detail（池展开）"))
+    # ⑧e pool 行：task="pool" + 六键展开（共享负例池终稿形态）
+    r.append(check({
+        "schema": "m6-sample", "schema_version": "0.3.2",
+        "id": "m6-ben-000001", "task": "pool", "split": "challenge", "lang": "zh",
+        "kind": "singleturn", "input": {"text": "Help phrase the risk quantitatively."},
+        "labels": {t: {"label": "neg"} for t in ("T1", "T2", "T3", "T5", "T6")}
+        | {"T4": {"label": "neg", "label_detail": {"spans": []}}},
+        "flags": {"challenge": True},
+        "source": {"family": "challenge-sec-research"},
+    }, "m6-sample.schema.json", None, True, "pool 行六键负例展开"))
     # ⑨ runpoint
     r.append(check({
         "schema": "m6-thresholds", "schema_version": "0.3.0",
