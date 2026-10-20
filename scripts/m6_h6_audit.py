@@ -70,16 +70,31 @@ def audit_rows(files: list[Path], fails: list[str]) -> None:
     print(f"  row contracts: files={len(files)} invalid_total={inv_total}")
 
 
+def _row_fp(row: dict) -> tuple:
+    """(input_hash, {task: label_obj_hash})——孪生结构比较的紧凑指纹。"""
+    ih = hashlib.sha256(
+        json.dumps(row.get("input"), sort_keys=True, ensure_ascii=False)
+        .encode("utf-8")).hexdigest()
+    lm = {}
+    for t, g in (row.get("labels") or {}).items():
+        lm[t] = (hashlib.sha256(
+            json.dumps(g, sort_keys=True, ensure_ascii=False)
+            .encode("utf-8")).hexdigest(), g.get("label"))
+    return ih, lm
+
+
 def audit_counts(files: list[Path], fails: list[str]) -> dict:
-    """聚合口径 = 训练装载器语义（m6_train.rows_for_split）：split 内按 id
-    去重——pool 与任务文件的共享行是字节孪生（装载器同款去重，内容不一致
-    即断言失败）；视图文件跳过。per_file 保留文件原值（manifest 对数用），
-    聚合/规模门用去重值（arch 勘误 2026-10-21：双计口径曾虚报 T6 train pos
-    4,100，真值 2,050）。"""
+    """聚合口径 = 训练装载器语义（m6_train union，deveng v2）：split 内同 id
+    行取标签键并集。设计性跨文件分歧白名单（arch 投影裁定收紧版，
+    2026-10-21）：同 split + 同 id + **input 全同** + 任务键逐字节相同 +
+    pool 侧多出的键为纯 neg 投影（或该键在另一任务视图同 id 行中同值存在，
+    即 forged 双键行）→ PASS；任何其他分歧（input 变化 / 任务键不一致 /
+    pool-only 键非纯 neg / 任务视图独有键而 pool 缺失）→ FAIL。
+    视图文件跳过；per_file 保留文件原值（manifest 对数用）。"""
     agg: dict[tuple[str, str], Counter] = {}
     per_file = {}
-    seen_ids: dict[str, dict[str, str]] = {}  # split -> id -> content hash
-    twin_mismatch = 0
+    # split -> id -> [ [input_hash, {task: (obj_hash, label)}, file_is_pool, n_occ] ]
+    occ: dict[str, dict[str, list]] = {}
     for f in files:
         sp = split_of(f)
         if is_view(f):
@@ -88,7 +103,8 @@ def audit_counts(files: list[Path], fails: list[str]) -> dict:
             continue
         c: dict[str, Counter] = {}
         n = 0
-        seen = seen_ids.setdefault(sp, {})
+        ids = occ.setdefault(sp, {})
+        is_pool = ("pool" in f.parts)
         with open(f, encoding="utf-8-sig") as fh:
             for line in fh:
                 line = line.strip()
@@ -101,24 +117,67 @@ def audit_counts(files: list[Path], fails: list[str]) -> dict:
                 for t, g in (row.get("labels") or {}).items():
                     d = c.setdefault(t, Counter())
                     d["pos" if g.get("label") == "pos" else "neg"] += 1
-                # 聚合口径 = 装载器语义：split 内按 id 去重
-                chash = hashlib.sha256(
-                    json.dumps(row, sort_keys=True, ensure_ascii=False)
-                    .encode("utf-8")).hexdigest()
-                if rid in seen:
-                    if seen[rid] != chash:
-                        twin_mismatch += 1
-                    continue
-                seen[rid] = chash
-                for t, g in (row.get("labels") or {}).items():
-                    d = agg.setdefault((sp, t), Counter())
-                    d["pos" if g.get("label") == "pos" else "neg"] += 1
+                ih, lm = _row_fp(row)
+                st = ids.get(rid)
+                if st is None:
+                    ids[rid] = {"ih": ih, "ih_bad": False, "key_bad": [],
+                                "keys": dict(lm),
+                                "pool_keys": set(lm) if is_pool else set(),
+                                "tv_keys": set() if is_pool else set(lm),
+                                "n": 1}
+                else:
+                    st["n"] += 1
+                    if ih != st["ih"]:
+                        st["ih_bad"] = True
+                    if is_pool:
+                        st["pool_keys"].update(lm)
+                    else:
+                        st["tv_keys"].update(lm)
+                    for t, fp in lm.items():
+                        if t in st["keys"]:
+                            if st["keys"][t][0] != fp[0]:
+                                st["key_bad"].append(t)
+                        else:
+                            st["keys"][t] = fp
         per_file[str(f.relative_to(DM)).replace("\\", "/")] = {
             "split": sp, "n": n,
             "label_counts": {t: {"pos": d["pos"], "neg": d["neg"]}
                              for t, d in sorted(c.items())}}
-    if twin_mismatch:
-        fails.append(f"counts: twin rows with DIFFERENT content: {twin_mismatch}")
+    # 孪生白名单判定 + union 聚合（装载器并集语义）
+    diverged = projected = 0
+    for sp, ids in occ.items():
+        for rid, st in ids.items():
+            keys = st["keys"]
+            if st["n"] < 2:
+                for t, (oh, lab) in keys.items():
+                    agg.setdefault((sp, t), Counter())[
+                        "pos" if lab == "pos" else "neg"] += 1
+                continue
+            reason = None
+            if st["ih_bad"]:
+                reason = "input divergence"
+            elif st["key_bad"]:
+                reason = f"task-key content divergence {sorted(set(st['key_bad']))}"
+            else:
+                pool_only = st["pool_keys"] - st["tv_keys"]
+                tv_only = st["tv_keys"] - st["pool_keys"]
+                if tv_only:
+                    reason = f"task-view-only keys {sorted(tv_only)} (pool twin lacks them)"
+                elif any(keys[t][1] != "neg" for t in pool_only):
+                    reason = f"pool-only non-neg keys {sorted(t for t in pool_only if keys[t][1] != 'neg')}"
+            if reason:
+                diverged += 1
+                if diverged <= 5:
+                    fails.append(f"counts: twin divergence {sp}/{rid} ({reason})")
+                continue
+            if st["pool_keys"] - st["tv_keys"]:
+                projected += 1
+            for t, (oh, lab) in keys.items():
+                agg.setdefault((sp, t), Counter())[
+                    "pos" if lab == "pos" else "neg"] += 1
+    if projected or diverged:
+        print(f"  (twins: {projected} ids with pool-side projection keys, "
+              f"{diverged} diverged)")
     gates = {
         "train pos>=2000/task": all(agg.get(("train", t), Counter())["pos"] >= 2000
                                     for t in TASKS),
@@ -139,7 +198,7 @@ def audit_counts(files: list[Path], fails: list[str]) -> dict:
         print(f"  [{'PASS' if ok else 'FAIL'}] {k}")
         if not ok:
             fails.append(f"gate: {k}")
-    print("  (unique-row caliber: split-level id dedup, loader semantics)")
+    print("  (union caliber: same-split same-id label-key union, loader semantics)")
     for (sp, t), d in sorted(agg.items()):
         print(f"    {sp:15s} {t}: pos={d['pos']:6d} neg={d['neg']:6d}")
     return per_file
