@@ -452,13 +452,16 @@ def main():
             continue
         rows = [staging_to_final(r, "train") for r in pool]
         # label normalization: cond -> neg (T5/T6 GoldLabel is pos|neg only;
-        # T6 keeps conditional semantics in t6_class — single source of truth)
+        # T6 keeps conditional semantics in t6_class — single source of truth;
+        # T5 keeps m4 chosen-VERDICT provenance for D-12 attribution reads)
         for r in rows:
             t = r["task"]
             if t in ("T5", "T6") and r["labels"][t]["label"] == "cond":
                 r["labels"][t]["label"] = "neg"
                 if t == "T6":
                     r["labels"][t].setdefault("label_detail", {})["t6_class"] = "conditional"
+                else:
+                    r["labels"][t].setdefault("label_detail", {})["m4_verdict"] = "conditional"
         all_rows.extend(rows)
     assign_splits(all_rows, quotas, rng)
 
