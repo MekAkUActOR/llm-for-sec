@@ -38,7 +38,9 @@ def remap_split(split, rows, old, out_dir, cfg, backbone, tok, device,
                 verify_frac):
     t0 = time.time()
     # rows may have moved across splits in the hot-fix re-shuffle: index
-    # every cache file of BOTH splits by id
+    # every cache file of BOTH splits by id. NpzFile key access
+    # re-decompresses the whole array EVERY time -- materialize each
+    # npz's arrays once (pooled train ~1.1GB fp16, fits RAM).
     pool_by_id = {}
     for src in old:
         for sp in ("train", "dev"):
@@ -46,8 +48,12 @@ def remap_split(split, rows, old, out_dir, cfg, backbone, tok, device,
             if not p.is_file():
                 continue
             z = np.load(p, allow_pickle=True)
-            for i, rid in enumerate(z["ids"]):
-                pool_by_id.setdefault(str(rid), (z, i))
+            arr = {"pooled": z["pooled"], "trunc": z["trunc"],
+                   "ids": [str(x) for x in z["ids"]]}
+            for i, rid in enumerate(arr["ids"]):
+                pool_by_id.setdefault(rid, (arr, i))
+    print(f"[remap:{split}] old-cache index built ({len(pool_by_id)} ids, "
+          f"{time.time() - t0:.0f}s)")
 
     D = None
     N = len(rows)
@@ -64,9 +70,9 @@ def remap_split(split, rows, old, out_dir, cfg, backbone, tok, device,
     pooled = np.zeros((N, in_dim), dtype=np.float16)
     trunc = np.zeros(N, dtype=bool)
     for i in reused:
-        z, j = pool_by_id[rows[i]["id"]]
-        pooled[i] = z["pooled"][j]
-        trunc[i] = bool(z["trunc"][j])
+        arr, j = pool_by_id[rows[i]["id"]]
+        pooled[i] = arr["pooled"][j]
+        trunc[i] = bool(arr["trunc"][j])
 
     # ---- extract missing rows (+ verification sample) ----
     # verification compares fresh extraction against cached features; the
@@ -107,8 +113,8 @@ def remap_split(split, rows, old, out_dir, cfg, backbone, tok, device,
         # verification: reused-cache value vs fresh extraction must agree
         bad = 0
         for i in verify_ids:
-            z, j = pool_by_id[rows[i]["id"]]
-            a, b = pooled[i].astype(np.float32), z["pooled"][j].astype(np.float32)
+            arr, j = pool_by_id[rows[i]["id"]]
+            a, b = pooled[i].astype(np.float32), arr["pooled"][j].astype(np.float32)
             if not np.allclose(a, b, atol=2e-2, rtol=0):
                 bad += 1
         assert bad == 0, (
@@ -132,6 +138,7 @@ def remap_split(split, rows, old, out_dir, cfg, backbone, tok, device,
 
 def remap_tokfeats(split, rows, old, out_dir, cfg, backbone, tok, device):
     """PII token-feature cache remap (rows keyed by id)."""
+    # materialize each npz once (NpzFile key access re-decompresses)
     old_by_id = {}
     for src in old:
         for sp in ("train", "dev"):
@@ -139,10 +146,11 @@ def remap_tokfeats(split, rows, old, out_dir, cfg, backbone, tok, device):
             if not p.is_file():
                 continue
             z = np.load(p, allow_pickle=True)
-            offs = np.concatenate([[0], np.cumsum(z["lens"])])
-            for i, rid in enumerate(z["ids"]):
-                old_by_id.setdefault(str(rid), (z, int(offs[i]),
-                                                int(offs[i + 1])))
+            arr = {"feats": z["feats"], "bio": z["bio"],
+                   "lens": z["lens"], "ids": [str(x) for x in z["ids"]]}
+            offs = np.concatenate([[0], np.cumsum(arr["lens"])])
+            for i, rid in enumerate(arr["ids"]):
+                old_by_id.setdefault(rid, (arr, int(offs[i]), int(offs[i + 1])))
     Y, t6c, neg_all, mirror, pii_idx, pii_spans = derive_labels(rows)
     pii_pos = {int(i): k for k, i in enumerate(pii_idx)}
     hits = [i for i in pii_idx if rows[i]["id"] in old_by_id]
@@ -156,9 +164,9 @@ def remap_tokfeats(split, rows, old, out_dir, cfg, backbone, tok, device):
 
     feats_flat, bio_flat, lens, ids_out = [], [], [], []
     for i in hits:
-        z, s, e = old_by_id[rows[i]["id"]]
-        feats_flat.append(z["feats"][s:e])
-        bio_flat.append(z["bio"][s:e])
+        arr, s, e = old_by_id[rows[i]["id"]]
+        feats_flat.append(arr["feats"][s:e])
+        bio_flat.append(arr["bio"][s:e])
         lens.append(e - s)
         ids_out.append(rows[i]["id"])
     if miss:
@@ -205,12 +213,31 @@ def main():
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available()
                     else "cpu")
     ap.add_argument("--verify-frac", type=float, default=0.02)
+    ap.add_argument("--dry-run", action="store_true",
+                    help="report reuse/missing counts per split, no backbone "
+                         "load, no extraction, no writes")
     args = ap.parse_args()
 
     cfg = load_config(args.config)
     out_dir = REPO / cfg["output_dir"]
     out_dir.mkdir(parents=True, exist_ok=True)
     old = [Path(args.old_cache)]
+    if args.dry_run:
+        pool_by_id = {}
+        for src in old:
+            for sp in ("train", "dev"):
+                p = src / f"feats_{sp}.npz"
+                if not p.is_file():
+                    continue
+                z = np.load(p, allow_pickle=True)
+                for i, rid in enumerate(z["ids"]):
+                    pool_by_id.setdefault(str(rid), None)
+        for split in ("train", "dev"):
+            rows = rows_for_split(cfg, split)
+            miss = sum(1 for r in rows if r["id"] not in pool_by_id)
+            print(f"[dry-run:{split}] rows={len(rows)} reused={len(rows) - miss} "
+                  f"missing={miss} ({miss / max(1, len(rows)):.1%})")
+        return 0
     backbone, tok = load_backbone(cfg["base"]["model_name_or_path"],
                                   cfg["base"].get("dtype", "bf16"),
                                   args.device)

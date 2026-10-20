@@ -1,0 +1,73 @@
+{
+  "bio_token": {
+    "token_recall_pos": 0.0,
+    "n_pos_tokens": 14307
+  },
+  "tau_ood": 621.07,
+  "tasks": {
+    "T1": {
+      "recall": 0.6801,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.999935,
+        "strong": 0.999976,
+        "flag_logit": 9.6368,
+        "strong_logit": 10.6368
+      }
+    },
+    "T2": {
+      "recall": 0.812,
+      "fp_dev_neg": 0,
+      "n_neg": 5494,
+      "thresholds": {
+        "flag": 1.0,
+        "strong": 1.0,
+        "flag_logit": 21.3462,
+        "strong_logit": 22.3462
+      }
+    },
+    "T3": {
+      "recall": 0.7509,
+      "fp_dev_neg": 0,
+      "n_neg": 5558,
+      "thresholds": {
+        "flag": 0.999627,
+        "strong": 0.999863,
+        "flag_logit": 7.8947,
+        "strong_logit": 8.8947
+      }
+    },
+    "T4": {
+      "recall": 0.8852,
+      "fp_dev_neg": 0,
+      "n_neg": 5262,
+      "thresholds": {
+        "flag": 0.99994,
+        "strong": 0.999978,
+        "flag_logit": 9.7258,
+        "strong_logit": 10.7258
+      }
+    },
+    "T5": {
+      "recall": 0.948,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.986615,
+        "strong": 0.997876,
+        "flag_logit": 4.3002,
+        "strong_logit": 6.1523
+      }
+    },
+    "T6": {
+      "recall": 0.976,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.999,
+        "strong": 0.9999
+      }
+    }
+  }
+}
