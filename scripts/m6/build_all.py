@@ -655,8 +655,13 @@ def main():
         r"|(?<!\d)\d{17}[\dXx](?!\d)"                    # resident id
         r"|(?<!\d)62\d{14,17}(?!\d)"                     # bank card
         r"|(?<!\d)\d{3,4}-\d{7,8}(?!\d)"                 # landline
-        r"|[\w.+-]+@(?!example\.(?:com|org)|203\.0\.113\.|192\.0\.2\.|198\.51\.100\.)"
-        r"[\w.-]+\.[A-Za-z]+")  # real-domain email (RFC 5737 doc ranges + example.* = placeholder)
+        # person-shaped email: ANY domain (example.* included — T4 gold marks
+        # person-shaped example-domain emails as pos, 106/540 in current T4
+        # views; the gate must stay CONSISTENT with that labeling practice).
+        # Service-shaped locals (noreply/test/postmaster/admin/info) are the
+        # placeholder form and stay exempt.
+        r"|(?<![\w.+-])(?!noreply[\w.+-]*@|test[\w.+-]*@|postmaster[\w.+-]*@"
+        r"|admin[\w.+-]*@|info[\w.+-]*@)[\w.+-]+@[\w.-]+\.[A-Za-z]+")
     _PROJ_GATE_INJ = __import__("re").compile(
         r"忽略(?:之前|以上|前面)|无视(?:之前|以上)"
         r"|ignore (?:the )?(?:previous|above)|disregard (?:the )?(?:above|previous)"
