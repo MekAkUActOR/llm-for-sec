@@ -100,6 +100,23 @@ output-mode: structured
 
 模板常量由渲染器模块导出（单一事实源）。**权威源纪律**：本模板的权威源 = **训练侧 secfm/carriers 序列化**（r5 特征在训练侧渲染上塑形，训练侧才是分布源头）；对冻结套件（v0.4-toolout / v0.3-gen / v0.6-document）的逆向核实定位为**格式交叉验证**（只验结构，不取 payload/措辞）——qa task-15 乙醇审计线索：sysdesign 未从 heldout 取任何内容进训练分布。两源有出入时以训练侧为准并登记偏差表。协议版本登记于 `manifest.render_protocol_version`；变更 = 新版本号 + SCHEMAS.md 登记。
 
+#### 4.2.1 载体块表现变体（envelope_style；arch 裁定 Option A）
+
+结构化 carrier（`input.carrier`）+ 渲染器模板选择，**数据与模板解耦**（gold 坐标锚在 carrier.body 原文，四变体恒定）。变体枚举与模板语义（权威源 = 训练侧变体生成器 `scripts/m6/gen_indirect.py::envelope_variant`，渲染器须逐字节复现）：
+
+| envelope_style | 载体块形态（zh/en） |
+|---|---|
+| `std_tag`（缺省） | `<carrier type="…" trust="untrusted" id="c1">\n<body>\n{body}\n</body>\n</carrier>` |
+| `simple_tag` | `【{载体中文名}】\n{body}` / `[{EN LABEL}]\n{body}` |
+| `markdown` | `> 来源：{载体中文名}（不可信外部内容）\n> \n{body 逐行 "> " 前缀}` / `> source: … (untrusted external content)\n> \n…` |
+| `plain` | 裸 `{body}`（无任何信封标记） |
+
+- 变体位于 dsh-protocol 信封**内**的载体块位置（`</operator>` 与 `<user>` 之间）；渲染器入口 `input.carrier.envelope_style` 选模板。
+- gold（T5 mechanism/carrier_site、T4 span 若在载体）只依赖 `carrier.body`，与变体无关——模板任何修订不迁移数据。
+- **渲染器义务（deveng）**：四变体模板 + token→char 映射含 body 偏移投影（span 回映 carrier.body 原文坐标用）。
+- **数据侧义务（dataeng）**：终稿四变体一律 `input.carrier + envelope_style`（生成器持有 raw body 与变体号；**勿用预渲染片段文本反解**）；gold 侧 `label_detail.envelope` 同枚举。
+- 分布注记：本设计下自建 T5 行恒经协议信封包裹（变体只变载体块）；"完全无协议包裹的裸片段"形态不出现于 input.carrier 路径——若 dataeng 认为该形态需要覆盖，走 input.text 显式混入（构建侧决策，登记配比即可）。
+
 ## 5. 阈值分层与校准策略（M5；recall>95% 与 FPR<0.5%/挑战<0.1% 张力的化解）
 
 **三层机制**（ADR D6/D8 + adr-1b）：
@@ -123,7 +140,7 @@ output-mode: structured
 ## 6. OOD 弃权 → PASS 判定流程（可操作判据）
 
 ```
-输入 → 渲染 → 主干 forward → trunk 特征 → 六头 logits + Mahalanobis 距离
+输入 → 渲染 → 主干 forward → trunk 输出（1024 维，N-3：与六头同空间）→ 六头 logits + Mahalanobis 距离
 d = min(d_benign, d_attack)；is_ood = (d > τ_ood)
 对每任务 i：score_i = σ(logit_i)
     score_i > τ_strong_i            → flag_i = true              （强信号，OOD 无权压制）

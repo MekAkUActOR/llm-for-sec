@@ -108,6 +108,10 @@
         "content": { "type": "string", "minLength": 1 }
       }
     },
+    "EnvelopeStyle": {
+      "enum": ["std_tag", "simple_tag", "markdown", "plain"],
+      "description": "载体块表现变体（arch 裁定 Option A：结构化 carrier + 渲染器选模板；权威源 = 训练侧变体生成器 scripts/m6/gen_indirect.py envelope_variant）。std_tag=<carrier> XML；simple_tag=本地化标签头（【外部搜索结果】/[EXTERNAL SEARCH RESULTS]）；markdown=引用块（> 来源：…）；plain=裸 body。gold 坐标对四变体恒定（body 不变），模板修订与数据解耦。"
+    },
     "Carrier": {
       "type": "object",
       "required": ["type", "trust", "body"],
@@ -116,6 +120,7 @@
         "type": { "$ref": "#/$defs/CarrierType" },
         "trust": { "const": "untrusted" },
         "id": { "type": "string", "pattern": "^c[0-9]+$", "default": "c1" },
+        "envelope_style": { "$ref": "#/$defs/EnvelopeStyle", "default": "std_tag", "description": "渲染器据此选载体块模板（SYS-1 §4.2.1）；缺省 std_tag" },
         "meta": { "type": "object", "description": "载体元数据（自由键值，渲染进协议 meta 区）" },
         "dom": { "type": "string", "description": "可选：文档结构位点视图（v0.6-document 型载体；渲染进协议 dom 区）" },
         "body": { "type": "string", "minLength": 1 },
@@ -262,8 +267,8 @@
           "description": "注入位点（body|meta|dom|urls 等；neg 行为 null。dataeng 中间格式叫 position，终稿投影改名 carrier_site）"
         },
         "envelope": {
-          "type": "string",
-          "description": "信封变体标记（如 std_tag；T5 评测分段用）"
+          "$ref": "#/$defs/EnvelopeStyle",
+          "description": "该行生成时的载体块变体（gold 侧标记，与 input.carrier.envelope_style 一致；T5 评测分段用）"
         }
       },
       "additionalProperties": false

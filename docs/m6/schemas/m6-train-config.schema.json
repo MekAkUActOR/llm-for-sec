@@ -105,7 +105,7 @@
           "properties": {
             "mechanism": { "const": "mahalanobis" },
             "classes": { "const": ["benign", "attack"] },
-            "feature": { "const": "trunk_pre_input", "description": "trunk 前的 pooled 原始拼接（10240 维），与特征缓存同源（ADR §11）" },
+            "feature": { "const": "trunk_output", "description": "trunk 输出（1024 维）上的 Mahalanobis——ADR §8 原文口径（N-3 裁定修正，原 'trunk_pre_input' 为 schema 偏出）：①trunk 入口 LN 已标准化（L24-27 outlier 区压掉），协方差条件数更好；②1024 维协方差估计比 10240 维更稳；③与六头同空间，距离度量在头工作的空间里语义自洽。deveng train/infer 两端已按此实现一致。" },
             "covariance": { "enum": ["shared-shrinkage", "ledoit-wolf"], "default": "shared-shrinkage" },
             "shrinkage_lambda": { "type": "number", "default": 0.1 },
             "fit_on": { "enum": ["train", "dev"], "default": "train" },
