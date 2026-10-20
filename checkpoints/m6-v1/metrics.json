@@ -1,0 +1,63 @@
+{
+  "bio_token": {
+    "token_recall_pos": 0.0,
+    "n_pos_tokens": 14307
+  },
+  "tau_ood": 526.4208,
+  "tasks": {
+    "T1": {
+      "recall": 0.636,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.96652,
+        "strong": 0.98652
+      }
+    },
+    "T2": {
+      "recall": 0.996,
+      "fp_dev_neg": 283,
+      "n_neg": 5494,
+      "thresholds": {
+        "flag": 0.999,
+        "strong": 0.9999
+      }
+    },
+    "T3": {
+      "recall": 0.6762,
+      "fp_dev_neg": 0,
+      "n_neg": 5558,
+      "thresholds": {
+        "flag": 0.999,
+        "strong": 0.9999
+      }
+    },
+    "T4": {
+      "recall": 0.9564,
+      "fp_dev_neg": 4,
+      "n_neg": 5262,
+      "thresholds": {
+        "flag": 0.999,
+        "strong": 0.9999
+      }
+    },
+    "T5": {
+      "recall": 0.552,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.999,
+        "strong": 0.9999
+      }
+    },
+    "T6": {
+      "recall": 0.852,
+      "fp_dev_neg": 0,
+      "n_neg": 5862,
+      "thresholds": {
+        "flag": 0.967168,
+        "strong": 0.987168
+      }
+    }
+  }
+}
