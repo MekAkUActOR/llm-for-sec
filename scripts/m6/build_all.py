@@ -655,13 +655,16 @@ def main():
         r"|(?<!\d)\d{17}[\dXx](?!\d)"                    # resident id
         r"|(?<!\d)62\d{14,17}(?!\d)"                     # bank card
         r"|(?<!\d)\d{3,4}-\d{7,8}(?!\d)"                 # landline
-        r"|[\w.+-]+@(?!example\.(?:com|org)\b)[\w-]+\.[\w.]+")  # real-domain email
+        r"|[\w.+-]+@(?!example\.(?:com|org)|203\.0\.113\.|192\.0\.2\.|198\.51\.100\.)"
+        r"[\w.-]+\.[A-Za-z]+")  # real-domain email (RFC 5737 doc ranges + example.* = placeholder)
     _PROJ_GATE_INJ = __import__("re").compile(
         r"忽略(?:之前|以上|前面)|无视(?:之前|以上)"
         r"|ignore (?:the )?(?:previous|above)|disregard (?:the )?(?:above|previous)"
         r"|system prompt|系统提示词", __import__("re").I)
     gate_blocked = []
     gate_hits = []
+    gate_scope = collections.Counter()
+    gate_pii_hits = gate_inj_hits = 0
 
     n_proj = 0
     for r in pool_rows:
@@ -675,6 +678,8 @@ def main():
             # be guessing (the cvalues failure mode).
             if r["labels"]["T6"]["label"] != "neg":
                 continue
+            gate_scope[(r["labels"]["T6"].get("label_detail") or {}).get(
+                "t6_class", "?")] += 1
             t = _input_text(r)
             pii_m = _PROJ_GATE_PII.search(t)
             inj_m = _PROJ_GATE_INJ.search(t)
@@ -682,6 +687,10 @@ def main():
                 gate_blocked.append(r["id"])
                 gate_hits.append((r["id"], pii_m.group(0) if pii_m else None,
                                   inj_m.group(0) if inj_m else None))
+                if pii_m:
+                    gate_pii_hits += 1
+                if inj_m:
+                    gate_inj_hits += 1
                 continue  # stay single-key — no blanket T4/T5-neg on pattern hits
             for tk, det in _PROJ_DETAIL.items():
                 r["labels"][tk] = {"label": "neg"}
@@ -703,6 +712,18 @@ def main():
         for g in gate_hits[:10]:
             print("  -", g)
     print("cross-task neg projection (pool/train, T6 synth-instr cond+safe, gate-passed): %d rows" % n_proj)
+    projection_gate = {
+        "checked": n_proj + len(gate_blocked),
+        "t4_hits": gate_pii_hits,
+        "t5_hits": gate_inj_hits,
+        "revoked_to_pos": 0,   # hit rows converted to T4 pos+spans (none — arch rules manually if ever)
+        "revoked_exit": len(gate_blocked),  # hit rows kept single-key
+        "assert": "PASS" if not leaked else "FAIL",
+        "scope": {"classes_gated": dict(gate_scope)},
+        "note": "gate extractors: real-shaped PII regex (RFC 5737 ranges + "
+                "example.* treated as placeholder semantics) + injection "
+                "marker regex; hits stay single-key (no blanket T4/T5-neg)",
+    }
     # shared benign as six-key negatives in pool
     for r in benign[6000:9500]:
         base = staging_to_final(r, "train", task_override="pool", force_label="neg")
@@ -853,6 +874,7 @@ def main():
             "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits "
                           "attributed to shared policy-pack template ancestry)",
         },
+        "projection_gate": projection_gate,
         "disjointness": {
             **iso,
             "protocol": {
