@@ -37,6 +37,8 @@ __pycache__/
 !/data/**/
 !/data/**/*.jsonl
 !/data/**/*.md
+# M6 数据冻结交付件：manifest 是验收/训练侧直接引用的数据集清单，必须入库
+!/data/m6/manifest.json
 
 # 原始外部语料转储 + 第三方克隆仓（含 12 个嵌套 .git，同 LLaMA-Factory 类别）
 /data/corpora/raw/

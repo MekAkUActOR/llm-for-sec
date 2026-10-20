@@ -475,8 +475,16 @@ def main():
     rng_b = __import__("random").Random(args.seed + 5)
     benign_dev = [shared_final(r, "dev", "pool") for r in benign[:3500]]
     benign_held = [shared_final(r, "heldout", "pool") for r in benign[3500:6000]]
+    # mirrors carry their family flag so D8 OR-gate calibration and challenge
+    # FPR stats can identify mirror rows inside pool/dev (deveng finding #1)
     chm_rows = [shared_final(r, "dev", "pool") for r in ch_mirror]
+    for r in chm_rows:
+        r["flags"] = {"ood": False, "challenge": True, "holdout_family": None,
+                      "ambiguous": False}
     oodm_rows = [shared_final(r, "dev", "pool") for r in ood_mirror]
+    for r in oodm_rows:
+        r["flags"] = {"ood": True, "challenge": False, "holdout_family": None,
+                      "ambiguous": False}
 
     # 4) challenge / ood eval dirs (six-key labels)
     challenge = read_jsonl(os.path.join(st, "challenge.jsonl"))
@@ -536,7 +544,7 @@ def main():
     manifest_files.append(("pool/train.jsonl", sum(1 for r in pool_final if r["split"] == "train")))
     manifest_files.append(("pool/dev.jsonl", sum(1 for r in pool_final if r["split"] == "dev") + len(chm_rows) + len(oodm_rows) + len(benign_dev)))
 
-    # 6) isolation check + manifest
+    # 6) isolation check + manifest (v2 per schema v0.3.8)
     iso = isolation_report(out)
 
     # shape-mix / pair-integrity stats (manifest registration per sysdesign U5)
@@ -575,12 +583,68 @@ def main():
 
     all_final = [r for rows in per_task.values() for r in rows]
     t3m, t5m, pr5, pr3, prd = _stats(all_final)
+
+    def file_entry(rel_path, n):
+        """v2 file entry: split/task inferred from path, sha256 + label_counts
+        computed from the written file (schema v0.3.8)."""
+        rel = rel_path.replace("\\", "/")
+        sp = "challenge" if rel.startswith("challenge/") else \
+             "ood" if rel.startswith("ood/") else \
+             "train" if rel.endswith("/train.jsonl") or rel == "pool/train.jsonl" else \
+             "dev" if rel.endswith("/dev.jsonl") or rel == "pool/dev.jsonl" else \
+             "heldout" if rel.endswith("/heldout.jsonl") else "dev"
+        if rel.startswith("challenge/"):
+            task = "pool"
+        elif rel.startswith("ood/"):
+            task = "pool"
+        elif rel.startswith("heldout-shared/"):
+            task = "shared-benign"
+        else:
+            task = {"t1-moderation": "T1", "t2-jailbreak": "T2", "t3-intent": "T3",
+                    "t4-pii": "T4", "t5-indirect": "T5", "t6-highrisk": "T6",
+                    "pool": "pool"}.get(rel.split("/")[0], "pool")
+        import hashlib
+        h = hashlib.sha256()
+        lc = collections.defaultdict(collections.Counter)
+        with open(os.path.join(out, rel), "rb") as fb:
+            for chunk in iter(lambda: fb.read(1 << 20), b""):
+                h.update(chunk)
+        with open(os.path.join(out, rel), encoding="utf-8") as f:
+            for line in f:
+                r = json.loads(line)
+                for tk, g in (r.get("labels") or {}).items():
+                    lc[tk][g.get("label", "?")] += 1
+        return {"path": rel, "n": n, "rows": n, "split": sp, "task": task,
+                "sha256": h.hexdigest(),
+                "label_counts": {tk: dict(c) for tk, c in lc.items()}}
+
+    # dev-mirror files are byte-identical subsets of pool/dev — registered once
+    # via pool/dev; mirror files listed with subset_of marker only
+    mirror_files = []
+    files_v2 = []
+    for p, n in manifest_files:
+        if p.startswith("dev-mirror"):
+            mirror_files.append(p.replace("\\", "/"))
+            continue
+        files_v2.append(file_entry(p, n))
+
     manifest = {
         "schema": "m6-manifest",
         "schema_version": SCHEMA_VERSION,
+        "manifest_id": "m6-data-v1",
         "created": "2026-10-21",
-        "generator_seed": args.seed,
-        "files": [{"path": p, "rows": n} for p, n in manifest_files],
+        "generator": {
+            "script": "scripts/m6/build_all.py",
+            "seed": args.seed,
+            "staging_generators": [
+                "gen_pii.py", "gen_indirect.py", "gen_multiturn.py", "gen_longctx.py",
+                "gen_t2_jailbreak.py", "gen_t6.py", "gen_pools.py", "convert_legacy.py",
+            ],
+        },
+        "files": files_v2,
+        "dev_mirror_note": "dev-mirror/*.jsonl are byte-identical subsets of pool/dev.jsonl "
+                           "(challenge-mirror flags.challenge=true, ood-mirror flags.ood=true); "
+                           "kept as standalone files for qa/loader convenience: %s" % mirror_files,
         "scale_gates": {
             "heldout_pos_min_per_task": 200,
             "heldout_neg_min_per_task": 1000,
@@ -602,14 +666,26 @@ def main():
             "f5_policy_pairs": len(pr3), "f5_policy_cross_split": sum(1 for s in pr3.values() if len(s) > 1),
             "t3_dialog_groups": len(prd), "t3_dialogs_cross_split": sum(1 for s in prd.values() if len(s) > 1),
         },
+        "frozen_suites": {
+            "reference": "data/heldout/ (v0.2.3 / v0.3-gen / v0.4-toolout / v0.5-toolout-reg / "
+                         "v0.5-topup-families / v0.6-document / v0.6-dilution / v0.7-jailbreak)",
+            "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits "
+                          "attributed to shared policy-pack template ancestry)",
+        },
         "disjointness": iso,
         "notes": [
             "T4 pos spans are char offsets (end-exclusive), risk derived from type table.",
             "T6 labels: pos <=> t6_class=high-risk (single source of truth, adr-1b 6.2).",
-            "T3 shape mix: user-only turns primary; messages-with-assistant (r9-paired) kept ~40%.",
-            "T5 envelope variants: std_tag->CarrierInput; simple/markdown/plain->TextInput.",
-            "challenge medical-PII subset: labels.T4=pos, excluded from chFPR denominator.",
-            "Ethanol discipline: data/heldout/ never read for construction (README-only).",
+            "T3 shape mix (arch H6 review): user_only=2239 (39%) / messages_with_assistant=3582 "
+            "(61%, r9-paired seeds) / longctx=2900 — absolute coverage sufficient for v1; "
+            "v0.7 eval-shape (user-only) generalization listed as task-10 watch item.",
+            "T5 Option A (arch ruling): ALL synth carrier rows -> input.carrier + envelope_style "
+            "(gold anchors on carrier.body raw text); legacy rows keep input.text as "
+            "protocol-envelope-free coverage; label_detail.envelope mirrors carrier.envelope_style.",
+            "challenge medical-PII subset: labels.T4=pos with real span gold, excluded from chFPR "
+            "denominator; other five task keys remain hard negatives.",
+            "Ethanol discipline: data/heldout/ never read for construction (README-only + task-6 "
+            "read-only leak audit).",
         ],
     }
     with open(os.path.join(out, "manifest.json"), "w", encoding="utf-8") as f:

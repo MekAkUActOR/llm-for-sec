@@ -1,0 +1,508 @@
+{
+ "schema": "m6-manifest",
+ "schema_version": "0.3.0",
+ "manifest_id": "m6-data-v1",
+ "created": "2026-10-21",
+ "generator": {
+  "script": "scripts/m6/build_all.py",
+  "seed": 20261022,
+  "staging_generators": [
+   "gen_pii.py",
+   "gen_indirect.py",
+   "gen_multiturn.py",
+   "gen_longctx.py",
+   "gen_t2_jailbreak.py",
+   "gen_t6.py",
+   "gen_pools.py",
+   "convert_legacy.py"
+  ]
+ },
+ "files": [
+  {
+   "path": "t1-moderation/train.jsonl",
+   "n": 14648,
+   "rows": 14648,
+   "split": "train",
+   "task": "T1",
+   "sha256": "b5bfaac3422387db4fedbaa0bc0f44d659a3335399d6122febf87734f810e66b",
+   "label_counts": {
+    "T1": {
+     "pos": 8560,
+     "neg": 6088
+    }
+   }
+  },
+  {
+   "path": "t1-moderation/dev.jsonl",
+   "n": 1450,
+   "rows": 1450,
+   "split": "dev",
+   "task": "T1",
+   "sha256": "c9f04fbb5584a65d8f2012f0d8cf73ef121d570ec410fdbc2c2a60c03b8d448a",
+   "label_counts": {
+    "T1": {
+     "pos": 250,
+     "neg": 1200
+    }
+   }
+  },
+  {
+   "path": "t1-moderation/heldout.jsonl",
+   "n": 2500,
+   "rows": 2500,
+   "split": "heldout",
+   "task": "T1",
+   "sha256": "371f419a413843b3d280da6f29b546e6bf0d7dc409c3241e94ef18b600e5dca6",
+   "label_counts": {
+    "T1": {
+     "pos": 300,
+     "neg": 2200
+    }
+   }
+  },
+  {
+   "path": "t2-jailbreak/train.jsonl",
+   "n": 4226,
+   "rows": 4226,
+   "split": "train",
+   "task": "T2",
+   "sha256": "3ba9b1eef512263b717f37d4ff0916631cd8c44975e641777d21874f39954c3c",
+   "label_counts": {
+    "T2": {
+     "pos": 2126,
+     "neg": 2100
+    }
+   }
+  },
+  {
+   "path": "t2-jailbreak/dev.jsonl",
+   "n": 1082,
+   "rows": 1082,
+   "split": "dev",
+   "task": "T2",
+   "sha256": "fd0048042ecd3b9514175a1cbafce8137a24f6a95e04173bace6f15758ff2ddf",
+   "label_counts": {
+    "T2": {
+     "pos": 250,
+     "neg": 832
+    }
+   }
+  },
+  {
+   "path": "t2-jailbreak/heldout.jsonl",
+   "n": 1300,
+   "rows": 1300,
+   "split": "heldout",
+   "task": "T2",
+   "sha256": "abb6fb62f209664a49992d4cb9c4bc7d95ccddb8fb2768d413d567347f6a765f",
+   "label_counts": {
+    "T2": {
+     "pos": 300,
+     "neg": 1000
+    }
+   }
+  },
+  {
+   "path": "t3-intent/train.jsonl",
+   "n": 8195,
+   "rows": 8195,
+   "split": "train",
+   "task": "T3",
+   "sha256": "06d9faca0074a9d70e12f27ef777a598d71abf47c1820b3fb0bdd02ed4364484",
+   "label_counts": {
+    "T3": {
+     "neg": 4934,
+     "pos": 3261
+    }
+   }
+  },
+  {
+   "path": "t3-intent/dev.jsonl",
+   "n": 1726,
+   "rows": 1726,
+   "split": "dev",
+   "task": "T3",
+   "sha256": "26955e604f66e30c800d658726c73d27e651a6dd85adf05b6324d91618421540",
+   "label_counts": {
+    "T3": {
+     "pos": 526,
+     "neg": 1200
+    }
+   }
+  },
+  {
+   "path": "t3-intent/heldout.jsonl",
+   "n": 2500,
+   "rows": 2500,
+   "split": "heldout",
+   "task": "T3",
+   "sha256": "4d4b40d1b09310953544c30b19c098ab84702ef154fc6e9885ccd8f8a306adda",
+   "label_counts": {
+    "T3": {
+     "neg": 2200,
+     "pos": 300
+    }
+   }
+  },
+  {
+   "path": "t4-pii/train.jsonl",
+   "n": 5750,
+   "rows": 5750,
+   "split": "train",
+   "task": "T4",
+   "sha256": "47e80bf44665978e603842652d828c80b9b4880be5fd97e4ab14f95bf8c8b049",
+   "label_counts": {
+    "T4": {
+     "pos": 2650,
+     "neg": 3100
+    }
+   }
+  },
+  {
+   "path": "t4-pii/dev.jsonl",
+   "n": 850,
+   "rows": 850,
+   "split": "dev",
+   "task": "T4",
+   "sha256": "69d5b654e926123a9f19d51a0ae8020d010ba9fc219551af7cfe461e20d3c667",
+   "label_counts": {
+    "T4": {
+     "pos": 250,
+     "neg": 600
+    }
+   }
+  },
+  {
+   "path": "t4-pii/heldout.jsonl",
+   "n": 1500,
+   "rows": 1500,
+   "split": "heldout",
+   "task": "T4",
+   "sha256": "9890c9218fdc2202a7188ff0ec965deb9bf4e69c412772efe128ca08369ea136",
+   "label_counts": {
+    "T4": {
+     "pos": 300,
+     "neg": 1200
+    }
+   }
+  },
+  {
+   "path": "t5-indirect/train.jsonl",
+   "n": 17781,
+   "rows": 17781,
+   "split": "train",
+   "task": "T5",
+   "sha256": "fe1ea54286138f595a2630f9981ef1a6cec7bfdfbc30b59f03450a04d475f427",
+   "label_counts": {
+    "T5": {
+     "pos": 10774,
+     "neg": 6254,
+     "cond": 753
+    }
+   }
+  },
+  {
+   "path": "t5-indirect/dev.jsonl",
+   "n": 1450,
+   "rows": 1450,
+   "split": "dev",
+   "task": "T5",
+   "sha256": "f6eeb49df475ef763ebfbdbff9a99c04139d5f663ea8631eb041716248a3ad42",
+   "label_counts": {
+    "T5": {
+     "pos": 250,
+     "neg": 1200
+    }
+   }
+  },
+  {
+   "path": "t5-indirect/heldout.jsonl",
+   "n": 2500,
+   "rows": 2500,
+   "split": "heldout",
+   "task": "T5",
+   "sha256": "ea9f3a8d1ebe7c90822e3a81dc8dea988fc8ae6fa99988ce6b80696ddcd0a16f",
+   "label_counts": {
+    "T5": {
+     "pos": 300,
+     "neg": 2200
+    }
+   }
+  },
+  {
+   "path": "t6-highrisk/train.jsonl",
+   "n": 6244,
+   "rows": 6244,
+   "split": "train",
+   "task": "T6",
+   "sha256": "aa22f6a6a2e667d5f5240a0b3f7ff197a82e5d0efefd0f940e67f8113e6b8dcb",
+   "label_counts": {
+    "T6": {
+     "neg": 4194,
+     "pos": 2050
+    }
+   }
+  },
+  {
+   "path": "t6-highrisk/dev.jsonl",
+   "n": 1450,
+   "rows": 1450,
+   "split": "dev",
+   "task": "T6",
+   "sha256": "3bedb56a570ce9c3f2f012b21a9888c672840fc4423f80709c64e700f0c1d48b",
+   "label_counts": {
+    "T6": {
+     "neg": 1200,
+     "pos": 250
+    }
+   }
+  },
+  {
+   "path": "t6-highrisk/heldout.jsonl",
+   "n": 2500,
+   "rows": 2500,
+   "split": "heldout",
+   "task": "T6",
+   "sha256": "78bb8167eae402f7e2cb2758185ea9205c0c8c29acda0a92b751725fbced7acc",
+   "label_counts": {
+    "T6": {
+     "neg": 2200,
+     "pos": 300
+    }
+   }
+  },
+  {
+   "path": "challenge/all.jsonl",
+   "n": 1500,
+   "rows": 1500,
+   "split": "challenge",
+   "task": "pool",
+   "sha256": "d9216628a8eb9f9187999d9810029c200d913feedbf6c64607b4b54c299c0e63",
+   "label_counts": {
+    "T1": {
+     "neg": 1500
+    },
+    "T2": {
+     "neg": 1500
+    },
+    "T3": {
+     "neg": 1500
+    },
+    "T5": {
+     "neg": 1500
+    },
+    "T6": {
+     "neg": 1500
+    },
+    "T4": {
+     "neg": 1155,
+     "pos": 345
+    }
+   }
+  },
+  {
+   "path": "ood/all.jsonl",
+   "n": 500,
+   "rows": 500,
+   "split": "ood",
+   "task": "pool",
+   "sha256": "f9bf3c5103736bf486be6ddeac5d5e501757213bf750e14b852380b2a0e9d42c",
+   "label_counts": {
+    "T1": {
+     "neg": 500
+    },
+    "T2": {
+     "neg": 500
+    },
+    "T3": {
+     "neg": 500
+    },
+    "T5": {
+     "neg": 500
+    },
+    "T6": {
+     "neg": 500
+    },
+    "T4": {
+     "neg": 500
+    }
+   }
+  },
+  {
+   "path": "heldout-shared/benign-heldout.jsonl",
+   "n": 2500,
+   "rows": 2500,
+   "split": "dev",
+   "task": "shared-benign",
+   "sha256": "2ef99369ca364a72a9e60f409e1885e4ade9dd9b214cb5cb034dcf7da15a0a66",
+   "label_counts": {
+    "T1": {
+     "neg": 2500
+    },
+    "T2": {
+     "neg": 2500
+    },
+    "T3": {
+     "neg": 2500
+    },
+    "T5": {
+     "neg": 2500
+    },
+    "T6": {
+     "neg": 2500
+    },
+    "T4": {
+     "neg": 2500
+    }
+   }
+  },
+  {
+   "path": "pool/train.jsonl",
+   "n": 46732,
+   "rows": 46732,
+   "split": "train",
+   "task": "pool",
+   "sha256": "02849983795f4ec2f8a17fdf82cadf012ce01ba836a5270785e538d007caeb84",
+   "label_counts": {
+    "T1": {
+     "pos": 8392,
+     "neg": 7320
+    },
+    "T2": {
+     "pos": 2126,
+     "neg": 3500
+    },
+    "T3": {
+     "neg": 5765,
+     "pos": 3054
+    },
+    "T4": {
+     "pos": 2650,
+     "neg": 6600
+    },
+    "T5": {
+     "pos": 9751,
+     "neg": 7430
+    },
+    "T6": {
+     "neg": 5594,
+     "pos": 2050
+    }
+   }
+  },
+  {
+   "path": "pool/dev.jsonl",
+   "n": 9800,
+   "rows": 9800,
+   "split": "dev",
+   "task": "pool",
+   "sha256": "e8d1ff7410ef77666747066363f5545e6583a8c091a05ea2c26f985e784c6610",
+   "label_counts": {
+    "T1": {
+     "pos": 230,
+     "neg": 5677
+    },
+    "T2": {
+     "pos": 250,
+     "neg": 5332
+    },
+    "T3": {
+     "neg": 5480,
+     "pos": 481
+    },
+    "T4": {
+     "pos": 688,
+     "neg": 5262
+    },
+    "T5": {
+     "pos": 250,
+     "neg": 5700
+    },
+    "T6": {
+     "neg": 5700,
+     "pos": 250
+    }
+   }
+  }
+ ],
+ "dev_mirror_note": "dev-mirror/*.jsonl are byte-identical subsets of pool/dev.jsonl (challenge-mirror flags.challenge=true, ood-mirror flags.ood=true); kept as standalone files for qa/loader convenience: ['dev-mirror/challenge-mirror.jsonl', 'dev-mirror/ood-mirror.jsonl', 'dev-mirror/benign-dev.jsonl']",
+ "scale_gates": {
+  "heldout_pos_min_per_task": 200,
+  "heldout_neg_min_per_task": 1000,
+  "challenge_min": 1200,
+  "ood_min": 300,
+  "train_pos_min_per_task": 2000,
+  "train_neg_min_per_task": 2000
+ },
+ "risk_domain_enum": [
+  "malware",
+  "phishing",
+  "credential",
+  "data-theft",
+  "intrusion",
+  "surveillance",
+  "doxxing",
+  "forgery",
+  "weapons",
+  "drugs",
+  "explosives",
+  "privacy-abuse",
+  "other"
+ ],
+ "pii_type_table": {
+  "person": "low",
+  "phone": "medium",
+  "email": "low",
+  "gov_id": "high",
+  "address": "medium",
+  "bank_card": "high",
+  "credential": "high",
+  "dob": "medium",
+  "license_plate": "medium",
+  "medical_id": "medium",
+  "other_id": "medium"
+ },
+ "shape_mix": {
+  "t3": {
+   "messages_with_assistant": 3582,
+   "user_only": 2239,
+   "text_longctx": 2900
+  },
+  "t5": {
+   "text_legacy": 12231,
+   "carrier_structured:std_tag": 1400,
+   "carrier_structured:simple_tag": 1476,
+   "carrier_structured:markdown": 1497,
+   "carrier_structured:plain": 1427
+  },
+  "t5_note": "synth rows -> input.carrier + envelope_style (Option A, arch ruling); legacy rows keep input.text as protocol-free coverage"
+ },
+ "pair_integrity": {
+  "t5_pairs": 1589,
+  "t5_pairs_cross_split": 0,
+  "f5_policy_pairs": 1000,
+  "f5_policy_cross_split": 0,
+  "t3_dialog_groups": 530,
+  "t3_dialogs_cross_split": 0
+ },
+ "frozen_suites": {
+  "reference": "data/heldout/ (v0.2.3 / v0.3-gen / v0.4-toolout / v0.5-toolout-reg / v0.5-topup-families / v0.6-document / v0.6-dilution / v0.7-jailbreak)",
+  "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits attributed to shared policy-pack template ancestry)"
+ },
+ "disjointness": {
+  "train_rows": 103576,
+  "eval_rows": 16800,
+  "exact_overlap": 0,
+  "mirror_eval_overlap": 0,
+  "ood_t4_pos_rows": 0,
+  "assert": "PASS"
+ },
+ "notes": [
+  "T4 pos spans are char offsets (end-exclusive), risk derived from type table.",
+  "T6 labels: pos <=> t6_class=high-risk (single source of truth, adr-1b 6.2).",
+  "T3 shape mix (arch H6 review): user_only=2239 (39%) / messages_with_assistant=3582 (61%, r9-paired seeds) / longctx=2900 — absolute coverage sufficient for v1; v0.7 eval-shape (user-only) generalization listed as task-10 watch item.",
+  "T5 Option A (arch ruling): ALL synth carrier rows -> input.carrier + envelope_style (gold anchors on carrier.body raw text); legacy rows keep input.text as protocol-envelope-free coverage; label_detail.envelope mirrors carrier.envelope_style.",
+  "challenge medical-PII subset: labels.T4=pos with real span gold, excluded from chFPR denominator; other five task keys remain hard negatives.",
+  "Ethanol discipline: data/heldout/ never read for construction (README-only + task-6 read-only leak audit)."
+ ]
+}
