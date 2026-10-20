@@ -661,7 +661,7 @@ def main():
         # Service-shaped locals (noreply/test/postmaster/admin/info) are the
         # placeholder form and stay exempt.
         r"|(?<![\w.+-])(?!noreply[\w.+-]*@|test[\w.+-]*@|postmaster[\w.+-]*@"
-        r"|admin[\w.+-]*@|info[\w.+-]*@)[\w.+-]+@[\w.-]+\.[A-Za-z]+")
+        r"|admin[\w.+-]*@|info[\w.+-]*@)[\w.+-]+@[\w.-]+")
     _PROJ_GATE_INJ = __import__("re").compile(
         r"忽略(?:之前|以上|前面)|无视(?:之前|以上)"
         r"|ignore (?:the )?(?:previous|above)|disregard (?:the )?(?:above|previous)"
