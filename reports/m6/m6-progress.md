@@ -86,9 +86,13 @@
 
 ## 4. 度量活表（按评测轮更新，qa-m6 供数）
 
-### 4.0 基线 v0（m5a-r5 原样，六任务口径）——待 qa 落盘
+### 4.0 基线 v0（m5a-r5 原样，六任务口径）——冻结套件+红队部分已落盘（~01:58，verdict FAIL 意料之中）
 
-> 读数文件：reports/m6/preds/baseline-v0-out.jsonl（m6-inference 兼容）+ baseline-v0-out.scores.csv（id, T1..T6 = σ(logP_YES)）；套件级汇总 qa-baseline-v0-frozen.md 生成中——落盘后镜像本表。
+> 来源：reports/m6/qa-baseline-v0-frozen.md（harness m6_acceptance.py，QA-1 口径）｜逐样本连续分：preds/baseline-v0-out.scores.csv｜G1-G4 n/a（data/m6 切分读数待 04:40 后 qa-baseline-v0-full.md，届时填上表）。
+>
+> **红队总检出 34.71%（59/170，REDTEAM-WEAK）**——逐任务：T1 16.9%（12/71）｜T2 24.6%（30/122）｜T3 22.9%（11/48）｜T4 30.0%（3/10）｜T5 50.0%（22/44）｜T6 20.0%（3/15）。
+> **冻结套件 pooled recall 78.60%（911 pos，门 >95%）**——gen 98.91% 但 FPR 97.30%（近乎全 flag）｜v023 36.90%/FPR 60%｜jb-visible 46.25%｜jb-holdout 40.00%｜toolout 89.13%｜toolout-reg 93.99%（pass-with-flag）｜document 65.38%｜dilution 71.88%｜topup-docstruct 100%（n=12）｜topup-t2m 62.50%。
+> **解读（pm）**：基线双向失守——欠检（pooled 78.6% < 95%）+ 过报（多套件 FPR 60-97%）——判别式探针头 v1 两轴均有明确超越空间；与 kickoff 基线证据（ASR 2.98/ORR 13.65）同向。
 
 | 任务 | recall | FPR | 挑战FPR | OOD 放过 | 备注 |
 |------|--------|-----|---------|----------|------|
@@ -149,6 +153,7 @@
 - ~02:00 Lead 预裁【v1 提前开训授权（02:30 轮 pm 可直接执行，无需再请示）】：允许提前于 H7-H9 预锁窗口开跑，**四条件缺一不可**——①dataeng task-4/5/6 板上 complete（含 manifest + t4_pos span 补齐）②qa 泄漏审计会签通过（sha256 精确交集空 + 可疑对解释）③arch H6 复核报告 PASS（十项断言）④qa v0 基线跑完 GPU 释放（~04:40）。顺序：deveng Stage A 特征缓存（~1h，CPU+GPU 混合）→ 头训练（分钟级）→ qa 评测；提前量全部转化为 v2/验收缓冲；GPU 登记照走 pm，预锁表标注"实际提前，理由=四条件全绿"。m4 断言结果：良性勘误按 adr-1b §3 断言表处理；动摇极性根基（**>5% 行受影响**）立即升级 Lead。N-1/N-2/N-3 关闭知会照常。
 - ~02:05 arch-m6 H6 数据冻结复核结论：绿，放行冻结（语义侧逐项跑数 + sysdesign 格式预检合并）——OOD 500 行 PII-free（t4_pos=0 全扫）；挑战集 1,500（345 医疗正例带真 span + 1,155 负例）；T4 主门自建 heldout 300/300 pos 带 span、11 类全覆盖；六任务规模门全过（t6 pos 2,050 贴线达标）+ pool 46,732；dev 内 mirror 分片 1,100/500/3,500（D8 双带定标难负压到位）；T5 最小对 1,589 组 0 跨切分、翻转保留 868 组、跨任务同输入并查集锁；train↔eval exact_overlap=0。一处文字修正不阻塞：manifest shape_mix.t3 note 与计数方向相反（实际 with-assistant 61%/user-only 39%），dataeng 改 note，列入 task-10 观察项。追溯注：t6 conditional 871 行 vs 早前 ~3.9k 估计，差额来自已批准 reserve 弃用，路径合规。adr-1b §6.8 记录随后落。
 - ~02:08 qa-m6 泄漏检查（task-15 仪器首跑）发现 dataeng 数据两处硬违规（整改单已发，H6 前必修）：①train↔heldout 全文精确重合 472 行（t1/t3 legacy 池切分未按文本去重，不同 id 同文本）②t4 实体级复用（heldout 与 train 共享同一 PII 实体值：电话/地址/护照号——T4 span 读数会虚高）。干净面：红队 vs train 交集 0 ✓、冻结套件 vs train 0 ✓（**乙醇红线未破**，违规属 data/m6 内部切分完整性）；5-gram 模板相似降级结构性噪声披露。若 H6 前修不完 → Lead 裁决顺延或带留痕冻结。另 v0 基线冻结套件读数文件已出（reports/m6/preds/baseline-v0-out.jsonl + baseline-v0-out.scores.csv；qa-baseline-v0-frozen.md 生成中）。**与 arch 复核矛盾待调和：arch "train↔eval exact_overlap=0" vs qa "train↔heldout 472 行重合"——疑检查范围（eval≠heldout）或方法差（id 基 vs 文本归一化哈希）。**
+- ~02:12 qa-m6 v0 基线冻结套件读数落盘（reports/m6/qa-baseline-v0-frozen.md，01:58:40 运行时钟）：verdict **FAIL（意料之中——无探针头原样模型即 v1 对照线）**；G1-G4 n/a（data/m6 切分读数待全量 04:40 后 qa-baseline-v0-full.md）；G5 红队总检出 **34.71%**（59/170，REDTEAM-WEAK），逐任务 T1 16.9%/T2 24.6%/T3 22.9%/T4 30%/T5 50%/T6 20%；冻结套件 pooled recall **78.60%**（911 pos，门 >95%）——gen 98.91% 但 FPR 97.30%（近乎全 flag）、v023 36.90%/FPR 60%、toolout-reg 93.99% pass-with-flag、dilution 71.88%。**基线双向失守（欠检+过报），判别式探针头两轴均有超越空间**；§4.0 已镜像。全量读数 04:40 后补。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -192,6 +197,7 @@
 - ~01:55（新锚点 turn10=01:54:44）qa：GPU 窗口登记（1770 行基线完成 755s；全量 02:00-04:40 ~2.7h）+ dataeng 重建确认（manifest 落盘，**H6 提前 ~5h**）+ QA-1 v1.3.1 勘误。pm 动作：已向 dataeng 要 m4 断言结果与 task-3/4/5/6 收口计划（02:30 报备料）；H6 提前冻结/提前开训选项整理中，02:30 报 Lead 裁决。
 - ~02:00 Lead 预裁：**v1 提前开训四条件门**（02:30 轮 pm 直接执行，无需再请示）——四条件门表格已建（§2 下）；m4 断言分级处理（良性→adr-1b §3 断言表；>5% 行受影响→立即升级）；已转达 deveng（Stage A 序列）/arch（十项断言报告=条件③）/qa（审计会签+v0 完成=条件②④）。
 - ~02:05-02:08 arch H6 复核绿（放行冻结）→ qa 泄漏检查首跑发现 2 硬违规（472 行重合 + t4 实体复用）——**首个 blocker 登记 §5**，四条件门 ②🔴 / ③⚠️（arch-qa 矛盾待调和，已请 arch 在 §6.8 记录调和结论）；U4/U5 收口（arch 验证）；v0 读数文件收到（§4.0 待镜像）。02:30 报 Lead：修复 ETA + 顺延/留痕冻结推荐（pm 倾向先修后冻）。
+- ~02:12 qa v0 冻结套件读数落盘并**镜像 §4.0**（verdict FAIL 意料之中——基线即对照线；红队 34.71%、冻结 pooled 78.60%、多套件 FPR 60-97% 双向失守）；已复 qa（读法确认请求：乙醇红线未破/内部切分完整性）+ 已请 arch 调和 exact_overlap 矛盾 + 已催 dataeng 修复 ETA/m4 断言/收口计划三合一回复。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
