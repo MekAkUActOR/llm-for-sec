@@ -25,7 +25,7 @@
 |--------|------|--------|------|------|
 | H1 | 10-21 02:30 | 设计冻结：ADR-1（task-1）+ 数据映射 DATA-1（task-3） | ✅ ~01:23 达成 | 运行时钟提前 ~67min（自报 02:05；三次校正后 turn 插值映射，见 §8） |
 | H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | ✅ ~01:35 达成（提前 ~115min） | 5/5 全清：task-2 ✅ + schema v0.3.1 ✅（F1/F2 修复，自检 14/14，commit 7c4071d）+ QA-1 v1.2 FROZEN ✅ + task-7/9 双 claim ✅ + arch 咬合审查闭环 ✅（adr-1b §6.6）；关键路径转 dataeng T04/05/06 + deveng task-7 |
-| H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | 🔴 二轮整改中 | "波稳定"被 qa 复检推翻（L1 残留 470：pool 视图断言 ≠ 任务视图实测）；二轮整改单在途 → qa 证书 → sysdesign/arch → 冻结；v0 全量已 kill 待重跑（04:30-05:00）；v1 投影下修至 ~05:00 后 |
+| H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | 🟢 两棒收口中 | task-3/4/5/6 全 complete + qa 证书 PASS（L1 0/0）；剩 sysdesign audit + arch 扫描两棒即冻结；**v1 已提前开跑（02:18，门序偏离见门表注）** |
 | H10 | 10-21 11:00 | v1 模型 + 首轮评测读数（task-8/9） | ⏳ | 训练窗口 H7-H9（GPU 预锁） |
 | H16 | 10-21 17:00 | v2 模型迭代（task-11） | ⏳ | 数据增补 H10-12 / 训练 H12-15（GPU 预锁） |
 | H20 | 10-21 21:00 | 验收轮：acceptance harness 全量（task-12） | ⏳ | 验收窗口 H20-H21（GPU 预锁） |
@@ -58,12 +58,12 @@
 
 | # | 条件 | 责任人 | 状态 |
 |---|------|--------|------|
-| 1 | task-4/5/6 板上 complete（含 manifest + t4_pos span 补齐） | dataeng | 🔶 4/5 ✅（02:22）；6 in_progress 等 qa 复检证书 |
-| 2 | 泄漏审计会签通过（sha256 精确交集空 + 可疑对解释） | qa | 🔴 **L1 残留 470 FAIL**（~02:13 复检第一棒（qa 自报 02:25 超前 ~11min）：L5 实体 ✓/L2/L3 ✓，L1 断言范围疑 pool vs 任务视图分歧）→ 第二轮整改单已发 dataeng |
-| 3 | H6 复核报告 PASS（十项断言） | arch | 🔶 待二轮整改后：三道复核链（qa L1/L5 证书 → sysdesign m6_h6_audit 四层 → arch 独立扫描）——双绿门；调和记录 02:04:45（manifest 断言非证据） |
-| 4 | v0 基线跑完 GPU 释放 | qa | 🔶 首跑已 kill（读到中间态 + L1 未完）；待 L1 PASS 后终态重跑 ~1.5h → 04:30-05:00 |
+| 1 | task-4/5/6 板上 complete（含 manifest + t4_pos span 补齐） | dataeng | ✅ 4/5/6 全 complete（rev4；终态 commit d5f65df 数据 + b6535d6 审计终稿） |
+| 2 | 泄漏审计会签通过（sha256 精确交集空 + 可疑对解释） | qa | ✅ **overall PASS**（leak-check-h6-final.json：L1 精确/NFKC 0/0 content-only 锁、L2 冻结套件 0、L3 红队 0、L5 实体 642/0、L4 披露层） |
+| 3 | H6 复核报告 PASS（十项断言） | arch | 🔶 leg1 ✅（qa）；**剩两棒 = 在跑 v1 的命运**（sysdesign m6_h6_audit 四层 + arch 独立扫描，目标 ~03:10 训练结束前绿） |
+| 4 | v0 基线跑完 GPU 释放 | qa | 🔶 v0 GPU 相位排队中（deveng v1 02:18-~03:10 先占）；完成投影 ~04:40-05:00 |
 
-全绿 → pm 放行 deveng：Stage A 特征缓存（~1h，CPU+GPU 混合）→ 头训练（分钟级）→ qa 评测；GPU 窗口登记 + 预锁表标注"实际提前，理由=四条件全绿"。**冻结门 = 双绿**（qa 协议复跑绿 + arch 独立扫描绿；manifest 断言非证据——Lead ~02:07 确认）。m4 断言 PASS 已收口。02:37 闹钟轮态势（Lead 锁定）：稳定信号 → 三方复验双绿 → H6 重新放行 → 门计绿 → v1 开跑（预计 ~03:00-03:30）。
+全绿 → pm 放行 deveng：Stage A 特征缓存（~1h，CPU+GPU 混合）→ 头训练（分钟级）→ qa 评测；GPU 窗口登记 + 预锁表标注"实际提前，理由=四条件全绿"。**冻结门 = 双绿**（qa 协议复跑绿 + arch 独立扫描绿；manifest 断言非证据——Lead ~02:07 确认）。m4 断言 PASS 已收口。**⚠️ ~02:18 deveng 在 ③④ 未全绿时开跑 v1（门序偏离，已即报 Lead）——pm 推荐条件接受：两棒 ~03:10 前绿 = 追认合规（GPU 流水线最优）；任一 FAIL = kill 重跑（H10 余量 ~8.5h）。**
 
 ## 3. WBS 任务板镜像（权威状态看 team_task_list；依赖已由 Lead 硬化 11 条边，readiness 门禁生效）
 
@@ -74,9 +74,9 @@
 | task-3 | 数据映射：数据源映射与配比 | dataeng-m6 | — | H1 02:30 | ✅ completed（rev3；arch 会签；m4 断言 PASS 收口） |
 | task-4 | 数据构建：六任务 train/dev | dataeng-m6 | 3✓ | H6 07:00 | ✅ completed（rev4；arch H6 复核绿 + qa 会审过；泄漏修复 ~02:50 落地经 qa 复检链） |
 | task-5 | 数据构建：挑战集 + OOD 集 | dataeng-m6 | 3✓ | H6 07:00 | ✅ completed（rev4；挑战 1,500 含 345 医疗 span + OOD 500 PII-free） |
-| task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4✓,5✓ | H6 07:00 | in_progress（leak-audit.md 已落盘自侧 PASS：精确 0/正文近似 0/14 B1 模板共祖归因；等 qa 重跑复检 PASS 证书后 complete） |
+| task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4✓,5✓ | H6 07:00 | ✅ completed（rev4；qa 证书 overall PASS：L1 0/0、L2/L3/L5 全 0；审计终稿 b6535d6；终态数据 d5f65df） |
 | task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | ✅ completed（rev4；单测 25/25、契约 v0.3.1、12 bug 修复；**ADR 忠实性复核 PASS——D-5/D-6/D-7 关闭**；N-1/N-2 修复在途 deveng、N-3 schema 修正在途 sysdesign，均不阻塞 v1） |
-| task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4,6,7 | H10 11:00 | pending（就绪态：configs/m6-v1.yaml 已指向 data/m6/manifest.json，H6 冻结即开跑；仅剩 4/6 依赖） |
+| task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4✓,6✓,7✓ | H10 11:00 | in_progress（rev3 已认领；**02:18 v1 训练开跑**，~30-50min GPU；⚠️ 门序偏离——③两棒未绿时启动，条件接受中见 §5；完成后 infer 冒烟 + 契约校验 → qa 出读数） |
 | task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | in_progress（已 claim；v0 冻结套件读数落盘 FAIL 对照线 + 111 miss 清单；全量 02:00-04:40 在跑） |
 | task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | pending |
 | task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | pending |
@@ -123,7 +123,8 @@
 
 | 时间 | Blocker | 影响 | 升级对象 | 状态 |
 |------|---------|------|----------|------|
-| ~02:00 | data/m6 内部泄漏两处：①train↔heldout 全文精确重合（qa NFKC 口径 472→复检残留 470 / arch 轻归一化 961，定性同）②t4 实体级复用（已修复并验证） | 四条件门②失败、v1 提前开训暂停放行；heldout/T4 读数可信度 | dataeng（二轮整改单在途）→ Lead（终裁先修后冻已下） | 🔴 **二轮整改**（~02:25 qa 复检第一棒）：L5 实体级 0 命中 ✓（t4 修复验证）、L2/L3 ✓、**L1 470 残留 FAIL**（dataeng NFKC 断言疑 pool 视图，任务视图未覆盖）——第二轮整改单已发；v0 全量已 kill 避免废跑；冻结门维持三绿链。**"波稳定"宣告过早 = 第二次"断言≠实测"实例（教训强化：断言必须与评测协议同视图）** |
+| ~02:00 | data/m6 内部泄漏两处：①train↔heldout 全文精确重合（qa NFKC 口径 472→复检残留 470 / arch 轻归一化 961，定性同）②t4 实体级复用（已修复并验证） | 四条件门②失败、v1 提前开训暂停放行；heldout/T4 读数可信度 | dataeng → Lead（终裁先修后冻已下） | 🟢 **已关闭**（~02:17-02:20）：二轮整改（content-only 锁封死 query 级穿越 pack 泄漏面）+ qa 复检 overall PASS（leak-check-h6-final.json：L1 0/0、L2/L3/L5 全 0、L4 披露）；task-6 已收口（d5f65df/b6535d6）；残余流程项在门③两棒跟踪 |
+| ~02:19 | **门序偏离**：deveng 在四条件 ③（两棒未绿）④（v0 未完成）未满足时开跑 v1 训练（02:18 起，GPU 30-50min；GPU 时序与 qa v0 疑已协调——v0 GPU 相位排其后） | 若两棒 FAIL：v1 训练作废重跑（30-50min GPU + 数据再修）；流程合规性 | Lead（已即报，pm 推荐 = 条件接受） | 🟡 在跑：两棒 ~03:10（训练结束）前绿 = 追认合规；任一 FAIL = kill + 修复后重跑（H10 11:00 余量 ~8.5h 充足）；sysdesign/arch 已加急 |
 
 ## 6. 决策日志（Lead 终裁 / 团队共识）
 
@@ -161,7 +162,9 @@
 - 02:04:45 arch-m6 矛盾调和结论（adr-1b §6.8 将记）：**根因**——arch 的 "train↔eval exact_overlap=0 ✓" 系转述 manifest.disjointness 断言而非独立计算，断言未记方法/范围（欠规格）→ **manifest 断言作为证据无效**；qa 的 QA-1 §6 冻结协议（归一化文本哈希精确交集）是约束性标准。**独立复算（轻归一化：空白折叠+小写）**：t1 heldout 2,500 行中 485 行与 train 全文重合、t3 476 行，合计 **961 行（~19%/套件）**——比 qa 472 更重（差额=归一化协议细节，定性同）；修复前真实状态 = t1/t3 heldout 污染。**arch 自记验证缺陷**：泄漏关键字段不得以"断言通过"代理"性质实测"。冻结建议先修后冻（与 Lead 终裁一致），修复外科手术级便宜：train 侧弃重合行（961/103,576=0.9%，heldout 不动）+ T4 实体池分区重生成 + manifest v2 记录方法与范围 + **冻结门 = qa 协议复跑绿（非 manifest 断言）**。现场注记：dataeng 整改波实时进行（两轮扫描间 t4 train 5,750→6,300，heldout 读到写入中文件），arch 待"整改波稳定"信号后三方合并复验（独立扫描 + qa 协议 + sysdesign --limit 0）。
 - ~02:07 Lead 处置确认（①-⑤ 全收）：①修复方案**强于裁定批准**（NFKC 根因修+并查集 sig 锁=结构性不可复发+T4 hash 桶数学不相交），ETA 02:50 阈内无裁剪，m4 PASS 收口；②arch 调和闭环接受——manifest 断言降级为非证据，**冻结门 = qa 协议复跑绿 + arch 独立扫描绿（双绿）**；"泄漏字段不得以断言代理实测"作为方法论教训入档（**进最终报告 process lessons**）；③④照准（task-4/5 提前 complete 由门①②兜底正确）；⑤时钟归一知悉。02:37 闹钟轮按此态势执行：稳定信号→三方复验双绿→H6 重新放行→门计绿→v1 开跑（预计 ~03:00-03:30，比 H7 预锁提前 4h+，提前量滚入 v2/验收缓冲）。**无待裁项。**
 - ~02:13 dataeng-m6 数据侧波稳定宣告（commit 826a574=02:10:50 + 84cf248=02:11:55 **git 实钟**，提前于自报 ETA ~02:50）：自报全部闭环——P0 双归零（exact_overlap=0 NFKC 全域 + t4_entity_overlap=0/642 实体）；T4 主门资产重建（dev 850 / heldout p300+n1100 全带 span；键池分桶 + 4 行碰撞换出）；P1/P2 修复（T4 空文件重建、T3 dev pos=526"零正例"系坏快照、meta.eval_family 100%）；manifest v2（sysdesign 六项 + label_counts 双键 + heldout-shared 修正 + D-12）。附带工程侧进展（git log）：sysdesign schemas v0.3.9/v0.3.10 + H6 audit 工具；deveng preflight manifest-authoritative 绿（train 59,121 / dev 12,313 含 sha256）。**〔后被 qa 复检部分推翻，见下条〕**
-- ~02:14 qa-m6 裁决与复检第一棒（实际 ~02:13，自报"02:25"超前 ~11min）：①v0 全量 **kill**（A 变体，更彻底）——不只 dev 读中间态（13,108 vs 新 12,313），**t1/t3 L1 修复未完成（470 重合残留）**，数据还要再变一轮；计划：L1 PASS 证书 → 终态数据重 emit → 一次跑完 v0 全量（~1.5h）→ 04:30-05:00，07:00 前余量足；冻结套件读数不受影响。②复检第一棒：L5 实体级 0 命中 ✓（T4 实体修复验证通过）、L2/L3 ✓、**L1 470 FAIL 已回 dataeng**（断言范围疑似 pool 视图 vs 任务视图分歧）。③§9 GPU 窗口更新。**"波稳定"宣告被推翻——dataeng 的 NFKC 断言 pool 视图通过但任务视图残留 470：第二次"断言≠实测"实例，task-14 process lesson 强化（断言必须与评测协议同视图）。v1 投影下修：L1 修复+证书+三绿链+v0 重启串行 → ~05:00 后开跑（仍提前 H7 ~2h）。**
+- ~02:14 qa-m6 裁决与复检第一棒（实际 ~02:13，自报"02:25"超前 ~11min）：①v0 全量 **kill**（A 变体，更彻底）——不只 dev 读中间态（13,108 vs 新 12,313），**t1/t3 L1 修复未完成（470 重合残留）**，数据还要再变一轮；计划：L1 PASS 证书 → 终态数据重 emit → 一次跑完 v0 全量（~1.5h）→ 04:30-05:00。②复检第一棒：L5 实体级 0 命中 ✓、L2/L3 ✓、**L1 470 FAIL 已回 dataeng**（断言范围疑 pool 视图 vs 任务视图分歧）。③"波稳定"宣告被推翻——**第二次"断言≠实测"实例**（task-14 process lesson 强化：断言必须与评测协议同视图）。
+- ~02:20 门②第一棒绿 + task-6 收口：qa 泄漏复检 **overall PASS**（reports/m6/audit/leak-check-h6-final.json）——L1 精确/NFKC 0/0（content-only 锁封死 query 级穿越 pack 泄漏面）、L2 冻结套件 0、L3 红队 0、L5 实体 642/0、L4 披露层；qa 认可根因归因与修复质量。dataeng task-6 板上 complete（rev4）——task-3/4/5/6 全绿，终态 commit d5f65df（数据）+ b6535d6（审计终稿，含 qa process 建议落档："评测方口径进数据方断言"惯例）；数据侧就绪时刻 = 现在；v0 全量在终态数据重启。**blocker 关闭。**
+- ~02:20 deveng-m6 task-8 认领（rev3）+ **v1 训练开跑（02:18 起，~30-50min GPU）**：数据 manifest m6-data-v1 终态（59,121 train / 12,626 dev，preflight 全绿含 sha256；T3 dev 正例 315）；命令 m6_train --config m6-v1.yaml，console log 落盘；产物 checkpoints/m6-v1/{probe-heads.pt, calib.json, ood_centers.json, metrics.json, train_log.jsonl}；完成后 infer 冒烟 + m6_check_response 契约校验 → qa 出 v1 读数。GPU 开跑前 nvidia-smi 确认（2% util）。**门序偏离：启动时 ③ 两棒未绿、④ v0 未完成**——pm 即报 Lead（推荐条件接受：两棒 ~03:10 前绿 = 追认合规；任一 FAIL = kill 重跑）；GPU 时序与 qa v0（04:30-05:00 窗口）疑已协调（v0 GPU 相位排 v1 后）。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -214,6 +217,7 @@
 - ~02:13 dataeng 波稳定宣告（826a574 **git 实钟 02:10:50**，自报"~02:25"超前 ~13min）；P0 双归零 + T4 资产重建 + manifest v2；三道复核链启动（qa L1/L5 / sysdesign m6_h6_audit / arch 扫描）。**时钟注：git commit 时间戳（机器墙钟）纳入锚点体系，优于 turn 采样**——6dedf6d=02:07:19 证实我 ~02:07 标签准确。**pm 数据时效警报**：qa v0 全量（02:00 起）或读整改前快照（旧 472/961 重合 + 旧 dev 18.5k vs 新 12,313）——已提醒 qa 验证或重启（选项 A 推荐：job_kill + 稳定数据重跑，~04:55 完成仍在 07:00 前；冻结套件部分不受影响）。
 - ~02:14 qa 裁决 A 变体（kill v0 全量）+ 复检第一棒（L5 ✓/L2/L3 ✓/**L1 470 FAIL**→二轮整改单）；"波稳定"被推翻——pool 视图断言 ≠ 任务视图实测（**第二次"断言≠实测"**，process lesson 强化）；GPU 窗口更新（待 L1 PASS 重启 ~1.5h，04:30-05:00）；v1 投影下修 ~05:00 后。02:37 闹钟轮按新态势报告。
 - **02:14:51 【时钟源声明·五次校正】** 新锚点（pm turn14 采样）。02:11-02:14 窗口标签再次超前：qa 自报"02:25"（复检/kill）实际 ~02:13；pm 的 ~02:27 标签实际 ~02:14。git 锚链：826a574=02:10:50 / 84cf248=02:11:55 / 62bfef4≈02:12-13。协议不变：事件序为准、采样点校准、队友自报时刻一律视为估计值（qa harness 机器时间戳除外）。
+- ~02:21 qa 证书 PASS + dataeng task-6 收口（3/4/5/6 全绿，d5f65df/b6535d6）→ **blocker 🟢 关闭**；**deveng v1 训练 02:18 开跑（门序偏离 ③④，已即报 Lead 推荐条件接受）**；两棒（sysdesign m6_h6_audit + arch 独立复验）升格为"在跑 v1 的命运"并加急；GPU 序：v1 02:18-~03:10 → v0 GPU 相位 → ~04:40-05:00。02:37 闹钟轮材料就绪。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
@@ -225,4 +229,5 @@
 | ~01:40（task-7 轮） | deveng-m6 | smoke 训练 ×4（9-17s/次，fp16 缓存后 2-7s）+ 推理 smoke ×8（~1-6s/次） | 累计 <2.5min | 全部已结束；当前空闲；下一窗口 task-8 v1 训练 H7-H9 预锁不变 |
 | ~01:50 | qa-m6 | 冻结套件 1770 行基线 v0 | 755s | 已完成结束，无遗留 |
 | 02:00–~02:13（已终止） | qa-m6 | 基线 v0 全量首跑 | ~13min | **已 kill**（qa 裁决 A 变体，~02:13）：dev 读到中间态（13,108 vs 新 12,313）+ L1 修复未完（470 残留），避免废跑 |
-| 待 L1 PASS 后重启（预计） | qa-m6 | v0 全量重跑：终态数据 dev+chmirror+heldout+challenge+ood+redteam | ~1.5h | 窗口 04:30-05:00；冻结套件部分不受影响（qa-baseline-v0-frozen.md 仍有效） |
+| ~02:16 起（GPU 相位排队中） | qa-m6 | v0 全量重跑：终态数据 dev+chmirror+heldout+challenge+ood+redteam | ~1.5h | 重新 emit（CPU）进行中；GPU 相位排 deveng v1（~03:10）后；完成投影 ~04:40-05:00；冻结套件读数不受影响（qa-baseline-v0-frozen.md 仍有效） |
+| 02:18–~03:10（进行中） | deveng-m6 | **v1 训练全量**：m6_train --config m6-v1.yaml（特征缓存+头训练；开跑前 nvidia-smi 2% util 确认） | ~30-50min | 串行占用中；结束后释放并汇报；产物 checkpoints/m6-v1/{probe-heads.pt, calib.json, ood_centers.json, metrics.json, train_log.jsonl}；⚠️ 门序偏离见 §5 |
