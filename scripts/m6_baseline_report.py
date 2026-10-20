@@ -34,6 +34,10 @@ def main() -> None:
     import m6_acceptance as A
     A.attach_preds(rt, preds_fz)
     A.attach_preds(fz, preds_fz)
+    # 红队独立新输出优先（热修后重跑版）
+    rt_new = Path("reports/m6/preds/baseline-redteam-out.jsonl")
+    if rt_new.exists():
+        A.attach_preds(rt, parse_infer_output(rt_new))
     groups["redteam"] = rt
     groups["frozen"] = fz
     counts = {"redteam": len(rt), "frozen": len(fz)}

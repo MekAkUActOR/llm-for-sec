@@ -56,8 +56,15 @@ def clopper_pearson(k: int, n: int, alpha: float = 0.05) -> tuple[float, float]:
 
 
 # ---------------------------------------------------------------- 预测函数（QA-1 §3.1）
-def predict(row: dict, thresholds: dict[str, float] | None = None) -> dict[str, int]:
-    """ŷ_t(i)：弃权→PASS；否则 flag OR (score>=θ)。缺 θ 的任务退化为 flag。"""
+def predict(row: dict, thresholds: dict[str, float] | None = None,
+            use_flag: bool = True) -> dict[str, int]:
+    """ŷ_t(i)：弃权→PASS；否则 flag OR (score>=θ)。缺 θ 的任务退化为 flag。
+
+    T4 融合旗标（QA-1 §3.6，ADR-1b §4）：额外 OR spans 非空。
+    use_flag=False（选点阶段，QA-1 §4.1）：纯 score>=θ——运行点注入后
+    m6_infer 的 flag 由注入 θ 重算（flag ≡ score>=θ_flag），score-only
+    忠实建模注入后行为；基线 v0 的 flag 是固定参考切（θ=0.5），OR 进
+    选点会让任何 θ 都压不掉 FPR（死 flag 污染）。"""
     p = row["pred"]
     if p["abstain"]:
         return {t: 0 for t in TASKS}
@@ -66,8 +73,8 @@ def predict(row: dict, thresholds: dict[str, float] | None = None) -> dict[str, 
         tr = p["tasks"].get(t)
         if tr is None:
             raise ValueError(f"{row['id']}: pred 缺任务 {t}（fail-closed）")
-        v = bool(tr["flag"])
-        if t == "T4" and tr.get("spans"):
+        v = bool(tr["flag"]) and use_flag
+        if use_flag and t == "T4" and tr.get("spans"):
             v = v or bool(tr["spans"])  # QA-1 §3.6：T4 融合旗标独立验证（ADR-1b §4）
         if thresholds is not None:
             th = thresholds.get(t)
@@ -107,7 +114,7 @@ class Confusion:
                 "n_pos": pos, "n_neg": neg, "recall": rec, "fpr": fpr}
 
 
-def confusion(rows: list[dict], task: str, thresholds=None) -> Confusion:
+def confusion(rows: list[dict], task: str, thresholds=None, use_flag: bool = True) -> Confusion:
     """对任务 t 的 2×2（labels 含 t 的行；ambiguous 行剔除）。"""
     c = Confusion()
     for row in rows:
@@ -115,7 +122,7 @@ def confusion(rows: list[dict], task: str, thresholds=None) -> Confusion:
             continue
         if task not in row["labels"]:
             continue
-        yhat = predict(row, thresholds)[task]
+        yhat = predict(row, thresholds, use_flag=use_flag)[task]
         if row["labels"][task] == 1:
             if yhat:
                 c.tp += 1
@@ -362,6 +369,9 @@ def sensitivity_curve(rows: list[dict], task: str,
 
 # ---------------------------------------------------------------- QA 独立选点（QA-1 §4.1）
 GRID_SELECT = [round(0.05 * i, 2) for i in range(1, 20)]  # {0.05..0.95} 预冻结网格
+# 高分扩展段（v1-1 sigmoid 饱和应对：logit>~3 时 score>0.95，良性高分需更高 θ 才能压 FPR；
+# 对应 logit 域 ~3.5/4.6/5.3/6.2/6.9 —— score 域等价点单调递增，不破坏"并列取保守"）
+GRID_SELECT += [0.96, 0.97, 0.98, 0.99, 0.995, 0.999]
 FPR_MARGIN = 0.8  # dev 约束 = 门的 80%（0.5%×0.8=0.4%, 0.1%×0.8=0.08%）
 
 
@@ -373,13 +383,13 @@ def select_op(dev_rows: list[dict], dev_challenge_rows: list[dict] | None = None
     for t in TASKS:
         feas = []
         for th in GRID_SELECT:
-            c_b = confusion(dev_rows, t, thresholds={t: th})
+            c_b = confusion(dev_rows, t, thresholds={t: th}, use_flag=False)
             rb = c_b.rates()
             fpr_b = rb["fpr"] if rb["fpr"] is not None else 0.0
             ok = (fpr_b <= GATE_FPR * FPR_MARGIN)
             chfpr = None
             if ch_rows:
-                c_c = confusion(ch_rows, t, thresholds={t: th})
+                c_c = confusion(ch_rows, t, thresholds={t: th}, use_flag=False)
                 rc = c_c.rates()
                 chfpr = rc["fpr"] if rc["fpr"] is not None else 0.0
                 ok = ok and (chfpr <= GATE_CHFPR * FPR_MARGIN)
@@ -392,7 +402,7 @@ def select_op(dev_rows: list[dict], dev_challenge_rows: list[dict] | None = None
         best_rec = max(r for _, r in feas)
         # 并列取更保守（更大 θ）
         theta = max(th for th, r in feas if r == best_rec)
-        c_b = confusion(dev_rows, t, thresholds={t: theta})
+        c_b = confusion(dev_rows, t, thresholds={t: theta}, use_flag=False)
         rb = c_b.rates()
         result[t] = {"theta": theta, "status": "OK",
                      "dev_recall": rb["recall"], "dev_fpr": rb["fpr"]}

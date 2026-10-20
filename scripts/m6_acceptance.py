@@ -747,16 +747,26 @@ def mode_select_op(args) -> None:
       - 审计字段：calibrated_on.manifest/n/method + 协议版本
     """
     dev_dir = Path(args.dev_preds)
-    preds = parse_infer_output(dev_dir / "out-dev.jsonl")
+    pfx = getattr(args, "dev_preds_prefix", "") or ""
+    dev_out_name = f"{pfx}dev-out.jsonl" if pfx else "out-dev.jsonl"
+    # 输入文件：前缀模式兼容两种命名（<pfx>dev-in.jsonl 或 baseline-dev-in.jsonl）
+    cand = [f"{pfx}dev-in.jsonl"] if pfx else []
+    cand += ["baseline-dev-in.jsonl", "in-dev.jsonl"]
+    dev_in_name = next((c for c in cand if (dev_dir / c).exists()), cand[-1])
+    chm_out_name = f"{pfx}chmirror-out.jsonl" if pfx else "out-chmirror.jsonl"
+    preds = parse_infer_output(dev_dir / dev_out_name)
     rows = []
-    with (dev_dir / "in-dev.jsonl").open(encoding="utf-8") as f:
+    with (dev_dir / dev_in_name).open(encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line:
                 continue
             r = json.loads(line)
+            # select-op 只需 id/labels/score；文本形态不参与计算（input 全形式行原样保留）
             rows.append({"id": r["id"], "source": "m6-dev", "labels": {}, "ambiguous": False,
-                         **({"text": r["text"]} if "text" in r else {"turns": r["turns"]})})
+                         **({"text": r["text"]} if "text" in r
+                            else {"turns": r["turns"]} if "turns" in r
+                            else {"input": r.get("input", {})})})
     if not args.dev_labels:
         raise SystemExit("select-op 需要 --dev-labels（data/m6 dev 行，含 labels）")
     lab = {}
@@ -778,7 +788,7 @@ def mode_select_op(args) -> None:
     M.check_score_sanity(rows)
     # 挑战镜像（QA-1 §4.1 可行域第二约束：dev-chFPR≤0.08%）
     ch_rows = None
-    mirror_pred_path = Path(str(dev_dir / "out-chmirror.jsonl"))
+    mirror_pred_path = dev_dir / chm_out_name
     mirror_in_path = Path("reports/m6/preds/baseline-chmirror-in.jsonl")
     mirror_labels_path = Path("data/m6/dev-mirror/challenge-mirror.jsonl")
     if mirror_pred_path.exists():
@@ -802,17 +812,19 @@ def mode_select_op(args) -> None:
                 ch_rows.append({"id": r["id"], "source": "m6-dev-chmirror",
                                 "labels": m_lab.get(r["id"], {}),
                                 "ambiguous": False,
-                                **({"text": r["text"]} if "text" in r else {"turns": r["turns"]})})
+                                **({"text": r["text"]} if "text" in r
+                                   else {"turns": r["turns"]} if "turns" in r
+                                   else {"input": r.get("input", {})})})
         attach_preds(ch_rows, m_preds)
         log(f"挑战镜像加载: {len(ch_rows)} 行（可行域 chFPR 约束生效）")
     else:
-        log("WARN: 无挑战镜像预测（out-chmirror.jsonl）——可行域只约束 benign FPR")
+        log(f"WARN: 无挑战镜像预测（{chm_out_name}）——可行域只约束 benign FPR")
     op = M.select_op(rows, dev_challenge_rows=ch_rows)
     # tau_strong：dev 真阳分数 q10（schema tau_strong_rule）
     # tau_ood：dev 负例 ood.score q99.5（schema 定标口径）
     ood_scores_neg = []
     raw_ood = {}
-    with (dev_dir / "out-dev.jsonl").open(encoding="utf-8") as f:
+    with (dev_dir / dev_out_name).open(encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line:
@@ -824,21 +836,69 @@ def mode_select_op(args) -> None:
             ood_scores_neg.append(float(raw_ood[r["id"]]))
     import numpy as np
     tau_ood = float(np.quantile(ood_scores_neg, 0.995)) if ood_scores_neg else None
+    # calib fallback：score 域无可行任务的阈值继承源（score 饱和致网格失效时
+    # logit 域为忠实替代——标注继承，不静默）
+    calib_fallback = {}
+    nfp_all = [t for t in TASKS if op[t]["theta"] is None]
+    if nfp_all and args.calib_fallback:
+        calib = json.loads(Path(args.calib_fallback).read_text(encoding="utf-8-sig"))
+        calib_fallback = {t: dict(calib["thresholds"][t]) for t in nfp_all
+                          if t in calib.get("thresholds", {})}
+        if calib_fallback:
+            log(f"score 域无可行任务从 calib 继承 logit 域阈值: {sorted(calib_fallback)}（标注继承）")
     thresholds_block = {}
     for t in TASKS:
         d = op[t]
         th_flag = d["theta"]
         if th_flag is None:
+            if t in calib_fallback:
+                thresholds_block[t] = calib_fallback[t]  # 继承（含 flag_logit）
+                continue
             thresholds_block[t] = {"flag": None, "strong": None}
             continue
         pos_scores = [r["pred"]["tasks"][t]["score"] for r in rows
                       if r["labels"].get(t) == 1 and not r.get("ambiguous")]
         q10 = float(np.quantile(pos_scores, 0.10)) if pos_scores else 0.0
         thresholds_block[t] = {"flag": round(th_flag, 4),
-                               "strong": round(max(q10, th_flag + 0.05), 4)}
+                               "strong": round(min(1.0, max(q10, th_flag + 0.05)), 4)}
     k = 1
     while (REPORTS / f"operating-point-v{k}.json").exists():
         k += 1
+    # 无可行点诊断（QA-1 §5 G1 预注册：NO-FEASIBLE-POINT → G1 FAIL，不产 runpoint）
+    # （fallback 继承的任务已从 nfp 排除）
+    nfp = [t for t in TASKS if op[t]["theta"] is None and t not in calib_fallback]
+    if nfp:
+        diag = {}
+        for t in nfp:
+            negs = sorted((r["pred"]["tasks"][t]["score"] for r in rows
+                           if r["labels"].get(t) == 0 and not r.get("ambiguous")), reverse=True)
+            pos_ = [r["pred"]["tasks"][t]["score"] for r in rows
+                    if r["labels"].get(t) == 1 and not r.get("ambiguous")]
+            diag[t] = {"neg_top5": [round(s, 3) for s in negs[:5]],
+                       "pos_q10": round(float(np.quantile(pos_, 0.10)), 3) if pos_ else None,
+                       "grid_max_theta": M.GRID_SELECT[-1],
+                       "min_dev_fpr_at_grid": round(
+                           (sum(1 for s in negs if s >= M.GRID_SELECT[-1]) / len(negs)) if negs else None, 4)}
+        (REPORTS / f"operating-point-v{k}-NO-FEASIBLE-POINT.json").write_text(
+            json.dumps({"created": now(), "no_feasible_tasks": nfp, "diagnosis": diag,
+                        "protocol": "QA-1 §4.1/§5：无可行点 → G1 FAIL（预注册路径），不产 runpoint"},
+                       ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
+        log(f"NO-FEASIBLE-POINT: {nfp}（诊断 -> operating-point-v{k}-NO-FEASIBLE-POINT.json）")
+        for t in nfp:
+            log(f"  {t}: dev-neg top5={diag[t]['neg_top5']} pos_q10={diag[t]['pos_q10']}"
+                f" → 网格上限 θ={M.GRID_SELECT[-1]} 仍 FPR={diag[t]['min_dev_fpr_at_grid']}")
+        return
+    # 饱和区披露（Lead 附注 1/2，v1.3.2）：dev 良性行高分的分布证据
+    sat_disclosure = {}
+    for t in TASKS:
+        neg_scores = [r["pred"]["tasks"][t]["score"] for r in rows
+                      if r["labels"].get(t) == 0 and not r.get("ambiguous")]
+        if not neg_scores:
+            continue
+        n99 = sum(1 for s in neg_scores if s >= 0.99)
+        n_sat = sum(1 for s in neg_scores if s >= 0.999999)
+        sat_disclosure[t] = {"neg_n": len(neg_scores), "neg_ge_099": n99,
+                             "neg_saturated_eq_1": n_sat}
     out = {
         "schema": "m6-thresholds",
         "schema_version": "0.1.0",
@@ -849,7 +909,8 @@ def mode_select_op(args) -> None:
             "split": "dev",
             "manifest": args.dev_manifest or "PENDING-H6",
             "n": len(rows),
-            "method": "QA-1 §4.1: τ_flag 网格 0.05..0.95，可行域 dev-FPR<=0.4%"
+            "method": "QA-1 §4.1 (v1.3.2): τ_flag 预注册网格 25 档 {0.05..0.95, 0.96..0.999}，"
+                      "可行域 dev-FPR<=0.4%"
                       + (" & dev-chmirror-FPR<=0.08%" if ch_rows else "（无镜像，benign 单约束）")
                       + "，argmax recall 并列取保守；τ_strong = max(dev真阳q10, τ_flag+0.05)；τ_ood = dev负例距离q99.5",
         },
@@ -858,10 +919,25 @@ def mode_select_op(args) -> None:
                 "tau_ood": round(tau_ood, 4) if tau_ood is not None else None,
                 "is_ood_rule": "min(d_benign,d_attack) > tau_ood",
                 "suppression": "two-band"},
-        "notes": f"QA 独立选点（交叉验证 deveng calib.json 推荐点用）；detail={ {t: op[t]['status'] for t in TASKS} }",
+        "notes": f"QA 独立选点（交叉验证 deveng calib.json 推荐点用）；detail={ {t: op[t]['status'] for t in TASKS} }"
+                 + (f"；score 域无可行任务继承 calib logit 域阈值: {sorted(calib_fallback)}"
+                    "（score 饱和致网格失效，logit 域为忠实替代）" if calib_fallback else ""),
     }
     (REPORTS / f"operating-point-v{k}.json").write_text(
         json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
+    # 旁车校准记录（Lead 附注 1/2：饱和区证据 + 档位辨力说明；不入 runpoint 主文件
+    # ——m6-thresholds schema additionalProperties:false）
+    (REPORTS / f"operating-point-v{k}-calibration.json").write_text(
+        json.dumps({"runpoint_id": out["runpoint_id"],
+                    "created": out["created"],
+                    "grid": M.GRID_SELECT,
+                    "dev_neg_saturation_by_task": sat_disclosure,
+                    "detail": {t: op[t] for t in TASKS},
+                    "notes": "饱和区（score→1.0，logit>~16.6）是 v2 改进靶（score 表示层，"
+                             "ADR-2 候选：分数定义改 logit/校准域）；0.995/0.999 档位在 fp32 "
+                             "下辨力有限（~7 位有效数字），并列取保守规则在饱和区等效于取 0.999 档"},
+                   ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
+    log(f"旁车校准记录 -> operating-point-v{k}-calibration.json（含饱和区披露）")
     # m6-thresholds schema 校验（sysdesign 注记 2：直接过校验）
     try:
         import jsonschema
@@ -881,8 +957,11 @@ def mode_select_op(args) -> None:
     log(f"运行点: operating-point-v{k}.json (tau_ood={tau_ood})")
     for t in TASKS:
         d = op[t]
+        # 诊断口径 = 选点口径（score-only，QA-1 §4.1）——与可行域一致；
+        # 读数口径（§3.1 flag OR）由 mode run 输出
         log(f"  {t}: τ_flag={d['theta']} {d['status']}"
-            + (f" dev_recall={d['dev_recall']:.4f} dev_fpr={d['dev_fpr']:.4f}" if d["status"] == "OK" else ""))
+            + (f" dev_recall={d['dev_recall']:.4f} dev_fpr={d['dev_fpr']:.4f} (score-only)"
+               if d["status"] == "OK" else ""))
 
 
 def mode_recompute(args) -> None:
@@ -957,6 +1036,9 @@ def main() -> None:
     ap.add_argument("--tag", default=None, help="报告标签（默认 stub/v1）")
     ap.add_argument("--data-dir", default="data/m6", help="m6-sample 数据根")
     ap.add_argument("--dev-preds", default=None, help="select-op: dev 预测目录（含 in/out-dev.jsonl）")
+    ap.add_argument("--dev-preds-prefix", default="", help="select-op: 预测文件名前缀（如 v11 → v11-dev-out.jsonl）")
+    ap.add_argument("--dev-manifest", default=None, help="select-op: data/m6 manifest sha256（终态回填）")
+    ap.add_argument("--calib-fallback", default=None, help="select-op: score 域无可行任务时从 calib.json 继承 logit 域阈值（标注继承）")
     ap.add_argument("--dev-labels", default=None, help="select-op: dev 标签源（data/m6 dev）")
     ap.add_argument("--preds-dir", default=None, help="recompute: 原始预测目录")
     args = ap.parse_args()
