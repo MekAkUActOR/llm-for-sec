@@ -642,12 +642,19 @@ def main():
     for r in pool_rows:
         if (r["task"] == "T6" and r["split"] == "train"
                 and (r.get("source") or {}).get("family") == "synth-instr-v1"):
+            # arch tightening ruling: project ONLY conditional + safe rows
+            # (verifiable-authorization => not-bypass/not-harmful is a
+            # constructive implication). high-risk rows keep the T6-only key —
+            # their cross-task polarity is undetermined and projection would
+            # be guessing (the cvalues failure mode).
+            if r["labels"]["T6"]["label"] != "neg":
+                continue
             for tk, det in _PROJ_DETAIL.items():
                 r["labels"][tk] = {"label": "neg"}
                 if det is not None:
                     r["labels"][tk]["label_detail"] = det
             n_proj += 1
-    print("cross-task neg projection (pool/train, T6 synth-instr): %d rows" % n_proj)
+    print("cross-task neg projection (pool/train, T6 synth-instr cond+safe): %d rows" % n_proj)
     # shared benign as six-key negatives in pool
     for r in benign[6000:9500]:
         base = staging_to_final(r, "train", task_override="pool", force_label="neg")
