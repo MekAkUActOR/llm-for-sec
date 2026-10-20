@@ -136,3 +136,49 @@ v0.2.3（ai_safety/security/privacy 各 157 + general_* 各 30 + **hardbenign 12
 1. [arch] M6 训练不引入 image_metadata/av_metadata 载体（保护 M5a 未见门禁前提）——待 ADR-1。
 2. [sysdesign] label 主判 pos|neg + label_detail 细粒度的合并方案——待 SYS-1。
 3. [Lead] 简报三处差异（amb 不存在/payload 144 非 288/m4 全单轮）不改变交付，仅修正盘点事实。
+
+---
+
+# v2 构建结果终态（H6 冻结候选，02:25 终态波，commit 826a574）
+
+版本：v2 ｜ 作者：dataeng-m6 ｜ 本节取代 §6 排期表，为 DATA-2 交付实测终态。
+
+## 8. 交付结构（data/m6/，schema v0.3.4 行契约 / manifest v2）
+
+t1-moderation / t2-jailbreak / t3-intent / t4-pii / t5-indirect / t6-highrisk（各 train/dev/heldout.jsonl）+ challenge/all.jsonl + ood/all.jsonl + heldout-shared/benign-heldout.jsonl + pool/{train,dev}.jsonl + dev-mirror/{challenge-mirror,ood-mirror,benign-dev}.jsonl + manifest.json（manifest_id=m6-data-v1，files[] 23 项：split/task/n/rows/sha256/label_counts）。
+
+## 9. 规模门实测（全 PASS）
+
+| 任务 | train pos/neg | dev pos/neg | heldout pos/neg |
+|---|---|---|---|
+| T1 | 8560/6088 | 250/1200 | 300/2200 |
+| T2 | 2126/2100 | 250/832 | 300/1000 |
+| T3 | 3261/4934 | 526/1200 | 300/2200 |
+| T4 | 2600/3700 | 250/600 | 300/1100 |
+| T5 | 10774/7007 | 250/1200 | 300/2200 |
+| T6 | 2050/4194 | 250/1200 | 300/2200 |
+
+challenge 1,500（四族：sec-research 294/medical-legit 611/dualuse 186/inj-shaped 409；345 行医疗 T4-pos 带真 span，T4 分母 1,155）；OOD 500（八域 PII-free）；heldout-shared 2,500；dev-mirror 1,100+500+3,500；pool train 47,282 / dev 9,800。
+
+## 10. 隔离与完整性终态（isolation assert PASS）
+
+- exact_overlap=0（NFKC→lower→空白折叠全域口径；qa L1 472 行重合与 arch 961 轻归一化重合均已根除）
+- mirror_eval_overlap=0；ood_t4_pos_rows=0
+- t4_entity_overlap=0（642 个 heldout span 实体 vs 六任务全部 train 行文本子串零命中，qa L5 协议固化进 build_all）
+- 泄漏审计 reports/m6/leak-audit.md：冻结套件 1,401 行 vs 训练侧 127,584 行，精确 0 / 正文级近似 0（14 个 B1 命中全部归因 policy-pack 渲染模板共祖）
+- pair_integrity：T5 对 1,589 / f5-policy 对 1,000 / T3 dialog 组 530，跨 split 全 0
+
+## 11. 本轮泄漏修复审计轨迹（qa 工单 + arch P0/P1/P2）
+
+1. norm_text 补 NFKC（根因：全角/兼容字符逃逸去重与 sig 锁）。
+2. gen_pii 三段产出（train/dev/heldout 独立实体域）：键池 hash 分桶 70/20/10（zh 姓/en 姓/zh 路名/en 街名/DOB 年位），组合实体跨 split 不相交；全局 Deduper 跨 scope 去重。
+3. 占位/掩码硬负例模板参数化（保持 PII 形状语义）；Pa$$w0rd 模板扩熵。
+4. build_all swap-out：heldout 泄漏行（legacy 自由人名跨生成器碰撞，4 行）与 train 干净行 1:1 交换——heldout 行内容零编辑（arch 裁定"heldout 一律不动"）。
+5. T5 cond→neg 全量投影 753 行（D-12，GoldLabel pos|neg）；label_counts 恒写双键；heldout-shared split=heldout；meta.eval_family 三文件 100% 覆盖。
+
+## 12. 已知口径与遗留
+
+- T3 full-pos dev 206（arch"顺手补"级，未阻塞；v0.7 形态泛化列 task-10 观察项）
+- t6 conditional 871 vs §6.2 估计 ~3.9k：reserve 弃用（§6.4-5 已批准）+ policy 采样所致，路径合规（arch 追溯注）
+- L4 5-gram containment 高读数为模板数据结构性相似（qa 已降级披露读数）；B2 正文级佐证见 leak-audit.md
+- 复核链：qa leak-check 复检 → sysdesign m6_h6_audit 四层 → arch 独立复验 → 冻结
