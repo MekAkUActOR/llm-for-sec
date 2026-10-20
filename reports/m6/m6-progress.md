@@ -31,19 +31,29 @@
 | H20 | 10-21 21:00 | 验收轮：acceptance harness 全量（task-12） | ⏳ | 验收窗口 H20-H21（GPU 预锁） |
 | H23 | 10-22 00:00 | 报告/上传/交接收尾（task-13/14） | ⏳ | 窗口 01:04 关闭 |
 
+### H6 数据冻结验收清单（pm 维护，07:00 检查点仪器）
+
+1. task-4 train/dev 落盘：六任务正例覆盖全部子类，规模达配比与功效要求（U5：heldout 正例 ≥200/任务、benign 负例 ≥1000）
+2. m4 勘误已应用（adr-1b §3）：标签一律取 chosen VERDICT + 每 dpo_class 极性分布断言通过（防 bt330 1,904 / carrier_inject_obedient 2,360 正例误入负例侧）
+3. T4 自建 span 级 heldout 落盘（data/m6/t4，adr-1b §4；冻结套件无 span 级 PII 正例，v0.2.3 privacy 仅参照）
+4. 挑战集（≥1200，含"全任务负例"复制行）+ OOD 集（≥300）落盘，qa 会审通过
+5. manifest 全量（文件/行数/来源/六任务标签分布/切分指纹）+ U4 dev 难负例标记落实
+6. 泄漏审计零泄漏（sha256 精确交集空 + 5-gram 可疑对逐对解释），qa 复核签字
+7. arch 六项 pool schema 要求落实（六维标签向量 / T6 三类 / 信封多样化 / reveal_turn / PII risk 映射 / T4 主门）
+
 ## 3. WBS 任务板镜像（权威状态看 team_task_list；依赖已由 Lead 硬化 11 条边，readiness 门禁生效）
 
 | ID | 任务 | 负责人 | 依赖 | 截止 | 状态 |
 |----|------|--------|------|------|------|
-| task-1 | 架构 ADR：六任务统一检测设计 | arch-m6 | — | H1 02:30 | in_progress（ADR-1 已 FREEZE 02:05，待板上 complete） |
+| task-1 | 架构 ADR：六任务统一检测设计 | arch-m6 | — | H1 02:30 | ✅ completed 02:15（ADR-1 FREEZE + ADR-1b append-only） |
 | task-2 | 系统设计：推理协议/阈值/弃权 | sysdesign-m6 | — | H1.5 03:30 | in_progress（七份 schema+SCHEMAS.md 在盘） |
 | task-3 | 数据映射：数据源映射与配比 | dataeng-m6 | — | H1 02:30 | in_progress（DATA-1 草案在盘 docs/m6/data-mapping.md） |
 | task-4 | 数据构建：六任务 train/dev | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-5 | 数据构建：挑战集 + OOD 集 | dataeng-m6 | 3 | H6 07:00 | pending |
 | task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4,5 | H6 07:00 | pending |
-| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1,2 | H1.5–H6 | pending（预研已就绪：DEV-1/2/3 smoke 全过、22 单测绿、m6_infer stub 已交 qa；待解锁 claim） |
+| task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2 | H1.5–H6 | pending（预研就绪；task-1 已解锁，仅剩 task-2 SYS-1 03:30） |
 | task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4,6,7 | H10 11:00 | pending |
-| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1,2 | H9 10:00 | pending |
+| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2 | H9 10:00 | pending（task-1 已解锁，仅剩 task-2；QA-1 03:30 冻结） |
 | task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | pending |
 | task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | pending |
 | task-12 | 验收：acceptance 全量轮 | qa-m6 | 11 | H20 21:00 | pending |
@@ -98,7 +108,8 @@
 - 01:16 Lead 终裁 U2（G3 口径，即刻生效）：任务级逐任务 chFPR<0.1% 主门 + 样本级双报；统计强化——每任务报点估计 + 精确二项 CI95，达标判定以点估计为准、CI 显著越界单独标红（0/1200 的 CI 上界 ~0.3%，如实报不藏）；样本级同法。QA-1 规格照此 03:30 冻结。
 - 01:16 owner 新指令（Lead 转达）：团队成员意外中断可换模型续命（备选路由：deepseek-v4-flash/pro、glm-5.3-flash、qwen3.8-flash/max）。PM 巡板发现队友失联超 30 分钟 → 升级 Lead，Lead 执行恢复（先 send_message 唤醒，失败换模型重生成）。
 - 01:20 Lead（运作纪律）：不加中途定点戳——"认领只是簿记，交付才是门"；维持 02:30 唯一检查点 + 事件驱动唤醒。02:30 时 ADR-1 未交或 task-1/2 未认领 → pm 点名+升级，Lead 处置（含换模型续命预案）。
-- 02:05 Lead 终裁 ADR-1 FREEZE（H1 设计冻结达成，早于 02:30 线）：12 项全按推荐通过。要点——D1 判别式多头探针（否决生成式，JSON schema 留作输出契约）；D2 v1 冻结主干+特征缓存、v2 触发式 LoRA-r16；D6+D8 两带阈值+Mahalanobis 抑制+联合 OR 门；§10-3 dev-only 定标（mirror 住 dev 内，challenge/heldout 只测不拟合）；§13 pooled>95% 门+套件地板 ≥90%+90-95% 带 pass-with-flag 透明骑手；层位 {4,12,20,24,28}×{last,mean}；不裁剪；排除 image/av_metadata 载体。全文 docs/m6/m6-adr-1.md。
+- 02:05 Lead 终裁 ADR-1 FREEZE（H1 设计冻结达成，早于 02:30 线）：12 项全按推荐通过。要点——D1 判别式多头探针（否决生成式，JSON schema 留作输出契约）；D2 v1 冻结主干+特征缓存、v2 触发式 LoRA-r16；D6+D8 两带阈值+Mahalanobis 抑制+联合 OR 门；§10-3 dev-only 定标（mirror 住 dev 内，challenge/heldout 只测不拟合）；§13 pooled>95% 门+套件地板 ≥90%+90-95% 带 pass-with-flag 透明骑手；层位 {4,12,20,24,28}×{last,mean}；不裁剪；排除 image/av_metadata 载体。全文 docs/arch/m6-adr-1.md（canonical；docs/m6/m6-adr-1.md 为早期副本）。
+- 02:15 arch-m6 ADR-1b 落盘（docs/arch/m6-adr-1b.md，append-only 与 ADR-1 同效）：①Lead 终裁记录（12 项全过 + §10-3 dev-only / §13 pooled 门两确认 + 透明度骑手操作化：验收报告逐套件 recall 点估计+CI，90-95% 带 pass-with-flag 写入最终报告）；②§3 m4 标签方向实证勘误【约束 dataeng】——标签一律取 chosen VERDICT（action∈{refuse,report}→正例；answer+allow/benign→负例；conditional→T6 条件类；insufficient-context 弃用；reserve 行禁用 action 规则改用源库危害标注），DATA-1 v1 的 rejected 基筛选方向有偏（会把 bt330 1,904 真正例与 carrier_inject_obedient 2,360 T5 正例划入负例侧），task-4 构建前须修正并加每 dpo_class 极性断言；③§4 T4 主门 = 自建 data/m6/t4 heldout（span 级，H6 冻结），v0.2.3 privacy 仅参照曲线（其 must_refuse 测应答者拒答而非文档含 PII）。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -128,6 +139,7 @@
 - 01:22 与章程对齐（补录）：检查点表按 reports/m6/m6-kickoff.md 修正（设计冻结=02:30 而非 02:00，补 03:30 SYS-1/QA-1 里程碑）；A3 挑战集类目补"授权渗透测试"。01:22 时点交付物盘点：docs/m6/data-mapping.md（DATA-1 草案）、docs/m6/schemas/（SYS-1 推进中）、reports/m6/feat_probe_v0(_chatlast)/（层特征探针）、reports/m6/smoke/、reports/m6/redteam/README.md。
 - 02:06 【H1 达成公告】ADR-1 FREEZE（02:05）已落决策日志并公告全队（5 人，附各自下一步）；task-1 待 arch 板上 complete 即解锁 task-7/9 的 task-1 半 blocker；下一检查点 03:30 SYS-1+QA-1（关键路径：sysdesign schema 冻结 + U3 字段名 → QA-1 冻结）。
 - 02:10 deveng 状态同步：环境核查✓（GPU 空闲、r5 ckpt 齐全、torch 2.14/transformers 5.8 v5 API 适配）；DEV-1 特征原型→DEV-2 训练管线→DEV-3 推理运行时三件 smoke 全过、单测 22 绿；ADR-1 层位已实现（{4,12,20,24,28}×{last,mean}=10240 维 + L12/L28 per-token PII 头抽取器）；m6_infer stub 提前交付 qa（承诺 05:00），回归集 hash 锁定；GPU 6 次短占用已登记 §9，当前空闲；待 task-7 解锁 claim + U3 定稿锁 infer schema。
+- 02:18 arch 状态同步：task-1 complete（02:15，rev3），task-7/9 的 task-1 半 blocker 解除（板上已确认）；ADR-1b 落盘（终裁记录 + §3 m4 标签方向勘误 + §4 T4 主门口径）；DATA-1 审查意见已直发 dataeng（rejected→chosen 方向纠错 + 六项 pool schema 要求）；arch 转 03:30 前审 SYS-1 咬合，H10 后接 task-10。pm 动作：H6 验收清单建立（§2）、ADR-1 引用路径更正为 canonical、adr-1b §3/§4 要点转达 qa/dataeng、QA-1 §3.6（条目级 metric 主门）与 adr-1b §4（span 级数据集主门）兼容性已请 qa 冻结时措辞对齐。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
