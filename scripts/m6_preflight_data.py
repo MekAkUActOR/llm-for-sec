@@ -20,14 +20,9 @@ cfg = load_config(REPO / "configs" / "m6-v1.yaml")
 man = json.loads((REPO / "data/m6/manifest.json").read_text(encoding="utf-8-sig"))
 print(f"manifest_id: {man.get('manifest_id')}  files: {len(man['files'])}")
 
-# NOTE: data/m6/heldout-shared/benign-heldout.jsonl is registered
-# split=dev in the manifest but its ROWS carry split=heldout (dataeng
-# registration bug, reported). Reader honors row-level split (fail-closed),
-# so dev pre-flight uses explicit patterns until the manifest is fixed.
-cfg["data"] = {
-    "dev_patterns": ["data/m6/t*/dev.jsonl", "data/m6/pool/dev.jsonl"],
-    "prefix_rows": "exclude",
-}
+# manifest is authoritative (v2+, H6 freeze): flat files[] with split field;
+# shared rows across task/pool files dedup by id (content verified
+# byte-identical). heldout-shared now correctly registered split=heldout.
 
 
 for split in ("train", "dev"):
