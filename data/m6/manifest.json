@@ -24,7 +24,7 @@
    "rows": 14648,
    "split": "train",
    "task": "T1",
-   "sha256": "b5bfaac3422387db4fedbaa0bc0f44d659a3335399d6122febf87734f810e66b",
+   "sha256": "445328303b63a474a1641462c83851c4493c84951030823dcfd511b14e1f05f5",
    "label_counts": {
     "T1": {
      "pos": 8560,
@@ -38,7 +38,7 @@
    "rows": 1450,
    "split": "dev",
    "task": "T1",
-   "sha256": "c9f04fbb5584a65d8f2012f0d8cf73ef121d570ec410fdbc2c2a60c03b8d448a",
+   "sha256": "52fcfdd848626d7bfe07833ddb2b1499b6940901114b8c4835faffe348459a1b",
    "label_counts": {
     "T1": {
      "pos": 250,
@@ -52,7 +52,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T1",
-   "sha256": "371f419a413843b3d280da6f29b546e6bf0d7dc409c3241e94ef18b600e5dca6",
+   "sha256": "f95c68df2ecf1776e92498844e60705997ec69af5e2edafe04219bd668c70687",
    "label_counts": {
     "T1": {
      "pos": 300,
@@ -66,7 +66,7 @@
    "rows": 4226,
    "split": "train",
    "task": "T2",
-   "sha256": "3ba9b1eef512263b717f37d4ff0916631cd8c44975e641777d21874f39954c3c",
+   "sha256": "6da95d6a6b38c11046d782496e0b018340a959c208acf4729aa6fd3193c4ea36",
    "label_counts": {
     "T2": {
      "pos": 2126,
@@ -80,7 +80,7 @@
    "rows": 1082,
    "split": "dev",
    "task": "T2",
-   "sha256": "fd0048042ecd3b9514175a1cbafce8137a24f6a95e04173bace6f15758ff2ddf",
+   "sha256": "9dfef14072394794e2040c31265a428d34237e8271f93bf1936bd4242ca4666f",
    "label_counts": {
     "T2": {
      "pos": 250,
@@ -94,7 +94,7 @@
    "rows": 1300,
    "split": "heldout",
    "task": "T2",
-   "sha256": "abb6fb62f209664a49992d4cb9c4bc7d95ccddb8fb2768d413d567347f6a765f",
+   "sha256": "4acc7d0c69cf720401fe1680a60d132c2e08ef09c9e8f65fc65023f6cc6041f9",
    "label_counts": {
     "T2": {
      "pos": 300,
@@ -108,11 +108,11 @@
    "rows": 8195,
    "split": "train",
    "task": "T3",
-   "sha256": "06d9faca0074a9d70e12f27ef777a598d71abf47c1820b3fb0bdd02ed4364484",
+   "sha256": "0b981e418f6faabe262948c0482e065563d96cac8292b65920e05cbfd3e20e9d",
    "label_counts": {
     "T3": {
-     "neg": 4934,
-     "pos": 3261
+     "pos": 3261,
+     "neg": 4934
     }
    }
   },
@@ -122,7 +122,7 @@
    "rows": 1726,
    "split": "dev",
    "task": "T3",
-   "sha256": "26955e604f66e30c800d658726c73d27e651a6dd85adf05b6324d91618421540",
+   "sha256": "84952058bb6766468acb7211384d08d220f8291827b4397dfc0145ef2663fb3c",
    "label_counts": {
     "T3": {
      "pos": 526,
@@ -136,53 +136,11 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T3",
-   "sha256": "4d4b40d1b09310953544c30b19c098ab84702ef154fc6e9885ccd8f8a306adda",
+   "sha256": "ce7855126bbfca716067b2729d0ac6c4e19427e902da304fc8f4ae306a8b379c",
    "label_counts": {
     "T3": {
-     "neg": 2200,
-     "pos": 300
-    }
-   }
-  },
-  {
-   "path": "t4-pii/train.jsonl",
-   "n": 5750,
-   "rows": 5750,
-   "split": "train",
-   "task": "T4",
-   "sha256": "47e80bf44665978e603842652d828c80b9b4880be5fd97e4ab14f95bf8c8b049",
-   "label_counts": {
-    "T4": {
-     "pos": 2650,
-     "neg": 3100
-    }
-   }
-  },
-  {
-   "path": "t4-pii/dev.jsonl",
-   "n": 850,
-   "rows": 850,
-   "split": "dev",
-   "task": "T4",
-   "sha256": "69d5b654e926123a9f19d51a0ae8020d010ba9fc219551af7cfe461e20d3c667",
-   "label_counts": {
-    "T4": {
-     "pos": 250,
-     "neg": 600
-    }
-   }
-  },
-  {
-   "path": "t4-pii/heldout.jsonl",
-   "n": 1500,
-   "rows": 1500,
-   "split": "heldout",
-   "task": "T4",
-   "sha256": "9890c9218fdc2202a7188ff0ec965deb9bf4e69c412772efe128ca08369ea136",
-   "label_counts": {
-    "T4": {
      "pos": 300,
-     "neg": 1200
+     "neg": 2200
     }
    }
   },
@@ -192,12 +150,11 @@
    "rows": 17781,
    "split": "train",
    "task": "T5",
-   "sha256": "fe1ea54286138f595a2630f9981ef1a6cec7bfdfbc30b59f03450a04d475f427",
+   "sha256": "a3f761269611f9ad551f6e0e2fa5467612778674724929263cc56fb27f0219af",
    "label_counts": {
     "T5": {
      "pos": 10774,
-     "neg": 6254,
-     "cond": 753
+     "neg": 7007
     }
    }
   },
@@ -207,7 +164,7 @@
    "rows": 1450,
    "split": "dev",
    "task": "T5",
-   "sha256": "f6eeb49df475ef763ebfbdbff9a99c04139d5f663ea8631eb041716248a3ad42",
+   "sha256": "4bd52109e17915d3caeb89507f4b05df8bbc548387ad6e4d0c7e94bee114fe20",
    "label_counts": {
     "T5": {
      "pos": 250,
@@ -221,7 +178,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T5",
-   "sha256": "ea9f3a8d1ebe7c90822e3a81dc8dea988fc8ae6fa99988ce6b80696ddcd0a16f",
+   "sha256": "14079c1e0c01b8173cb74a4c10ce4ec71d5aa4cd1c0232a921e6156116db821d",
    "label_counts": {
     "T5": {
      "pos": 300,
@@ -235,11 +192,11 @@
    "rows": 6244,
    "split": "train",
    "task": "T6",
-   "sha256": "aa22f6a6a2e667d5f5240a0b3f7ff197a82e5d0efefd0f940e67f8113e6b8dcb",
+   "sha256": "08e84163803637a2046fa0edc4c71eb82b74b4cfb5a9c6ee3219ec3288403ee5",
    "label_counts": {
     "T6": {
-     "neg": 4194,
-     "pos": 2050
+     "pos": 2050,
+     "neg": 4194
     }
    }
   },
@@ -249,11 +206,11 @@
    "rows": 1450,
    "split": "dev",
    "task": "T6",
-   "sha256": "3bedb56a570ce9c3f2f012b21a9888c672840fc4423f80709c64e700f0c1d48b",
+   "sha256": "594d19038543685290f1453f05e12922d621e978580db9ae61b4fa2ad2efece5",
    "label_counts": {
     "T6": {
-     "neg": 1200,
-     "pos": 250
+     "pos": 250,
+     "neg": 1200
     }
    }
   },
@@ -263,11 +220,53 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T6",
-   "sha256": "78bb8167eae402f7e2cb2758185ea9205c0c8c29acda0a92b751725fbced7acc",
+   "sha256": "c5502f08ca8ad274027727c4b81162a1d9930c71daa0249db8e67bc3b7923441",
    "label_counts": {
     "T6": {
-     "neg": 2200,
-     "pos": 300
+     "pos": 300,
+     "neg": 2200
+    }
+   }
+  },
+  {
+   "path": "t4-pii/train.jsonl",
+   "n": 6300,
+   "rows": 6300,
+   "split": "train",
+   "task": "T4",
+   "sha256": "7084651f3811c35d5238e1a97c6318f1db0aa459bfa2bdc8c07d208e3e112748",
+   "label_counts": {
+    "T4": {
+     "pos": 2600,
+     "neg": 3700
+    }
+   }
+  },
+  {
+   "path": "t4-pii/dev.jsonl",
+   "n": 850,
+   "rows": 850,
+   "split": "dev",
+   "task": "T4",
+   "sha256": "80ccc66debeef0d79a2167384f5587d24b93b026ea0da5c56c753f3a2606c3b1",
+   "label_counts": {
+    "T4": {
+     "pos": 250,
+     "neg": 600
+    }
+   }
+  },
+  {
+   "path": "t4-pii/heldout.jsonl",
+   "n": 1400,
+   "rows": 1400,
+   "split": "heldout",
+   "task": "T4",
+   "sha256": "4e3f02b65d7cdcb3bc2a11a193f0eeda1bfa0ce0992568f5d5720d4819812878",
+   "label_counts": {
+    "T4": {
+     "pos": 300,
+     "neg": 1100
     }
    }
   },
@@ -280,23 +279,28 @@
    "sha256": "d9216628a8eb9f9187999d9810029c200d913feedbf6c64607b4b54c299c0e63",
    "label_counts": {
     "T1": {
+     "pos": 0,
      "neg": 1500
     },
     "T2": {
+     "pos": 0,
      "neg": 1500
     },
     "T3": {
+     "pos": 0,
      "neg": 1500
     },
     "T5": {
+     "pos": 0,
      "neg": 1500
     },
     "T6": {
+     "pos": 0,
      "neg": 1500
     },
     "T4": {
-     "neg": 1155,
-     "pos": 345
+     "pos": 345,
+     "neg": 1155
     }
    }
   },
@@ -309,21 +313,27 @@
    "sha256": "f9bf3c5103736bf486be6ddeac5d5e501757213bf750e14b852380b2a0e9d42c",
    "label_counts": {
     "T1": {
+     "pos": 0,
      "neg": 500
     },
     "T2": {
+     "pos": 0,
      "neg": 500
     },
     "T3": {
+     "pos": 0,
      "neg": 500
     },
     "T5": {
+     "pos": 0,
      "neg": 500
     },
     "T6": {
+     "pos": 0,
      "neg": 500
     },
     "T4": {
+     "pos": 0,
      "neg": 500
     }
    }
@@ -332,37 +342,43 @@
    "path": "heldout-shared/benign-heldout.jsonl",
    "n": 2500,
    "rows": 2500,
-   "split": "dev",
+   "split": "heldout",
    "task": "shared-benign",
    "sha256": "2ef99369ca364a72a9e60f409e1885e4ade9dd9b214cb5cb034dcf7da15a0a66",
    "label_counts": {
     "T1": {
+     "pos": 0,
      "neg": 2500
     },
     "T2": {
+     "pos": 0,
      "neg": 2500
     },
     "T3": {
+     "pos": 0,
      "neg": 2500
     },
     "T5": {
+     "pos": 0,
      "neg": 2500
     },
     "T6": {
+     "pos": 0,
      "neg": 2500
     },
     "T4": {
+     "pos": 0,
      "neg": 2500
     }
    }
   },
   {
    "path": "pool/train.jsonl",
-   "n": 46732,
-   "rows": 46732,
+   "n": 47282,
+   "rows": 47282,
    "split": "train",
    "task": "pool",
-   "sha256": "02849983795f4ec2f8a17fdf82cadf012ce01ba836a5270785e538d007caeb84",
+   "sha256": "5217b881e5f564490949325a96bed13d3d148d84d0f88c02eb7c0dc8992d4968",
    "label_counts": {
     "T1": {
      "pos": 8392,
@@ -373,20 +389,20 @@
      "neg": 3500
     },
     "T3": {
-     "neg": 5765,
-     "pos": 3054
-    },
-    "T4": {
-     "pos": 2650,
-     "neg": 6600
+     "pos": 3054,
+     "neg": 5765
     },
     "T5": {
      "pos": 9751,
      "neg": 7430
     },
     "T6": {
-     "neg": 5594,
-     "pos": 2050
+     "pos": 2050,
+     "neg": 5594
+    },
+    "T4": {
+     "pos": 2600,
+     "neg": 7200
     }
    }
   },
@@ -396,7 +412,7 @@
    "rows": 9800,
    "split": "dev",
    "task": "pool",
-   "sha256": "e8d1ff7410ef77666747066363f5545e6583a8c091a05ea2c26f985e784c6610",
+   "sha256": "607fd8f7a99f9cb411b16a0279e2ed6aacd9051ee66e7150878b24a6527a18e0",
    "label_counts": {
     "T1": {
      "pos": 230,
@@ -407,20 +423,20 @@
      "neg": 5332
     },
     "T3": {
-     "neg": 5480,
-     "pos": 481
-    },
-    "T4": {
-     "pos": 688,
-     "neg": 5262
+     "pos": 481,
+     "neg": 5480
     },
     "T5": {
      "pos": 250,
      "neg": 5700
     },
     "T6": {
-     "neg": 5700,
-     "pos": 250
+     "pos": 250,
+     "neg": 5700
+    },
+    "T4": {
+     "pos": 688,
+     "neg": 5262
     }
    }
   }
@@ -490,16 +506,26 @@
   "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits attributed to shared policy-pack template ancestry)"
  },
  "disjointness": {
-  "train_rows": 103576,
-  "eval_rows": 16800,
+  "train_rows": 104676,
+  "eval_rows": 16700,
   "exact_overlap": 0,
   "mirror_eval_overlap": 0,
   "ood_t4_pos_rows": 0,
-  "assert": "PASS"
+  "t4_entity_overlap": 0,
+  "t4_heldout_entities_checked": 642,
+  "assert": "PASS",
+  "protocol": {
+   "exact": "norm_text = NFKC -> lowercase -> whitespace-collapse; sha256[:16] of full input text (system + content, carrier body fallback); train side (t*/train + pool/train) vs eval side (t*/heldout, challenge/, ood/)",
+   "near_dup": "8-gram shingle containment >30% — see reports/m6/leak-audit.md (heldout frozen suites vs training side, B1/B2 levels)",
+   "entity": "T4 heldout span entity text vs ALL train-side row texts (substring match, qa L5 leak-check protocol)",
+   "nfkc": true,
+   "schema_version": "0.3.0"
+  }
  },
  "notes": [
   "T4 pos spans are char offsets (end-exclusive), risk derived from type table.",
   "T6 labels: pos <=> t6_class=high-risk (single source of truth, adr-1b 6.2).",
+  "T5 cond rows (753 in t5-indirect) are projected to neg per GoldLabel pos|neg enum (arch D-12 ruling); conditional semantics retained in label_detail.mechanism.",
   "T3 shape mix (arch H6 review): user_only=2239 (39%) / messages_with_assistant=3582 (61%, r9-paired seeds) / longctx=2900 — absolute coverage sufficient for v1; v0.7 eval-shape (user-only) generalization listed as task-10 watch item.",
   "T5 Option A (arch ruling): ALL synth carrier rows -> input.carrier + envelope_style (gold anchors on carrier.body raw text); legacy rows keep input.text as protocol-envelope-free coverage; label_detail.envelope mirrors carrier.envelope_style.",
   "challenge medical-PII subset: labels.T4=pos with real span gold, excluded from chFPR denominator; other five task keys remain hard negatives.",

@@ -388,7 +388,7 @@ def main():
         "T1": ["t1-legacy.jsonl"],
         "T2": ["t2-legacy.jsonl", "t2-jailbreak.jsonl"],
         "T3": ["t3-legacy.jsonl", "t3-multiturn.jsonl", "t3-longctx.jsonl"],
-        "T4": ["t4-pii.jsonl"],
+        "T4": ["t4-pii-train.jsonl", "t4-pii-dev.jsonl", "t4-pii-heldout.jsonl"],
         "T5": ["t5-legacy.jsonl", "t5-indirect.jsonl"],
         "T6": ["t6-legacy.jsonl", "t6-instr.jsonl"],
     }
@@ -406,21 +406,91 @@ def main():
     # texts; they must never straddle splits)
     per_task = collections.defaultdict(list)
     all_rows = []
+    t4_rows = []
     for task, files in task_files.items():
         pool = []
         for f in files:
             p = os.path.join(st, f)
             if os.path.exists(p):
                 pool.extend(read_jsonl(p))
+        if task == "T4":
+            # scope files carry their split in split_hint (entity-pool
+            # isolation is decided at generation time; qa L5 fix)
+            for r in pool:
+                row = staging_to_final(r, r.get("split_hint") or "train")
+                if row["labels"]["T4"]["label"] == "cond":
+                    row["labels"]["T4"]["label"] = "neg"
+                row["split"] = r.get("split_hint") or "train"
+                t4_rows.append(row)
+            continue
         rows = [staging_to_final(r, "train") for r in pool]
-        # label normalization: cond -> neg with t6_class=conditional (T6 only)
+        # label normalization: cond -> neg (T5/T6 GoldLabel is pos|neg only;
+        # T6 keeps conditional semantics in t6_class — single source of truth)
         for r in rows:
             t = r["task"]
-            if t == "T6" and r["labels"][t]["label"] == "cond":
+            if t in ("T5", "T6") and r["labels"][t]["label"] == "cond":
                 r["labels"][t]["label"] = "neg"
-                r["labels"][t].setdefault("label_detail", {})["t6_class"] = "conditional"
+                if t == "T6":
+                    r["labels"][t].setdefault("label_detail", {})["t6_class"] = "conditional"
         all_rows.extend(rows)
     assign_splits(all_rows, quotas, rng)
+
+    # ---- qa L5 entity swap-out (arch P0-3: heldout stays, train side yields)
+    # T4 heldout pos rows whose span entities leak into OTHER-task train texts
+    # are exchanged 1:1 with clean T4 train pos rows — count-preserving, no
+    # heldout row is ever edited, entity pools stay bucket-isolated.
+    def _input_text(row):
+        inp = row.get("input") or {}
+        if inp.get("carrier"):
+            return inp["carrier"].get("body") or ""
+        parts = []
+        if inp.get("text"):
+            parts.append(inp["text"])
+        for x in (inp.get("messages") or inp.get("turns") or []):
+            parts.append(x.get("content") if isinstance(x, dict) else x)
+        return "\n".join(parts)
+
+    def _entities(row):
+        out = []
+        for tk, g in (row.get("labels") or {}).items():
+            if tk == "T4" and g.get("label") == "pos":
+                t = _input_text(row)
+                for sp in (g.get("label_detail") or {}).get("spans", []):
+                    if sp.get("end", 0) <= len(t):
+                        out.append(t[sp["start"]:sp["end"]])
+        return out
+
+    other_train = [_input_text(r) for r in all_rows if r["split"] == "train"]
+    other_blob = "\x00".join(other_train)
+    t4_train_pos = [r for r in t4_rows
+                    if r["split"] == "train" and r["labels"]["T4"]["label"] == "pos"]
+    t4_held_pos = [r for r in t4_rows
+                   if r["split"] == "heldout" and r["labels"]["T4"]["label"] == "pos"]
+    leaking = [r for r in t4_held_pos if any(e and e in other_blob for e in _entities(r))]
+    # T4 train side has legitimate intra-pool name reuse (~70% collision on
+    # composed names); a swapped-in row must be name-unique against BOTH the
+    # other-task train texts and the remaining T4 train rows
+    t4_train_texts = {r["id"]: _input_text(r) for r in t4_train_pos}
+    used = set()
+    for lr in leaking:
+        for tr in t4_train_pos:
+            if tr["id"] in used:
+                continue
+            ents = _entities(tr)
+            blob_excl = "\x00".join(t for tid, t in t4_train_texts.items()
+                                    if tid != tr["id"])
+            if any(e and (e in other_blob or e in blob_excl) for e in ents):
+                continue
+            used.add(tr["id"])
+            tr["split"], lr["split"] = lr["split"], tr["split"]
+            t4_train_texts[tr["id"]] = _input_text(lr)
+            break
+        else:
+            raise SystemExit("no clean T4 train pos row available for entity swap")
+    if leaking:
+        print("t4 entity swap-out: %d heldout<->train rows exchanged" % len(leaking))
+
+    all_rows.extend(t4_rows)
     for r in all_rows:
         per_task[r["task"]].append(r)
     for task in sorted(per_task):
@@ -481,10 +551,14 @@ def main():
     for r in chm_rows:
         r["flags"] = {"ood": False, "challenge": True, "holdout_family": None,
                       "ambiguous": False}
+        r.setdefault("meta", {})["eval_family"] = "challenge"
     oodm_rows = [shared_final(r, "dev", "pool") for r in ood_mirror]
     for r in oodm_rows:
         r["flags"] = {"ood": True, "challenge": False, "holdout_family": None,
                       "ambiguous": False}
+        r.setdefault("meta", {})["eval_family"] = "ood"
+    for r in benign_dev:
+        r.setdefault("meta", {})["eval_family"] = "benign"
 
     # 4) challenge / ood eval dirs (six-key labels)
     challenge = read_jsonl(os.path.join(st, "challenge.jsonl"))
@@ -590,6 +664,7 @@ def main():
         rel = rel_path.replace("\\", "/")
         sp = "challenge" if rel.startswith("challenge/") else \
              "ood" if rel.startswith("ood/") else \
+             "heldout" if rel.startswith("heldout-shared/") else \
              "train" if rel.endswith("/train.jsonl") or rel == "pool/train.jsonl" else \
              "dev" if rel.endswith("/dev.jsonl") or rel == "pool/dev.jsonl" else \
              "heldout" if rel.endswith("/heldout.jsonl") else "dev"
@@ -616,7 +691,8 @@ def main():
                     lc[tk][g.get("label", "?")] += 1
         return {"path": rel, "n": n, "rows": n, "split": sp, "task": task,
                 "sha256": h.hexdigest(),
-                "label_counts": {tk: dict(c) for tk, c in lc.items()}}
+                "label_counts": {tk: {"pos": c.get("pos", 0), "neg": c.get("neg", 0)}
+                                 for tk, c in lc.items()}}
 
     # dev-mirror files are byte-identical subsets of pool/dev — registered once
     # via pool/dev; mirror files listed with subset_of marker only
@@ -672,10 +748,27 @@ def main():
             "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits "
                           "attributed to shared policy-pack template ancestry)",
         },
-        "disjointness": iso,
+        "disjointness": {
+            **iso,
+            "protocol": {
+                "exact": "norm_text = NFKC -> lowercase -> whitespace-collapse; sha256[:16] of "
+                         "full input text (system + content, carrier body fallback); "
+                         "train side (t*/train + pool/train) vs eval side (t*/heldout, "
+                         "challenge/, ood/)",
+                "near_dup": "8-gram shingle containment >30% — see reports/m6/leak-audit.md "
+                            "(heldout frozen suites vs training side, B1/B2 levels)",
+                "entity": "T4 heldout span entity text vs ALL train-side row texts "
+                          "(substring match, qa L5 leak-check protocol)",
+                "nfkc": True,
+                "schema_version": SCHEMA_VERSION,
+            },
+        },
         "notes": [
             "T4 pos spans are char offsets (end-exclusive), risk derived from type table.",
             "T6 labels: pos <=> t6_class=high-risk (single source of truth, adr-1b 6.2).",
+            "T5 cond rows (753 in t5-indirect) are projected to neg per GoldLabel "
+            "pos|neg enum (arch D-12 ruling); conditional semantics retained in "
+            "label_detail.mechanism.",
             "T3 shape mix (arch H6 review): user_only=2239 (39%) / messages_with_assistant=3582 "
             "(61%, r9-paired seeds) / longctx=2900 — absolute coverage sufficient for v1; "
             "v0.7 eval-shape (user-only) generalization listed as task-10 watch item.",
@@ -728,12 +821,38 @@ def isolation_report(out):
             if t4.get("label") == "pos":
                 ood_t4_pos += 1
 
-    ok = not inter and not mirror_overlap and ood_t4_pos == 0
+    # qa L5: entity-level isolation — heldout T4 span entity texts must not
+    # appear as substrings anywhere on the train side (per leak-check-h1)
+    t4_held_entities = []
+    for p in glob.glob(os.path.join(out, "t4-pii", "heldout.jsonl")):
+        for r in load(p):
+            inp = r.get("input") or {}
+            t = inp.get("text") or ""
+            for sp in ((r.get("labels") or {}).get("T4", {}).get("label_detail") or {}).get("spans", []):
+                if sp.get("end", 0) <= len(t):
+                    t4_held_entities.append(t[sp["start"]:sp["end"]])
+    train_texts = []
+    for p in glob.glob(os.path.join(out, "*", "train.jsonl")):
+        for r in load(p):
+            inp = r.get("input") or {}
+            if inp.get("carrier"):
+                train_texts.append(inp["carrier"].get("body") or "")
+            else:
+                parts = [inp.get("text") or ""]
+                for x in (inp.get("messages") or inp.get("turns") or []):
+                    parts.append(x.get("content") if isinstance(x, dict) else x)
+                train_texts.append("\n".join(parts))
+    train_blob = "\x00".join(train_texts)
+    t4_ent_overlap = sum(1 for e in t4_held_entities if e and e in train_blob)
+
+    ok = not inter and not mirror_overlap and ood_t4_pos == 0 and t4_ent_overlap == 0
     return {
         "train_rows": len(train_rows), "eval_rows": len(eval_rows),
         "exact_overlap": len(inter),
         "mirror_eval_overlap": mirror_overlap,
         "ood_t4_pos_rows": ood_t4_pos,
+        "t4_entity_overlap": t4_ent_overlap,
+        "t4_heldout_entities_checked": len(t4_held_entities),
         "assert": "PASS" if ok else "FAIL",
     }
 

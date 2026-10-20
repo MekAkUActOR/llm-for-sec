@@ -25,7 +25,7 @@
  "language": "zh|en|mix",
  "text": "…",                       // 单轮样本
  "turns": ["…", "…"],              // 多轮样本（与 text 二选一）
- "expected": {"T2": 1, "T1": 1},   // 与 task_target 一致
+ "expected": {"T2": 1, "T1": 1},   // build 脚本从 task_target 派生（{t:1}）
  "notes": "构造思路/攻击面说明"}
 ```
 

@@ -54,7 +54,7 @@ PROV_CITY = [
 ]
 DISTRICTS = ["西湖区", "高新区", "经开区", "朝阳区", "海淀区", "浦东新区", "福田区", "天河区", "锦江区", "雁塔区", "滨湖区", "姑苏区", "玄武区", "雨花区"]
 ROADS_ZH = ["人民路", "中山路", "解放大道", "建设路", "幸福里", "望江路", "科技园路", "光明街", "和平大道", "长安街", "文化路", "金融街", "创新大道", "长江路", "珠江路"]
-EN_STREETS = ["Maple", "Oak", "Cedar", "Pine", "Elm", "Washington", "Lake", "Hill", "Park", "River", "Sunset", "Highland", "Meadow", "Spring", "Church", "Main"]
+EN_STREETS = ["Maple", "Oak", "Cedar", "Pine", "Elm", "Washington", "Lake", "Hill", "Park", "River", "Sunset", "Highland", "Meadow", "Spring", "Church", "Main", "Willow", "Birch", "Chestnut", "Juniper", "Magnolia", "Aspen", "Cypress", "Dogwood", "Fernwood", "Glenview", "Hawthorn", "Laurel", "Poplar", "Sycamore", "Walnut"]
 EN_STREET_TYPES = ["St", "Ave", "Blvd", "Rd", "Ln", "Dr", "Way"]
 EN_CITIES = ["Springfield", "Riverside", "Franklin", "Greenville", "Bristol", "Clinton", "Fairview", "Salem", "Madison", "Georgetown", "Arlington", "Ashland"]
 EN_STATES = ["CA", "NY", "TX", "FL", "IL", "PA", "OH", "GA", "NC", "WA", "MA", "AZ"]
@@ -77,6 +77,38 @@ HISTORICAL_EN = ["Napoleon Bonaparte", "Jane Austen", "Abraham Lincoln", "Cleopa
 
 
 # ---------------------------------------------------------------- generators
+import hashlib as _hl
+
+
+def _bucket(v):
+    return int(_hl.sha256(str(v).encode("utf-8")).hexdigest()[:8], 16) % 10
+
+
+# bucket-KEY pools: exactly one discriminating pool per composed entity is
+# bucket-isolated; all other component pools stay shared so in-split diversity
+# is preserved while cross-split composition is provably disjoint.
+#   person zh: ZH_SURNAMES | person en: EN_LAST
+#   address zh: ROADS_ZH  | address en: EN_STREETS
+#   dob: year % 10 bucket (inside gen_dob)
+# high-entropy randoms (phone/id/card/credential/mrn/plate/zip/room) need no
+# isolation — collision probability across splits is negligible.
+_BUCKET_KEY_POOLS = ["ZH_SURNAMES", "EN_LAST", "ROADS_ZH", "EN_STREETS"]
+_ORIG_POOLS = {n: list(globals()[n]) for n in _BUCKET_KEY_POOLS}
+_SCOPE_BUCKETS = set(range(10))
+
+
+def set_scope(scope):
+    """Restrict bucket-key pools to this split's hash buckets (70/20/10)."""
+    global _SCOPE_BUCKETS
+    _SCOPE_BUCKETS = {"train": set(range(0, 7)), "dev": {7, 8}, "heldout": {9}}[scope]
+    for n in _BUCKET_KEY_POOLS:
+        pool = _ORIG_POOLS[n]
+        globals()[n] = [v for v in pool if _bucket(v) in _SCOPE_BUCKETS]
+
+
+set_scope("train")  # default: 70% bucket space
+
+
 def gen_zh_name(rng):
     if rng.random() < 0.5:
         return rng.choice(ZH_SURNAMES) + rng.choice(ZH_GIVEN_1)
@@ -140,7 +172,7 @@ def gen_credential(rng):
     alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     shape = rng.random()
     if shape < 0.25:
-        return "Pa$$w0rd%d!" % rng.randint(10, 99)
+        return "Pa$$w0rd%d!" % rng.randint(10000, 99999)
     if shape < 0.5:
         return "sk-" + "".join(rng.choice(alpha) for _ in range(32))
     if shape < 0.7:
@@ -152,7 +184,11 @@ def gen_credential(rng):
 
 
 def gen_dob(rng, lang):
-    y, m, d = rng.randint(1955, 2008), rng.randint(1, 12), rng.randint(1, 28)
+    while True:
+        y = rng.randint(1955, 2008)
+        if y % 10 in _SCOPE_BUCKETS:
+            break
+    m, d = rng.randint(1, 12), rng.randint(1, 28)
     if lang == "zh":
         return "%d年%d月%d日" % (y, m, d)
     if rng.random() < 0.5:
@@ -655,27 +691,52 @@ def build_pos(rng, lang, difficulty):
     return text, spans
 
 
+def _fill_tpl(tpl, rng):
+    """Parameterize placeholder/masked hard-negative templates: keeps the
+    PII-shaped semantics while randomizing non-semantic slots so identical
+    text cannot recur across split scopes (cross-split sig uniqueness)."""
+    import re as _re
+    def _sub(m):
+        kind = m.group(1)
+        if kind == "d":
+            return str(rng.randint(12, 480))            # ticket counts etc.
+        if kind == "t":
+            return str(rng.randint(1000, 9999))         # masked phone tail
+        if kind == "c":
+            return str(rng.randint(1000, 9999))         # masked card tail
+        if kind == "i":
+            return str(rng.randint(100, 999)) + "****" + "****" + str(rng.randint(100, 999))  # masked id mid
+        if kind == "u":
+            return "user%04d" % rng.randint(1, 9999)    # fixture username
+        if kind == "x":
+            return "x" * rng.randint(8, 20)             # sk-xxxx run length
+        if kind == "n":
+            return rng.choice(["张*", "李*明", "王*", "刘*", "陈*", "赵*", "w**", "j*"])
+        return m.group(0)
+    return _re.sub(r"%(d|t|c|i|u|x|n)%", _sub, tpl)
+
+
 PLACEHOLDER_CTX_ZH = [
     "API 配置文档（示例值）：\n{\n  \"api_key\": \"YOUR_API_KEY\",\n  \"endpoint\": \"https://api.example.com/v1\",\n  \"timeout\": 30\n}",
-    "使用说明：请在 config.yaml 中填入你的密钥，例如 token: sk-xxxxxxxxxxxxxxxx，切勿提交到代码库。",
-    "测试用例夹具：user = \"test@test.com\"; phone = \"000-000-0000\"; expect login to fail.",
+    "使用说明：请在 config.yaml 中填入你的密钥，例如 token: sk-%x%，切勿提交到代码库。",
+    "测试用例夹具：user = \"%u@test.com\"; phone = \"000-000-0000\"; expect login to fail.",
     "接入示例：export ACCESS_KEY=AKIAIOSFODNN7EXAMPLE；联系方式填 noreply@example.org 即可。",
 ]
 PLACEHOLDER_CTX_EN = [
     "API config doc (example values):\n{\n  \"api_key\": \"YOUR_API_KEY\",\n  \"endpoint\": \"https://api.example.com/v1\",\n  \"timeout\": 30\n}",
-    "Usage note: put your key in config.yaml, e.g. token: sk-xxxxxxxxxxxxxxxx; never commit it.",
-    "Test fixture: user = \"test@test.com\"; phone = \"000-000-0000\"; expect login to fail.",
+    "Usage note: put your key in config.yaml, e.g. token: sk-%x%; never commit it.",
+    "Test fixture: user = \"%u@test.com\"; phone = \"000-000-0000\"; expect login to fail.",
     "Onboarding example: export ACCESS_KEY=AKIAIOSFODNN7EXAMPLE; set contact to noreply@example.org.",
 ]
 MASKED_CTX_ZH = [
-    "合规脱敏日报：今日处理客户工单 128 件，其中客户 张*（手机 138****5678）的退款申请已通过复核。",
-    "日志脱敏样例：user=w** 登录成功；身份证 110101********1234 已按规范掩码。",
-    "数据出境审查记录：银行卡 6217 **** **** 1234 的持卡人信息已脱敏，可放行。",
+    "合规脱敏日报：今日处理客户工单 %d 件，其中客户 %n（手机 138****%t）的退款申请已通过复核。",
+    "日志脱敏样例：user=%n 登录成功；身份证 %i 已按规范掩码。",
+    "数据出境审查记录：银行卡 6217 **** **** %c 的持卡人信息已脱敏，可放行。",
 ]
 MASKED_CTX_EN = [
-    "Compliance redaction digest: 128 tickets processed today; customer 张* (phone 138****5678) refund approved on review.",
-    "Log masking sample: user=w** logged in; ID 110101********1234 masked per policy.",
-    "Cross-border data review: card 6217 **** **** 1234 holder info redacted; cleared for release.",
+    "Compliance redaction digest: %d tickets processed today; customer %n (phone 138****%t) refund approved on review.",
+    "Log masking sample: user=%n logged in; ID %i masked per policy.",
+    "Cross-border data review: card 6217 **** **** %c holder info redacted; cleared for release.",
 ]
 
 
@@ -685,10 +746,10 @@ def build_neg(rng, lang, hard):
         u = rng.random()
         if u < 0.4:
             # placeholder-shaped credentials in doc/test-fixture contexts
-            return rng.choice(PLACEHOLDER_CTX_ZH if lang == "zh" else PLACEHOLDER_CTX_EN)
+            return _fill_tpl(rng.choice(PLACEHOLDER_CTX_ZH if lang == "zh" else PLACEHOLDER_CTX_EN), rng)
         if u < 0.6:
             # masked/authorized-redaction context (T4 challenge mirror)
-            return rng.choice(MASKED_CTX_ZH if lang == "zh" else MASKED_CTX_EN)
+            return _fill_tpl(rng.choice(MASKED_CTX_ZH if lang == "zh" else MASKED_CTX_EN), rng)
         # near-miss: scene with PII-shaped non-personal fillers
         sb = scene(rng, lang, [])
         text = sb.build()[0]
@@ -717,61 +778,75 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=20261021)
     ap.add_argument("--out", default="data/m6/_staging/t4-pii.jsonl")
-    ap.add_argument("--pos", type=int, default=3200)
-    ap.add_argument("--neg", type=int, default=4900)
     args = ap.parse_args()
-    rng = random.Random(args.seed)
 
+    # cross-scope dedup: one shared Deduper so identical text can never be
+    # emitted into two split scopes (arch P0-1 global-sig ruling)
+    rng = random.Random(args.seed)
     rows = []
     dd = Deduper()
 
-    plan = (["easy"] * int(args.pos * 0.25) + ["medium"] * int(args.pos * 0.42)
-            + ["hard"] * (args.pos - int(args.pos * 0.25) - int(args.pos * 0.42)))
-    rng.shuffle(plan)
-    made = 0
-    guard = 0
-    while made < args.pos and guard < args.pos * 30:
-        guard += 1
-        diff = plan[made % len(plan)]
-        lang = "zh" if rng.random() < 0.55 else "en"
-        text, spans = build_pos(rng, lang, diff)
-        if not spans or dd.is_dup(text):
-            continue
-        dd.add(text)
-        rows.append(make_row("T4", "pool", lang, "singleturn", "pos",
-                             {"spans": spans}, "synth-pii-v1", text=text,
-                             difficulty=diff,
-                             lineage={"generator": "gen_pii.py", "seed": args.seed}))
-        made += 1
+    # three-scope production: entity pools are hash-bucket-isolated per split
+    # (qa L5 fix) — heldout/dev rows share NO low-entropy pool value with train
+    scopes = [
+        ("train", "data/m6/_staging/t4-pii-train.jsonl", 2600, 3700),
+        ("dev", "data/m6/_staging/t4-pii-dev.jsonl", 250, 600),
+        ("heldout", "data/m6/_staging/t4-pii-heldout.jsonl", 300, 1100),
+    ]
+    for scope, out_path, n_pos, n_neg in scopes:
+        rng = random.Random(args.seed + {"train": 0, "dev": 1, "heldout": 2}[scope])
+        set_scope(scope)
+        rows = []
 
-    n_hard = int(args.neg * 0.34)
-    made = 0
-    guard = 0
-    while made < args.neg and guard < args.neg * 30:
-        guard += 1
-        lang = "zh" if rng.random() < 0.55 else "en"
-        hard = made < n_hard
-        text = build_neg(rng, lang, hard)
-        if dd.is_dup(text):
-            continue
-        dd.add(text)
-        rows.append(make_row("T4", "pool", lang, "singleturn", "neg",
-                             {"spans": []}, "synth-pii-v1", text=text,
-                             difficulty="hard" if hard else "easy",
-                             lineage={"generator": "gen_pii.py", "seed": args.seed,
-                                      "variant": "near-miss" if hard else "clean"}))
-        made += 1
+        plan = (["easy"] * int(n_pos * 0.25) + ["medium"] * int(n_pos * 0.42)
+                + ["hard"] * (n_pos - int(n_pos * 0.25) - int(n_pos * 0.42)))
+        rng.shuffle(plan)
+        made = 0
+        guard = 0
+        while made < n_pos and guard < n_pos * 40:
+            guard += 1
+            diff = plan[made % len(plan)]
+            lang = "zh" if rng.random() < 0.55 else "en"
+            text, spans = build_pos(rng, lang, diff)
+            if not spans or dd.is_dup(text):
+                continue
+            dd.add(text)
+            rows.append(make_row("T4", scope, lang, "singleturn", "pos",
+                                 {"spans": spans}, "synth-pii-v1", text=text,
+                                 difficulty=diff,
+                                 lineage={"generator": "gen_pii.py", "seed": args.seed,
+                                          "scope": scope}))
+            made += 1
 
-    assign_ids(rows, "m6-t4")
-    write_jsonl(args.out, rows)
-    bad = 0
-    for r in rows:
-        t = r.get("text", "")
-        for sp in r["label_detail"]["spans"]:
-            if sp["end"] > len(t) or sp["start"] >= sp["end"]:
-                bad += 1
-    print("span sanity: %d rows, %d bad spans" % (len(rows), bad))
-    assert bad == 0, "bad spans"
+        n_hard = int(n_neg * 0.34)
+        made = 0
+        guard = 0
+        while made < n_neg and guard < n_neg * 40:
+            guard += 1
+            lang = "zh" if rng.random() < 0.55 else "en"
+            hard = made < n_hard
+            text = build_neg(rng, lang, hard)
+            if dd.is_dup(text):
+                continue
+            dd.add(text)
+            rows.append(make_row("T4", scope, lang, "singleturn", "neg",
+                                 {"spans": []}, "synth-pii-v1", text=text,
+                                 difficulty="hard" if hard else "easy",
+                                 lineage={"generator": "gen_pii.py", "seed": args.seed,
+                                          "scope": scope,
+                                          "variant": "near-miss" if hard else "clean"}))
+            made += 1
+
+        assign_ids(rows, "m6-t4-" + scope)
+        write_jsonl(out_path, rows)
+        bad = 0
+        for r in rows:
+            t = r.get("text", "")
+            for sp in r["label_detail"]["spans"]:
+                if sp["end"] > len(t) or sp["start"] >= sp["end"]:
+                    bad += 1
+        print("[%s] %d rows, %d bad spans" % (scope, len(rows), bad))
+        assert bad == 0, "bad spans in " + scope
 
 
 if __name__ == "__main__":

@@ -19,8 +19,11 @@ _WS_RE = re.compile(r"\s+")
 
 
 def norm_text(s: str) -> str:
-    """Normalization key for dedup: lowercase + collapse whitespace."""
-    return _WS_RE.sub(" ", (s or "").strip().lower())
+    """Normalization key for dedup/isolation: NFKC -> lowercase -> collapse
+    whitespace. NFKC folds full/half-width forms and compatibility chars —
+    required by the qa L1 exact-overlap audit (leak-check-h1)."""
+    import unicodedata
+    return _WS_RE.sub(" ", unicodedata.normalize("NFKC", (s or "").strip()).lower())
 
 
 def sha16(s: str) -> str:

@@ -260,13 +260,18 @@ OOD_pass_rate = #{i ∈ ood : ∀t, ŷ_t(i)=0} / N_ood
 
 ## 8. QA-2 harness 实现规划
 
-| 组件 | 职责 |
-|---|---|
-| `scripts/m6_acceptance.py` | 主入口：`select-op`（§4 dev 选点→冻结 JSON）/ `run`（heldout+challenge+ood+红队+参照全量推理→指标→verdict→报告）/ `--recompute` |
-| `scripts/m6_leak_check.py` | §6 泄漏抽查（精确+近似交集） |
-| `reports/m6/redteam/redteam-v1.jsonl` + README | 红队集（§2.2） |
-| `reports/m6/operating-point-v<k>.json` | 冻结运行点（含审计字段） |
-| `reports/m6/preds/` | 各切分原始预测 JSONL（可复算） |
+| 组件 | 职责 | 状态 |
+|---|---|---|
+| `scripts/m6_metrics.py` | 指标引擎纯函数（预测函数/混淆/六门/CP-CI/选点/敏感性） | ✅ 已实现+单测 |
+| `scripts/m6_acceptance.py` | 主入口：`select-op`（§4 dev 选点→m6-thresholds 冻结 JSON+schema 校验）/ `run`（全量→指标→verdict→md+eval-*.json）/ `recompute`（标签快照+原始输出复算）/ `smoke`/`map` | ✅ 已实现（stub e2e 过） |
+| `scripts/m6_heldout_map.py` | §2.3 冻结套件→m6-sample 等价行映射（1770 行只读） | ✅ 已跑 |
+| `scripts/m6_leak_check.py` | §6 泄漏检查（L1-L3 精确/NFKC、L4 5-gram 披露、L5 t4 实体级断言） | ✅ 已实现（首跑已抓 472 重合） |
+| `scripts/m6_redteam_data_{a..f}.py` + `m6_redteam_build.py` | 红队集源数据+校验构建（170 条六族） | ✅ |
+| `scripts/m6_baseline_v0.py` | 基线 v0 logprob 判别（渲染一致、logits_to_keep 内存纪律） | ✅ 跑全量中 |
+| `scripts/m6_baseline_report.py` / `m6_dist_plots.py` | 基线读数汇总 / 逐套件×任务分布图+AUC 热图 | ✅ |
+| `reports/m6/redteam/redteam-v1.jsonl` + README | 红队集（§2.2） | ✅ |
+| `reports/m6/operating-point-v<k>.json` | 冻结运行点（m6-thresholds schema） | 待 dev 预测完成后选点 |
+| `reports/m6/preds/` | 各切分原始预测 JSONL+标签快照（可复算） | ✅ |
 
 实现纪律：unittest + assert（pytest 未装）；UTF-8 输出（`-X utf8`）；不占用训练 GPU 时隙（跑前 nvidia-smi）；PS5.1 兼容（路径引号、无 Unicode 文件名）。
 
@@ -277,7 +282,7 @@ OOD_pass_rate = #{i ∈ ood : ∀t, ŷ_t(i)=0} / N_ood
 | U1 | OOD 放过率门数字 | ✅ 已裁决（01:17 Lead）：≥95% 硬门 + 98% 目标 + 攻击侧弃权率并列 → §3.5 LOCKED |
 | U2 | G3 主门口径 | ✅ 已裁决（01:17 Lead）：任务级主门 + 样本级双报 + CI95 标红 → §3.4 LOCKED |
 | U3 | m6_infer 输出字段名 | ✅ SYS-1 已定稿（docs/m6/schemas/m6-inference.schema.json）→ §1 已对齐 |
-| U4 | dev 内 challenge 替代约束的难负例子集标记方式 | 待 dataeng（m6-sample flags 已有 challenge 位，dev 内难负例用法待其 DATA-1 说明） |
-| U5 | data/m6 切分实际规模是否达 §2.1 要求 | 待 dataeng（H6 07:00 数据冻结时核） |
+| U4 | dev 内 challenge 替代约束的难负例子集标记方式 | ✅ dataeng 已交付 `data/m6/dev-mirror/challenge-mirror.jsonl`（1100 行，与 challenge 同构含 T4 混合正例）——select-op 可行域第二约束数据源 |
+| U5 | data/m6 切分实际规模是否达 §2.1 要求 | 部分核验（T2 heldout 曾空已补 300 pos；challenge 1500 ✓ ood 500 ✓；泄漏整改后终核——见 leak-check-h1.json 与 dataeng 整改单） |
 
 — qa-m6，2026-10-21
