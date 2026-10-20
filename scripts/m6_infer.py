@@ -10,17 +10,24 @@ Output rows (JSONL) conform to docs/m6/schemas/m6-inference.schema.json:
    thresholds_applied:{T1..T6:{flag,strong},source,tau_ood}, decision,
    latency_ms?, verdict_line}
 
-Decision (ADR-1 §8, two-band):
-  score > tau_strong            -> flag (OOD cannot suppress)
-  tau_flag < score <= tau_strong-> flag unless is_ood (suppressed marker)
-  score <= tau_flag             -> pass
+Decision (ADR-1 §8, two-band; logit-space comparison, schema v0.3.13 /
+arch §6.12 draft): when the runpoint provides flag_logit/strong_logit the
+bands compare LOGITS (fp32 sigmoid saturates to 1.0 at logit>~16.6, which
+collapses score resolution); the score fields are display values computed
+in fp64 (interim measure pending ADR-2 full logit-domain unification):
+  logit > strong_logit              -> flag (OOD cannot suppress)
+  flag_logit < logit <= strong_logit-> flag unless is_ood (suppressed marker)
+  logit <= flag_logit               -> pass
+Without logit keys (legacy runpoints, T6 softmax prob): score-space bands.
+D-7 discipline: a PARTIAL logit spec (flag_logit without strong_logit or
+vice versa) hard-fails -- never silently fall back to score space.
   T4 flag = doc-band OR spans nonempty (spans = strong evidence)
   abstain = (decision==pass AND is_ood AND weak-band hit)   [ADR-1 §8;
     suppressed task markers stay as audit trail even when abstain=false]
   decision = flag if any task flag else pass (lowercase enum, D-2)
-  score = sigmoid(logit) raw scale (adr-1b 6.1: NO temperature applied);
-  T6 score = P(high-risk) via softmax; ood.score = RAW Mahalanobis
-  distance (>=0, unnormalized; sysdesign v0.3.0).
+  score = sigmoid(logit) raw scale, fp64 compute (adr-1b 6.1: NO
+  temperature applied); T6 score = P(high-risk) via softmax (fp64);
+  ood.score = RAW Mahalanobis distance (>=0, unnormalized; sysdesign v0.3.0).
 
 Threshold priority: request override (--thresholds-json, partial ok)
   > runpoint file (--runpoint, m6-thresholds schema)
@@ -55,7 +62,7 @@ from m6_render import (  # noqa: E402
 from m6_train import M6Probe, TASKS  # noqa: E402
 
 DEFAULT_CKPT = "checkpoints/qwen3-06b-sec-m5a-dpo-r5"
-SCHEMA_VERSION = "0.3.1"
+SCHEMA_VERSION = "0.3.2"
 
 
 def _read_tau_ood(ood_cfg: dict, src: str) -> float:
@@ -76,6 +83,25 @@ PRED_LABELS = {
     "T5": ("contains-injection", "clean"),
 }
 T6_CLASSES = ["high-risk", "safe", "conditional"]
+
+
+def _band_of(score, logit, thr, is_t6=False):
+    """Two-band decision for one task (pure; unit-tested).
+
+    Logit-space comparison when the runpoint provides flag_logit/strong_logit
+    (fp32 sigmoid saturates to 1.0 at logit>~16.6, collapsing score
+    resolution); score-space otherwise (legacy runpoints, T6 softmax prob).
+    D-7: PARTIAL logit spec hard-fails (never silently fall back to score
+    space on an incomplete logit runpoint). Returns (strong, mid).
+    """
+    fl, sl = thr.get("flag_logit"), thr.get("strong_logit")
+    if (fl is None) != (sl is None):
+        raise ValueError(
+            f"partial logit spec (flag_logit={fl!r}, strong_logit={sl!r})"
+            " -- fail-closed, D-7")
+    if is_t6 or fl is None:
+        return score > thr["strong"], thr["flag"] < score <= thr["strong"]
+    return logit > sl, fl < logit <= sl
 
 
 def _pad_batch(seqs, pad_id, device):
@@ -152,14 +178,22 @@ class M6Inferencer:
                     base_thr[t] = {"flag": float(v),
                                    "strong": base_thr[t]["strong"]}
                 else:
-                    base_thr[t] = {"flag": float(v["flag"]),
-                                   "strong": float(v["strong"])}
+                    nt = {"flag": float(v["flag"]),
+                          "strong": float(v["strong"])}
+                    # logit keys pass through (schema v0.3.13 ThresholdBand)
+                    if "flag_logit" in v or "strong_logit" in v:
+                        nt["flag_logit"] = v.get("flag_logit")
+                        nt["strong_logit"] = v.get("strong_logit")
+                    base_thr[t] = nt
             self.source = "request-override"
         if ood_threshold_override is not None:
             self.tau_ood = float(ood_threshold_override)
         for t in TASKS:
             assert base_thr[t]["strong"] >= base_thr[t]["flag"] - 1e-9, \
                 f"{t}: strong < flag violates ThresholdBand"
+            fl, sl = base_thr[t].get("flag_logit"), base_thr[t].get("strong_logit")
+            if fl is not None and sl is not None:
+                assert sl >= fl, f"{t}: strong_logit < flag_logit violates band"
         self.thresholds = base_thr
 
         # ---- OOD Mahalanobis (disabled in stub); ood.score = RAW distance ----
@@ -271,10 +305,13 @@ class M6Inferencer:
         k = ok_idx.index(ci)
         x = torch.tensor(feats[k:k + 1], dtype=torch.float32).to(self.device)
         out = self.model(x)
-        scores = {t: float(torch.sigmoid(out[t][0])) for t in
+        # fp64 sigmoid for reported scores: pushes fp saturation from
+        # logit ~16.6 (fp32) to ~37 (arch interim measure pre-ADR-2);
+        # band comparisons are logit-space (see _band_of).
+        scores = {t: float(torch.sigmoid(out[t][0].double())) for t in
                   ("T1", "T2", "T3", "T4doc", "T5")}
         logits = {t: float(out[t][0]) for t in ("T1", "T2", "T3", "T4doc", "T5")}
-        p6 = torch.softmax(out["T6"][0], dim=-1).cpu().numpy()
+        p6 = torch.softmax(out["T6"][0].double(), dim=-1).cpu().numpy()
         scores["T6"] = float(p6[0])
         pred6 = int(out["T6"][0].argmax())
 
@@ -300,17 +337,9 @@ class M6Inferencer:
         for t in TASKS:
             s = scores["T4doc"] if t == "T4" else scores[t]
             thr = self.thresholds[t]
-            # band comparison: logit-space when the runpoint provides
-            # flag_logit/strong_logit (fp32 sigmoid saturates to 1.0 at
-            # logit>~16.6 collapsing score resolution); else score-space
-            fl, sl = thr.get("flag_logit"), thr.get("strong_logit")
-            if t == "T6" or fl is None:
-                strong = s > thr["strong"]
-                mid = thr["flag"] < s <= thr["strong"]
-            else:
-                lv = logits["T4doc"] if t == "T4" else logits[t]
-                strong = lv > sl
-                mid = fl < lv <= sl
+            strong, mid = _band_of(s, None if t == "T6" else
+                                   (logits["T4doc"] if t == "T4" else logits[t]),
+                                   thr, is_t6=(t == "T6"))
             if t == "T4":
                 strong = strong or len(spans) > 0
             if strong:

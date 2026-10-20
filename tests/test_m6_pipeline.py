@@ -25,6 +25,7 @@ from m6_render import (  # noqa: E402
     spans_to_bio, tokenize_windowed)
 from m6_train import (  # noqa: E402
     M6Probe, TASKS, derive_labels, fit_mahalanobis, mahal_dist, _pos_weights)
+from m6_infer import _band_of  # noqa: E402
 
 
 class TestNormalize(unittest.TestCase):
@@ -343,6 +344,8 @@ class TestMahalanobis(unittest.TestCase):
 class TestEndToEndSynthetic(unittest.TestCase):
     def test_train_no_nan_and_learns(self):
         rng = np.random.default_rng(3)
+        torch.manual_seed(0)  # M6Probe init consumes global torch RNG;
+        # suite order (e.g. m6_infer import) must not perturb this test
         n, d = 200, 32
         X = rng.normal(0, 1, (n, d)).astype(np.float32)
         Y = np.full((n, 6), -1.0, dtype=np.float32)
@@ -374,6 +377,59 @@ class TestEndToEndSynthetic(unittest.TestCase):
             s0 = torch.sigmoid(m(Xt)["T1"]).numpy()
         pos, neg = s0[Y[:, 0] == 1], s0[Y[:, 0] == 0]
         self.assertGreater(float((pos > neg.max()).mean()), 0.85)
+
+
+class TestBandOf(unittest.TestCase):
+    """D-7 discipline: logit keys present -> logit comparison is MANDATORY.
+
+    Locks the semantics arch approved (§6.12 draft): fp32 sigmoid saturates
+    to 1.0 at logit>~16.6, so score-space bands lie about saturated rows;
+    a partial logit spec must hard-fail, never silently fall back."""
+
+    def _thr(self, **kw):
+        d = {"flag": 0.99, "strong": 0.995}
+        d.update(kw)
+        return d
+
+    def test_logit_space_wins_over_saturated_score(self):
+        # score saturated to 1.0 (logit 20): score-space would say strong,
+        # logit-space correctly puts it in the mid band
+        thr = self._thr(flag_logit=17.0, strong_logit=25.0)
+        strong, mid = _band_of(1.0, 20.0, thr)
+        self.assertFalse(strong)
+        self.assertTrue(mid)
+        # and below flag_logit -> pass band (neither)
+        strong, mid = _band_of(1.0, 15.0, thr)
+        self.assertFalse(strong)
+        self.assertFalse(mid)
+        # above strong_logit -> strong
+        strong, mid = _band_of(1.0, 30.0, thr)
+        self.assertTrue(strong)
+
+    def test_partial_logit_spec_hard_fails(self):
+        with self.assertRaises(ValueError):
+            _band_of(0.5, 10.0, self._thr(flag_logit=17.0))
+        with self.assertRaises(ValueError):
+            _band_of(0.5, 10.0, self._thr(strong_logit=25.0))
+
+    def test_legacy_score_space_unchanged(self):
+        thr = self._thr()
+        strong, mid = _band_of(0.997, 6.0, thr)
+        self.assertTrue(strong)
+        self.assertFalse(mid)
+        strong, mid = _band_of(0.992, 5.0, thr)
+        self.assertFalse(strong)
+        self.assertTrue(mid)
+        strong, mid = _band_of(0.5, -1.0, thr)
+        self.assertFalse(strong)
+        self.assertFalse(mid)
+
+    def test_t6_always_score_space(self):
+        # T6 is a softmax prob: logit keys (if ever present) are ignored
+        thr = self._thr(flag_logit=0.5, strong_logit=0.9)
+        strong, mid = _band_of(0.997, None, thr, is_t6=True)
+        self.assertTrue(strong)
+        self.assertFalse(mid)
 
 
 if __name__ == "__main__":
