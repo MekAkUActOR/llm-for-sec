@@ -128,6 +128,7 @@
         "train_rows": { "type": "integer", "minimum": 0 },
         "eval_rows": { "type": "integer", "minimum": 0 },
         "exact_overlap": { "type": "integer", "minimum": 0, "description": "train∪dev vs heldout∪challenge∪ood 精确重叠行数（必须 0）" },
+        "content_overlap_qa_l1": { "type": "integer", "minimum": 0, "description": "qa L1 级内容重叠检查结果（泄漏审计回填；必须 0）" },
         "mirror_eval_overlap": { "type": "integer", "minimum": 0, "description": "dev-mirror 与评测资产重叠行数（必须 0）" },
         "ood_t4_pos_rows": { "type": "integer", "minimum": 0, "description": "OOD 集中 T4 正例行数（必须 0——arch 裁定 OOD PII-free，T4 span 绕过 OOD 抑制）" },
         "t4_entity_overlap": { "type": "integer", "minimum": 0, "description": "T4 实体级重叠数（train 与 heldout 出现同一 PII 实体——span 记忆化风险；冻结目标 0 或逐条解释）" },
