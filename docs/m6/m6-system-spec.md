@@ -171,12 +171,16 @@ GPU 纪律：串行铁律，占用登记（pm 排期仲裁）；头训练/校准
 
 ```
 data/m6/                      # M1 数据管线产物（m6-sample schema；乙醇纪律：与 data/heldout/ 物理隔离）
-  t1-moderation/  t2-jailbreak/  t3-intent/  t4-pii/  t5-indirect/  t6-hirisk/
-    train.jsonl  dev.jsonl  heldout.jsonl        # 按任务；dev 内含 challenge-mirror/OOD-mirror 独立成片
-  challenge/    challenge.jsonl                  # 评测资产（≥1,200；H6 冻结，只测不拟合）
-  ood/          ood.jsonl                        # 评测资产（≥500；H6 冻结）
-  pool/         train.jsonl                      # 多任务联合标注行（labels 多键）
-  manifest.json                                 # m6-manifest schema（task-6 门禁产物）
+  t1-moderation/  t2-jailbreak/  t3-intent/  t4-pii/  t5-indirect/  t6-highrisk/
+    train.jsonl  dev.jsonl  heldout.jsonl        # 单任务主目录（synth+legacy 混合，manifest.shape_mix 登记）
+  pool/           train.jsonl  dev.jsonl         # 多任务联合/共享行（task="pool"，labels 多键）
+  dev-mirror/     challenge-mirror.jsonl  ood-mirror.jsonl  benign-dev.jsonl
+                                                # 定标镜像（物理住 dev 侧，ADR §10-3；只供标定）
+  challenge/      all.jsonl                      # 评测资产（≥1,200；H6 冻结，只测不拟合；t4_pos 行带 span 级 gold）
+  ood/            all.jsonl                      # 评测资产（≥500；H6 冻结）
+  heldout-shared/ benign-heldout.jsonl           # 共享 benign heldout 负例
+  manifest.json                                 # m6-manifest schema（task-6 门禁产物；shape_mix.t3/t5 形态配比登记）
+  _staging/                                     # dataeng 中间格式区（下划线目录约定：final 校验自动跳过）
 scripts/
   m6_check_schemas.py        # 契约自检（sysdesign，已交付）
   m6_validate.py             # 数据/配置校验入口（deveng task-7）
