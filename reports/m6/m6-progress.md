@@ -25,7 +25,7 @@
 |--------|------|--------|------|------|
 | H1 | 10-21 02:30 | 设计冻结：ADR-1（task-1）+ 数据映射 DATA-1（task-3） | ✅ ~01:23 达成 | 运行时钟提前 ~67min（自报 02:05；三次校正后 turn 插值映射，见 §8） |
 | H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | ✅ ~01:35 达成（提前 ~115min） | 5/5 全清：task-2 ✅ + schema v0.3.1 ✅（F1/F2 修复，自检 14/14，commit 7c4071d）+ QA-1 v1.2 FROZEN ✅ + task-7/9 双 claim ✅ + arch 咬合审查闭环 ✅（adr-1b §6.6）；关键路径转 dataeng T04/05/06 + deveng task-7 |
-| H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | 🟡 重冻流程中 | Lead 终裁先修后冻 + 修复方案批准（~02:07）；修复 ETA ~02:50 → **双绿门**（qa 协议复跑绿 + arch 独立扫描绿）→ task-6 complete → H6 放行；v1 预计 ~03:00-03:30 开跑（比 H7 预锁提前 4h+，提前量滚入 v2/验收缓冲） |
+| H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | 🟡 三道复核中 | **波稳定已宣告**（826a574/84cf248，git 实钟 02:10-02:12，提前于 ETA ~02:50）；P0 双归零（exact_overlap=0 NFKC 全域 + t4_entity_overlap=0/642 实体）→ qa L1/L5 + sysdesign audit + arch 扫描三绿即冻结；v1 开跑投影 ~02:45-03:15 |
 | H10 | 10-21 11:00 | v1 模型 + 首轮评测读数（task-8/9） | ⏳ | 训练窗口 H7-H9（GPU 预锁） |
 | H16 | 10-21 17:00 | v2 模型迭代（task-11） | ⏳ | 数据增补 H10-12 / 训练 H12-15（GPU 预锁） |
 | H20 | 10-21 21:00 | 验收轮：acceptance harness 全量（task-12） | ⏳ | 验收窗口 H20-H21（GPU 预锁） |
@@ -59,8 +59,8 @@
 | # | 条件 | 责任人 | 状态 |
 |---|------|--------|------|
 | 1 | task-4/5/6 板上 complete（含 manifest + t4_pos span 补齐） | dataeng | 🔶 4/5 ✅（02:22）；6 in_progress 等 qa 复检证书 |
-| 2 | 泄漏审计会签通过（sha256 精确交集空 + 可疑对解释） | qa | 🔴 重冻流程中：修复 ~02:50 落地 → qa 重跑 leak-check 出 PASS 证书 |
-| 3 | H6 复核报告 PASS（十项断言） | arch | ⚠️ 调和闭环（02:04:45）：manifest 断言降级为**非证据**（欠规格转述）；重验 = **双绿**（qa 协议复跑绿 + arch 独立扫描绿，Lead ~02:07 确认）；实测定性 t1/t3 heldout 污染（961 行轻归一化 > 472 NFKC，协议细节差） |
+| 2 | 泄漏审计会签通过（sha256 精确交集空 + 可疑对解释） | qa | 🔶 波稳定已宣告（826a574）：qa leak-check L1/L5 复检中 → PASS 证书 = task-6 complete 条件 |
+| 3 | H6 复核报告 PASS（十项断言） | arch | 🔶 三道复核中（波稳定 02:10:50 实钟）：①qa L1/L5 ②sysdesign m6_h6_audit 四层 ③arch 独立扫描——双绿门（qa+arch）+ sysdesign 审计；调和记录 02:04:45（manifest 断言非证据） |
 | 4 | v0 基线跑完 GPU 释放 | qa | 🔶 计划 04:40 |
 
 全绿 → pm 放行 deveng：Stage A 特征缓存（~1h，CPU+GPU 混合）→ 头训练（分钟级）→ qa 评测；GPU 窗口登记 + 预锁表标注"实际提前，理由=四条件全绿"。**冻结门 = 双绿**（qa 协议复跑绿 + arch 独立扫描绿；manifest 断言非证据——Lead ~02:07 确认）。m4 断言 PASS 已收口。02:37 闹钟轮态势（Lead 锁定）：稳定信号 → 三方复验双绿 → H6 重新放行 → 门计绿 → v1 开跑（预计 ~03:00-03:30）。
@@ -160,6 +160,7 @@
 - ~02:04（校正前标 ~02:22） dataeng-m6 三合一答复：①**修复 ETA ~02:50 全链完成**——472 行重合根因=norm_text 缺 NFKC 归一（qa 口径有），已修（NFKC→lower→空白折叠）+convert_legacy 重跑去重+build_all sig 文本锁（并查集）按 NFKC 口径强制同文本同 split，**472 类重合结构上不再可能**；T4 实体复用→gen_pii 三段产出（train/dev/heldout 独立文件+独立实体域）：组合实体按"键池"（姓氏/路名/街道/年份桶）hash 分桶 70/20/10——键池值只属一个 split，组合实体跨 split 数学不相交；build_all 固化断言 heldout T4 span 实体 vs train 全文子串匹配=0（进 manifest.disjointness.t4_entity_overlap）；L4 5-gram 降级披露同意。②**m4 chosen 断言 PASS**（Lead 盯防项收口）：极性纯度断言全过、零极性冲突、无一静默修正（明细见 H6 清单项 2）。③板上收口：task-3 ✅（arch 会签）/task-4 ✅/task-5 ✅（arch H6 复核绿+qa 会审过）/task-6 in_progress——leak-audit.md 已落盘（自侧口径 PASS：精确 0/正文近似 0/14 B1 模板共祖归因），等 qa 重跑复检 PASS 证书后 complete；乙醇红线 data/heldout/ 只读、训练侧零引用 ✓。
 - 02:04:45 arch-m6 矛盾调和结论（adr-1b §6.8 将记）：**根因**——arch 的 "train↔eval exact_overlap=0 ✓" 系转述 manifest.disjointness 断言而非独立计算，断言未记方法/范围（欠规格）→ **manifest 断言作为证据无效**；qa 的 QA-1 §6 冻结协议（归一化文本哈希精确交集）是约束性标准。**独立复算（轻归一化：空白折叠+小写）**：t1 heldout 2,500 行中 485 行与 train 全文重合、t3 476 行，合计 **961 行（~19%/套件）**——比 qa 472 更重（差额=归一化协议细节，定性同）；修复前真实状态 = t1/t3 heldout 污染。**arch 自记验证缺陷**：泄漏关键字段不得以"断言通过"代理"性质实测"。冻结建议先修后冻（与 Lead 终裁一致），修复外科手术级便宜：train 侧弃重合行（961/103,576=0.9%，heldout 不动）+ T4 实体池分区重生成 + manifest v2 记录方法与范围 + **冻结门 = qa 协议复跑绿（非 manifest 断言）**。现场注记：dataeng 整改波实时进行（两轮扫描间 t4 train 5,750→6,300，heldout 读到写入中文件），arch 待"整改波稳定"信号后三方合并复验（独立扫描 + qa 协议 + sysdesign --limit 0）。
 - ~02:07 Lead 处置确认（①-⑤ 全收）：①修复方案**强于裁定批准**（NFKC 根因修+并查集 sig 锁=结构性不可复发+T4 hash 桶数学不相交），ETA 02:50 阈内无裁剪，m4 PASS 收口；②arch 调和闭环接受——manifest 断言降级为非证据，**冻结门 = qa 协议复跑绿 + arch 独立扫描绿（双绿）**；"泄漏字段不得以断言代理实测"作为方法论教训入档（**进最终报告 process lessons**）；③④照准（task-4/5 提前 complete 由门①②兜底正确）；⑤时钟归一知悉。02:37 闹钟轮按此态势执行：稳定信号→三方复验双绿→H6 重新放行→门计绿→v1 开跑（预计 ~03:00-03:30，比 H7 预锁提前 4h+，提前量滚入 v2/验收缓冲）。**无待裁项。**
+- ~02:13 dataeng-m6 数据侧波稳定（冻结候选，commit 826a574=02:10:50 + 84cf248=02:11:55 **git 实钟**，提前于自报 ETA ~02:50；其"~02:25"自报超前 ~13min）：qa 两处硬违规 + arch P0/P1/P2 裁定 + sysdesign manifest 阻断项 + deveng 发现全部闭环——**P0 泄漏归零**：exact_overlap=0（NFKC 全域口径，qa 472/arch 961 两口径同修）；t4_entity_overlap=0（642 个 heldout 实体 vs train 全文子串零命中，qa L5 协议固化进 build_all）。**T4 主门资产重建**：dev 850 / heldout p300+n1100 全带 span；键池分桶隔离 + 4 行跨生成器碰撞换出（heldout 零编辑）。P1：T4 dev/heldout 空文件重建；T3 dev pos=526（arch 实测口径 full=206——"零正例"系重建中间态坏快照）。P2：meta.eval_family 三文件 100% + challenge-mirror 医疗 T4-pos 逐任务标签确认。manifest v2：sysdesign 六项完整性 + label_counts 双键 + heldout-shared split 修正 + T5 cond→neg 投影（D-12）。**就绪时刻：现在**——等三道复核（qa leak-check L1/L5 证书 → sysdesign m6_h6_audit 全量四层 → arch 独立复验），三绿即冻结、v1 可开。其"请 Lead 裁决"系过时请求（Lead 预裁 + 02:37 态势已覆盖，已更正）。附带工程侧进展（git log）：sysdesign schemas v0.3.9/v0.3.10（meta.eval_family 契约键 + manifest v2 shape + D-12 + H6 audit 工具）；deveng preflight manifest-authoritative 模式绿（train 59,121 / dev 12,313 含 sha256 校验；发现并经 dataeng 修复 heldout-shared split 注册 bug）。**pm 数据时效警报**：qa v0 全量（02:00 起）可能读整改前/中间态快照——已提醒 qa 验证快照或重启（v0 对照线须与 v1 同数据）。
 
 ### 未决裁决项（pm 跟踪，来源 QA-1 §9）
 
@@ -209,6 +210,7 @@
 - 02:04:45 arch 调和结论到达（manifest 断言证据无效；实算 961 行 > 472 定性同；冻结门=qa 协议复跑绿；arch 自记验证缺陷；整改波实时、待稳定信号三方合并复验）——已并入 pm 给 Lead 的即时报。
 - **02:04:45 【时钟源声明·四次校正】** 新锚点（arch turn12 采样）。01:54:44 之后的 pm 插值标签再次系统性超前 10-18min：映射 ~02:00→~01:56（Lead 预裁）、~02:05→~01:58（arch H6 复核绿）、~02:08→~02:00（qa 泄漏发现）、~02:12→~02:01（qa v0 读数；其 harness 自报生成 01:58:40 相符）、~02:18→~02:02（qa miss 清单）、~02:20→~02:03（Lead H6 终裁）、~02:22→~02:04（dataeng 三合一）。事件序与真实性不受影响（板面/磁盘/commit 为证）；协议维持：新条目只标事件序或 ~近似值，每个运行时采样点校准；最终报告时间线以 §8 归一口径为准。
 - ~02:07 Lead 处置确认全准（修复方案批准/双绿门/"断言≠实测"入 process lessons/无待裁项）；02:37 闹钟轮态势锁定：稳定信号→双绿→H6 放行→v1 开跑（~03:00-03:30）。**task-14 素材登记**：①"泄漏字段不得以断言代理实测"方法论教训（Lead 指定）②时钟四校正协议（运行时采样为准）③先修后冻决策链（qa 发现→pm 推荐→Lead 终裁→双绿门）。
+- ~02:13 dataeng 波稳定宣告（826a574 **git 实钟 02:10:50**，自报"~02:25"超前 ~13min）；P0 双归零 + T4 资产重建 + manifest v2；三道复核链启动（qa L1/L5 / sysdesign m6_h6_audit / arch 扫描）。**时钟注：git commit 时间戳（机器墙钟）纳入锚点体系，优于 turn 采样**——6dedf6d=02:07:19 证实我 ~02:07 标签准确。**pm 数据时效警报**：qa v0 全量（02:00 起）或读整改前快照（旧 472/961 重合 + 旧 dev 18.5k vs 新 12,313）——已提醒 qa 验证或重启（选项 A 推荐：job_kill + 稳定数据重跑，~04:55 完成仍在 07:00 前；冻结套件部分不受影响）。02:37 闹钟轮按态势执行。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
