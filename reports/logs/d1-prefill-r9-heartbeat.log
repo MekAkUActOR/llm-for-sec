@@ -1,0 +1,7 @@
+D1-HEARTBEAT-START 2026-10-20 16:56:05 wrapper_pid=27440 mode=detached-wmi
+D1-SPAWNED pid=37432 start=16:56:05 gpu=[0 %, 936 MiB]
+D1-HEARTBEAT 16:58:05 pid=37432 alive=True progress=23/80 gpu=[79 %, 19515 MiB]
+D1-HEARTBEAT 17:00:05 pid=37432 alive=True progress=54/80 gpu=[80 %, 19515 MiB]
+D1-HEARTBEAT 17:02:05 pid=37432 alive=False progress=80/80 gpu=[0 %, 931 MiB]
+D1-HEARTBEAT-END 17:02:05 pid=37432 exit=0
+D1-RC-SENTINEL-WRITTEN J:\Projects\llm_for_sec\reports\logs\d1-prefill-r9-rc.txt
