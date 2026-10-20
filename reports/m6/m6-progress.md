@@ -26,7 +26,7 @@
 | H1 | 10-21 02:30 | 设计冻结：ADR-1（task-1）+ 数据映射 DATA-1（task-3） | ✅ ~01:23 达成 | 运行时钟提前 ~67min（自报 02:05；三次校正后 turn 插值映射，见 §8） |
 | H1.5 | 10-21 03:30 | SYS-1 系统规格 + schema 契约（task-2）+ QA-1 验收规格冻结 | ✅ ~01:35 达成（提前 ~115min） | 5/5 全清：task-2 ✅ + schema v0.3.1 ✅（F1/F2 修复，自检 14/14，commit 7c4071d）+ QA-1 v1.2 FROZEN ✅ + task-7/9 双 claim ✅ + arch 咬合审查闭环 ✅（adr-1b §6.6）；关键路径转 dataeng T04/05/06 + deveng task-7 |
 | H6 | 10-21 07:00 | 数据冻结：六任务五切分 + manifest + 泄漏审计（task-4/5/6） | ✅ **完成（~02:24-02:25 实钟，提前 ~4.5h）** | 三方链闭合：qa 证书 ✓ + sysdesign 四层 ✓（89da085）+ arch 独立复验 ✓（全量实测全 0）；冻结 tag = **89da085**；v1 训练（02:18 起）追认合规不 kill；task-3/4/5/6 全 complete |
-| H10 | 10-21 11:00 | v1 模型 + 首轮评测读数（task-8/9） | 🟢 收口中 | task-8 ✅；v0 终态全量 ✅；**v1-2 dev 读数 ✅（六任务零 FP：T1 .680/T2 .812/T3 .751/T4 .885/T5 .948/T6 .976）**；剩 qa 套件读数（~04:15-05:05）+ task-10 完整报告；余量 ~6.5h |
+| H10 | 10-21 11:00 | v1 模型 + 首轮评测读数（task-8/9） | ✅ **达成（~04:40-50，提前 ~6.2h）** | task-8 ✅；**官方读数 = v1-2 双运行点全落盘**（主读数 qa-report-v12.md + QA 独立点交叉列 + sensitivity + per-item ×2；verdict=FAIL 两点一致 = 首迭代对终验门的预期姿态，信息丰富：T4/T5/T6 recall 达标 100/98.3/100@QA 点、T4 FPR 7.3% 实现层 span 误报、T1/T3 分离度短板、B 族全穿）；task-10 归因报告落盘（§16 全触发）；**v2 GO**；task-9 板面 complete |
 | H16 | 10-21 17:00 | v2 模型迭代（task-11） | ⏳ | 数据增补 H10-12 / 训练 H12-15（GPU 预锁） |
 | H20 | 10-21 21:00 | 验收轮：acceptance harness 全量（task-12） | ⏳ | 验收窗口 H20-H21（GPU 预锁） |
 | H23 | 10-22 00:00 | 报告/上传/交接收尾（task-13/14） | ⏳ | 窗口 01:04 关闭 |
@@ -78,9 +78,9 @@
 | task-6 | 数据治理：manifest + 泄漏审计 | dataeng-m6 | 4✓,5✓ | H6 07:00 | ✅ completed（rev4；qa 证书 overall PASS：L1 0/0、L2/L3/L5 全 0；审计终稿 b6535d6；终态数据 d5f65df） |
 | task-7 | 工程：多任务训练+推理管线 | deveng-m6 | 1✓,2✓ | H1.5–H6 | ✅ completed（rev4；单测 25/25、契约 v0.3.1、12 bug 修复；**ADR 忠实性复核 PASS——D-5/D-6/D-7 关闭**；N-1/N-2 修复在途 deveng、N-3 schema 修正在途 sysdesign，均不阻塞 v1） |
 | task-8 | 模型：v1 训练与 checkpoint | deveng-m6 | 4✓,6✓,7✓ | H10 11:00 | ✅ completed（rev4；**02:18-02:41 实跑 23min**；ep2 macroR@zeroFP=0.7988；契约验证全绿；产物 9de9718；读数 reports/m6/dev-v1-readings.md；提前 ~8h） |
-| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | in_progress（已 claim；v0 冻结套件读数落盘 FAIL 对照线 + 111 miss 清单；全量 02:00-04:40 在跑） |
-| task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | in_progress（基线已立 ~04:05：v1-2 dev 读数 + 归因 + v2 方向暂定；**认领 gated on task-9 关闭**——板面 blocker 正确，dev 归因 = 合法预工作） |
-| task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | pending |
+| task-9 | 评测：验收 harness + 基线读数 | qa-m6 | 1✓,2✓ | H9 10:00 | **completed**（~04:50 板面 complete）：harness ✓ + v0 终态全量 ✓ + **v1-2 双运行点读数全落盘**（qa-report-v12.md 主读数 + qa-report-v12-qaop.md QA 独立点 + sensitivity-v12.json + per-item ×2；verdict=FAIL 两点一致——首迭代预期姿态） |
+| task-10 | 分析：v1 归因 + v2 改进清单 | arch-m6 | 8,9 | ~H12 | **completed**（task10-v1-2-attribution.md 落盘 ~04:40：§16 全触发 + 归因分层 + 三路分发 + v1-3 序列裁定；板面 claim+complete 待 arch——task-9 已解锁） |
+| task-11 | 模型：v2 迭代训练与读数 | deveng-m6 | 10 | H16 17:00 | in_progress（**v2 GO**：Lead 两条件门满足——task-10 报告落盘 + GPU 空闲；数据波 D-a~e 1-2h → v1-3 head-only 刷新（27s，必做，守卫基线）→ v2 LoRA 60-80min + calib 10min → 读数；待 task-10 板面 complete 后 claim） |
 | task-12 | 验收：acceptance 全量轮 | qa-m6 | 11 | H20 21:00 | pending |
 | task-13 | 终裁：验收结论材料汇编 | arch+qa（pm 汇编） | 12 | ~H22 | pending |
 | task-14 | 交付：最终报告与交接 | pm（全员回填） | 13 | H23 00:00 | pending |
@@ -258,6 +258,8 @@
 - 04:21 arch **v2 前置就绪确认（三重验证）**：数据 **9b67ac7** 抽验精确一致（投影范围/单键回退/mirror 零污染）+ config **256ab33** 裁定值忠实落地（task_weights/epoch/守卫基线/LoRA 参数）+ 机制 **dfe84e2** 冒烟绿——**就绪状态从"dataeng/deveng 自报"升级为"arch 独立验证"**（pm 时隙预排依据）。剩最后一路：qa 套件读数（~05:05）→ arch §16 正式执行 + task-10 报告 → pm 排 GPU 时隙 → v2 开跑（60-80min 训练 + 10min calib）。**注：v2 训练预锁窗 H12-15 为 no-later-than 界——按当前节奏 task-10 报告后（~05:3x）即具备开跑条件，早启需 Lead 预授权（v1 四条件门先例）——task-10 报告时刻一并提请。**【04:21:05 时钟源·第十四锚点】
 - ~04:25 **Lead v2 早启预授权（消除 05:3x 等待点）**：v2 允许在 **task-10 报告落盘 + GPU 空闲**两条件满足时立即开跑（早于 H12-15 预锁窗；no-later-than 语义不变）。依据：v2 前置三重验证已闭环（9b67ac7/256ab33/dfe84e2），早启仅剩报告与算力两个机械条件——照 v1 四条件门先例，机械条件全绿即开，无需再等 Lead。**附两条**：①§16 正式触发判据的执行结果（无论触发与否）必须进 task-10 报告——若判据未触发但 LoRA 仍启动，报告需注明"判据外主动迭代"依据（时间充裕 + T1 构念难度适应证），保持决策链诚实；②v2 训练期间 qa 的 v1-2 套件读数复核/敏感性抽验照走 **CPU/GPU 分离原则**，时隙冲突走 pm 登记表。执行方式：task-10 报告 + v2 开跑知会即可，无需请示。已转 deveng/arch/qa。
 - ~04:31 arch 附则①接受：task-10 报告 §16 章节采用**固定结构**——判据逐条求值表（gen/jb/dilution/others/pooled 各自触发与否）→ 触发结论 → 若未触发但 LoRA 仍启动，显式标注"**判据外主动迭代**" + 依据（时间充裕 + T1 构念难度适应证 + **D2 缓存红利使迭代成本低**）；**决策链诚实性优先于叙事整洁**。两条件早启知悉。
+- ~04:40 **task-10 报告落盘 + v2 GO（H10 达成，提前 ~6.4h）**：reports/m6/task10-v1-2-attribution.md（arch；qa run-v12-041243 + deveng 归因输入）。**§16 判据全触发**（gen 85.3<90 / dilution 82.3<85 / document 30.8<95 / toolout 84.8<95）——LoRA 判据内启动，无附则①标注需求。**归因分层**：T4 构念缺口 = challenge/OOD 门主犯（OOD 500 行 453 flag 中 T4 占 450；FP 100% span 驱动；**构念裁定：T4 = 语境条件检测——形式定实体性、语境定极性**；修法 = 良性含 PII 负例）；**形式零覆盖 = document/toolout 缺口主体**（T6×toolout 0/329、T3×document 1/52、T5×document 16/52、T1×topup-t9 0/18、T2×jb-holdout 20/40——LoRA 单独不可解）；T1-T3 特征天花板 = LoRA 适应证。**v2 关键裁定**：LoRA + 数据补充**一次迭代**（避免 v2.1）+ **v1-3 基线刷新序列必做**（数据波 → head-only 刷新 27s → 新基线设守卫——分离数据效应与 LoRA 效应）。**三路分发**：dataeng D-a~e（T4 良性 PII 负例 ~500-1k / T6 toolout ~300-500 / T3-T5 document ~200-400/任务 / T2-T1 变体 / 预置②③ 3,039/2,958/81 释放；乙醇红线：同形式族独立合成、heldout 只作形式参照）；deveng（LoRA r16 lr1e-4 L14-28 + task_weights T1:2.0/T3:1.7/T2:1.4 + 5ep patience2 + >1pp 守卫）；sysdesign（ADR-2 threshold_space + 投影契约 v0.3.14+81）。观察项终版七条（报告 §5）。**【04:38:59 时钟源·第十五锚点】**
+- ~04:50 qa **task-9 闭环（板面 complete）+ v1-2 双运行点 H10 读数全落盘**：主读数 qa-report-v12.md + eval-v12.json（calib 推荐点）+ 交叉验证列 qa-report-v12-qaop.md（QA 独立点）+ sensitivity-v12.json + per-item ×2 + v0 对照。**verdict=FAIL（两运行点一致）——性质信息丰富**：T4/T5/T6 recall 达标（100/98.3/100@QA 点）；T4 FPR 7.3% 与运行点无关（spans 良性误报，实现层）；G4 OOD 强带误伤（two-band 机制边界）；T1/T3 分离度短板；B 族编码全穿。**v2 信号清单五条已发 deveng**（①T4 spans 语境条件化 ②T1/T3 分离度 ③强带 OOD 抑制 ④B 族对抗增强 ⑤calib dev 过拟合披露）。附则②确认：qa GPU 侧只剩 H20 验收全跑（+可能敏感性 GPU 段），冲突走 pm §9。**板面链**：task-9 ✅ → task-10 claim+complete（arch，解锁中）→ task-11 claim（deveng）→ v2 链。
 
 ## 9. GPU 占用登记（单卡 24GB 严格串行）
 
@@ -271,6 +273,7 @@
 | 02:00–~02:13（已终止） | qa-m6 | 基线 v0 全量首跑 | ~13min | **已 kill**（qa 裁决 A 变体，~02:13）：dev 读到中间态（13,108 vs 新 12,313）+ L1 修复未完（470 残留），避免废跑 |
 | 02:16–~02:20（已让路终止） | qa-m6 | v0 全量重跑首启 | ~4min | **与 deveng v1 相撞（双进程 21GB/84%），qa 主动 kill 让路**——排程失误：启动前只查 nvidia-smi 空闲、未与 deveng 对时序（无预先协调） |
 | 02:43–03:17（**已完成**） | qa-m6 | v0 终态对照全量：热修后干净标签 + 全六切分（heldout 14,263/challenge 1,500/ood 500/红队 170/冻结 1,770）；challenge/ood/redteam 旧预测沿用（行集未变），dev 8,139/heldout 新行集重推 | ~34min | **完成 03:17:22（机器戳）**；报告 qa-baseline-v0-full.md（03:20:17）：五门全挂 = v1-2 对照锚点 |
-| ~03:22–~04:15（执行中） | deveng-m6 | **v1-2 链**：remap 2% 抽样逮到真内容漂移（216/1053 同 id 行文本被改，NFKC/参数化——id 重用不安全，fail-closed 正确触发）→ **stage A 全量重提取**（56,268 train + 12,618 dev）→ stage B（30s）→ 重训 → 校准 → 验证 | ~50min | arch 预批准 +22min 分支；"测量而非断言"实证（否则 1/5 陈旧特征入模）；ETA ~04:15 |
-| ~04:15–~05:05（分配） | qa-m6 | **v1-2 读数（H10 正式数字）**：dev 推理 → QA 独立选点 → 全量 run（新行集）→ 敏感性注入 → H10 报告 | ~50min | v1-2 链后接续；排版：τ_flag 双披露 + T1 正常判定（T1 FPR 附 CI——分母变小） |
+| ~03:22–~04:15（已完成） | deveng-m6 | **v1-2 链**：remap 2% 抽样逮到真内容漂移（216/1053 同 id 行文本被改，NFKC/参数化——id 重用不安全，fail-closed 正确触发）→ **stage A 全量重提取**（56,268 train + 12,618 dev）→ stage B（30s）→ 重训 → 校准 → 验证 | ~50min | arch 预批准 +22min 分支；"测量而非断言"实证（否则 1/5 陈旧特征入模）；实际 ~04:03-05 完成（快于 04:15 ETA） |
+| ~04:12–~04:50（已完成） | qa-m6 | **v1-2 套件读数**（H10 正式数字）：run-v12-041243（04:12:43）→ 双运行点报告 + sensitivity + per-item ×2 | ~40min | **verdict=FAIL 两点一致**（首迭代预期姿态）；读数全落盘；task-9 板面 complete ~04:50 |
+| ~04:50–~07:00（分配·v2 链） | dataeng + deveng + qa | **v2 链（Lead 早启预授权，两条件满足）**：数据波 D-a~e（dataeng，CPU 1-2h，乙醇红线：同形式族独立合成）→ v1-3 head-only 刷新（deveng 27s，**必做——守卫基线 = v1-3 非 v1-2**）→ v2 LoRA r16（deveng 60-80min + calib 10min）→ v2 读数（qa） | ~2-3h 链 | 实际提前，理由=两条件全绿；v2 训练期间 qa 复核走 CPU/GPU 分离；投影 ~07:00-08:30 全链完成，H16 余量 ~9h |
 | 02:18–02:41（已完成） | deveng-m6 | **v1 训练全量**：m6_train --config m6-v1.yaml | 23min 实跑（预算 35-50min） | 完成：ep2 macroR@zeroFP=0.7988；撞卡期 OOM 警告恢复后正常；产物 9de9718（82MB force-add）+ feat_cache 3.4GB 本地可再生 |
