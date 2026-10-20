@@ -153,15 +153,16 @@
     },
     "projection_gate": {
       "type": "object",
-      "required": ["checked", "t4_hits", "t5_hits", "revoked_to_pos", "revoked_exit", "assert", "scope"],
+      "required": ["checked", "t4_hits", "t5_hits", "revoked_to_pos", "revoked_exit", "context_released", "assert", "scope"],
       "additionalProperties": false,
-      "description": "投影门断言（dataeng 构造时验证，arch 裁定 adr-1b §6.14：标签真值在构造时验证，不在读数时发现）：T4 span 提取器 + T5 注入模式提取器对投影行（blanket T1-T5 neg 投影）核查。**人形邮箱域无关命中**（与 T4 标注实践一致：T4 pos 含 106 个人形 example/保留域邮箱 span，如 analyst@203.0.113.7 渗出目标——数字域非豁免理由）；纯保留段（裸 IP/无收件人形）仍豁免。投影范围 = T6 conditional+safe 子类（arch 收紧：high-risk 不投，极性未定不猜）。命中行处置：revoked_exit = 退出投影保持单键；revoked_to_pos = 转 T4 pos+spans（保留键，发生时须 arch 手工裁定登记）。基线锚点（正式波）：checked 3,039 / t4_hits 81 / t5_hits 0 / revoked_exit 81。",
+      "description": "投影门断言（dataeng 构造时验证，arch 裁定 adr-1b §6.14：标签真值在构造时验证，不在读数时发现）：T4 span 提取器 + T5 注入模式提取器对投影行（blanket T1-T5 neg 投影）核查，**两级规则**：①role/service 形 local 豁免（arch 语境裁定：analyst@IP 类 = 组织角色形非自然人标识 + 合法语境 → 非 PII，豁免清单入正则，不计命中）；②人形/实体命中在 conditional/safe 池按语境自动释放（context_released 计数，日志可见）。投影范围 = T6 conditional+safe 子类硬边界（high-risk 不投，极性未定不猜）。命中行处置：revoked_exit = 退出投影保持单键；revoked_to_pos = 转 T4 pos+spans（保留键，发生时须 arch 手工裁定登记）。基线锚点（正式波，a6a8fc9 语境裁定后）：checked 3,039 / t4_hits 0 / t5_hits 0 / revoked_exit 0 / context_released 0 / 投影 3,039 / PASS。",
       "properties": {
         "checked": { "type": "integer", "minimum": 0, "description": "过门投影行数" },
-        "t4_hits": { "type": "integer", "minimum": 0, "description": "T4 客观模式命中数（人形邮箱域无关口径）——非零即真信息：渗出目标人形邮箱行的 T4-neg 投影是错金，须扣留" },
+        "t4_hits": { "type": "integer", "minimum": 0, "description": "T4 客观模式命中数（人形邮箱域无关口径、role 形豁免后）——非零即真信息：须扣留或语境释放" },
         "t5_hits": { "type": "integer", "minimum": 0, "description": "T5 注入模式命中数" },
         "revoked_to_pos": { "type": "integer", "minimum": 0, "description": "命中转 pos+spans 行数（当前策略恒 0，arch 手工裁定通道）" },
-        "revoked_exit": { "type": "integer", "minimum": 0, "description": "命中退出投影（保持单键）行数——基线 81（analyst@203.0.113.7 类渗出目标人形邮箱）" },
+        "revoked_exit": { "type": "integer", "minimum": 0, "description": "命中退出投影（保持单键）行数——语境裁定后基线 0（81 行 analyst@IP 经 role 形豁免放行，投影回满 3,039）" },
+        "context_released": { "type": "integer", "minimum": 0, "description": "人形/实体命中在 conditional/safe 池按语境自动释放的行数（二级规则；日志留痕）" },
         "assert": { "enum": ["PASS", "FAIL"] },
         "scope": {
           "type": "object",
