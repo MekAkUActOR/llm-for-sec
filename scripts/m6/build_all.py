@@ -417,7 +417,7 @@ def main():
         "T3": ["t3-legacy.jsonl", "t3-multiturn.jsonl", "t3-longctx.jsonl"],
         "T4": ["t4-pii-train.jsonl", "t4-pii-dev.jsonl", "t4-pii-heldout.jsonl"],
         "T5": ["t5-legacy.jsonl", "t5-indirect.jsonl"],
-        "T6": ["t6-legacy.jsonl", "t6-instr.jsonl"],
+        "T6": ["t6-legacy.jsonl", "t6-instr.jsonl", "t6-instr-v2.jsonl"],
     }
     quotas = {
         "T1": {"pos": (3600, 250, 300), "neg": (3600, 600, 1200)},
@@ -462,6 +462,12 @@ def main():
                     r["labels"][t].setdefault("label_detail", {})["t6_class"] = "conditional"
                 else:
                     r["labels"][t].setdefault("label_detail", {})["m4_verdict"] = "conditional"
+            # forged-auth dual-key (t4_pos precedent): a forged authorization
+            # is constructively a bypass attempt -> T2 pos (arch ruling #3)
+            if (r["task"] == "T6"
+                    and (r.get("meta") or {}).get("t2_pos")
+                    and r["labels"]["T6"]["label"] == "pos"):
+                r["labels"]["T2"] = {"label": "pos"}
         all_rows.extend(rows)
     assign_splits(all_rows, quotas, rng)
 
@@ -641,7 +647,8 @@ def main():
     n_proj = 0
     for r in pool_rows:
         if (r["task"] == "T6" and r["split"] == "train"
-                and (r.get("source") or {}).get("family") == "synth-instr-v1"):
+                and (r.get("source") or {}).get("family") in ("synth-instr-v1",
+                                                              "synth-instr-v2")):
             # arch tightening ruling: project ONLY conditional + safe rows
             # (verifiable-authorization => not-bypass/not-harmful is a
             # constructive implication). high-risk rows keep the T6-only key —
