@@ -234,12 +234,13 @@ BIO 通道 = 2×11+1 = **23**（从词表基数 derive，勿写死）。T4 主�
 | D-2 | 2026-10-21 | decision 值小写 pass\|flag（ADR 附录显示记法为大写） | sysdesign | SYS-1 终裁：沿 repo JSON 惯例（score_heldout_v2 词表全小写） |
 | D-3 | 2026-10-21 | calib.json 增 tau_ood/温度元数据/定标方法记录（超出 ADR §10 列举） | sysdesign | 补充性扩展，schema minor 版登记 |
 | D-4 | 2026-10-21 | docs/design/ → docs/m6/ 落盘位迁移 | sysdesign | 任务板 task-2 口径（与 ADR 同根）；简报原路径作废 |
-| D-5 | 2026-10-21 | m6_infer abstain 公式实现为 `any_suppressed`，应为 `(decision==pass ∧ is_ood ∧ ∃弱带)`（ADR §8 / SYS-1 §6） | sysdesign 检出 | **待 deveng 修**：decision=flag 时 abstain 必须 false（否则与"abstain 记 PASS"的验收口径矛盾）；被抑制任务的 suppressed 标记保留审计 |
-| D-6 | 2026-10-21 | m6_infer 将 T4 spans 放 `detail.spans`、T6 三值重复放 `detail.class` | sysdesign 检出 | **待 deveng 修**：spans 为一等字段 `tasks.T4.spans`（SYS-1 §3/ADR 附录 A）；T6 三值即 `label`，detail=null（adr-1b §6.2） |
-| D-7 | 2026-10-21 | m6_infer 读 calib/runpoint 的 `ood.threshold`，契约键为 `tau_ood`；缺键时静默 fallback 1.0 | sysdesign 检出 | **待 deveng 修（fail-closed）**：改读 `tau_ood`（过渡期双读+双键同现时 tau_ood 优先并告警）；缺键必须报错退出——原始距离尺度上 1.0 几乎恒不触发 OOD = 弃权机制静默失效；同时 thresholds_applied 须回显 `tau_ood`，载荷 `schema_version` 应为 "0.3.1" |
+| D-5 | 2026-10-21 | m6_infer abstain 公式实现为 `any_suppressed`，应为 `(decision==pass ∧ is_ood ∧ ∃弱带)`（ADR §8 / SYS-1 §6） | sysdesign 检出 | **已修（代码级验证 ✓，L314）**：`abstain = any_suppressed and decision == "pass"`；待 arch 忠实性复核关闭 |
+| D-6 | 2026-10-21 | m6_infer 将 T4 spans 放 `detail.spans`、T6 三值重复放 `detail.class` | sysdesign 检出 | **已修（代码级验证 ✓，L298-304）**：spans 一等字段 `tasks.T4.spans`；待 arch 复核关闭 |
+| D-7 | 2026-10-21 | m6_infer 读 calib/runpoint 的 `ood.threshold`，契约键为 `tau_ood`；缺键时静默 fallback 1.0 | sysdesign 检出 | **已修（代码级验证 ✓，L58-69 `_read_tau_ood` fail-closed：tau_ood 契约键 + legacy 键告警兼容 + 缺键 KeyError；SCHEMA_VERSION="0.3.1"；thresholds_applied 回显 tau_ood）**；待 arch 复核关闭 |
 | D-8 | 2026-10-21 | m6_infer verdict_line 内 decision 用大写 FLAG/PASS | sysdesign 检出 | **可接受**：verdict_line 为人读审计串（与 ADR 附录 A 显示记法一致）；机器读数走 `decision`（小写）。qa 复打分一律用 tasks/decision 字段 |
 | D-9 | 2026-10-21 | m6_infer 默认不写 latency_ms（--with-latency 开关，保逐字节确定性） | deveng 设计 | **schema 侧放宽**（v0.3.1）：latency_ms 转 optional——字节可复现优先，理由正当 |
 | D-10 | 2026-10-21 | m6_infer T4 实现：spans 非空直接进 strong 带（不可被 OOD 抑制） | deveng 实现 | **采纳为契约澄清**：spans = token 级确凿证据，语义上强于 doc 头分数；SYS-1 §6 T4 特例行据此更新 |
+| D-11 | 2026-10-21 | m6_infer verdict_line 内 `"abstain": any_suppressed` 与顶层 abstain（`any_suppressed ∧ decision==pass`）语义分叉 | sysdesign 检出 | **低优先建议**：decision=flag ∧ 有抑制时两处 abstain 值不同（verdict_line=true / 顶层=false）。建议 verdict_line.abstain 镜像顶层值，原始抑制信息另立键（如 `suppressed_any`）——同一响应内两个同名不同义字段是下游解析陷阱（M6VERDICT 行会被旧仪器解析）。deveng 酌情 |
 
 ## 13. 版本与变更控制
 
