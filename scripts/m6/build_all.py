@@ -845,15 +845,24 @@ def main():
         import hashlib
         h = hashlib.sha256()
         lc = collections.defaultdict(collections.Counter)
+        ids = set()
+        file_rows = 0
         with open(os.path.join(out, rel), "rb") as fb:
             for chunk in iter(lambda: fb.read(1 << 20), b""):
                 h.update(chunk)
         with open(os.path.join(out, rel), encoding="utf-8") as f:
             for line in f:
+                file_rows += 1
                 r = json.loads(line)
+                ids.add(r.get("id"))
                 for tk, g in (r.get("labels") or {}).items():
                     lc[tk][g.get("label", "?")] += 1
-        return {"path": rel, "n": n, "rows": n, "split": sp, "task": task,
+        # §6.11 twin-structure lesson as contract fields (arch/pm ruling):
+        # file_rows counts physical lines, unique_ids dedups by id — the
+        # task-view + pool twins share ids by design and loaders consume one
+        # copy; the ratio makes the accounting self-evident.
+        return {"path": rel, "n": n, "rows": n, "file_rows": file_rows,
+                "unique_ids": len(ids), "split": sp, "task": task,
                 "sha256": h.hexdigest(),
                 "label_counts": {tk: {"pos": c.get("pos", 0), "neg": c.get("neg", 0)}
                                  for tk, c in lc.items()}}
