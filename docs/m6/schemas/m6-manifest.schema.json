@@ -45,6 +45,8 @@
           "format": { "const": "m6-sample-jsonl", "default": "m6-sample-jsonl" },
           "n": { "type": "integer", "minimum": 1, "description": "行数（与 rows 二选一，建议 n）" },
           "rows": { "type": "integer", "minimum": 1, "description": "行数（dataeng 现行键，n 的别名）" },
+          "file_rows": { "type": "integer", "minimum": 1, "description": "文件物理行数（§6.11 孪生口径契约化，dataeng 89f5a55）。**文件内口径**：任务视图 file_rows==unique_ids（id-unique）；pool 侧亦然（孪生是跨文件现象——同 id 行在任务视图与 pool 各一份，union 对账在审计 layer-2）。两键使文件内部重复与跨文件孪生承载形态可从 manifest 直接读出" },
+          "unique_ids": { "type": "integer", "minimum": 1, "description": "文件内唯一 id 数（同上）" },
           "sha256": { "$ref": "m6-common.schema.json#/$defs/Sha256", "description": "文件指纹——训练启动校验（防清单漂移）与审计复算的锚点" },
           "label_counts": {
             "type": "object",
