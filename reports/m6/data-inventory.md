@@ -198,3 +198,22 @@ challenge 1,500（四族：sec-research 294/medical-legit 611/dualuse 186/inj-sh
 **split 全量重排连带**：T3 dev pos 526→610、t4 swap 3 行；isolation 我侧全 PASS（exact 0 / content_qa_l1 0 / mirror 0 / ood_t4_pos 0 / t4_entity 0/644）。复核链重跑：qa 热修证书 PASS（leak-check-h6-hotfix1.json：L1 0-0 / L2 0 / L3 0 / L5 0）｜arch、sysdesign 在途。
 
 **失效类登记**（pm task-14 素材呼应）：标签语义类 bug 是冻结审计（切分/泄漏向）未覆盖的失效类——防御 = 每家族极性 spot-check 对源批次语义 + 转换路径断言全覆盖（本补记条件 2 已固化）。
+
+---
+
+# v3. v2 数据波（task-10 工作令 D-a~e，commit 970764a）
+
+**事件**：~04:50 进程死亡（D-d 生成前），00:12 Lead 恢复令后 ~35min 续跑完成。恢复核查：_staging 五文件均完整（无半写），topup 系续跑补齐。
+
+**交付**（arch 形式规格——构念推导，未读冻结套件，乙醇红线全程保持）：
+- D-a t4-lawful-v1：neg 800（train，三合法语境：IRB 医疗研究/授权工单收件人/HR 记录）+ mirror 150（challenge-mirror 1,250，dev 校准 τ 保护）。语境构念：形式定实体性、语境定极性（arch T4 裁定）。
+- D-b toolout-v1：pos 1,200（P1/P2/P3 载荷位置各 400）+ reg neg 200（同形式良性轨迹）。messages 形 10-20 条目。
+- D-c doc-intent/inject-v1：T3/T5 各 300（2k-8.8k 字符长文档 × 四类型 × 三分位嵌入，检索增强形）。
+- D-d jb-variant-v1 144（六变体族）+ topup-phish-v1 150（参数化话术）。
+- D-e 投影 3,102（门两级规则：role local 豁免 + conditional/safe 语境释放，hits 0）+ forged-auth-v1 700（T6 high-risk + T2 pos 双键——伪造授权构造性=绕过意图）。
+
+**投影门演化链**（三跳语义精化，sysdesign v0.3.14→0.3.17 归档）：双源零（盲区巧合）→ 81 扣留（T4 标注实践锚定：example 域人形邮箱=pos 106/540）→ 0/3,102（语境构念裁定：role 形=组织地址非自然人标识）。
+
+**终态**：train_rows 108,075（+9,788）；六任务门全过；isolation 五断言全 0；泄漏 exact 0/B2 0；schema 11 目录 invalid=0。arch 抽验四项绿（含内容级独立性 0 重合实证）。
+
+**T4 双语义注记**：识别语义（challenge 医疗 legit 行 pos+span，FPR 分母排除）vs flag 决策语义（训练/部署：合法语境不告警）——D-a 训练后者，两者不冲突但引用时需注明口径。
