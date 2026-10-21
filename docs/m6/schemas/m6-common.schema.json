@@ -35,10 +35,13 @@
     "TrainSplit": { "enum": ["train", "dev"] },
     "EvalSplit": { "enum": ["heldout", "challenge", "ood"] },
     "Kind": {
-      "enum": ["singleturn", "multiturn", "longctx", "carrier", "protocol"],
-      "description": "行级形态标签（管线过滤用）：singleturn=单轮短文本；multiturn=多轮对话（turns 或 messages）；longctx=长文本单轮（est_tokens>=8000）；carrier=结构化载体（运行时渲染协议包装）；protocol=预渲染协议串（冻结套件兼容，原样透传）。"
+      "enum": ["singleturn", "multiturn", "longctx", "carrier", "protocol", "document"],
+      "description": "行级形态标签（管线过滤用）：singleturn=单轮短文本；multiturn=多轮对话（turns 或 messages，含 toolout 轨迹——assistant 工具调用与 tool 结果轮交替）；longctx=长文本单轮（est_tokens>=8000）；carrier=结构化载体（运行时渲染协议包装）；protocol=预渲染协议串（冻结套件兼容，原样透传）；document=文档形（ADR-2 D-18：检索增强长文档/合法 PII 文档等，input 以 text 承载）。"
     },
-    "Role": { "enum": ["system", "user", "assistant"] },
+    "Role": {
+      "enum": ["system", "user", "assistant", "tool"],
+      "description": "tool = toolout 轨迹的工具结果轮（ADR-2 D-18：assistant 发 JSON 工具调用 → tool 回执行结果 → 循环；渲染协议将 tool 轮序列化为环境输出形）。"
+    },
     "PolicyPack": { "enum": ["conservative", "default", "professional", "none"] },
     "CarrierType": {
       "enum": [

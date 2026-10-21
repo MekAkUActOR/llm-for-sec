@@ -163,6 +163,7 @@
         "revoked_to_pos": { "type": "integer", "minimum": 0, "description": "命中转 pos+spans 行数（当前策略恒 0，arch 手工裁定通道）" },
         "revoked_exit": { "type": "integer", "minimum": 0, "description": "命中退出投影（保持单键）行数——语境裁定后基线 0（81 行 analyst@IP 经 role 形豁免放行，投影回满 3,039）" },
         "context_released": { "type": "integer", "minimum": 0, "description": "人形/实体命中在 conditional/safe 池按语境自动释放的行数（二级规则；日志留痕）" },
+        "note": { "type": "string", "description": "门规则自述（dataeng 登记：人形实体正则口径 + 豁免规则 + 释放语义——供审计与读数回溯）" },
         "assert": { "enum": ["PASS", "FAIL"] },
         "scope": {
           "type": "object",
