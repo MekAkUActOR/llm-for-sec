@@ -63,9 +63,11 @@ train:
     layer_to: 28
     lora_bio_extra_rows: 2
   lora_center_max_rows: 3000
-  # arch task-10 v1-2 baseline: regression guard (>1pp regression on any
-  # task disqualifies the epoch from best-selection)
-  baseline_readings: {T1: 0.680, T2: 0.812, T3: 0.751, T4: 0.885, T5: 0.948, T6: 0.976}
+  # v1-3 guard baseline (post data-wave, 02:28 rerun; D-14: guard = v1-3
+  # readings, NOT v1-2 -- separates data effect v1-3-v1-2 from LoRA effect
+  # v2-v1-3). Regression guard: >1pp regression on any task disqualifies
+  # the epoch from best-selection (ADR-2 D-13).
+  baseline_readings: {T1: 0.747, T2: 0.900, T3: 0.747, T4: 0.792, T5: 0.788, T6: 0.948}
 output_dir: checkpoints/m6-v2
 notes: 'v2 LoRA joint training - focus T1>T3>T2 (task_weights per gap), r16
   q/k/v/o L14-28, lr 1e-4 lora / 1e-3 heads, 5ep + patience 2 (arch-approved
