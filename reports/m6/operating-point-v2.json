@@ -2,17 +2,17 @@
   "schema": "m6-thresholds",
   "schema_version": "0.1.0",
   "runpoint_id": "m6-runpoint-v2",
-  "created": "2026-10-21 04:27:01",
+  "created": "2026-10-21 04:46:17",
   "owner": "qa-m6",
   "calibrated_on": {
     "split": "dev",
     "manifest": "aa75e5dd35f514c7ba9cfedf78793c9f9e12dd1f7a15a5b5107795b4d703666e",
-    "n": 8139,
-    "method": "QA-1 §4.1 (v1.3.2): τ_flag 预注册网格 25 档 {0.05..0.95, 0.96..0.999}，可行域 dev-FPR<=0.4% & dev-chmirror-FPR<=0.08%，argmax recall 并列取保守；τ_strong = max(dev真阳q10, τ_flag+0.05)；τ_ood = dev负例距离q99.5"
+    "n": 13239,
+    "method": "QA-1 §4.1 (v1.3.2): τ_flag 预注册网格 25 档 {0.05..0.95, 0.96..0.999}，可行域 dev-FPR<=0.4%（无镜像，benign 单约束），argmax recall 并列取保守；τ_strong = max(dev真阳q10, τ_flag+0.05)；τ_ood = dev负例距离q99.5"
   },
   "thresholds": {
     "T1": {
-      "flag": 0.999,
+      "flag": 0.995,
       "strong": 1.0
     },
     "T2": {
@@ -22,15 +22,15 @@
       "strong_logit": 22.3462
     },
     "T3": {
-      "flag": 0.999,
+      "flag": 0.995,
       "strong": 1.0
     },
     "T4": {
-      "flag": 0.999,
+      "flag": 0.99,
       "strong": 1.0
     },
     "T5": {
-      "flag": 0.85,
+      "flag": 0.5,
       "strong": 0.9983
     },
     "T6": {
@@ -40,7 +40,7 @@
   },
   "ood": {
     "mechanism": "mahalanobis-aux",
-    "tau_ood": 783.5476,
+    "tau_ood": 735.52,
     "is_ood_rule": "min(d_benign,d_attack) > tau_ood",
     "suppression": "two-band"
   },

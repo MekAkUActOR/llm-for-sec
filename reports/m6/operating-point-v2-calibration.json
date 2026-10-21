@@ -1,6 +1,6 @@
 {
   "runpoint_id": "m6-runpoint-v2",
-  "created": "2026-10-21 04:27:01",
+  "created": "2026-10-21 04:46:17",
   "grid": [
     0.05,
     0.1,
@@ -30,42 +30,42 @@
   ],
   "dev_neg_saturation_by_task": {
     "T1": {
-      "neg_n": 1200,
-      "neg_ge_099": 3,
+      "neg_n": 6300,
+      "neg_ge_099": 70,
       "neg_saturated_eq_1": 0
     },
     "T2": {
-      "neg_n": 832,
-      "neg_ge_099": 135,
-      "neg_saturated_eq_1": 63
+      "neg_n": 5932,
+      "neg_ge_099": 732,
+      "neg_saturated_eq_1": 81
     },
     "T3": {
-      "neg_n": 1200,
-      "neg_ge_099": 20,
+      "neg_n": 6300,
+      "neg_ge_099": 64,
       "neg_saturated_eq_1": 0
     },
     "T4": {
-      "neg_n": 600,
-      "neg_ge_099": 0,
+      "neg_n": 5262,
+      "neg_ge_099": 15,
       "neg_saturated_eq_1": 0
     },
     "T5": {
-      "neg_n": 1200,
+      "neg_n": 6300,
       "neg_ge_099": 0,
       "neg_saturated_eq_1": 0
     },
     "T6": {
-      "neg_n": 1200,
+      "neg_n": 6300,
       "neg_ge_099": 0,
       "neg_saturated_eq_1": 0
     }
   },
   "detail": {
     "T1": {
-      "theta": 0.999,
+      "theta": 0.995,
       "status": "OK",
-      "dev_recall": 0.8148148148148148,
-      "dev_fpr": 0.0008333333333333334
+      "dev_recall": 0.8585858585858586,
+      "dev_fpr": 0.003650793650793651
     },
     "T2": {
       "theta": null,
@@ -73,22 +73,22 @@
       "dev_fpr_at_max_theta": null
     },
     "T3": {
-      "theta": 0.999,
+      "theta": 0.995,
       "status": "OK",
-      "dev_recall": 0.839344262295082,
-      "dev_fpr": 0.0
+      "dev_recall": 0.9114754098360656,
+      "dev_fpr": 0.0033333333333333335
     },
     "T4": {
-      "theta": 0.999,
+      "theta": 0.99,
       "status": "OK",
-      "dev_recall": 0.8,
-      "dev_fpr": 0.0
+      "dev_recall": 0.9563953488372093,
+      "dev_fpr": 0.0028506271379703536
     },
     "T5": {
-      "theta": 0.85,
+      "theta": 0.5,
       "status": "OK",
-      "dev_recall": 0.988,
-      "dev_fpr": 0.0033333333333333335
+      "dev_recall": 0.996,
+      "dev_fpr": 0.003492063492063492
     },
     "T6": {
       "theta": 0.99,

@@ -1,0 +1,21 @@
+{
+  "created": "2026-10-21 04:26:21",
+  "no_feasible_tasks": [
+    "T2"
+  ],
+  "diagnosis": {
+    "T2": {
+      "neg_top5": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "pos_q10": 1.0,
+      "grid_max_theta": 0.999,
+      "min_dev_fpr_at_grid": 0.1502
+    }
+  },
+  "protocol": "QA-1 §4.1/§5：无可行点 → G1 FAIL（预注册路径），不产 runpoint"
+}
