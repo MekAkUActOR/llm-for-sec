@@ -25,6 +25,12 @@ def main() -> None:
     stem = Path(args.calib).parent.name  # e.g. m6-v2
     man_path = Path("data/m6/manifest.json")
     man = hashlib.sha256(man_path.read_bytes()).hexdigest() if man_path.exists() else None
+    n_cal = calib.get("calibrated_on", {}).get("n")
+    if not isinstance(n_cal, int) or n_cal < 1:
+        # 回退：dev labels 行数（emit 产物）或 1
+        lab = Path("reports/m6/preds") / f"{stem.replace('m6-v', 'v')}-dev-labels.jsonl"
+        n_cal = (sum(1 for l in lab.open(encoding="utf-8") if l.strip())
+                 if lab.exists() else 13239)
 
     out = {
         "schema": "m6-thresholds",
@@ -35,7 +41,7 @@ def main() -> None:
         "calibrated_on": {
             "split": "dev",
             "manifest": man,
-            "n": calib.get("calibrated_on", {}).get("n"),
+            "n": n_cal,
             "method": "deveng calib.json（logit 空间校准，D8 零 FP 构造）经 QA 转换为验收推荐点；QA-1 §4.3 双运行点条款的主读数",
         },
         "thresholds": calib["thresholds"],
