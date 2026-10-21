@@ -4,6 +4,23 @@
   "description": "configs/m6-runpoint-*.json 的 schema（qa 拥有与冻结；deveng 推理器加载、评测 harness 引用）。标定纪律：只能用 data/m6/ 的 dev 切分标定（challenge/heldout/ood 与 data/heldout/ 冻结套件绝不参与标定）；运行点文件变更=新文件+登记，不原地改。",
   "required": ["schema", "schema_version", "runpoint_id", "calibrated_on", "thresholds", "ood"],
   "additionalProperties": false,
+  "if": {
+    "properties": { "threshold_space": { "const": "logit" } },
+    "required": ["threshold_space"]
+  },
+  "then": {
+    "properties": {
+      "thresholds": {
+        "properties": {
+          "T1": { "required": ["flag_logit", "strong_logit"] },
+          "T2": { "required": ["flag_logit", "strong_logit"] },
+          "T3": { "required": ["flag_logit", "strong_logit"] },
+          "T4": { "required": ["flag_logit", "strong_logit"] },
+          "T5": { "required": ["flag_logit", "strong_logit"] }
+        }
+      }
+    }
+  },
   "properties": {
     "schema": { "const": "m6-thresholds" },
     "schema_version": { "$ref": "m6-common.schema.json#/$defs/SchemaVersion" },
@@ -48,18 +65,22 @@
         "T6": { "type": "number", "exclusiveMinimum": 0 }
       }
     },
+    "threshold_space": {
+      "enum": ["logit", "score"],
+      "description": "ADR-2 D-16（logit 域统一）：校准/决策/敏感性曲线/OOD 距离的运算域。\"logit\" = 全链 logit 域（score 概率值降级为显示层，fp64 计算或分带显示\">0.9999\"）；此时 sigmoid 任务（T1-T5）阈值条目**必须**携带 *_logit 键（schema if/then 强制），消费者存在即必须 logit 比较——硬失败优于静默换轨（D-7 家族纪律：同族三案 §6.1 温度撤销→v1-1 τ 帽→fp32 饱和 391 显示层事件）。T6 softmax 概率豁免。\"score\" = v1 代概率空间（历史 runpoint）"
+    },
     "ood": {
       "type": "object",
       "required": ["mechanism"],
       "additionalProperties": false,
       "properties": {
         "mechanism": { "const": "mahalanobis-aux" },
-        "tau_ood": { "type": "number", "minimum": 0, "description": "OOD 距离阈值（原始 Mahalanobis 距离口径；定标 = dev-benign 距离 q99.5，定标集须含长度匹配样本防长文漂移误判）" },
+        "tau_ood": { "type": "number", "minimum": 0, "description": "OOD 距离阈值（原始 Mahalanobis 距离口径；logit 域运行点 = logit 空间距离；定标 = dev-benign 距离 q99.5，定标集须含长度匹配样本防长文漂移误判）" },
         "is_ood_rule": { "const": "min(d_benign,d_attack) > tau_ood" },
-        "centers_ref": { "type": "string", "description": "类条件高斯中心/协方差文件（如 checkpoints/m6-v1/ood_centers.json）" },
+        "centers_ref": { "type": "string", "description": "类条件高斯中心/协方差文件（如 checkpoints/m6-v1/ood_centers.json）——**suppression_mode 的实际开关在此文件**（deveng 7082d30：runpoint 可选 two-band 默认 / strong-too 扩展抑制至强带，qa signal-3/task-10 G4，OOD 套件 default-PASS 修复；对既有运行点字节不变）" },
         "suppression": {
-          "const": "two-band",
-          "description": "抑制规则固定为双带：仅弱带 (τ_flag, τ_strong] 分数可被 OOD 抑制；score>τ_strong 永不抑制（强信号防线）"
+          "enum": ["two-band", "strong-too"],
+          "description": "抑制规则：two-band（ADR-1 §8 默认：仅弱带 (τ_flag, τ_strong] 分数可被 OOD 抑制；score>τ_strong 永不抑制——强信号防线）；strong-too（is_ood 抑制扩展至强带，OOD 套件读数用；模式实际由 centers_ref 文件承载，此处为运行点自述）"
         }
       }
     },
