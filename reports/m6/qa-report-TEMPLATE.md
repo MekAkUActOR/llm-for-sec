@@ -27,11 +27,31 @@
 
 粘贴 qa-report-<tag>.md 的 G1-G5 全表 + 参照读数表（含 CI95 与标红）。
 
-## 3. 透明度骑手（ADR-1b §2）
+## 2a. T3 族分解表（arch 裁定：v2 验收的 T3 以 heldout 平面为准）
+
+`{{m6_t3_family.py 输出：r9-paired / longctx / doc-intent / multiturn 逐族检出 + 与 v1-3 基线对照（longctx 26.7% 起点）}}`
+
+## 2b. ⑨-⑬ 观察项映射（ADR-2）
+
+| 项 | 验证面 | 基线（v1-3） | v2 读数 |
+|---|---|---|---|
+| ⑨ T4 spans 语境条件化 | G2/G3 T4 双门 | 13.94% / 8.48% | `{{}}` |
+| ⑩ T1-T3 分离度 | G1 表 | T1 70 / T3 35.7 | `{{}}` |
+| ⑪ 强带 OOD 抑制 | suppression A/B（two-band vs strong-too） | 40.2% / `{{A/B}}` | `{{}}` |
+| ⑫ B 族对抗 | 红队族表 | B1 2/8、B2 2/7、B3 0/4 | `{{}}` |
+| ⑬ calib 过拟合 | QA 点对照列 | T5 79→96 / T6 94.3→99.7 | `{{}}` |
+
+## 2c. ⑧ 两段效应分解
+
+`{{v1-3−v1-2（数据段，见 qa-three-line-comparison.md）+ v2−v1-3（LoRA 段，本报告）——head-only 妥协四案例（longctx/E 族/A3-T2/近失-τ）的恢复力判读}}`
+
+
 
 - 逐套件 recall 点估计 + CI95 全表（harness suites 块）；
 - 90-95% 带 pass-with-flag 清单 → 已知局限章节引用；
-- 挑战正例召回（345 行 medical-legit 的 T4 检出）。
+- 挑战正例召回（345 行 medical-legit 的 T4 检出）；
+- 红队 per-item logit 存档（arch 建议：score 域 v1-2 读数不可比[全饱和]，A3 双机制判读需 logit 域）；
+- score round(6) 伪影披露（spec §10-K1：G1/G2/G3 全走 flag-only 忠实口径）。
 
 ## 4. OOD 双列与弃权纪律
 
