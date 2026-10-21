@@ -283,6 +283,14 @@ OOD_pass_rate = #{i ∈ ood : ∀t, ŷ_t(i)=0} / N_ood
 | U2 | G3 主门口径 | ✅ 已裁决（01:17 Lead）：任务级主门 + 样本级双报 + CI95 标红 → §3.4 LOCKED |
 | U3 | m6_infer 输出字段名 | ✅ SYS-1 已定稿（docs/m6/schemas/m6-inference.schema.json）→ §1 已对齐 |
 | U4 | dev 内 challenge 替代约束的难负例子集标记方式 | ✅ dataeng 已交付 `data/m6/dev-mirror/challenge-mirror.jsonl`（1100 行，与 challenge 同构含 T4 混合正例）——select-op 可行域第二约束数据源 |
-| U5 | data/m6 切分实际规模是否达 §2.1 要求 | 部分核验（T2 heldout 曾空已补 300 pos；challenge 1500 ✓ ood 500 ✓；泄漏整改后终核——见 leak-check-h1.json 与 dataeng 整改单） |
+| U5 | data/m6 切分实际规模是否达 §2.1 要求 | ✅ 终核通过（leak-check-d-wave-post-fix.json overall PASS，D 波 59,583 train 行内容级零泄漏） |
 
-— qa-m6，2026-10-21
+## 10. 已知局限与口径勘误（追加，读数链实践沉淀）
+
+| # | 事项 | 状态 |
+|---|---|---|
+| K1 | **score round(6) 消费侧伪影**（arch 裁定 D-16 家族第四案，ae050b2）：logit-runpoint 下 "flag OR score≥θ_flag(score 回显)" 的 OR 分支会把 score 恰好 round 到 1.0、真实 logit 低于注入阈的行误判检出（v1-3 T3 实测 33 行，46.7% vs 真值 35.7%）。**裁定：flag-only 是 logit-runpoint 下的唯一忠实读数**（m6_infer 内部 logit 域判定）；G1/G2/G3 门读数全走 flag-only。score 域敏感性曲线标注"近似"后仍有效（θ 离散网格的相对比较） | ✅ 已入 ADR-2b §1b 与本表互为印证 |
+| K2 | dev 正例池族覆盖缺口（arch §6.15 镜像发现）：T3 dev 正例 = multiturn+r9 平面，零 longctx/doc-intent——dev 守卫对 heldout 族分布失明（v1-3 T3 崩塌未被 dev 读数预警）。**v2 验收的 T3 以 heldout 平面读数为准**（m6_t3_family.py 族分解表）；正例池配额纪律候选下一数据波 | ✅ 裁决在案 |
+| K3 | calib 的 D8 零 FP 构造在 heldout 上系统性过保守（v1-2/v1-3 双轮验证：QA 点 recall 高出 calib 点 9-16pp）——⑬ 披露项，v2 校准策略复核 | 进行中（v2 读数对照） |
+
+— qa-m6，2026-10-21（10-22 崩溃恢复后追加 §10）
