@@ -75,4 +75,5 @@ train:
 output_dir: checkpoints/m6-v2
 notes: 'v2 LoRA joint training - focus T1>T3>T2 (task_weights per gap), r16
   q/k/v/o L14-28, lr 1e-4 lora / 1e-3 heads, 5ep + patience 2 (arch-approved
-  for joint training), regression guard vs v1-2 baseline'
+  for joint training), regression guard vs v1-3 baseline (D-14 effect
+  separation; ADR-2b s1 T5 1.3)'
