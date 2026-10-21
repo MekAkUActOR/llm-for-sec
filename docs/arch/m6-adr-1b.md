@@ -227,4 +227,17 @@
 - **规模红利**：T2 train pos 2,126→2,926（贴线 watch item ③ 实质缓解）；T6 high-risk 2,050→2,850、conditional ~822→1,822。
 - **v3+ 前瞻**：模板生成伪造族的模板签名过拟合风险——v3+ 需真实性来源（红队样本/真实攻击语料改编）。
 
+### 6.15 RFC 5737 记录指针 + 校准池组成契约（恢复令夜，~01:3x，v1-3 数据效应诊断 + near-miss 修波 ec8a7e1）
+
+**RFC 5737 豁免推翻案（补录）**：arch 三处一致性检查发现"同形异标"真矛盾（T4 视图 pos 行含 106/540 example 域人形 email——gen_pii 真实形设计，而门豁免 example 域 → neg）。修正升级为构念裁定后消解：**T4 = 语境条件检测（形式定实体性、语境定极性）**——全量收编进 ADR-2 **D-15**（含 81 行 analyst@IP role 形豁免首例适用 + 门两级规则：role 形豁免 + conditional/safe 语境自动释放）。本节仅存指针，避免双源。
+
+**校准池组成契约（v1-3 T2 崩塌的架构教训固化）**：v1-3（数据效应初测，macroR 0.409）T2 recall 0.300 崩塌——机制诊断：synth-jailbreak-v1 near-miss 负例族 **train 0 / dev 232**（67 行饱和 max logit 51.2），τ 被迫推至 51.2 → recall 摧毁。根因 = **T2 neg quota 的 dev 优先序**使小族 in-domain neg 永远全进 dev。**契约规则（§6.14 τ 保护线的延伸）**：
+- **校准池（dev neg）不得含有 train 未教学的边界类**——头被要求校准过一个没学过的边界 = 零 FP 构造的 recall 自杀；
+- **机制落地**：quota 改 (2400,232,0) 类 → train ≥ 2× dev 浓度（本波 489/232 = 2.1×）；族模板空间穷尽则扩展 slot 池（append-only，原冻结输出零触碰）；
+- **修复验证**：arch delta 抽验四项绿（分布/独立 0 重合/多样性 314 签名/硬模式进 train）+ 顾问注记（"Compare X vs Y" 单模板 74 行 15% 浓度——v3+ 扩族需提升模板分散度，防模板签名捷径）。
+
+**T6 logit 域补完（D-16 第三案闭环）**：v1-3 T6 零 FP 破防（59 FP 全部 challenge-mirror 扩充行，benign max P=0.99987 击穿 min(0.999) 帽）——deveng 自认 D-16 实现只覆盖 T1-T5。修复（ad669ed）：log_softmax class-0 log-P 域 + floor +0.001 + **logit 键 8 位小数**（v1-3 lp 阈值 -1e-5 量级，4 位毁分辨率——表示层分辨率论点又一实证）。**0.948 = 真实零 FP 召回**（旧 0.992 是 FP 泄漏虚高，与 v1-1 τ 帽同构：表面好看实际违约）。--recalibrate 28s 不动权重。
+
+**v1-3 基线定性（入 v2 守卫基线前的归因记录）**：T4 -17.9pp = D-15 预期 operating point 位移（τ 9.7→19.6，FPR 换召回，qa 套件验证方向）；T5 -39pp/T3 -9.2pp = 真实特征天花板显形（doc-long 形式正例冻结特征打分低——LoRA 主战场，基线如实）；T1 -6.7pp 混合。**时序警示**：doc-long 使 stage A 6→53min（8.6x），v2 LoRA 5ep 预估 3.5-5h——恢复令质量节奏，不压缩验证步。
+
 —— 后续修订继续 append 于本文件。
