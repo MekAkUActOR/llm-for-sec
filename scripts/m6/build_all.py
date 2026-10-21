@@ -412,12 +412,15 @@ def main():
 
     st = "data/m6/_staging"
     task_files = {
-        "T1": ["t1-legacy.jsonl"],
-        "T2": ["t2-legacy.jsonl", "t2-jailbreak.jsonl"],
-        "T3": ["t3-legacy.jsonl", "t3-multiturn.jsonl", "t3-longctx.jsonl"],
-        "T4": ["t4-pii-train.jsonl", "t4-pii-dev.jsonl", "t4-pii-heldout.jsonl"],
-        "T5": ["t5-legacy.jsonl", "t5-indirect.jsonl"],
-        "T6": ["t6-legacy.jsonl", "t6-instr.jsonl", "t6-instr-v2.jsonl"],
+        "T1": ["t1-legacy.jsonl", "t1-topup.jsonl"],
+        "T2": ["t2-legacy.jsonl", "t2-jailbreak.jsonl", "t2-jbvar.jsonl"],
+        "T3": ["t3-legacy.jsonl", "t3-multiturn.jsonl", "t3-longctx.jsonl",
+               "doc-t3.jsonl"],
+        "T4": ["t4-pii-train.jsonl", "t4-pii-dev.jsonl", "t4-pii-heldout.jsonl",
+               "t4-lawful.jsonl"],
+        "T5": ["t5-legacy.jsonl", "t5-indirect.jsonl", "doc-t5.jsonl"],
+        "T6": ["t6-legacy.jsonl", "t6-instr.jsonl", "t6-instr-v2.jsonl",
+               "t6-toolout.jsonl"],
     }
     quotas = {
         "T1": {"pos": (3600, 250, 300), "neg": (3600, 600, 1200)},

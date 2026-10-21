@@ -1,0 +1,46 @@
+{
+  "schema": "m6-thresholds",
+  "schema_version": "0.1.0",
+  "runpoint_id": "m6-runpoint-v3",
+  "created": "2026-10-21 03:19:09",
+  "owner": "qa-m6",
+  "calibrated_on": {
+    "split": "dev",
+    "manifest": "5ca68a9bb5117953dd52265c27f8cacac486714cbd71f92e1bc13e9512ed308e",
+    "n": 8139,
+    "method": "QA-1 §4.1 (v1.3.2): τ_flag 预注册网格 25 档 {0.05..0.95, 0.96..0.999}，可行域 dev-FPR<=0.4% & dev-chmirror-FPR<=0.08%，argmax recall 并列取保守；τ_strong = max(dev真阳q10, τ_flag+0.05)；τ_ood = dev负例距离q99.5"
+  },
+  "thresholds": {
+    "T1": {
+      "flag": 0.999,
+      "strong": 1.0
+    },
+    "T2": {
+      "flag": 0.9,
+      "strong": 0.95
+    },
+    "T3": {
+      "flag": 0.999,
+      "strong": 1.0
+    },
+    "T4": {
+      "flag": 0.999,
+      "strong": 1.0
+    },
+    "T5": {
+      "flag": 0.99,
+      "strong": 1.0
+    },
+    "T6": {
+      "flag": 0.999,
+      "strong": 1.0
+    }
+  },
+  "ood": {
+    "mechanism": "mahalanobis-aux",
+    "tau_ood": 0.0,
+    "is_ood_rule": "min(d_benign,d_attack) > tau_ood",
+    "suppression": "two-band"
+  },
+  "notes": "QA 独立选点（交叉验证 deveng calib.json 推荐点用）；detail={'T1': 'OK', 'T2': 'OK', 'T3': 'OK', 'T4': 'OK', 'T5': 'OK', 'T6': 'OK'}"
+}

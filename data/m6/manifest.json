@@ -20,14 +20,14 @@
  "files": [
   {
    "path": "t1-moderation/train.jsonl",
-   "n": 11538,
-   "rows": 11538,
+   "n": 11688,
+   "rows": 11688,
    "split": "train",
    "task": "T1",
-   "sha256": "8c0af6845cf788ee87d034524d6c084958ae437b02be7f83cab302a4b08ee961",
+   "sha256": "eb9f50c4514f60ba7db12c513b8fb1266b93eb439580fdc9796b3d5f6db4376b",
    "label_counts": {
     "T1": {
-     "pos": 8513,
+     "pos": 8663,
      "neg": 3025
     }
    }
@@ -38,7 +38,7 @@
    "rows": 1497,
    "split": "dev",
    "task": "T1",
-   "sha256": "c0e35c541f3d2fd089f779e82687b6fa0a8b570b37dfe40ada080b1f9501b686",
+   "sha256": "b8ab8e36e4bc08760806d8d64c5d216e6468d5a5037b3a9ac47c295c2177200d",
    "label_counts": {
     "T1": {
      "pos": 297,
@@ -52,7 +52,7 @@
    "rows": 1563,
    "split": "heldout",
    "task": "T1",
-   "sha256": "fc05d1697557e0aa2bde26c6e099f9e76acf39551ca85ea9e31d18c3f98fa901",
+   "sha256": "4f7c45988e49fbbb84e35465f0c22411c12a2bab9071243e582d15e9806d5100",
    "label_counts": {
     "T1": {
      "pos": 300,
@@ -62,14 +62,14 @@
   },
   {
    "path": "t2-jailbreak/train.jsonl",
-   "n": 4226,
-   "rows": 4226,
+   "n": 4370,
+   "rows": 4370,
    "split": "train",
    "task": "T2",
-   "sha256": "44288fee27c517276b2bc9d66a99b42e2e0118a1264029a65c014781aea6d796",
+   "sha256": "7a1404a6b6c56b8fa9307f0e7f117d16bd639bbbbe9422d209a038dac8320d86",
    "label_counts": {
     "T2": {
-     "pos": 2126,
+     "pos": 2270,
      "neg": 2100
     }
    }
@@ -80,7 +80,7 @@
    "rows": 1082,
    "split": "dev",
    "task": "T2",
-   "sha256": "eccd7aaf469eb18fcbcbd2fe3cb795f0497d2bb7d4b21aeddfd9ff9874a3d3a3",
+   "sha256": "28ed81715b7816c97a9de49b771f9f7b647d522b76303d9ef8f0dda2eeda336d",
    "label_counts": {
     "T2": {
      "pos": 250,
@@ -94,7 +94,7 @@
    "rows": 1300,
    "split": "heldout",
    "task": "T2",
-   "sha256": "b9c24e0ed9bd44052aa56f9137c836151d06164b59b6398d3abe48887a27faf4",
+   "sha256": "d4955b0a711f441b447c53e37dc4ca9ab0feda2a44dc385228535f852d236540",
    "label_counts": {
     "T2": {
      "pos": 300,
@@ -104,14 +104,14 @@
   },
   {
    "path": "t3-intent/train.jsonl",
-   "n": 8111,
-   "rows": 8111,
+   "n": 8411,
+   "rows": 8411,
    "split": "train",
    "task": "T3",
-   "sha256": "66e07bfe1c7810cee8b24e7a6e1f5bc389b721dc440650de0962855ff48b7c95",
+   "sha256": "d352c4c9e4045b4ec07f40a120c35c56acd4ca47158db8bb49cfe7bfb4421a24",
    "label_counts": {
     "T3": {
-     "pos": 3177,
+     "pos": 3477,
      "neg": 4934
     }
    }
@@ -122,7 +122,7 @@
    "rows": 1810,
    "split": "dev",
    "task": "T3",
-   "sha256": "fc86e53a8b74aa1611df74edcbaac76e33f47d0136b309c9562f2ce83f91a054",
+   "sha256": "c9b6f04e67fd5d3434faa513d80425f92433b787964e3e33286ea77bb152ebbb",
    "label_counts": {
     "T3": {
      "pos": 610,
@@ -136,7 +136,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T3",
-   "sha256": "69f799529e0f232a4ae6ea00bb4af4c5f2404d7eae28a16c089f6fa4e130c09b",
+   "sha256": "17ce29d7b6933ee38b853d2761f023f0e093bd11cb4fc7a3d222e4fa0a08ea0d",
    "label_counts": {
     "T3": {
      "pos": 300,
@@ -146,14 +146,14 @@
   },
   {
    "path": "t5-indirect/train.jsonl",
-   "n": 17781,
-   "rows": 17781,
+   "n": 18081,
+   "rows": 18081,
    "split": "train",
    "task": "T5",
-   "sha256": "753963748055eefe41f5e46f88cf88d6ddda8d186ce3db91ab94b8d3544c072c",
+   "sha256": "36d7fea167fbd32aa203f44471abf3b6a8d407af2456307045dbbfba58a29fd3",
    "label_counts": {
     "T5": {
-     "pos": 10774,
+     "pos": 11074,
      "neg": 7007
     }
    }
@@ -164,7 +164,7 @@
    "rows": 1450,
    "split": "dev",
    "task": "T5",
-   "sha256": "9781e6805def518977433be7261b42d42947a2c9042602d459732ebc5aa5442d",
+   "sha256": "fd2f5d9ea01b44f6287890c462d56af32723f278d2016d26d52b9d063aa09599",
    "label_counts": {
     "T5": {
      "pos": 250,
@@ -178,7 +178,7 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T5",
-   "sha256": "57e6cff15e9f57a3aeb1905b04417a09a4f1395e4bab45eda1b062d64081cc3d",
+   "sha256": "441fb8cce4a9b35f99af3e71e9ac88642f0b3fbf69ad2f9b689d21de97386d6a",
    "label_counts": {
     "T5": {
      "pos": 300,
@@ -188,15 +188,19 @@
   },
   {
    "path": "t6-highrisk/train.jsonl",
-   "n": 6244,
-   "rows": 6244,
+   "n": 9444,
+   "rows": 9444,
    "split": "train",
    "task": "T6",
-   "sha256": "48744b8dd54186332c82d78f2c21d92dff9ea02fda7c3ff7f4f2fd2da32ce76e",
+   "sha256": "0fe1baf1f77c31d833c088f4d6c4df81cea56542b17b4804f34bac80cd1203af",
    "label_counts": {
     "T6": {
-     "pos": 2050,
-     "neg": 4194
+     "pos": 4050,
+     "neg": 5394
+    },
+    "T2": {
+     "pos": 700,
+     "neg": 0
     }
    }
   },
@@ -206,11 +210,15 @@
    "rows": 1450,
    "split": "dev",
    "task": "T6",
-   "sha256": "7d6b5ae0d3598a297c3a9f1cb05e7e77a57696c2195710aa1147b537c5953a26",
+   "sha256": "5e3e8b546644ae3555bb1efc25515df66fb3dcea127672b92c8ac54ac781d657",
    "label_counts": {
     "T6": {
      "pos": 250,
      "neg": 1200
+    },
+    "T2": {
+     "pos": 47,
+     "neg": 0
     }
    }
   },
@@ -220,25 +228,29 @@
    "rows": 2500,
    "split": "heldout",
    "task": "T6",
-   "sha256": "3092ca7df7a48e71c7e199249a746dfd178f2c501cc617f183b983f94c5b21d3",
+   "sha256": "667d8e23178c216386230039b2aca7f7671807c27020c05a11be356c2563ccb4",
    "label_counts": {
     "T6": {
      "pos": 300,
      "neg": 2200
+    },
+    "T2": {
+     "pos": 53,
+     "neg": 0
     }
    }
   },
   {
    "path": "t4-pii/train.jsonl",
-   "n": 6300,
-   "rows": 6300,
+   "n": 7100,
+   "rows": 7100,
    "split": "train",
    "task": "T4",
-   "sha256": "05862b44662c8140ccbf4c99c17edafced05a8a509e339c8c890e342b17bd0a4",
+   "sha256": "fa29850a5d3a4294993b455c08790f174740f56156f131f2c08f6c8b98e91bef",
    "label_counts": {
     "T4": {
      "pos": 2600,
-     "neg": 3700
+     "neg": 4500
     }
    }
   },
@@ -262,7 +274,7 @@
    "rows": 1400,
    "split": "heldout",
    "task": "T4",
-   "sha256": "3010a4534c9eeec939ce584ad76b206560aef55daccc41d9d676d8c4546f2fb6",
+   "sha256": "4e3f02b65d7cdcb3bc2a11a193f0eeda1bfa0ce0992568f5d5720d4819812878",
    "label_counts": {
     "T4": {
      "pos": 300,
@@ -374,69 +386,69 @@
   },
   {
    "path": "pool/train.jsonl",
-   "n": 44087,
-   "rows": 44087,
+   "n": 48981,
+   "rows": 48981,
    "split": "train",
    "task": "pool",
-   "sha256": "9cf38f81740d3f3fa237b7935a464c6e5ed9ea43e8328941905443ecbb34a381",
+   "sha256": "421f89d0bad389fc755b6a4dabb5a248b1a9d683e1a21b385fa4a5b8af7b4413",
    "label_counts": {
     "T1": {
-     "pos": 8346,
-     "neg": 6306
+     "pos": 8496,
+     "neg": 7362
     },
     "T2": {
-     "pos": 2126,
-     "neg": 5546
+     "pos": 2970,
+     "neg": 6602
     },
     "T3": {
-     "pos": 2966,
-     "neg": 7810
+     "pos": 3266,
+     "neg": 8866
     },
     "T5": {
-     "pos": 9751,
-     "neg": 9476
+     "pos": 10051,
+     "neg": 10532
     },
     "T6": {
-     "pos": 2050,
-     "neg": 5594
+     "pos": 4050,
+     "neg": 6794
     },
     "T4": {
      "pos": 2600,
-     "neg": 9246
+     "neg": 11102
     }
    }
   },
   {
    "path": "pool/dev.jsonl",
-   "n": 9927,
-   "rows": 9927,
+   "n": 10077,
+   "rows": 10077,
    "split": "dev",
    "task": "pool",
-   "sha256": "09cd55e9d6776028ea3c3d027271dcedeeef78436d913a7d5f0a08b02da6c00b",
+   "sha256": "ed64336ae3b636d8a9f4302aec02de27c801ed2230aac1de1ffa23315f32cfd0",
    "label_counts": {
     "T1": {
      "pos": 272,
-     "neg": 5672
+     "neg": 5822
     },
     "T2": {
-     "pos": 250,
-     "neg": 5332
+     "pos": 297,
+     "neg": 5482
     },
     "T3": {
      "pos": 571,
-     "neg": 5480
+     "neg": 5630
     },
     "T5": {
      "pos": 250,
-     "neg": 5700
+     "neg": 5850
     },
     "T6": {
      "pos": 250,
-     "neg": 5700
+     "neg": 5850
     },
     "T4": {
      "pos": 688,
-     "neg": 5262
+     "neg": 5412
     }
    }
   }
@@ -481,11 +493,11 @@
  "shape_mix": {
   "t3": {
    "messages_with_assistant": 3582,
-   "user_only": 2239,
+   "user_only": 2539,
    "text_longctx": 2900
   },
   "t5": {
-   "text_legacy": 12231,
+   "text_legacy": 12531,
    "carrier_structured:std_tag": 1400,
    "carrier_structured:simple_tag": 1476,
    "carrier_structured:markdown": 1497,
@@ -505,15 +517,31 @@
   "reference": "data/heldout/ (v0.2.3 / v0.3-gen / v0.4-toolout / v0.5-toolout-reg / v0.5-topup-families / v0.6-document / v0.6-dilution / v0.7-jailbreak)",
   "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits attributed to shared policy-pack template ancestry)"
  },
+ "projection_gate": {
+  "checked": 3102,
+  "t4_hits": 0,
+  "t5_hits": 0,
+  "revoked_to_pos": 0,
+  "revoked_exit": 0,
+  "context_released": 0,
+  "assert": "PASS",
+  "scope": {
+   "classes_gated": {
+    "conditional": 1603,
+    "safe": 1499
+   }
+  },
+  "note": "gate: person-shaped entity regex (role/service locals exempt) + injection markers; conditional/safe hits auto-release to neg (constructively verified lawful context); others stay single-key for manual ruling"
+ },
  "disjointness": {
-  "train_rows": 98287,
+  "train_rows": 108075,
   "eval_rows": 15763,
   "exact_overlap": 0,
   "content_overlap_qa_l1": 0,
   "mirror_eval_overlap": 0,
   "ood_t4_pos_rows": 0,
   "t4_entity_overlap": 0,
-  "t4_heldout_entities_checked": 644,
+  "t4_heldout_entities_checked": 642,
   "assert": "PASS",
   "protocol": {
    "exact": "norm_text = NFKC -> lowercase -> whitespace-collapse; sha256[:16] of full input text (system + content, carrier body fallback); train side (t*/train + pool/train) vs eval side (t*/heldout, challenge/, ood/)",
