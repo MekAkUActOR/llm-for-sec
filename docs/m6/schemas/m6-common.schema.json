@@ -58,19 +58,28 @@
       "type": "object",
       "required": ["flag", "strong"],
       "additionalProperties": false,
+      "if": {
+        "properties": { "threshold_space": { "const": "logit" } },
+        "required": ["threshold_space"]
+      },
+      "then": { "required": ["flag_logit", "strong_logit"] },
       "properties": {
-        "flag": { "$ref": "#/$defs/Score", "description": "τ_flag：score>τ_flag 且未触发 OOD 抑制 ⇒ FLAG（若 flag_logit 存在则此处为 σ(τ_l) 等价回显，决策比较在 logit 空间）" },
-        "strong": { "$ref": "#/$defs/Score", "description": "τ_strong：score>τ_strong ⇒ FLAG 无视 OOD（强信号永不弃权）（若 strong_logit 存在则此处为 σ(τ_l) 等价回显）" },
+        "flag": { "$ref": "#/$defs/Score", "description": "τ_flag：score>τ_flag 且未触发 OOD 抑制 ⇒ FLAG（若 flag_logit 存在则此处为等价回显——T1-T5: σ(τ_l)、T6: exp(τ_l)，决策比较在 logit 空间）" },
+        "strong": { "$ref": "#/$defs/Score", "description": "τ_strong：score>τ_strong ⇒ FLAG 无视 OOD（强信号永不弃权）（若 strong_logit 存在则此处为等价回显）" },
+        "threshold_space": {
+          "enum": ["logit", "score"],
+          "description": "本带阈值空间自述（ADR-2 D-16 逐带形态，deveng v1-3 calib as-built）：\"logit\" 在 T1-T5（sigmoid 头）= log-odds 域（τ_l = σ⁻¹(τ)）；在 T6（softmax 头）= **log-probability 域 ln(P)**（D-16 延伸：softmax 饱和的等价修法，τ_l = ln(τ)）。缺省 = score（向后兼容）。声明 logit 时本带必带 *_logit 键（if/then）。"
+        },
         "flag_logit": {
           "type": ["number", "null"],
           "description": "τ_flag 的 logit 空间值（fp32 sigmoid 饱和修复，deveng v1-1）：存在且非空时决策带用 logit 比较（logit > τ_l），D8 零 FP 构造与 margin δ=1.0 在 logit 空间成立；T6（softmax 概率）与其他 score 空间运行的 runpoint 缺省此字段=行为与旧版完全一致（向后兼容）。须满足 strong_logit >= flag_logit。"
         },
         "strong_logit": {
           "type": ["number", "null"],
-          "description": "τ_strong 的 logit 空间值；存在且非空时强带判定在 logit 空间。score 字段仍是 σ(logit) 原始回显（adr-1b §6.1 不变）。"
+          "description": "τ_strong 的 logit 空间值；存在且非空时强带判定在 logit 空间。score 字段仍是原始回显（T1-T5: σ(logit)（adr-1b §6.1）；T6: exp(ln P)=P）。"
         }
       },
-      "description": "双带阈值（ADR-1）：score 空间必须满足 strong >= flag；logit 字段（若存在）同样 strong_logit >= flag_logit（σ 单调保序）。"
+      "description": "双带阈值（ADR-1）：score 空间必须满足 strong >= flag；logit 字段（若存在）同样 strong_logit >= flag_logit（单调变换保序）。"
     },
     "AbstainReason": {
       "enum": ["none", "ood", "low_confidence", "input_error"],
