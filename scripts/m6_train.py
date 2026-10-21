@@ -942,19 +942,32 @@ def calibrate(model, A, D, out_dir, cfg):
             curves[t] = []
             continue
         if t == "T6":
-            # T6 score = softmax P(high-risk) (bounded, no sigmoid-style
-            # saturation at benign max 0.947): score-space thresholds
-            neg_max = float(neg_s.max())
-            pos_q05 = float(np.quantile(pos_s, 0.05))
+            # T6 score = softmax P(high-risk). v1-3 evidence: challenge-mirror
+            # benign rows saturate P to 0.99987 -> the old min(0.999) cap
+            # broke zero-FP (59 FP leaked). D-16 logit-domain extension:
+            # calibrate on log-P (log_softmax class-0), monotone in P with
+            # full resolution; echo thresholds as P via exp() (fp64).
+            lg6 = torch.log_softmax(out_d["T6"].double(), dim=-1)[:, 0]
+            pos_l = lg6[m & (g == 1)].cpu().numpy()
+            neg_l = lg6[m & calib_neg].cpu().numpy()
+            neg_max = float(neg_l.max())
+            pos_q05 = float(np.quantile(pos_l, 0.05))
             delta = pos_q05 - neg_max
             if delta <= 0:
-                delta = 0.02
-            tau_flag = min(0.999, neg_max + delta)
-            pos_q10 = float(np.quantile(pos_s, 0.10))
-            tau_strong = min(0.9999, max(pos_q10, tau_flag + 0.02))
-            thresholds[t] = {"threshold_space": "score",
-                             "flag": round(tau_flag, 6),
-                             "strong": round(tau_strong, 6)}
+                delta = 0.001  # lp floor ~0.1% P margin; zero-FP preserved
+            tau_flag_l = neg_max + delta  # ABOVE benign max lp (lp asc in P)
+            pos_q10 = float(np.quantile(pos_l, 0.10))
+            tau_strong_l = max(pos_q10, tau_flag_l + 0.01)
+            if tau_strong_l >= 0.0:      # lp of P=1 is unreachable
+                tau_strong_l = -1e-9
+            thresholds[t] = {
+                "threshold_space": "logit",
+                "flag": round(float(np.exp(tau_flag_l)), 8),
+                "strong": round(float(np.exp(tau_strong_l)), 8),
+                # lp values live near 0 (P near 1): 4dp rounding destroys
+                # the resolution the log-P domain exists to preserve
+                "flag_logit": round(tau_flag_l, 8),
+                "strong_logit": round(tau_strong_l, 8)}
         else:
             # T1-T5: LOGIT-SPACE calibration (ADR D8 zero-FP construction):
             # fp32 sigmoid saturates to 1.0 at logit>~16.6, collapsing score

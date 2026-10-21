@@ -92,17 +92,23 @@ def _band_of(score, logit, thr, is_t6=False):
 
     Logit-space comparison when the runpoint provides flag_logit/strong_logit
     (fp32 sigmoid saturates to 1.0 at logit>~16.6, collapsing score
-    resolution); score-space otherwise (legacy runpoints, T6 softmax prob).
-    D-7: PARTIAL logit spec hard-fails (never silently fall back to score
-    space on an incomplete logit runpoint). Returns (strong, mid).
+    resolution); score-space otherwise (legacy runpoints). D-7: PARTIAL logit
+    spec hard-fails (never silently fall back to score space on an
+    incomplete logit runpoint). T6 with a full logit spec carries LOG-P
+    thresholds (D-16 extension; softmax P saturates near 1.0 the same way
+    sigmoid does) -- compare log(P), score is fp64. Returns (strong, mid).
     """
     fl, sl = thr.get("flag_logit"), thr.get("strong_logit")
     if (fl is None) != (sl is None):
         raise ValueError(
             f"partial logit spec (flag_logit={fl!r}, strong_logit={sl!r})"
             " -- fail-closed, D-7")
-    if is_t6 or fl is None:
+    if fl is None:
         return score > thr["strong"], thr["flag"] < score <= thr["strong"]
+    if is_t6:
+        import math
+        lp = math.log(score) if score > 0 else float("-inf")
+        return lp > sl, fl < lp <= sl
     return logit > sl, fl < logit <= sl
 
 
@@ -309,7 +315,11 @@ class M6Inferencer:
             "ood": {"is_ood": False, "score": 0.0,
                     "mechanism": "mahalanobis-aux"},
             "tasks": {}, "thresholds_applied": {
-                **{t: dict(self.thresholds[t]) for t in TASKS},
+                # response band contract = flag/strong/flag_logit/strong_logit
+                # only; threshold_space is calib-contract metadata (v0.3.18)
+                **{t: {k: v for k, v in self.thresholds[t].items()
+                       if k in ("flag", "strong", "flag_logit",
+                                "strong_logit")} for t in TASKS},
                 "source": self.source, "tau_ood": self.tau_ood},
             "decision": "pass",
         }

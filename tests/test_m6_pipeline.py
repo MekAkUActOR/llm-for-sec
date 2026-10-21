@@ -424,9 +424,27 @@ class TestBandOf(unittest.TestCase):
         self.assertFalse(strong)
         self.assertFalse(mid)
 
-    def test_t6_always_score_space(self):
-        # T6 is a softmax prob: logit keys (if ever present) are ignored
-        thr = self._thr(flag_logit=0.5, strong_logit=0.9)
+    def test_t6_logit_keys_log_p_domain(self):
+        # D-16 extension: T6 with a FULL logit spec carries LOG-P thresholds
+        # (softmax P saturates near 1.0 like sigmoid); compare log(P).
+        # flag_logit=-0.01 (P~0.99), strong_logit=-0.001 (P~0.999)
+        thr = self._thr(flag_logit=-0.01, strong_logit=-0.001)
+        # score 0.9995 -> lp ~ -0.0005: above strong (-0.001)
+        strong, mid = _band_of(0.9995, None, thr, is_t6=True)
+        self.assertTrue(strong)
+        self.assertFalse(mid)
+        # score 0.995 -> lp ~ -0.005: mid band (between -0.01 and -0.001)
+        strong, mid = _band_of(0.995, None, thr, is_t6=True)
+        self.assertFalse(strong)
+        self.assertTrue(mid)
+        # score 0.98 -> lp ~ -0.0202: below flag
+        strong, mid = _band_of(0.98, None, thr, is_t6=True)
+        self.assertFalse(strong)
+        self.assertFalse(mid)
+
+    def test_t6_legacy_score_space(self):
+        # T6 without logit keys stays score-space (legacy runpoints)
+        thr = {"flag": 0.99, "strong": 0.995}
         strong, mid = _band_of(0.997, None, thr, is_t6=True)
         self.assertTrue(strong)
         self.assertFalse(mid)

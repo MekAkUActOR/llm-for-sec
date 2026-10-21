@@ -81,14 +81,21 @@ def check_row(i: int, r: dict, fails: list[str]) -> None:
         fl, sl = band.get("flag_logit"), band.get("strong_logit")
         if fl is not None and sl is not None and sl < fl:
             fails.append(f"row{i}({rid}) {t} band strong_logit<flag_logit")
-        # logit 回显一致性：flag == sigma(flag_logit)（fp32 容差 1e-3——饱和
-        # 区回显可为 1.0，容差覆盖；仅双方存在时校验）
-        if fl is not None and abs(1.0 / (1.0 + 2.718281828459045 ** (-fl))
-                                  - band["flag"]) > 1e-3:
-            fails.append(f"row{i}({rid}) {t} flag != sigmoid(flag_logit)")
-        if sl is not None and abs(1.0 / (1.0 + 2.718281828459045 ** (-sl))
-                                  - band["strong"]) > 1e-3:
-            fails.append(f"row{i}({rid}) {t} strong != sigmoid(strong_logit)")
+        # logit 回显一致性（仅双方存在时校验）：
+        # T1-T5: flag == sigma(flag_logit)（fp32 容差 1e-3——饱和区回显可为
+        # 1.0，容差覆盖）；T6: log-P 域（D-16 延伸），flag == exp(flag_logit)
+        if fl is not None:
+            echo = (1.0 / (1.0 + 2.718281828459045 ** (-fl))
+                    if t != "T6" else 2.718281828459045 ** fl)
+            if abs(echo - band["flag"]) > 1e-3:
+                fails.append(f"row{i}({rid}) {t} flag != "
+                             f"{'exp' if t == 'T6' else 'sigmoid'}(flag_logit)")
+        if sl is not None:
+            echo = (1.0 / (1.0 + 2.718281828459045 ** (-sl))
+                    if t != "T6" else 2.718281828459045 ** sl)
+            if abs(echo - band["strong"]) > 1e-3:
+                fails.append(f"row{i}({rid}) {t} strong != "
+                             f"{'exp' if t == 'T6' else 'sigmoid'}(strong_logit)")
     if "tau_ood" not in ta or "source" not in ta:
         fails.append(f"row{i}({rid}) thresholds tau_ood/source missing")
 
