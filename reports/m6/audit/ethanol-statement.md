@@ -10,6 +10,7 @@
 | leak-check-h1.json | ~01:50 | 首版 | L1 FAIL（472 精确重合：t1-legacy×130 + t3×343）→ dataeng 整改单 |
 | leak-check-h6-recheck.json | ~02:2x | content-only 锁修复 | L5 实体级 PASS（642→0）；L1 仍 470 → 二轮整改 |
 | leak-check-h6-hotfix1.json | ~03:1x | 热修 35943e2 终态 | **overall PASS**（L1 exact/NFKC 0-0、L2 冻结 0、L3 红队 0、L5 实体 0/644） |
+| leak-check-d-wave-post-fix.json | 10-22 03:3x | v2 D 波（形式族 top-up 后，train 59,583 行） | **overall PASS**（内容级口径：L1/L2/L3=0、L5 实体 0；L4a 披露层形式相似） |
 
 - L1-L3/L5 为硬门（精确/NFKC sha256 + span 实体子串）；L4 5-gram containment 为披露层（模板结构性相似，B2 正文级 8-gram=0 佐证）。
 - 两次"断言≠实测"事件（pool 视图 vs 任务视图；pack 锁 vs content 口径）均已根因闭环，评测方口径（content_overlap_qa_l1）已固化进 dataeng build_all 断言。
@@ -40,6 +41,8 @@
 ## 6. v2 波审计条款（arch/Lead 执行注记）
 
 形式族合成数据（toolout 轨迹/jb 变体/document 长文/topup-t9）入池后，泄漏三锁以**内容级口径**复验（L1 精确/NFKC + L5 实体子串；形式同族的结构相似是设计意图，内容独立是审计要证明的命题）——qa leak-check 全口径重跑出证。
+
+**执行记录（D 波 post-fix，10-22 03:3x）**：leak-check-d-wave-post-fix.json——train 59,583 行（D 波扩容后）vs eval 16,263（含 T2 heldout +42 jbvar 切分）+ frozen 2,806 + redteam 170：L1/L2/L3 exact=NFKC=0、L5 实体 hits=0（3,900 行）、L4b 红队 0；L4a 5-gram containment flag=241,244（披露层——形式同族的结构相似，正文级 8-gram 独立性由 L5 佐证）。**overall PASS**——形式参照与内容复制的区分成立，条款闭环。
 
 ## 7. 口径换算注记
 

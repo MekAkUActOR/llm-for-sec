@@ -1,0 +1,363 @@
+{
+  "tool": "m6_leak_check",
+  "tag": "d-wave-post-fix",
+  "created": "2026-10-22T03:30:18",
+  "params": {
+    "minhash_k": 20,
+    "coarse_share": 3,
+    "watch": 0.3,
+    "flag": 0.5
+  },
+  "checks": [
+    {
+      "check": "L1 m6-train vs m6-eval",
+      "n": 16263,
+      "exact_hits": [],
+      "nfkc_hits": [],
+      "pass": true
+    },
+    {
+      "check": "L2 m6-train vs frozen-heldout",
+      "n": 2806,
+      "exact_hits": [],
+      "nfkc_hits": [],
+      "pass": true
+    },
+    {
+      "check": "L3 m6-train vs redteam",
+      "n": 170,
+      "exact_hits": [],
+      "nfkc_hits": [],
+      "pass": true
+    },
+    {
+      "check": "L4a m6-eval vs m6-train (5-gram containment)",
+      "n": 16263,
+      "flag_hits": 241244,
+      "watch_hits": 24740,
+      "top_flags": [
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007031-t6",
+          "containment": 0.7391,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007031-t1",
+          "containment": 0.7391,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007031-t2",
+          "containment": 0.7391,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007031-t3",
+          "containment": 0.7391,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007031-t5",
+          "containment": 0.7391,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006721-t3",
+          "containment": 0.6522,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006214-t3",
+          "containment": 0.6957,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006721-t1",
+          "containment": 0.6522,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006214-t1",
+          "containment": 0.6957,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006721-t5",
+          "containment": 0.6522,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006214-t5",
+          "containment": 0.6957,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007110-t2",
+          "containment": 0.7391,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007110-t6",
+          "containment": 0.7391,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006721-t2",
+          "containment": 0.6522,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006214-t2",
+          "containment": 0.6957,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006721-t6",
+          "containment": 0.6522,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-006214-t6",
+          "containment": 0.6957,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007110-t3",
+          "containment": 0.7391,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007110-t1",
+          "containment": 0.7391,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003501",
+          "train_id": "m6-ben-007110-t5",
+          "containment": 0.7391,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007122-t5",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007184-t5",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007122-t6",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007184-t6",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007122-t1",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007184-t1",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007122-t2",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007184-t2",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007122-t3",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007184-t3",
+          "containment": 0.65,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007786-t3",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-008070-t2",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-006112-t6",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007377-t5",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007441-t5",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-008070-t3",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-006232-t6",
+          "containment": 0.7,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007667-t5",
+          "containment": 0.7,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-007786-t5",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003502",
+          "train_id": "m6-ben-006664-t6",
+          "containment": 0.65,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-006950-t2",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-006950-t6",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-007586-t2",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-007586-t6",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-006950-t3",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-006950-t1",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-006950-t5",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-007586-t3",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-007586-t1",
+          "containment": 0.8723,
+          "minhash_share": 17
+        },
+        {
+          "id": "m6-ben-003503",
+          "train_id": "m6-ben-007586-t5",
+          "containment": 0.8723,
+          "minhash_share": 17
+        }
+      ],
+      "pass": true,
+      "note": "披露读数：模板数据天然高 containment；硬违规由精确层（L1-L3/L5）判"
+    },
+    {
+      "check": "L4b redteam vs m6-train",
+      "n": 170,
+      "flag_hits": 0,
+      "watch_hits": 0,
+      "top_flags": [],
+      "pass": true,
+      "note": "披露读数：模板数据天然高 containment；硬违规由精确层（L1-L3/L5）判"
+    },
+    {
+      "check": "L5 t4-heldout vs t4-train（实体级断言主 + 8-gram 披露）",
+      "n": 3900,
+      "entity_hits": [],
+      "entity_hit_rows": 0,
+      "fulltext_8gram_shared_rows": 2562,
+      "pass": true,
+      "note": "全文 8-gram 共享含模板句式结构性相似（披露不判死）；实体级=span gold 实体文本子串匹配（硬断言）"
+    }
+  ],
+  "overall_pass": true
+}
