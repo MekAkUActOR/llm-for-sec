@@ -68,6 +68,10 @@
       "properties": {
         "flag": { "type": "boolean", "description": "双带派生（ADR-1 §8）：score>τ_strong ⇒ true；τ_flag<score≤τ_strong ⇒ ¬is_ood；score≤τ_flag ⇒ false。弃权时恒 false。T4 特例：flag = doc 头双带结果 ∨ (spans 非空)" },
         "score": { "$ref": "m6-common.schema.json#/$defs/Score", "description": "原始分（阈值前，无温度缩放，score = σ(logit)——adr-1b §6.1 撤销温度）：正类概率（T6 = P(high-risk)；T4 = doc 头分数）。任何情况必须输出" },
+        "logit": {
+          "type": "number",
+          "description": "本任务的 logit 域原值（qa/arch A3 红队双机制验证 + B 族梯度归因请求，deveng 03:42 契约）：T1-T5 = sigmoid 头 logit（score=σ(logit) 的前原值，未舍入分辨率——饱和区 score 无分辨率，logit 保留梯度）；T6 = ln(P(high-risk)) log-P（与 threshold_space logit 语义同域，v0.3.21）。optional——input_error 弃权行可缺省。score 仍必输出（向后兼容）。round 6 位。"
+        },
         "label": {
           "type": ["string", "null"],
           "description": "解释性判词（wrapper 从头 logits 组装）：T1 contains-risk|clean；T2 jailbreak|normal；T3 malicious|benign；T4 contains-pii|clean；T5 contains-injection|clean；T6 high-risk|safe|conditional（conditional 不触发 flag）"

@@ -71,6 +71,18 @@ def check_row(i: int, r: dict, fails: list[str]) -> None:
         if r.get("decision") != expect:
             fails.append(f"row{i}({rid}) decision={r.get('decision')} vs flags={expect}")
     ta = r.get("thresholds_applied") or {}
+    # per-item logit 同源断言（deveng 03:42 契约键，A3/B 族归因）：
+    # T1-T5: score == sigma(logit)；T6: score == exp(logit)（log-P 域）。
+    # 仅双方存在时校验；1e-3 容差覆盖 fp32 饱和（score=1.0 vs σ(20)）与显示层舍入
+    for t in TASKS:
+        tr = (r.get("tasks") or {}).get(t) or {}
+        lg, sc = tr.get("logit"), tr.get("score")
+        if lg is not None and sc is not None:
+            echo = (1.0 / (1.0 + 2.718281828459045 ** (-lg))
+                    if t != "T6" else 2.718281828459045 ** lg)
+            if abs(echo - sc) > 1e-3:
+                fails.append(f"row{i}({rid}) tasks.{t}.score != "
+                             f"{'exp' if t == 'T6' else 'sigmoid'}(logit)")
     for t in TASKS:
         if t not in ta or not {"flag", "strong"} <= set(ta[t]):
             fails.append(f"row{i}({rid}) thresholds.{t} band missing")
