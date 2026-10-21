@@ -282,4 +282,6 @@
 | 02:16–~02:20（已让路终止） | qa-m6 | v0 全量重跑首启 | ~4min | **与 deveng v1 相撞（双进程 21GB/84%），qa 主动 kill 让路**——排程失误：启动前只查 nvidia-smi 空闲、未与 deveng 对时序（无预先协调） |
 | 02:43–03:17（**已完成**） | qa-m6 | v0 终态对照全量：热修后干净标签 + 全六切分（heldout 14,263/challenge 1,500/ood 500/红队 170/冻结 1,770）；challenge/ood/redteam 旧预测沿用（行集未变），dev 8,139/heldout 新行集重推 | ~34min | **完成 03:17:22（机器戳）**；报告 qa-baseline-v0-full.md（03:20:17）：五门全挂 = v1-2 对照锚点 |
 | ~03:22–~04:15（已完成） | deveng-m6 | **v1-2 链**：remap 2% 抽样逮到真内容漂移（216/1053 同 id 行文本被改，NFKC/参数化——id 重用不安全，fail-closed 正确触发）→ **stage A 全量重提取**（56,268 train + 12,618 dev）→ stage B（30s）→ 重训 → 校准 → 验证 | ~50min | arch 预批准 +22min 分支；"测量而非断言"实证（否则 1/5 陈旧特征入模）；实际 ~04:03-05 完成（快于 04:15 ETA） |
-| ~04:12–~04:50（已完成） | qa-m6 | **v
+| ~04:12–~04:50（已完成） | qa-m6 | **v1-2 套件读数**（H10 正式数字）：run-v12-041243（04:12:43）→ 双运行点报告 + sensitivity + per-item ×2 | ~40min | **verdict=FAIL 两点一致**（首迭代预期姿态）；读数全落盘；task-9 板面 complete ~04:50 |
+| ~04:50–~07:00（分配·v2 链） | dataeng + deveng + qa | **v2 链（Lead 早启预授权，两条件满足）**：数据波 D-a~e（dataeng，CPU 1-2h，乙醇红线：同形式族独立合成）→ v1-3 head-only 刷新（deveng 27s，**必做——守卫基线 = v1-3 非 v1-2**）→ v2 LoRA r16（deveng 60-80min + calib 10min）→ v2 读数（qa） | ~2-3h 链 | 实际提前，理由=两条件全绿；v2 训练期间 qa 复核走 CPU/GPU 分离；投影 ~07:00-08:30 全链完成，H16 余量 ~9h |
+| 02:18–02:41（已完成） | deveng-m6 | **v1 训练全量**：m6_train --config m6-v1.yaml | 23min 实跑（预算 35-50min） | 完成：ep2 macroR@zeroFP=0.7988；撞卡期 OOM 警告恢复后正常；产物 9de9718（82MB force-add）+ feat_cache 3.4GB 本地可再生 |
