@@ -49,6 +49,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import sys
 import time
 from pathlib import Path
@@ -64,7 +65,7 @@ from m6_render import (  # noqa: E402
 from m6_train import M6Probe, TASKS  # noqa: E402
 
 DEFAULT_CKPT = "checkpoints/qwen3-06b-sec-m5a-dpo-r5"
-SCHEMA_VERSION = "0.3.2"
+SCHEMA_VERSION = "0.3.3"  # 0.3.3: optional per-task logit (sysdesign v0.3.22)
 
 
 def _read_tau_ood(ood_cfg: dict, src: str) -> float:
@@ -393,7 +394,18 @@ class M6Inferencer:
                 label = PRED_LABELS[t][0 if flag else 1]
             # D-6: T4 spans are a first-class field (detail reserved for
             # doc_score audit); T6 3-class IS the label (detail null)
+            # per-task logit (qa/arch request, red-team A3 dual-mechanism
+            # verification + B-family gradient records): T1-T5 = probe
+            # logit (pre-sigmoid, unrounded -- saturated score rows carry
+            # no resolution); T6 = ln(P) log-P (same semantics as the
+            # D-16 threshold domain). Optional schema key.
+            if t == "T6":
+                t_logit = (math.log(s) if s > 0 else
+                           -745.0)  # ln of fp64-denormal floor
+            else:
+                t_logit = logits["T4doc" if t == "T4" else t]
             entry = {"flag": bool(flag), "score": round(s, 6),
+                     "logit": round(t_logit, 6),
                      "label": label, "suppressed": bool(supp),
                      "findings": []}
             if t == "T4":
