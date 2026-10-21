@@ -26,7 +26,7 @@
    "unique_ids": 11688,
    "split": "train",
    "task": "T1",
-   "sha256": "eb9f50c4514f60ba7db12c513b8fb1266b93eb439580fdc9796b3d5f6db4376b",
+   "sha256": "c578722ac2f388f70ec30c32d20db78379ab111efde06f7b6705e51a76f39f0d",
    "label_counts": {
     "T1": {
      "pos": 8663,
@@ -42,7 +42,7 @@
    "unique_ids": 1497,
    "split": "dev",
    "task": "T1",
-   "sha256": "b8ab8e36e4bc08760806d8d64c5d216e6468d5a5037b3a9ac47c295c2177200d",
+   "sha256": "a340fc90f94a6e9e051d83b0b3c757acd693f46463130b8577ec139b2861609a",
    "label_counts": {
     "T1": {
      "pos": 297,
@@ -58,7 +58,7 @@
    "unique_ids": 1563,
    "split": "heldout",
    "task": "T1",
-   "sha256": "4f7c45988e49fbbb84e35465f0c22411c12a2bab9071243e582d15e9806d5100",
+   "sha256": "75acc6b5c2fd1ac3890f6f6a8b1f817c9e928fd837fac855334732a4f71b83df",
    "label_counts": {
     "T1": {
      "pos": 300,
@@ -68,17 +68,17 @@
   },
   {
    "path": "t2-jailbreak/train.jsonl",
-   "n": 4370,
-   "rows": 4370,
-   "file_rows": 4370,
-   "unique_ids": 4370,
+   "n": 4859,
+   "rows": 4859,
+   "file_rows": 4859,
+   "unique_ids": 4859,
    "split": "train",
    "task": "T2",
-   "sha256": "7a1404a6b6c56b8fa9307f0e7f117d16bd639bbbbe9422d209a038dac8320d86",
+   "sha256": "04d7b49058c69bd9354692ec4f0da5137c0ab0d4b35ae95c792841d628d3d8e7",
    "label_counts": {
     "T2": {
      "pos": 2270,
-     "neg": 2100
+     "neg": 2589
     }
    }
   },
@@ -90,7 +90,7 @@
    "unique_ids": 1082,
    "split": "dev",
    "task": "T2",
-   "sha256": "28ed81715b7816c97a9de49b771f9f7b647d522b76303d9ef8f0dda2eeda336d",
+   "sha256": "cd6be65e17cc36c9093d97818bac979d1a372e022cc5b4e76d8d0cf434e43625",
    "label_counts": {
     "T2": {
      "pos": 250,
@@ -106,7 +106,7 @@
    "unique_ids": 1300,
    "split": "heldout",
    "task": "T2",
-   "sha256": "d4955b0a711f441b447c53e37dc4ca9ab0feda2a44dc385228535f852d236540",
+   "sha256": "799077cd849880614c8350737147bfd8b29430c0e316d7d090c2f9a3f2474e11",
    "label_counts": {
     "T2": {
      "pos": 300,
@@ -122,7 +122,7 @@
    "unique_ids": 8411,
    "split": "train",
    "task": "T3",
-   "sha256": "d352c4c9e4045b4ec07f40a120c35c56acd4ca47158db8bb49cfe7bfb4421a24",
+   "sha256": "41738dd56f4cbfb5271d823ea77ef796b36d7208c571334f306ddc8c4259af53",
    "label_counts": {
     "T3": {
      "pos": 3477,
@@ -138,7 +138,7 @@
    "unique_ids": 1810,
    "split": "dev",
    "task": "T3",
-   "sha256": "c9b6f04e67fd5d3434faa513d80425f92433b787964e3e33286ea77bb152ebbb",
+   "sha256": "453f536f5c6c8e87cffce9c3f967fbc33c4f9d15500e3fe80784f87735ade8f2",
    "label_counts": {
     "T3": {
      "pos": 610,
@@ -154,7 +154,7 @@
    "unique_ids": 2500,
    "split": "heldout",
    "task": "T3",
-   "sha256": "17ce29d7b6933ee38b853d2761f023f0e093bd11cb4fc7a3d222e4fa0a08ea0d",
+   "sha256": "ff1dfa67b76b9fe888a2317a43908240887fdd4f1e94628e13eade3bce497d4c",
    "label_counts": {
     "T3": {
      "pos": 300,
@@ -170,7 +170,7 @@
    "unique_ids": 18081,
    "split": "train",
    "task": "T5",
-   "sha256": "36d7fea167fbd32aa203f44471abf3b6a8d407af2456307045dbbfba58a29fd3",
+   "sha256": "724c1a577e3897f7695a7718b422e2f815aea68e4ffff23c2511179e8bb09aa7",
    "label_counts": {
     "T5": {
      "pos": 11074,
@@ -186,7 +186,7 @@
    "unique_ids": 1450,
    "split": "dev",
    "task": "T5",
-   "sha256": "fd2f5d9ea01b44f6287890c462d56af32723f278d2016d26d52b9d063aa09599",
+   "sha256": "0d1143751e7ff82b1a1830b0764844340a499b3d104d3855fdb4834db21e3fdb",
    "label_counts": {
     "T5": {
      "pos": 250,
@@ -202,7 +202,7 @@
    "unique_ids": 2500,
    "split": "heldout",
    "task": "T5",
-   "sha256": "441fb8cce4a9b35f99af3e71e9ac88642f0b3fbf69ad2f9b689d21de97386d6a",
+   "sha256": "f9500c9cba48633e83ab81d2d870a09642f6828bcf2f0416112fe68ae9b51c0e",
    "label_counts": {
     "T5": {
      "pos": 300,
@@ -218,14 +218,14 @@
    "unique_ids": 9444,
    "split": "train",
    "task": "T6",
-   "sha256": "0fe1baf1f77c31d833c088f4d6c4df81cea56542b17b4804f34bac80cd1203af",
+   "sha256": "57d05fa559e481fa13d8f94fb9569e8e667aaf22f43be85f8f5e47db40ecc4aa",
    "label_counts": {
     "T6": {
      "pos": 4050,
      "neg": 5394
     },
     "T2": {
-     "pos": 700,
+     "pos": 718,
      "neg": 0
     }
    }
@@ -238,14 +238,14 @@
    "unique_ids": 1450,
    "split": "dev",
    "task": "T6",
-   "sha256": "5e3e8b546644ae3555bb1efc25515df66fb3dcea127672b92c8ac54ac781d657",
+   "sha256": "93731a9556891a7c9eceda6bdff3942d0dae25289bdaf83440b840e5498e0ac7",
    "label_counts": {
     "T6": {
      "pos": 250,
      "neg": 1200
     },
     "T2": {
-     "pos": 47,
+     "pos": 40,
      "neg": 0
     }
    }
@@ -258,14 +258,14 @@
    "unique_ids": 2500,
    "split": "heldout",
    "task": "T6",
-   "sha256": "667d8e23178c216386230039b2aca7f7671807c27020c05a11be356c2563ccb4",
+   "sha256": "04b49b0b76ac3d374e2e70648367104010263a22bed01668993173e56faa38e0",
    "label_counts": {
     "T6": {
      "pos": 300,
      "neg": 2200
     },
     "T2": {
-     "pos": 53,
+     "pos": 42,
      "neg": 0
     }
    }
@@ -278,7 +278,7 @@
    "unique_ids": 7100,
    "split": "train",
    "task": "T4",
-   "sha256": "fa29850a5d3a4294993b455c08790f174740f56156f131f2c08f6c8b98e91bef",
+   "sha256": "168c6a6314ed63036873987e1a1d9bd43381ef3d79221ff18605c6104ed5e540",
    "label_counts": {
     "T4": {
      "pos": 2600,
@@ -310,7 +310,7 @@
    "unique_ids": 1400,
    "split": "heldout",
    "task": "T4",
-   "sha256": "4e3f02b65d7cdcb3bc2a11a193f0eeda1bfa0ce0992568f5d5720d4819812878",
+   "sha256": "f84ca1b83581b903a193e8220239b5387101a97622d09ce42bb5b9591c007b8a",
    "label_counts": {
     "T4": {
      "pos": 300,
@@ -428,29 +428,29 @@
   },
   {
    "path": "pool/train.jsonl",
-   "n": 48981,
-   "rows": 48981,
-   "file_rows": 48981,
-   "unique_ids": 48981,
+   "n": 49470,
+   "rows": 49470,
+   "file_rows": 49470,
+   "unique_ids": 49470,
    "split": "train",
    "task": "pool",
-   "sha256": "421f89d0bad389fc755b6a4dabb5a248b1a9d683e1a21b385fa4a5b8af7b4413",
+   "sha256": "3890cc3b777dce6e64abc1c0f6079621fa6e9ebc0d0dc15021a5371e95f5151d",
    "label_counts": {
     "T1": {
      "pos": 8496,
-     "neg": 7362
+     "neg": 7375
     },
     "T2": {
-     "pos": 2970,
-     "neg": 6602
+     "pos": 2988,
+     "neg": 7104
     },
     "T3": {
      "pos": 3266,
-     "neg": 8866
+     "neg": 8879
     },
     "T5": {
      "pos": 10051,
-     "neg": 10532
+     "neg": 10545
     },
     "T6": {
      "pos": 4050,
@@ -458,7 +458,7 @@
     },
     "T4": {
      "pos": 2600,
-     "neg": 11102
+     "neg": 11115
     }
    }
   },
@@ -470,14 +470,14 @@
    "unique_ids": 10077,
    "split": "dev",
    "task": "pool",
-   "sha256": "ed64336ae3b636d8a9f4302aec02de27c801ed2230aac1de1ffa23315f32cfd0",
+   "sha256": "7b1ef1bfa4862435555ebd409259eb28722dfcd71835985f7d2686da47ae813c",
    "label_counts": {
     "T1": {
      "pos": 272,
      "neg": 5822
     },
     "T2": {
-     "pos": 297,
+     "pos": 290,
      "neg": 5482
     },
     "T3": {
@@ -564,7 +564,7 @@
   "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits attributed to shared policy-pack template ancestry)"
  },
  "projection_gate": {
-  "checked": 3102,
+  "checked": 3115,
   "t4_hits": 0,
   "t5_hits": 0,
   "revoked_to_pos": 0,
@@ -573,21 +573,21 @@
   "assert": "PASS",
   "scope": {
    "classes_gated": {
-    "conditional": 1603,
-    "safe": 1499
+    "conditional": 1612,
+    "safe": 1503
    }
   },
   "note": "gate: person-shaped entity regex (role/service locals exempt) + injection markers; conditional/safe hits auto-release to neg (constructively verified lawful context); others stay single-key for manual ruling"
  },
  "disjointness": {
-  "train_rows": 108075,
+  "train_rows": 109053,
   "eval_rows": 15763,
   "exact_overlap": 0,
   "content_overlap_qa_l1": 0,
   "mirror_eval_overlap": 0,
   "ood_t4_pos_rows": 0,
   "t4_entity_overlap": 0,
-  "t4_heldout_entities_checked": 642,
+  "t4_heldout_entities_checked": 645,
   "assert": "PASS",
   "protocol": {
    "exact": "norm_text = NFKC -> lowercase -> whitespace-collapse; sha256[:16] of full input text (system + content, carrier body fallback); train side (t*/train + pool/train) vs eval side (t*/heldout, challenge/, ood/)",
