@@ -22,6 +22,12 @@
 - **已确认 A**：eval.suites 字段 = 惰性外部约定清单，训练侧从未执行（deveng grep 证据：m6_train.py 无 suites 读取；训练全程指标只用 dev）——config 注释将标 inert
 - **已确认 B**：v1-2 校准 dev = 热修后快照（12,618 行 union 口径，deveng 04:23 复测一致；T4 pos=688 为 union 口径 [t4-pii dev + pool 多键行]，qa 单视图口径 250——同一数据两种视图计数，非版本漂移）。v2 校准读运行时 manifest 保证一致
 
+### v2 段（LoRA 终审，10-22 04:2x）
+
+- configs/m6-v2.yaml：**无任何 heldout/challenge/ood 引用**（v1-2 的惰性 eval.suites 块在 v2 config 中已不存在——惯性问题自然消除）；manifest 驱动 + prefix_rows exclude；守卫基线 = qa v1-3 dev 读数注入（baseline_readings，D-14 裁定）✓
+- **守卫平面注明（D-14 分工）**：baseline_readings 的 T3 0.747 是 dev 平面（multiturn+r9，零 longctx/doc-intent——arch §6.15 镜像漏洞）；deveng 的 epoch 回归守卫在 dev 平面防 LoRA 破坏已学边界，**heldout 族平面的验收以 qa 读数为准**（m6_t3_family.py 族分解）——设计分工已裁决，非违规
+- config 瑕疵记录：notes 尾行"regression guard vs v1-2 baseline"为陈旧表述（实际 baseline_readings = v1-3，注释块正确）——已报 deveng，不影响审计结论
+
 ## 3. 阈值标定纪律
 
 - QA harness 选点（mode select-op）：仅 dev + dev-mirror/challenge-mirror（可行域约束），预注册 25 档网格（v1.3.2，Lead 批准留痕）✓
