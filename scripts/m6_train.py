@@ -937,7 +937,8 @@ def calibrate(model, A, D, out_dir, cfg):
         m = g >= 0
         pos_s, neg_s = s[m & (g == 1)], s[m & calib_neg]
         if not len(pos_s) or not len(neg_s):
-            thresholds[t] = {"flag": 0.5, "strong": 0.9}
+            thresholds[t] = {"threshold_space": "score",
+                             "flag": 0.5, "strong": 0.9}
             curves[t] = []
             continue
         if t == "T6":
@@ -951,7 +952,8 @@ def calibrate(model, A, D, out_dir, cfg):
             tau_flag = min(0.999, neg_max + delta)
             pos_q10 = float(np.quantile(pos_s, 0.10))
             tau_strong = min(0.9999, max(pos_q10, tau_flag + 0.02))
-            thresholds[t] = {"flag": round(tau_flag, 6),
+            thresholds[t] = {"threshold_space": "score",
+                             "flag": round(tau_flag, 6),
                              "strong": round(tau_strong, 6)}
         else:
             # T1-T5: LOGIT-SPACE calibration (ADR D8 zero-FP construction):
@@ -970,6 +972,7 @@ def calibrate(model, A, D, out_dir, cfg):
             pos_q10 = float(np.quantile(pos_l, 0.10))
             tau_strong_l = max(pos_q10, tau_flag_l + 1.0)
             thresholds[t] = {
+                "threshold_space": "logit",
                 "flag": round(float(torch.sigmoid(torch.tensor(tau_flag_l))), 6),
                 "strong": round(float(torch.sigmoid(torch.tensor(tau_strong_l))), 6),
                 "flag_logit": round(tau_flag_l, 4),
