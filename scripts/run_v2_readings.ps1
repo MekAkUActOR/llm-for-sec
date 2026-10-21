@@ -42,4 +42,8 @@ Run-Step "v13-dev" @('scripts\m6_infer.py', '--head', "checkpoints\m6-v1-3", '--
 Run-Step "v13-calib2runpoint" @('scripts\m6_calib_to_runpoint.py', '--calib', 'checkpoints\m6-v1-3\calib.json', '--out', "reports\m6\operating-point-$V13Tag-recommended.json")
 Run-Step "v13-run-main" @('scripts\m6_acceptance.py', '--mode', 'run', '--tag', $V13Tag, '--head', 'checkpoints\m6-v1-3', '--runpoint', "reports\m6\operating-point-$V13Tag-recommended.json")
 
+# ⑧ ⑪ suppression A/B（strong-too 变体：OOD 行的 default-PASS 修复路径对照）
+Run-Step "v2-strongtoo-variant" @('scripts\m6_make_variant.py', '--base', "reports\m6\operating-point-$V2Tag-recommended.json", '--out', "reports\m6\operating-point-$V2Tag-strongtoo.json", '--suppression', 'strong-too')
+Run-Step "v2-run-strongtoo" @('scripts\m6_acceptance.py', '--mode', 'run', '--tag', "$V2Tag-strongtoo", '--head', "checkpoints\m6-$V2Tag", '--runpoint', "reports\m6\operating-point-$V2Tag-strongtoo.json")
+
 Write-Output "=== V2 READINGS CHAIN DONE $(Get-Date -Format HH:mm:ss) ==="

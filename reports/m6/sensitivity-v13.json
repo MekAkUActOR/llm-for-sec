@@ -1,0 +1,120 @@
+{
+  "theta0": {
+    "T1": 1.0,
+    "T2": 0.999998,
+    "T3": 1.0,
+    "T4": 0.999998,
+    "T5": 0.996595,
+    "T6": 0.99999887
+  },
+  "rows": {
+    "T1": {
+      "theta0": 1.0,
+      "minus": {
+        "theta": 0.95,
+        "recall": 0.98,
+        "fpr": 0.009833
+      },
+      "zero": {
+        "theta": 1.0,
+        "recall": 0.77,
+        "fpr": 0.000797
+      },
+      "plus": {
+        "theta": 1.0,
+        "recall": 0.77,
+        "fpr": 0.000797
+      }
+    },
+    "T2": {
+      "theta0": 0.999998,
+      "minus": {
+        "theta": 0.95,
+        "recall": 0.9912,
+        "fpr": 0.0
+      },
+      "zero": {
+        "theta": 1.0,
+        "recall": 0.8977,
+        "fpr": 0.0
+      },
+      "plus": {
+        "theta": 1.0,
+        "recall": 0.8596,
+        "fpr": 0.0
+      }
+    },
+    "T3": {
+      "theta0": 1.0,
+      "minus": {
+        "theta": 0.95,
+        "recall": 0.9567,
+        "fpr": 0.009149
+      },
+      "zero": {
+        "theta": 1.0,
+        "recall": 0.4667,
+        "fpr": 0.000213
+      },
+      "plus": {
+        "theta": 1.0,
+        "recall": 0.4667,
+        "fpr": 0.000213
+      }
+    },
+    "T4": {
+      "theta0": 0.999998,
+      "minus": {
+        "theta": 0.95,
+        "recall": 0.91,
+        "fpr": 0.0
+      },
+      "zero": {
+        "theta": 1.0,
+        "recall": 0.7367,
+        "fpr": 0.0
+      },
+      "plus": {
+        "theta": 1.0,
+        "recall": 0.6733,
+        "fpr": 0.0
+      }
+    },
+    "T5": {
+      "theta0": 0.996595,
+      "minus": {
+        "theta": 0.9466,
+        "recall": 0.93,
+        "fpr": 0.005106
+      },
+      "zero": {
+        "theta": 0.9966,
+        "recall": 0.79,
+        "fpr": 0.000426
+      },
+      "plus": {
+        "theta": 1.0,
+        "recall": 0.0267,
+        "fpr": 0.0
+      }
+    },
+    "T6": {
+      "theta0": 0.99999887,
+      "minus": {
+        "theta": 0.95,
+        "recall": 0.9967,
+        "fpr": 0.000213
+      },
+      "zero": {
+        "theta": 1.0,
+        "recall": 0.95,
+        "fpr": 0.0
+      },
+      "plus": {
+        "theta": 1.0,
+        "recall": 0.9267,
+        "fpr": 0.0
+      }
+    }
+  }
+}
