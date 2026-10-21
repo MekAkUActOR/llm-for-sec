@@ -1,0 +1,65 @@
+{
+  "schema": "m6-thresholds",
+  "schema_version": "0.1.0-deveng",
+  "runpoint_id": "m6-runpoint-v1-3-recommended",
+  "created": "2026-10-22 03:14:02",
+  "owner": "qa-m6",
+  "calibrated_on": {
+    "split": "dev",
+    "manifest": "6f0d317a4bcbe5bc7d87169e536c0f678e68bd70e5bdac133b58f0b26aed4f45",
+    "n": 13239,
+    "method": "deveng calib.json（logit 空间校准，D8 零 FP 构造）经 QA 转换为验收推荐点；QA-1 §4.3 双运行点条款的主读数"
+  },
+  "thresholds": {
+    "T1": {
+      "threshold_space": "logit",
+      "flag": 1.0,
+      "strong": 1.0,
+      "flag_logit": 17.4666,
+      "strong_logit": 18.4666
+    },
+    "T2": {
+      "threshold_space": "logit",
+      "flag": 0.999998,
+      "strong": 0.999999,
+      "flag_logit": 13.1833,
+      "strong_logit": 14.1833
+    },
+    "T3": {
+      "threshold_space": "logit",
+      "flag": 1.0,
+      "strong": 1.0,
+      "flag_logit": 15.9875,
+      "strong_logit": 16.9875
+    },
+    "T4": {
+      "threshold_space": "logit",
+      "flag": 0.999998,
+      "strong": 0.999999,
+      "flag_logit": 12.9488,
+      "strong_logit": 13.9488
+    },
+    "T5": {
+      "threshold_space": "logit",
+      "flag": 0.996595,
+      "strong": 0.998745,
+      "flag_logit": 5.6791,
+      "strong_logit": 6.6791
+    },
+    "T6": {
+      "threshold_space": "logit",
+      "flag": 0.99999887,
+      "strong": 1.0,
+      "flag_logit": -1.13e-06,
+      "strong_logit": -0.0
+    }
+  },
+  "ood": {
+    "mechanism": "mahalanobis-aux",
+    "tau_ood": 1021.625716,
+    "suppression": "two-band"
+  },
+  "temperature_applied": false,
+  "score_def": "sigmoid(logit); T6 = P(high-risk)",
+  "notes": "m6-v1-3 推荐运行点；flag_logit 存在时决策带用 logit 比较（fp32 sigmoid 饱和修复）"
+}

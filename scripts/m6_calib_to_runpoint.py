@@ -32,6 +32,12 @@ def main() -> None:
         n_cal = (sum(1 for l in lab.open(encoding="utf-8") if l.strip())
                  if lab.exists() else 13239)
 
+    # v0.3.21（sysdesign d378def）：band 级 threshold_space 已收编（enum logit|score）。
+    # 透传优先；仅当旧 schema 校验失败时回退剥离（决策语义已由 *_logit 承载）。
+    # 语义要点：T6 的 logit = ln(P)（log-probability 域，D-16 softmax 等价修法），
+    # 非 T1-T5 的 log-odds——换算用 exp 而非 sigmoid。
+    th = {t: dict(band) for t, band in calib["thresholds"].items()}
+
     out = {
         "schema": "m6-thresholds",
         "schema_version": calib.get("schema_version", "0.2.0"),
@@ -44,15 +50,24 @@ def main() -> None:
             "n": n_cal,
             "method": "deveng calib.json（logit 空间校准，D8 零 FP 构造）经 QA 转换为验收推荐点；QA-1 §4.3 双运行点条款的主读数",
         },
-        "thresholds": calib["thresholds"],
+        "thresholds": th,
         "ood": calib["ood"],
         "temperature_applied": calib.get("temperature_applied"),
         "score_def": calib.get("score_def"),
         "notes": f"{stem} 推荐运行点；flag_logit 存在时决策带用 logit 比较（fp32 sigmoid 饱和修复）" + (f"；{args.note}" if args.note else ""),
     }
     p = Path(args.out)
+    try:
+        _validate(out)
+    except Exception:  # noqa: BLE001 — 旧 schema 环境回退：剥离 threshold_space 再验
+        for band in th.values():
+            band.pop("threshold_space", None)
+        _validate(out)
     p.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
+    print(f"推荐点 runpoint 过 m6-thresholds schema 校验 -> {p}")
 
+
+def _validate(out: dict) -> None:
     import jsonschema
     from referencing import Registry, Resource
     sd = Path("docs/m6/schemas")
@@ -60,7 +75,6 @@ def main() -> None:
     for f in sd.glob("*.json"):
         reg = reg.with_resource(f.name, Resource.from_contents(json.loads(f.read_text(encoding="utf-8"))))
     jsonschema.validate(out, json.loads((sd / "m6-thresholds.schema.json").read_text(encoding="utf-8")), registry=reg)
-    print(f"推荐点 runpoint 过 m6-thresholds schema 校验 -> {p}")
 
 
 if __name__ == "__main__":
