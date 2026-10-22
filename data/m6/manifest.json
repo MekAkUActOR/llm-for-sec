@@ -272,17 +272,17 @@
   },
   {
    "path": "t4-pii/train.jsonl",
-   "n": 7100,
-   "rows": 7100,
-   "file_rows": 7100,
-   "unique_ids": 7100,
+   "n": 8400,
+   "rows": 8400,
+   "file_rows": 8400,
+   "unique_ids": 8400,
    "split": "train",
    "task": "T4",
-   "sha256": "f5364b5445d5d6d9f4334c4c88c1ac4cef1dc7f59aae317b3aac85533bc23184",
+   "sha256": "b386f620ce5ea55a6fc24a85b62d81cdee867ec9b7323392e7a57b8178cbd7cc",
    "label_counts": {
     "T4": {
      "pos": 2600,
-     "neg": 4500
+     "neg": 5800
     }
    }
   },
@@ -428,13 +428,13 @@
   },
   {
    "path": "pool/train.jsonl",
-   "n": 50589,
-   "rows": 50589,
-   "file_rows": 50589,
-   "unique_ids": 50589,
+   "n": 51889,
+   "rows": 51889,
+   "file_rows": 51889,
+   "unique_ids": 51889,
    "split": "train",
    "task": "pool",
-   "sha256": "0dafd7aa796a034fb628437942e1282d99de963cab1ec410f55c6b576ecaefae",
+   "sha256": "4fa2302a53928787a31e22e54d266890734f00220190f55c6d7ed2d99603fa70",
    "label_counts": {
     "T1": {
      "pos": 8496,
@@ -458,43 +458,43 @@
     },
     "T4": {
      "pos": 2600,
-     "neg": 11102
+     "neg": 12402
     }
    }
   },
   {
    "path": "pool/dev.jsonl",
-   "n": 9777,
-   "rows": 9777,
-   "file_rows": 9777,
-   "unique_ids": 9777,
+   "n": 10077,
+   "rows": 10077,
+   "file_rows": 10077,
+   "unique_ids": 10077,
    "split": "dev",
    "task": "pool",
-   "sha256": "71e43da6e4a4b1504604bedb83d552bec6e47dea404d8125f57fcc96a112b6d1",
+   "sha256": "30e2fd2e0654051e1651155fbfde18ae574a14fa28460c558b84ca48c6f5cab5",
    "label_counts": {
     "T1": {
      "pos": 272,
-     "neg": 5522
+     "neg": 5822
     },
     "T2": {
      "pos": 287,
-     "neg": 5482
+     "neg": 5782
     },
     "T3": {
      "pos": 571,
-     "neg": 5630
+     "neg": 5930
     },
     "T5": {
      "pos": 250,
-     "neg": 5850
+     "neg": 6150
     },
     "T6": {
      "pos": 250,
-     "neg": 5850
+     "neg": 6150
     },
     "T4": {
      "pos": 688,
-     "neg": 5412
+     "neg": 5712
     }
    }
   }
@@ -618,7 +618,7 @@
   }
  },
  "disjointness": {
-  "train_rows": 111291,
+  "train_rows": 113891,
   "eval_rows": 15644,
   "exact_overlap": 0,
   "content_overlap_qa_l1": 0,

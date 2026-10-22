@@ -417,7 +417,7 @@ def main():
         "T3": ["t3-legacy.jsonl", "t3-multiturn.jsonl", "t3-longctx.jsonl",
                "doc-t3.jsonl"],
         "T4": ["t4-pii-train.jsonl", "t4-pii-dev.jsonl", "t4-pii-heldout.jsonl",
-               "t4-lawful.jsonl"],
+               "t4-lawful.jsonl", "t4-lawful-v2.jsonl"],
         "T5": ["t5-legacy.jsonl", "t5-indirect.jsonl", "doc-t5.jsonl"],
         "T6": ["t6-legacy.jsonl", "t6-instr.jsonl", "t6-instr-v2.jsonl",
                "t6-toolout.jsonl"],
