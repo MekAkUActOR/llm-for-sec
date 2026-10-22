@@ -122,4 +122,16 @@
 
 **交付判定（arch 域，菜单 {v2, v2.4}）**：dev 平面 v2.4 全面占优，暂定交付候选；正式判定等 qa 验收面（recall 门 + **T1 挑战 FP**[v2.1 数据弧的验收闭环项] + T4 G2/G3[dual-trunk 决策触发] + OOD）。**T4 残余杠杆**：dual-trunk（T4 骑 v2.2 trunk 的 0.949 配对）——设计 sketch 与读数并行，G2/G3 落地即评审。
 
+## §2d 终局周期 + 交付判定（dual-trunk 组装 / span 门 / 从属化 NO-GO / 终版读数，~19:50-21:05 10-22）
+
+**① v2.4-dt 组装（b17d5d5）**：trunkB（branch-B trunk-MLP，v2-adapter 特征上训练）服务 T4doc（0.949），trunkA 五任务 + T6 配对原封，OOD 留 trunkA；**行动定级修正**：非架构域而是**组装域**（同一骨干前向、两个 MLP 探针、线格式不变、+10 行向后兼容）——arch 裁量权内执行，Lead 经 task-13 备案。macro 0.935 逐位兑现（f7a580a + 89cd266 来源 manifest）。
+
+**② span 长度门（19eaaba）**：分解决定性前置——T4 FPR **100% span 驱动**（dev 1,166 行：doc-only 0 / span-only 1,166），例证全 1 字符垃圾。门 = min_span_len=2 解码侧过滤（config 暴露、缺省 1 向后兼容、OOD 旁路不变）。**tally 诚实修正**：门全杀行仅 161/1,166（13.8%）——例证误导（前 5 例恰好全 1 字符）；残差 1,005 行 ≥2 字符真实体（span 通道结构上语境盲，doc 通道学会的 lawful 语境它学不会）。
+
+**③ 从属化裁定（NO-GO，金标定谳 77cc864）**：候选 = span-only ∧ doc-quiet → 不旗（span 降级 payload）。终计数（labels-heldout 金标 join）：**G1 代价 27/300 T4-pos = 9.0% TP 承重**（>>5% NO-GO 线；从属化砸 G1 100→~91 破 95 地板）+ **G2 收益仅 84/3,600 = 49% FP 份额**（连 G2 都修不动）→ **双重否定 NO-GO**。**架构记录**：span 通道是承重件非噪声源（语境盲 token 通道承载 doc 头看不见的 9% TP——defense-in-depth 实证）；修复方向 = **语境化**（doc 条件 span 有效性）非去独立。**G4 双向量框架**（结构发现）：G4 失败 = is_ood 塌陷（4.6%）× span 强带旁路（310/500 OOD 行 T4 旗 ≈ 98% of fails）——post-window 修复两者都要（OOD 头 b/c + span 语境化）；mid 带降级在 is_ood 4.6% 下 ≈ no-op，非本窗杠杆。
+
+**④ 终版读数（v2.4-dt gate-only，qa 21:01）**：T4 G2 4.78→**2.33%**（-51%，残差 = span context-blind 1,005 行域）；G3 1.65→**0.35%**（calib）/0.78%（QA）；**G1 六头全过 + T4 100% 门后保持**（heldout 金标面 recall-safety 强证据）；红队 92.4% 零变化（decode 侧门隔离完美）；G4 35.4%（几何域原封，解离三代确认）；**门恢复 T4 分数域分辨率**（θ0.7 dev 98%/0.19%，三代首次——但救不了 G2：84 heldout FP 全 span-only，doc 操作点移动无效）。
+
+**⑤ 交付判定（D-13 arch 域终版）**：**交付物 = v2.4-dt @ 19eaba，operating point = QA 点**。依据：vs v2 全面占优（macro 0.866→0.935 / T1 挑战 23.0%→0.33%[calib]/1.13%[QA] / T4 G2 4.78→2.33 / 红队 90.6→92.4）；⑬ 终答 = QA 点（G1 六头全过 97.3-100 为主验收面，calib 点 88-94 多头破地板）。**门卡定版**：✅ G1 六头 / ✅ 红队 92.4% / ✅ 挑战正例召回 345/345 / ❌ T4-G2 2.33%（4.9x）/ ❌ G3 T1 1.13% + T4 0.78%（QA 点，26 行）/ ❌ G4 35.4%——四差距面全特征化，修复路径全指向 post-window 设计域（span context 门 / lawful-hard 覆盖 / OOD 头 × span 语境化 / 配方稳定化）。**macro 弧归档**：v1-2 0.681 → v1-3 0.818 → v2 0.866 → v2.4 0.910 → **v2.4-dt 0.935**（全零 FP）。
+
 —— 后续修订继续 append 于本文件。
