@@ -434,11 +434,11 @@
    "unique_ids": 50589,
    "split": "train",
    "task": "pool",
-   "sha256": "6280881b12855df1185a281ded79d5837e3e91ffef0197c7f743052d539be6f4",
+   "sha256": "0dafd7aa796a034fb628437942e1282d99de963cab1ec410f55c6b576ecaefae",
    "label_counts": {
     "T1": {
      "pos": 8496,
-     "neg": 15751
+     "neg": 15852
     },
     "T2": {
      "pos": 2974,
@@ -577,16 +577,25 @@
     "safe": 1492
    }
   },
+  "note": "gate: person-shaped entity regex (role/service locals exempt) + injection markers; conditional/safe hits auto-release to neg (constructively verified lawful context); others stay single-key for manual ruling",
   "t1_projection": {
-   "projected": 7852,
-   "withheld": 159,
+   "projected": 7947,
+   "withheld": 64,
    "by_family": {
-    "synth-jailbreak-v1": 489,
-    "synth-multiturn-v1": 705,
-    "m4-capfix": 1058,
-    "synth-indirect-v1": 1900,
+    "synth-jailbreak-v1": 473,
+    "synth-multiturn-v1": 686,
+    "m4-capfix": 1066,
+    "synth-indirect-v1": 2022,
     "synth-pii-v1": 3700
    },
+   "by_family_actual": {
+    "synth-jailbreak-v1": 473,
+    "synth-multiturn-v1": 334,
+    "m4-capfix": 842,
+    "synth-indirect-v1": 2022,
+    "synth-pii-v1": 3700
+   },
+   "dual_overlap": 576,
    "whitelist": {
     "synth-jailbreak-v1": [
      "T2"
@@ -605,9 +614,8 @@
      "T6"
     ]
    },
-   "note": "D-g: construct-determined T1-neg (synth benign-context negs + m4-capfix carrier_clean_overrefusal VERDICT negs; conditional rows excluded); pos rows never project; own-task extractor exempt, other gate still applies"
-  },
-  "note": "gate: person-shaped entity regex (role/service locals exempt) + injection markers; conditional/safe hits auto-release to neg (constructively verified lawful context); others stay single-key for manual ruling"
+   "note": "D-g: construct-determined T1-neg (synth benign-context negs + m4-capfix carrier_clean_overrefusal VERDICT negs; conditional rows excluded); pos rows never project; gate check-set adapted to T1 construct (harmful-content markers — T4/T5 objective extractors are NOT the T1 ruling standard, arch ruling)"
+  }
  },
  "disjointness": {
   "train_rows": 111291,

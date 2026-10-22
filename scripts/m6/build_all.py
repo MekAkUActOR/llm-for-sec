@@ -751,6 +751,14 @@ def main():
     t1_gate_blocked = []
     t1_gate_scope = collections.Counter()
     n_t1proj = 0
+    # T1 projection gate: check-set ADAPTED to the projection target's
+    # construct (arch ruling): T1 = verdict-conditional — the T4/T5 objective
+    # pattern extractors are NOT the ruling standard for T1 projection
+    # (benign email carriers with person-shaped locals project fine); a
+    # lightweight harmful-content marker check applies instead.
+    _T1_GATE_HARM = __import__("re").compile(
+        r"赌博|色情|淫秽|毒品|海洛因|冰毒|诈骗|洗钱|行贿|伪造证件|枪支|弹药"
+        r"|gambling|pornograph|heroin|meth|launder|bribe|firearm", __import__("re").I)
     for r in pool_rows:
         if r["split"] != "train" or "T1" in r["labels"]:
             continue
@@ -764,12 +772,9 @@ def main():
         if (g.get("label_detail") or {}).get("m4_verdict") == "conditional":
             continue  # conditional tension: not projected
         t = _input_text(r)
-        pii_m = _PROJ_GATE_PII.search(t) if own != "T4" else None
-        inj_m = _PROJ_GATE_INJ.search(t) if own != "T5" else None
-        if pii_m or inj_m:
-            t1_gate_blocked.append((r["id"], fam,
-                                    pii_m.group(0) if pii_m else None,
-                                    inj_m.group(0) if inj_m else None))
+        harm_m = _T1_GATE_HARM.search(t)
+        if harm_m:
+            t1_gate_blocked.append((r["id"], fam, harm_m.group(0)))
             continue
         r["labels"]["T1"] = {"label": "neg"}
         n_t1proj += 1
@@ -789,6 +794,20 @@ def main():
         print("T1 PROJECTION GATE FAIL: %d withheld rows still projected" % len(t1_leak))
         raise SystemExit(3)
     print("T1-neg cross-view projection (D-g whitelist, gate-passed): %d rows" % n_t1proj)
+    # re-count from the POST-DEDUP pool (the write-side truth): loop counts
+    # can exceed pool reality when a projected row's input dedups against
+    # another row (twin collapse). Manifest records BOTH (arch ruling).
+    def _t1_actual(rows_final):
+        c = collections.Counter()
+        for rr in rows_final:
+            fam = (rr.get("source") or {}).get("family")
+            own = rr["task"]
+            if (fam in _T1PROJ_FAMS and own in _T1PROJ_FAMS[fam]
+                    and rr["split"] == "train"
+                    and rr["labels"][own]["label"] == "neg"
+                    and "T1" in rr["labels"]):
+                c[fam] += 1
+        return c
     # hard assertion: any projected row with a gate hit is a build failure
     # (same discipline as the cvalues purity assertion)
     leaked = [g for g in gate_hits
@@ -818,16 +837,6 @@ def main():
         "context_released": len(gate_released),  # hits auto-released by lawful-context rule (logged)
         "assert": "PASS" if not leaked else "FAIL",
         "scope": {"classes_gated": dict(gate_scope)},
-        "t1_projection": {
-            "projected": n_t1proj,
-            "withheld": len(t1_gate_blocked),
-            "by_family": dict(t1_gate_scope),
-            "whitelist": {k: list(v) for k, v in _T1PROJ_FAMS.items()},
-            "note": "D-g: construct-determined T1-neg (synth benign-context "
-                    "negs + m4-capfix carrier_clean_overrefusal VERDICT negs; "
-                    "conditional rows excluded); pos rows never project; "
-                    "own-task extractor exempt, other gate still applies",
-        },
         "note": "gate: person-shaped entity regex (role/service locals exempt) + "
                 "injection markers; conditional/safe hits auto-release to neg "
                 "(constructively verified lawful context); others stay "
@@ -852,6 +861,23 @@ def main():
                 [r for r in pool_final if r["split"] == "dev"] + chm_rows + oodm_rows + benign_dev)
     manifest_files.append(("pool/train.jsonl", sum(1 for r in pool_final if r["split"] == "train")))
     manifest_files.append(("pool/dev.jsonl", sum(1 for r in pool_final if r["split"] == "dev") + len(chm_rows) + len(oodm_rows) + len(benign_dev)))
+    # D-g write-side truth (post-dedup): loop counts can exceed pool reality
+    # when a projected row's input dedups against another row (twin collapse)
+    _T1_ACTUAL = dict(_t1_actual(pool_final))
+    projection_gate["t1_projection"] = {
+        "projected": n_t1proj,
+        "withheld": len(t1_gate_blocked),
+        "by_family": dict(t1_gate_scope),
+        "by_family_actual": _T1_ACTUAL,
+        "dual_overlap": max(0, n_t1proj - sum(_T1_ACTUAL.values())),
+        "whitelist": {k: list(v) for k, v in _T1PROJ_FAMS.items()},
+        "note": "D-g: construct-determined T1-neg (synth benign-context "
+                "negs + m4-capfix carrier_clean_overrefusal VERDICT negs; "
+                "conditional rows excluded); pos rows never project; "
+                "gate check-set adapted to T1 construct (harmful-content "
+                "markers — T4/T5 objective extractors are NOT the T1 "
+                "ruling standard, arch ruling)",
+    }
 
     # 6) isolation check + manifest (v2 per schema v0.3.8)
     iso = isolation_report(out)

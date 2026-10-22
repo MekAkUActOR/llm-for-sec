@@ -1,0 +1,27 @@
+{
+  "verdict": {
+    "verdict": "FAIL",
+    "gates": {
+      "G1": false,
+      "G2": false,
+      "G3": false,
+      "G4": false,
+      "G5": "report-only"
+    },
+    "flags": [
+      "G1-RECALL-FAIL",
+      "G2-FPR-FAIL",
+      "G3-CHALLENGE-FAIL",
+      "G4-OOD-FAIL",
+      "REDTEAM-WEAK"
+    ]
+  },
+  "counts": {
+    "heldout": 14144,
+    "challenge": 1500,
+    "ood": 500,
+    "redteam": 170,
+    "frozen": 1770
+  },
+  "generated": "2026-10-22 11:20:26"
+}
