@@ -67,11 +67,13 @@ train:
     layer_to: 28
     lora_bio_extra_rows: 2
   lora_center_max_rows: 3000
-  # v2 guard baseline (ep2 WARN+last artifact, logit-domain final calibrate):
-  # guard = v2 readings so v2.1-v2 isolates the T1 data effect. The guard
-  # itself now measures in LOGIT space (18e02a4, D-16 5th case fix) --
-  # v2's own early-stop trajectory was artifact-depressed; v2.1's is real.
-  baseline_readings: {T1: 0.626, T2: 0.948, T3: 0.771, T4: 0.949, T5: 0.948, T6: 0.952}
+  # v2 guard baseline, PLANE-CONSISTENT (arch adopted): v2 weights
+  # re-measured on the NEW dev plane (12,468; logit domain; outputs/m6/
+  # _v2_newplane/newplane_baseline.json). T1 0.2121 = harder-plane effect
+  # (lawful-hard rows v2 never learned; v2.1's t1-lawful targets exactly
+  # this). T5/T6 = 1.0 strict upper bound -- arch note: D-13 WARN+last
+  # fallback covers worst case; delivery judgment unaffected.
+  baseline_readings: {T1: 0.2121, T2: 0.9861, T3: 0.8396, T4: 0.9651, T5: 1.0, T6: 1.0}
 output_dir: checkpoints/m6-v2-1
 notes: 'v2.1 = T1 data-effect iteration (arch fix ruling: t1-lawful negatives
   + per-family projection legality table) on the SAME v2 LoRA recipe; guard
