@@ -1,0 +1,34 @@
+{
+  "in_dim": 10240,
+  "trunk_hidden": 1024,
+  "head_hidden": 256,
+  "dropout": 0.1,
+  "n_bio": 23,
+  "tok_feat_dim": 2048,
+  "bio_hidden": 512,
+  "tasks": [
+    "T1",
+    "T2",
+    "T3",
+    "T4",
+    "T5",
+    "T6"
+  ],
+  "bio_channel_semantics": "0=O; 1+t=B(type); 1+n_types+t=I(type)",
+  "pii_types": [
+    "person",
+    "phone",
+    "email",
+    "gov_id",
+    "address",
+    "bank_card",
+    "credential",
+    "dob",
+    "license_plate",
+    "medical_id",
+    "other_id"
+  ],
+  "routing": {
+    "T4doc": "B"
+  }
+}

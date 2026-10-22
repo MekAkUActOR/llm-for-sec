@@ -1,0 +1,25 @@
+{
+ "artifact": "m6-v2-4dt",
+ "pattern": "dual-trunk assembly (design sketch 1b886bf, arch 19:5x)",
+ "routing": {
+  "T4doc": "B"
+ },
+ "sources": {
+  "trunkA + T1/T2/T3/T5/T6 + bio": {
+   "runpoint": "checkpoints/m6-v2-4",
+   "commits": [
+    "f7a580a"
+   ],
+   "note": "v2 trunk-MLP (e2a758c lineage) + fresh T1/T3 + v2 T2/T5/T6 heads; T6 microscopic-regime pair intact"
+  },
+  "trunkB + T4doc": {
+   "runpoint": "checkpoints/m6-v2-3b",
+   "commits": [
+    "89cd266"
+   ],
+   "note": "branch-B trunk-MLP + its fresh T4doc head (0.949 pairing; trained on v2-adapter features 64,070)"
+  }
+ },
+ "ood": "trunkA (G4 dissociation: OOD geometry rides the unchanged v2 trunk; head-independent, verified 474168c)",
+ "training": "none (assembly-only)"
+}

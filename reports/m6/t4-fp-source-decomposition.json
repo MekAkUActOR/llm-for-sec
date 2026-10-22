@@ -1,0 +1,73 @@
+{
+ "flagged_benign": 1166,
+ "doc_only": 0,
+ "span_only": 1166,
+ "both": 0,
+ "span_only_examples": [
+  {
+   "id": "m6-t1-legacy-003993",
+   "doc_score": 8.6e-05,
+   "spans": [
+    {
+     "start": 16,
+     "end": 17,
+     "type": "person",
+     "text": "向",
+     "message_index": 0
+    }
+   ]
+  },
+  {
+   "id": "m6-t1-legacy-004983",
+   "doc_score": 3e-06,
+   "spans": [
+    {
+     "start": 0,
+     "end": 1,
+     "type": "email",
+     "text": "h",
+     "message_index": 1
+    }
+   ]
+  },
+  {
+   "id": "m6-t1-legacy-005061",
+   "doc_score": 0.00031,
+   "spans": [
+    {
+     "start": 0,
+     "end": 1,
+     "type": "email",
+     "text": "h",
+     "message_index": 1
+    }
+   ]
+  },
+  {
+   "id": "m6-t1-legacy-005073",
+   "doc_score": 0.001332,
+   "spans": [
+    {
+     "start": 0,
+     "end": 1,
+     "type": "email",
+     "text": "h",
+     "message_index": 1
+    }
+   ]
+  },
+  {
+   "id": "m6-t1-legacy-005179",
+   "doc_score": 0.00042,
+   "spans": [
+    {
+     "start": 0,
+     "end": 1,
+     "type": "email",
+     "text": "h",
+     "message_index": 1
+    }
+   ]
+  }
+ ]
+}

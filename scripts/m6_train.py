@@ -325,7 +325,7 @@ class M6Probe(nn.Module):
 
     def __init__(self, in_dim, trunk_hidden=1024, head_hidden=256,
                  dropout=0.1, n_bio=N_BIO_CHANNELS, tok_feat_dim=2048,
-                 bio_hidden=512):
+                 bio_hidden=512, routing=None):
         super().__init__()
         self.trunk = nn.Sequential(
             nn.LayerNorm(in_dim), nn.Linear(in_dim, trunk_hidden),
@@ -341,6 +341,16 @@ class M6Probe(nn.Module):
         self.bio = nn.Sequential(
             nn.LayerNorm(tok_feat_dim), nn.Linear(tok_feat_dim, bio_hidden),
             nn.GELU(), nn.Dropout(dropout), nn.Linear(bio_hidden, n_bio))
+        # dual-trunk variant (reports/m6/dual-trunk-design-sketch.md):
+        # routing {head_name: "A"|"B"}; heads routed to "B" consume a second
+        # trunk-MLP (trunk_b) trained on the SAME pooled features. Absent
+        # routing -> single-trunk, byte-identical legacy behavior. The OOD
+        # Mahalanobis ALWAYS rides trunk A (G4 dissociation finding).
+        self.routing = dict(routing or {})
+        if any(r == "B" for r in self.routing.values()):
+            self.trunk_b = nn.Sequential(
+                nn.LayerNorm(in_dim), nn.Linear(in_dim, trunk_hidden),
+                nn.GELU(), nn.Dropout(dropout))
         self.struct = {
             "in_dim": in_dim, "trunk_hidden": trunk_hidden,
             "head_hidden": head_hidden, "dropout": dropout,
@@ -349,12 +359,17 @@ class M6Probe(nn.Module):
             "bio_channel_semantics": "0=O; 1+t=B(type); 1+n_types+t=I(type)",
             "pii_types": PII_TYPES,
         }
+        if self.routing:
+            self.struct["routing"] = dict(self.routing)
 
     def forward(self, x):  # pooled [B, D]
         h = self.trunk(x)
+        hB = self.trunk_b(x) if self.routing and any(
+            r == "B" for r in self.routing.values()) else None
         out = {}
         for t in ("T1", "T2", "T3", "T4doc", "T5"):
-            out[t] = self.heads[t](h).squeeze(-1)
+            src = hB if (hB is not None and self.routing.get(t) == "B") else h
+            out[t] = self.heads[t](src).squeeze(-1)
         out["T6"] = self.heads["T6"](h)  # [B,3]
         return out
 
@@ -1290,7 +1305,11 @@ def main():
         ckpt = torch.load(out_dir / "probe-heads.pt", map_location="cpu",
                           weights_only=True)
         sd = ckpt["state"] if isinstance(ckpt, dict) and "state" in ckpt else ckpt
-        model = M6Probe(A["pooled"].shape[1]).to(args.device)
+        # dual-trunk artifacts carry routing in head_structure.json
+        hs_path = out_dir / "head_structure.json"
+        routing = (json.loads(hs_path.read_text(encoding="utf-8"))
+                   .get("routing")) if hs_path.is_file() else None
+        model = M6Probe(A["pooled"].shape[1], routing=routing).to(args.device)
         model.load_state_dict(sd)
         model.eval()
         bio_dev_path = cache_dir / "tokfeats_dev.npz"

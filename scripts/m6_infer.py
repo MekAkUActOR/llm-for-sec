@@ -153,7 +153,8 @@ class M6Inferencer:
             self.model = M6Probe(**{k: struct[k] for k in
                                     ("in_dim", "trunk_hidden", "head_hidden",
                                      "dropout", "n_bio", "tok_feat_dim",
-                                     "bio_hidden")}).to(device).eval()
+                                     "bio_hidden")},
+                                 routing=struct.get("routing")).to(device).eval()
             state = torch.load(hd / "probe-heads.pt", map_location="cpu",
                                weights_only=True)
             self.model.load_state_dict(state["state"])

@@ -1,0 +1,88 @@
+{
+  "bio_token": {
+    "token_recall_pos": 0.0,
+    "n_pos_tokens": 14307
+  },
+  "tau_ood": 3369.3418,
+  "tasks": {
+    "T1": {
+      "recall": 0.899,
+      "fp_dev_neg": 0,
+      "n_neg": 6012,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.999798,
+        "strong": 0.999925,
+        "flag_logit": 8.5045,
+        "strong_logit": 9.5045
+      }
+    },
+    "T2": {
+      "recall": 0.9477,
+      "fp_dev_neg": 0,
+      "n_neg": 5944,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 1.0,
+        "strong": 1.0,
+        "flag_logit": 18.965,
+        "strong_logit": 21.562
+      }
+    },
+    "T3": {
+      "recall": 0.9113,
+      "fp_dev_neg": 0,
+      "n_neg": 6008,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.999993,
+        "strong": 0.999997,
+        "flag_logit": 11.8878,
+        "strong_logit": 12.8878
+      }
+    },
+    "T4": {
+      "recall": 0.9491,
+      "fp_dev_neg": 0,
+      "n_neg": 5712,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.996353,
+        "strong": 0.999366,
+        "flag_logit": 5.6102,
+        "strong_logit": 7.3627
+      }
+    },
+    "T5": {
+      "recall": 0.948,
+      "fp_dev_neg": 0,
+      "n_neg": 6312,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.999983,
+        "strong": 0.999997,
+        "flag_logit": 10.9795,
+        "strong_logit": 12.6278
+      }
+    },
+    "T6": {
+      "recall": 0.956,
+      "fp_dev_neg": 0,
+      "n_neg": 6312,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.99999996,
+        "strong": 1.0,
+        "flag_logit": -4e-08,
+        "strong_logit": -0.0
+      }
+    }
+  },
+  "benign_saturated_display_16.6": {
+    "T1": 0,
+    "T2": 2,
+    "T3": 0,
+    "T4": 0,
+    "T5": 0
+  }
+}

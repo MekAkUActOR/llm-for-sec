@@ -1,0 +1,68 @@
+﻿# v2.3a config: Branch A composite (arch 18:4x ruling) -- fresh-init heads
+# on the FROZEN v2.2-ep1 adapted trunk. The adapted feature cache is
+# pre-built by scripts/_tmp_branchA_cache.py (train/dev pooled + PII token
+# features through the v2.2 adapter); this run is the standard v1-x
+# head-only recipe on that cache (--reuse-cache), i.e. deterministic
+# post-processing: no joint dynamics, fresh init (no saturation trap).
+# Epistemics (arch): tests whether the joint-run T2/T3/T5 casualties were
+# co-adaptation artifacts (heads following the trajectory average) vs
+# representational damage (trunk lost separability under the T1-neg flood).
+# If A recovers them -> composite artifact; if not -> Branch B (v2 trunk,
+# pre-authorized).
+base:
+  model_name_or_path: checkpoints/qwen3-06b-sec-m5a-dpo-r5
+  dtype: bf16
+probe:
+  tapped_layers: [4, 12, 20, 24, 28]
+  token_layers: [12, 28]
+  heads:
+    T1: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T2: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T3: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T4:
+      type: pii-dual
+      doc: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+      bio: {type: token-bio, dims: [2048, 512, 23], entity_types: 11, span_merge: bio-consecutive}
+      input: L12+L28-per-token-concat
+      flag_rule: doc_head_or_spans_nonempty
+    T5: {type: seq-mlp, dims: [1024, 256, 2], classes: 2}
+    T6: {type: seq-mlp, dims: [1024, 256, 3], classes: 3}
+  aux_ood:
+    mechanism: mahalanobis
+    classes: [benign, attack]
+    feature: trunk_output
+    fit_on: train
+    lambda: 0.1
+  loss:
+    task_weights: {T1: 1.4, T2: 1.4, T3: 1.7, T4: 1.0, T5: 1.3, T6: 1.0}
+    bio_weight: 2.0
+    bio_pos_weight: 15.0
+    label_masking: true
+run_id: m6-v2-4dt
+data:
+  manifest: data/m6/manifest.json
+  prefix_rows: exclude
+  seed: 42
+train:
+  max_epochs: 30
+  learning_rate: 0.001
+  optimizer: adamw
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.05
+  per_device_batch_size: 256
+  weight_decay: 0.01
+  grad_clip: 1.0
+  seed: 42
+  early_stop_patience: 3
+  bio_max_tokens: 512
+  extract_batch_rows: 16
+  # plane-consistent guard baseline (v2 weights on the final v2.2 plane --
+  # same data plane as this run): protects v2-level floors per task.
+  baseline_readings: {T1: 0.0135, T2: 0.9861, T3: 0.8396, T4: 0.8692, T5: 1.0, T6: 1.0}
+output_dir: checkpoints/m6-v2-4dt
+notes: 'Branch B composite (pre-authorized): fresh heads on the HEALTHY v2 trunk + current data incl. 26k T1 supervision (linear-probe logic: v2 T1 weakness = head trained on old data, not feature absence)
+  (deterministic post-processing, no basin lottery); guard vs v2 on the
+  final plane; epistemics = co-adaptation-artifact test for T2/T3/T5'
+
+
+
