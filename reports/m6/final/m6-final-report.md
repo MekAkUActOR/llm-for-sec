@@ -111,7 +111,7 @@ v0 = m5a-r5 原样模型套六任务口径。**探针架构（冻结主干 + 多
 | **评测/读数** | 六代读数链全档（qa-report-v12/v13/v2/v24/v24dt{,-qaop}-final.md）；per-item 预测快照 `reports/m6/preds/run-*/`（无重跑复算） |
 | **报告索引** | task13-final-adjudication.md（终裁材料）→ 本报告；ADR-2/2b（架构决策链 b24d0f4…560758e）；deveng-findings-summary.md（8511b29）；qa-task13-materials.md；task13-arch-sections.md（6098276） |
 | **复现** | 命令/种子/行集口径 = qa-task13-materials.md §③（训练 seed=42；选点网格枚举；推理 determinism 97f2860a） |
-| **远端交付** | `main-delivery` 裁剪分支（1.58GB / 最大文件 90.3MB，116 commit 信息/作者/日期/交付内容原样，仅剔除 6 个可再生缓存路径；109 条哈希映射 `reports/m6/remote-delivery-curation.md`；本地 main 完整历史不动）+ qa 终读证据收编（4 preds 目录 + h6 协议文档，d4a3a59） |
+| **远端交付** | `main-delivery` 裁剪分支（1.58GB / 最大文件 90.3MB，116 commit 信息/作者/日期/交付内容原样，仅剔除 6 个可再生缓存路径；109 条哈希映射 `reports/m6/remote-delivery-curation.md`；本地 main 完整历史不动）+ qa 终读证据收编（4 preds 目录 + h6 协议文档，d4a3a59）。**双链维护约定（Lead 终闭指示）**：远端 `main-delivery` = 交付视图（可再生缓存路径永久排除；hash 映射表为两链对照唯一权威）；本地 `main` = 完整历史（含缓存与全部中间态，研档权威）；远端推送一律走 `main-delivery`；跨链 hash 引用先查映射表；两链不得交叉 merge |
 
 **遗留问题** = §6 已知局限 + §7 路线图（post-window 执行域）。
 
