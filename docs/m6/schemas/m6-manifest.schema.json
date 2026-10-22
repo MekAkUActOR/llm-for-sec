@@ -178,6 +178,31 @@
               "description": "按 t6_class 分桶计数（如 {conditional: n, safe: n}）"
             }
           }
+        },
+        "t1_projection": {
+          "type": "object",
+          "required": ["projected", "withheld", "by_family", "whitelist", "note"],
+          "additionalProperties": false,
+          "description": "**D-g T1 方向投影**（§6.14 pool 六键惯例扩展到 T1，dataeng v2.1 波 ef0570d）：白名单族 neg 行加 T1-neg 键——构念依据 = 白名单族良性语境构造（synth 族 benign-context negs + m4-capfix carrier_clean_overrefusal VERDICT negs；conditional 行排除；**pos 行永不投影**）。门规则：行自身任务的提取器豁免（构念已定），另一提取器照跑（命中扣留 withheld）。与 T6 方向投影正交（582 行双投影重叠）。",
+          "properties": {
+            "projected": { "type": "integer", "minimum": 0, "description": "T1-neg 投影行数（= by_family 五族之和）" },
+            "withheld": { "type": "integer", "minimum": 0, "description": "另一提取器命中扣留行数（保持单键，arch 手工裁定通道）" },
+            "by_family": {
+              "type": "object",
+              "additionalProperties": { "type": "integer", "minimum": 0 },
+              "description": "按 source_family 分桶的投影计数（族和 = projected，审计对账锚点）"
+            },
+            "whitelist": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": { "enum": ["T1", "T2", "T3", "T4", "T5", "T6"] },
+                "minItems": 1
+              },
+              "description": "白名单：source_family → 原生任务键（该族 neg 行构念已定，可投影 T1-neg；m4-capfix 双任务 T5+T6）"
+            },
+            "note": { "type": "string", "description": "构念依据自述（供审计与读数回溯）" }
+          }
         }
       }
     },
