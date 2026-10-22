@@ -105,7 +105,7 @@ def forward_extract(model, input_ids, attention_mask, layers, pooling,
     """
     n_layers = model.config.num_hidden_layers
     out = model(input_ids=input_ids, attention_mask=attention_mask,
-                output_hidden_states=True, use_cache=False)
+                output_hidden_states=True, use_cache=False, logits_to_keep=1)
     hs = out.hidden_states
     assert len(hs) == n_layers + 1, f"hidden_states len {len(hs)} != {n_layers + 1}"
     idxs = sorted(set(layers))
@@ -127,7 +127,7 @@ def forward_extract_grad(model, input_ids, attention_mask, layers, pooling,
     """
     n_layers = model.config.num_hidden_layers
     out = model(input_ids=input_ids, attention_mask=attention_mask,
-                output_hidden_states=True, use_cache=False)
+                output_hidden_states=True, use_cache=False, logits_to_keep=1)
     hs = out.hidden_states
     assert len(hs) == n_layers + 1, f"hidden_states len {len(hs)} != {n_layers + 1}"
     idxs = sorted(set(layers))
@@ -150,7 +150,7 @@ def forward_pooled(model, input_ids, attention_mask, layers, pooling):
     """
     n_layers = model.config.num_hidden_layers
     out = model(input_ids=input_ids, attention_mask=attention_mask,
-                output_hidden_states=True, use_cache=False)
+                output_hidden_states=True, use_cache=False, logits_to_keep=1)
     hs = out.hidden_states
     assert len(hs) == n_layers + 1, f"hidden_states len {len(hs)} != {n_layers + 1}"
     idxs = sorted(set(layers))
@@ -164,7 +164,7 @@ def forward_token_states(model, input_ids, attention_mask, token_layers):
     Pad positions are zeroed via attention mask."""
     n_layers = model.config.num_hidden_layers
     out = model(input_ids=input_ids, attention_mask=attention_mask,
-                output_hidden_states=True, use_cache=False)
+                output_hidden_states=True, use_cache=False, logits_to_keep=1)
     hs = out.hidden_states
     assert len(hs) == n_layers + 1
     idxs = sorted(set(token_layers))
@@ -207,7 +207,7 @@ def extract_features(
         chunk = [build(t) for t in texts[i:i + batch_size]]
         enc = tok(chunk, return_tensors="pt", padding=True, truncation=True,
                   max_length=max_len, add_special_tokens=False).to(device)
-        out = model(**enc, output_hidden_states=True, use_cache=False)
+        out = model(**enc, output_hidden_states=True, use_cache=False, logits_to_keep=1)
         hs = out.hidden_states
         assert len(hs) == n_layers + 1, f"hidden_states len {len(hs)} != {n_layers + 1}"
         assert hs[0].shape[-1] == hidden, f"hidden dim {hs[0].shape[-1]} != {hidden}"
@@ -293,7 +293,7 @@ def extract_token_features(
         chunk = texts[i:i + batch_size]
         enc = tok(chunk, return_tensors="pt", padding=True, truncation=True,
                   max_length=max_len, add_special_tokens=False).to(device)
-        out = model(**enc, output_hidden_states=True, use_cache=False)
+        out = model(**enc, output_hidden_states=True, use_cache=False, logits_to_keep=1)
         hs = out.hidden_states
         assert len(hs) == n_layers + 1
         feat = torch.cat([hs[L] for L in idxs], dim=-1)  # [B, T, len*H]
@@ -318,7 +318,7 @@ def layer_sanity(model, tok, texts, device="cuda", max_len=2048):
     n_layers = model.config.num_hidden_layers
     enc = tok(texts, return_tensors="pt", padding=True, truncation=True,
               max_length=max_len, add_special_tokens=False).to(device)
-    hs = model(**enc, output_hidden_states=True, use_cache=False).hidden_states
+    hs = model(**enc, output_hidden_states=True, use_cache=False, logits_to_keep=1).hidden_states
     m = enc["attention_mask"].unsqueeze(-1).to(hs[0].dtype)
     pooled = [(h * m).sum(1) / m.sum(1).clamp_min(1.0) for h in hs]  # per layer [B,H]
     norms = [float(p.norm(dim=1).mean()) for p in pooled]
