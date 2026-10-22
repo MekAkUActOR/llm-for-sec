@@ -217,3 +217,23 @@ challenge 1,500（四族：sec-research 294/medical-legit 611/dualuse 186/inj-sh
 **终态**：train_rows 108,075（+9,788）；六任务门全过；isolation 五断言全 0；泄漏 exact 0/B2 0；schema 11 目录 invalid=0。arch 抽验四项绿（含内容级独立性 0 重合实证）。
 
 **T4 双语义注记**：识别语义（challenge 医疗 legit 行 pos+span，FPR 分母排除）vs flag 决策语义（训练/部署：合法语境不告警）——D-a 训练后者，两者不冲突但引用时需注明口径。
+
+---
+
+# v4. v2.1 波（T1 修复 D-f/D-g，commits ef0570d + ac70120）
+
+**背景**：v1-3 诊断 τ 35.76 = challenge-mirror 438 行零 T1 监督（94%）+ 1,144 行未标注良性极化面。
+
+**D-f t1-lawful**：700 行四构念族（medical-legal/sec-research/inj-shaped-benign/dualuse-legit 各 175，train 612/dev 88）——challenge-mirror 同构念 train 侧镜像。sec-research 模板选择 bug（guard%4 双用锁死索引 1，8 变体）已修为独立随机。medical 实体走 train 键池。
+
+**D-g T1-neg 投影**：白名单族 neg 行构念决定性投影（synth-pii 3,700 / synth-indirect 2,022 / m4-capfix carrier_clean_overrefusal VERDICT neg 842 / synth-jailbreak 473 / synth-multiturn 334 = 实数 7,371）+ m4-capfix cond 847 语义张力行排除（极性未定，与 high-risk 同边界类）。pos 行零投影（断言+白名单任务码机制）。
+
+**门检查集构念适配（arch 裁定）**：T1 = verdict-conditional 构念——T4/T5 客观模式提取器不是 T1 投影的裁定标准（159 benign 邮件载体 PII 形命中全释放）；T1 投影改用有害内容标记检查（64 新扣留）。已知取舍入档：有害标记与 near-miss 构念系统性相交（词 vs "有害话题+良性框架"），~12-64 行监督损失，v3+ 框架检测层候选。
+
+**机制根修**：T1 neg quota (3600,600,1200)→(3600,300,0)（dev 优先序根因，与 T2 修法同构）。
+
+**manifest 双口径**：t1_projection.by_family_actual（写盘实数）+ dual_overlap（576——循环计数因 pool dedup 孪生坍缩虚高的对账教训）。
+
+**T4 预备令 staging（16dc228，未接 build）**：t4-lawful-v2 1,300（实体配平 mrn/person/dob/plate）+ mirror 300——v2.1 读数后决策部署。
+
+**终态**：train_rows 111,291 · isolation 全 0 · 泄漏 exact 0/B2 0 · schema 11 目录 invalid=0 · arch 抽验绿（pos 零混入实证 + t1-lawful 0 内容重合）。
