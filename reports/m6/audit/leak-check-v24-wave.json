@@ -1,0 +1,363 @@
+{
+  "tool": "m6_leak_check",
+  "tag": "v24-wave",
+  "created": "2026-10-22T19:42:38",
+  "params": {
+    "minhash_k": 20,
+    "coarse_share": 3,
+    "watch": 0.3,
+    "flag": 0.5
+  },
+  "checks": [
+    {
+      "check": "L1 m6-train vs m6-eval",
+      "n": 16144,
+      "exact_hits": [],
+      "nfkc_hits": [],
+      "pass": true
+    },
+    {
+      "check": "L2 m6-train vs frozen-heldout",
+      "n": 2806,
+      "exact_hits": [],
+      "nfkc_hits": [],
+      "pass": true
+    },
+    {
+      "check": "L3 m6-train vs redteam",
+      "n": 170,
+      "exact_hits": [],
+      "nfkc_hits": [],
+      "pass": true
+    },
+    {
+      "check": "L4a m6-eval vs m6-train (5-gram containment)",
+      "n": 16144,
+      "flag_hits": 242507,
+      "watch_hits": 25548,
+      "top_flags": [
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000212",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000242",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000263",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000271",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000295",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000312",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000315",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000349",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000352",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000404",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000471",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000502",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000511",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000557",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000064",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000118",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000169",
+          "containment": 0.6346,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000239",
+          "containment": 0.6346,
+          "minhash_share": 9
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000438",
+          "containment": 0.6346,
+          "minhash_share": 9
+        },
+        {
+          "id": "m6-ch-000072",
+          "train_id": "m6-t1-lawful-000528",
+          "containment": 0.6346,
+          "minhash_share": 9
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000066",
+          "containment": 0.7612,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000460",
+          "containment": 0.7612,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000135",
+          "containment": 0.7612,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000142",
+          "containment": 0.7612,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000097",
+          "containment": 0.7612,
+          "minhash_share": 11
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000045",
+          "containment": 0.7612,
+          "minhash_share": 11
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000417",
+          "containment": 0.7612,
+          "minhash_share": 11
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000022",
+          "containment": 0.7612,
+          "minhash_share": 11
+        },
+        {
+          "id": "m6-ch-000077",
+          "train_id": "m6-t1-lawful-000192",
+          "containment": 0.7612,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000097",
+          "containment": 0.7647,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000142",
+          "containment": 0.7647,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000066",
+          "containment": 0.7647,
+          "minhash_share": 14
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000460",
+          "containment": 0.7941,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000417",
+          "containment": 0.7647,
+          "minhash_share": 13
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000135",
+          "containment": 0.7647,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000192",
+          "containment": 0.7647,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000045",
+          "containment": 0.7647,
+          "minhash_share": 12
+        },
+        {
+          "id": "m6-ch-000081",
+          "train_id": "m6-t1-lawful-000022",
+          "containment": 0.7647,
+          "minhash_share": 11
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000212",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000239",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000242",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000271",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000295",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000312",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000315",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000349",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000352",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000404",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000471",
+          "containment": 0.5905,
+          "minhash_share": 10
+        },
+        {
+          "id": "m6-ch-000143",
+          "train_id": "m6-t1-lawful-000502",
+          "containment": 0.5905,
+          "minhash_share": 10
+        }
+      ],
+      "pass": true,
+      "note": "披露读数：模板数据天然高 containment；硬违规由精确层（L1-L3/L5）判"
+    },
+    {
+      "check": "L4b redteam vs m6-train",
+      "n": 170,
+      "flag_hits": 0,
+      "watch_hits": 0,
+      "top_flags": [],
+      "pass": true,
+      "note": "披露读数：模板数据天然高 containment；硬违规由精确层（L1-L3/L5）判"
+    },
+    {
+      "check": "L5 t4-heldout vs t4-train（实体级断言主 + 8-gram 披露）",
+      "n": 3900,
+      "entity_hits": [],
+      "entity_hit_rows": 0,
+      "fulltext_8gram_shared_rows": 2562,
+      "pass": true,
+      "note": "全文 8-gram 共享含模板句式结构性相似（披露不判死）；实体级=span gold 实体文本子串匹配（硬断言）"
+    }
+  ],
+  "overall_pass": true
+}
