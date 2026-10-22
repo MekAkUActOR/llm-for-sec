@@ -675,6 +675,7 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
 
     logf = open(out_dir / "train_log.jsonl", "w", encoding="utf-8")
     best_key, best_state, best_lora, best_ep, bad = -1.0, None, None, -1, 0
+    lb_state, lb_lora, lb_ep, lb_best = None, None, -1, None
     step = 0
     snap_path = out_dir / "_snapshot.pt"
     resume_at = None
@@ -875,6 +876,19 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
             star = " *best*"
         else:
             bad += 1
+        # least-bad tracking (v2.1 lesson): when NO epoch passes the guard,
+        # the fallback must not blindly keep the LAST epoch -- a monotone
+        # collapse (ep1 0.9183 single-regress -> ep2 0.4724 multi-collapse)
+        # would ship the WORST state. Rank by (fewest regressed tasks,
+        # then highest macroR).
+        lb_key = (len(regress), -entry["macro_recall_zeroFP"])
+        if lb_state is None or lb_key < lb_best:
+            lb_best = lb_key
+            lb_ep = ep
+            lb_state = {k: v.detach().cpu().clone()
+                        for k, v in model.state_dict().items()}
+            from peft.utils import get_peft_model_state_dict
+            lb_lora = copy.deepcopy(get_peft_model_state_dict(pmodel))
         reg_note = f" REGRESSION={regress}" if regress else ""
         print(f"[m6_train] v2 ep{ep} macroR@zeroFP="
               f"{entry['macro_recall_zeroFP']:.4f}{star}{reg_note}")
@@ -883,15 +897,17 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
             break
     logf.close()
     if best_state is None:
-        # every epoch tripped the regression guard: keep the LAST epoch
-        # (fail-visible; the run report shows which tasks regressed)
-        print("[m6_train] v2 WARN: no epoch passed the regression guard; "
-              "keeping last epoch state")
-        best_state = {k: v.detach().cpu().clone()
-                      for k, v in model.state_dict().items()}
-        best_ep = -1
-        from peft.utils import get_peft_model_state_dict
-        best_lora = copy.deepcopy(get_peft_model_state_dict(pmodel))
+        # every epoch tripped the regression guard: keep the LEAST-BAD
+        # epoch (fewest regressed tasks, then highest macroR) -- NOT the
+        # last (v2.1: last == collapsed epoch). Fail-visible: the run
+        # report still shows which tasks regressed.
+        best_state = lb_state
+        best_lora = lb_lora
+        best_ep = -lb_ep  # negative = least-bad marker, magnitude = epoch
+        best_key = -lb_best[1]
+        print(f"[m6_train] v2 WARN: no epoch passed the regression guard; "
+              f"keeping LEAST-BAD epoch {lb_ep} "
+              f"({lb_best[0]} regressed tasks, macroR {-lb_best[1]:.4f})")
     model.load_state_dict(best_state)
     model.eval()
 
