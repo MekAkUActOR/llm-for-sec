@@ -1,7 +1,9 @@
 # deveng-m6 Findings Summary (task-13/14 source material)
 
 **Scope**: v2 iteration chain → delivery candidates. All commits `[deveng-m6]`-prefixed on main; only Lead pushes.
-**Status at write time (20:3x)**: qa full-chain read running on **checkpoints/m6-v2-4dt @ 19eaaba (gate-only)** — the delivery-candidate artifact per arch's confirmed object.
+**DELIVERY CONFIRMED (arch 21:1x)**: **checkpoints/m6-v2-4dt @ 19eaaba = the delivery artifact** (QA point; full chain: assembly macro 0.935 + gate −51% FP + isolation perfect [red-team/T3/G1 zero perturbation]). v2 archived as lineage.
+**Post-window engineering roadmap (arch-ordered, task-13 roadmap chapter)**: ① span context gate (doc-contextualized span validity — NOT subordination; 9% TP load-bearing proven; doc-quiet spans → "pending-context" intermediate state + context classifier) ② OOD head repair (learned discriminator w/ mirror supervision — principled first choice; or robust stats patch; gains computed on the 1.00x baseline) ③ span-only demotion re-eval AFTER OOD head repair ④ lawful-hard coverage deepening (T1-G3 3.3x calib path) ⑤ recipe stabilization (basin-lottery structural root: 17.7k T1-neg balance × head lr).
+**Macro arc (all zero-FP)**: v1-2 0.681 → v1-3 0.818 → v2 0.866 → v2.4 0.910 → **v2.4-dt 0.935**.
 
 ## 1. Artifact menu (delivery judgment = arch's domain)
 
