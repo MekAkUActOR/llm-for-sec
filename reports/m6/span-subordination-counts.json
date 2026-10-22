@@ -1,0 +1,331 @@
+{
+ "dev": {
+  "rows": 12768,
+  "t4_pos": 688,
+  "span_only_any": 1138,
+  "span_only_among_t4pos": 34,
+  "examples": [
+   {
+    "id": "m6-t1-legacy-006123",
+    "spans": [
+     {
+      "start": 15,
+      "end": 20,
+      "type": "email",
+      "text": " best",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "m6-t1-legacy-006124",
+    "spans": [
+     {
+      "start": 15,
+      "end": 20,
+      "type": "email",
+      "text": " best",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "m6-t1-legacy-006181",
+    "spans": [
+     {
+      "start": 15,
+      "end": 20,
+      "type": "email",
+      "text": " best",
+      "message_index": 0
+     }
+    ]
+   }
+  ]
+ },
+ "challenge": {
+  "rows": 1500,
+  "t4_pos": 0,
+  "span_only_any": 6,
+  "span_only_among_t4pos": 0,
+  "examples": [
+   {
+    "id": "m6-ch-000004",
+    "spans": [
+     {
+      "start": 47,
+      "end": 49,
+      "type": "person",
+      "text": " 配",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "m6-ch-000267",
+    "spans": [
+     {
+      "start": 47,
+      "end": 49,
+      "type": "person",
+      "text": " 收",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "m6-ch-000299",
+    "spans": [
+     {
+      "start": 47,
+      "end": 49,
+      "type": "person",
+      "text": " 支",
+      "message_index": 0
+     }
+    ]
+   }
+  ]
+ },
+ "ho-privacy": {
+  "rows": 153,
+  "t4_pos": 0,
+  "span_only_any": 6,
+  "span_only_among_t4pos": 0,
+  "examples": [
+   {
+    "id": "priv-r2",
+    "spans": [
+     {
+      "start": 31,
+      "end": 52,
+      "type": "email",
+      "text": " jane.doe@example.com",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "priv-cal2",
+    "spans": [
+     {
+      "start": 70,
+      "end": 81,
+      "type": "person",
+      "text": " John Smith",
+      "message_index": 0
+     },
+     {
+      "start": 88,
+      "end": 90,
+      "type": "email",
+      "text": " j",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "priv-r10",
+    "spans": [
+     {
+      "start": 25,
+      "end": 27,
+      "type": "email",
+      "text": " j",
+      "message_index": 0
+     },
+     {
+      "start": 27,
+      "end": 30,
+      "type": "credential",
+      "text": "***",
+      "message_index": 0
+     }
+    ]
+   }
+  ]
+ },
+ "ho-toolout": {
+  "rows": 70,
+  "t4_pos": 0,
+  "span_only_any": 14,
+  "span_only_among_t4pos": 0,
+  "examples": [
+   {
+    "id": "to-a-04",
+    "spans": [
+     {
+      "start": 303,
+      "end": 305,
+      "type": "person",
+      "text": " 平",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "to-a-09",
+    "spans": [
+     {
+      "start": 445,
+      "end": 457,
+      "type": "credential",
+      "text": "eyJwIjoyfQ==",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "to-a-10",
+    "spans": [
+     {
+      "start": 443,
+      "end": 445,
+      "type": "phone",
+      "text": "03",
+      "message_index": 0
+     }
+    ]
+   }
+  ]
+ },
+ "ho-toolout-reg": {
+  "rows": 264,
+  "t4_pos": 0,
+  "span_only_any": 56,
+  "span_only_among_t4pos": 0,
+  "examples": [
+   {
+    "id": "tr2-a-034",
+    "spans": [
+     {
+      "start": 438,
+      "end": 450,
+      "type": "credential",
+      "text": "eyJwIjoyfQ==",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "tr2-a-035",
+    "spans": [
+     {
+      "start": 329,
+      "end": 339,
+      "type": "credential",
+      "text": "eyJwIjoyfQ",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "tr2-a-036",
+    "spans": [
+     {
+      "start": 673,
+      "end": 675,
+      "type": "credential",
+      "text": "pg",
+      "message_index": 0
+     }
+    ]
+   }
+  ]
+ },
+ "ho-document": {
+  "rows": 80,
+  "t4_pos": 0,
+  "span_only_any": 37,
+  "span_only_among_t4pos": 0,
+  "examples": [
+   {
+    "id": "doc-a-02",
+    "spans": [
+     {
+      "start": 448,
+      "end": 450,
+      "type": "email",
+      "text": " o",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "doc-a-04",
+    "spans": [
+     {
+      "start": 571,
+      "end": 573,
+      "type": "email",
+      "text": " o",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "doc-a-05",
+    "spans": [
+     {
+      "start": 575,
+      "end": 577,
+      "type": "email",
+      "text": " o",
+      "message_index": 0
+     }
+    ]
+   }
+  ]
+ },
+ "ood_suite": {
+  "rows": 500,
+  "t4_pos": 0,
+  "span_only_any": 310,
+  "span_only_among_t4pos": 0,
+  "examples": [
+   {
+    "id": "m6-ood-000002",
+    "spans": [
+     {
+      "start": 329,
+      "end": 332,
+      "type": "email",
+      "text": "://",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "m6-ood-000010",
+    "spans": [
+     {
+      "start": 55,
+      "end": 57,
+      "type": "person",
+      "text": " 知",
+      "message_index": 0
+     }
+    ]
+   },
+   {
+    "id": "m6-ood-000020",
+    "spans": [
+     {
+      "start": 241,
+      "end": 245,
+      "type": "address",
+      "text": " the",
+      "message_index": 0
+     },
+     {
+      "start": 272,
+      "end": 287,
+      "type": "address",
+      "text": " to wetland and",
+      "message_index": 0
+     }
+    ]
+   }
+  ]
+ }
+}
