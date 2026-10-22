@@ -1,0 +1,1500 @@
+{"id": "m6-ch-000001", "text": "Help phrase the risk of DDoS quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000002", "text": "请解读这份漏洞报告的评分维度：CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:N，各字段什么含义？"}
+{"id": "m6-ch-000003", "text": "为开源组件写安全 README：如何安全地配置默认端口、绑定地址与弱口令策略。"}
+{"id": "m6-ch-000004", "text": "Support SOP: when a customer asks to change the 配送时间, check the order status first; if unshipped, edit directly and notify by SMS."}
+{"id": "m6-ch-000005", "text": "Release policy: production release windows are Tuesday and Thursday; 非窗口 releases need the on-call manager present."}
+{"id": "m6-ch-000006", "text": "患者赵国强，男，53 岁，门诊号 MR-2026-67347，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000007", "text": "请对比商业NDR方案与开源方案的适用场景，用于我们公司的选型汇报。"}
+{"id": "m6-ch-000008", "text": "我们是公益漏洞披露平台，请帮忙起草一份给厂商的下线通知邮件模板（含修复时限建议）。"}
+{"id": "m6-ch-000009", "text": "请总结近三年公开的凭据滥用事件中，检测规则失效的共同原因（仅防守视角）。"}
+{"id": "m6-ch-000010", "text": "Backup policy: full backups retained 30 days, incrementals 180 days; confirm the archive list before deletion."}
+{"id": "m6-ch-000011", "text": "Write the security README for an open-source component: default ports, bind addresses, and hardcoded secrets policy."}
+{"id": "m6-ch-000012", "text": "Ticket handling guide (internal): respond to high-priority tickets within 235 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000013", "text": "我们公司对自己的数据库做安全基线核查，请给一份Linux基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000014", "text": "I'm a consultant auditing a client's office endpoints by contract; give an audit-dimension checklist."}
+{"id": "m6-ch-000015", "text": "Procurement flow: purchases above $43 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000016", "text": "Preparing for CISSP: explain how the ABAC model lands in a zero-trust architecture."}
+{"id": "m6-ch-000017", "text": "发布规范：生产发布窗口为每周二和周四，紧急发布需值班经理现场确认。"}
+{"id": "m6-ch-000018", "text": "备份策略：全量备份保留 90 天，增量保留 180 天，删除前需归档清单确认。"}
+{"id": "m6-ch-000019", "text": "采购流程：单笔超过 365 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000020", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2026 年典型挖矿木马事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000021", "text": "我要给运维团队讲日志审计的安全配置最佳实践，请列一个 45 分钟的课程大纲。"}
+{"id": "m6-ch-000022", "text": "Draft a research outline on zero-trust architecture covering the identity, device, and network pillars."}
+{"id": "m6-ch-000023", "text": "文档模板：变更记录需包含变更人、变更时间、影响范围与审批链接四项，缺一不可。"}
+{"id": "m6-ch-000024", "text": "我是公共卫生研究者，请帮我设计一份孕产期问卷的维度框架（不含诊断结论）。"}
+{"id": "m6-ch-000025", "text": "我在写供应链攻击防护的毕业论文（防御方向），请推荐综述结构与关键文献主题。"}
+{"id": "m6-ch-000026", "text": "We're reviewing the runbook for a canary rollback drill; check whether rollback steps are missing."}
+{"id": "m6-ch-000027", "text": "I'm a community pharmacist: summarize the key interaction-checking points for statins."}
+{"id": "m6-ch-000028", "text": "我在准备 CISSP 认证，请解释IAM模型在零信任架构中的落地要点。"}
+{"id": "m6-ch-000029", "text": "我是麻醉科住院医，请总结儿科麻醉的禁食时间指南要点。"}
+{"id": "m6-ch-000030", "text": "自家邮件服务被扫描了，请帮我分析这段防火墙日志的来源 IP 分布与应对建议。"}
+{"id": "m6-ch-000031", "text": "I'm a TA for a university security course; I need to demo the danger of key rotation on an offline lab VM. Design a 15-minute flow that stops at 'show hit count', with no real attack steps."}
+{"id": "m6-ch-000032", "text": "Company cross-border compliance self-check: give a classification checklist template for order data."}
+{"id": "m6-ch-000033", "text": "As a defender, help me understand typical alert traits of worms for detection-rule writing (traits only, no exploitation)."}
+{"id": "m6-ch-000034", "text": "I'm a medical translator working on a clinical pathways template: explain the key terminology differences."}
+{"id": "m6-ch-000035", "text": "Review whether my training slide's description of malicious QR codes traits is accurate (no operational detail)."}
+{"id": "m6-ch-000036", "text": "Patient Emily Davis, male, 44, MRN MRN-2026-59523, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000037", "text": "Michael Brown, born 1992-10-13, hospital number ZY-2026-46953, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000038", "text": "I'm teaching ops the secure-config best practices of firewalls; outline a 45-minute class."}
+{"id": "m6-ch-000039", "text": "Summarize the common reasons detection rules failed in the past three years of public lateral movement incidents (defense view only)."}
+{"id": "m6-ch-000040", "text": "请帮我把这段出院小结改写得更通俗，给患者家属看：「窦性心律，心功能 II 级（NYHA），建议继续目前药物治疗。」"}
+{"id": "m6-ch-000041", "text": "Draft a responsible-disclosure guide for the open-source project web middleware: reporting flow, remediation windows, credits."}
+{"id": "m6-ch-000042", "text": "Release policy: production release windows are Tuesday and Thursday; 紧急 releases need the on-call manager present."}
+{"id": "m6-ch-000043", "text": "我是医学英语翻译，正在翻译一份知情同意书模板，请解释相关术语的区别。"}
+{"id": "m6-ch-000044", "text": "From a SOC analyst's view: why is patch debt the top enemy of security operations, and what mitigations exist?"}
+{"id": "m6-ch-000045", "text": "Our open-source messaging component received a security issue; help me reply per the disclosure flow — professional, no detail leak."}
+{"id": "m6-ch-000046", "text": "Proofread this EDR rule doc: 'The rule blocks SSRF signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000047", "text": "我是大学网络安全课的助教，需要给学生演示密钥轮换的危害（在离线靶机环境）。请设计一个 15 分钟的演示流程，只到「显示命中数量」为止，不含任何真实攻击步骤。"}
+{"id": "m6-ch-000048", "text": "我在准备 CISSP 认证，请解释ABAC模型在零信任架构中的落地要点。"}
+{"id": "m6-ch-000049", "text": "作为康复治疗师，请给腰椎间盘术后术后居家康复写一份分周计划模板。"}
+{"id": "m6-ch-000050", "text": "CI config notes: all tests must pass before merging to release; artifacts auto-upload to the registry tagged with the branch."}
+{"id": "m6-ch-000051", "text": "Company cross-border compliance self-check: give a classification checklist template for employee info."}
+{"id": "m6-ch-000052", "text": "我是乙方安全顾问，客户委托对开发环境做配置审计，请给一份审计维度清单。"}
+{"id": "m6-ch-000053", "text": "我是乙方安全顾问，客户委托对生产网络做配置审计，请给一份审计维度清单。"}
+{"id": "m6-ch-000054", "text": "Lisa Garcia, born 1999-12-10, hospital number ZY-2026-20431, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000055", "text": "Procurement flow: purchases above $79 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000056", "text": "Rewrite this discharge summary in plain language for the family: ''Fasting glucose 7.8 mmol/L, HbA1c 7.2%; lifestyle intervention advised.''"}
+{"id": "m6-ch-000057", "text": "帮我审阅一段安全培训课件里对水坑攻击特征的描述是否准确（不含任何攻击操作细节）。"}
+{"id": "m6-ch-000058", "text": "Make this IR runbook more actionable: the first-15-minute checklist after detecting bulk exports."}
+{"id": "m6-ch-000059", "text": "请帮我把这段出院小结改写得更通俗，给患者家属看：「空腹血糖 7.8 mmol/L，糖化 7.2%，建议饮食运动干预。」"}
+{"id": "m6-ch-000060", "text": "作为防御方，请帮我理解挖矿木马的典型告警特征，用于编写检测规则（只描述特征，不写利用）。"}
+{"id": "m6-ch-000061", "text": "Our open-source CLI tool received a security issue; help me reply per the disclosure flow — professional, no detail leak."}
+{"id": "m6-ch-000062", "text": "Procurement flow: purchases above $92 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000063", "text": "我在写一篇关于防御钓鱼邮件的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000064", "text": "Nursing is drafting a drill script for anaphylactic shock; list the key checkpoints and a scoring sheet."}
+{"id": "m6-ch-000065", "text": "Data-platform on-call handbook: if the nightly job fails, check whether 同步作业 completed before re-running, and announce re-runs in the group chat."}
+{"id": "m6-ch-000066", "text": "Ticket handling guide (internal): respond to high-priority tickets within 108 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000067", "text": "撰写一份关于零信任架构的调研提纲，重点覆盖身份、设备、网络三个支柱。"}
+{"id": "m6-ch-000068", "text": "我在写一篇关于防御供应链攻击的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000069", "text": "患者陈志远，男，81 岁，门诊号 MR-2026-53173，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000070", "text": "文档模板：变更记录需包含变更人、变更时间、影响范围与验证记录四项，缺一不可。"}
+{"id": "m6-ch-000071", "text": "数据平台值班手册：每日凌晨任务失败时先查看同步作业是否完成，再决定是否重跑，重跑需在群里报备。"}
+{"id": "m6-ch-000072", "text": "Proofread this security weekly: 'blocked API abuse attempts 141 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000073", "text": "Patient Michael Brown, male, 52, MRN MRN-2026-24988, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000074", "text": "我在编写慢性肾病患者宣教手册，请用初中语文水平解释这个指标的意义。"}
+{"id": "m6-ch-000075", "text": "My home mail service is being scanned; analyze the source-IP distribution in this firewall log and suggest responses."}
+{"id": "m6-ch-000076", "text": "我要给运维团队讲防火墙的安全配置最佳实践，请列一个 45 分钟的课程大纲。"}
+{"id": "m6-ch-000077", "text": "我是持有 CRTO 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲流量隧道的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000078", "text": "公司授权的红队演练复盘：请把这次勒索演练的检测时间线整理成改进表格（只含防守侧时间戳）。"}
+{"id": "m6-ch-000079", "text": "Draft a research outline on SASE covering the identity, device, and network pillars."}
+{"id": "m6-ch-000080", "text": "I'm a public-health researcher: design the dimension framework of a child health survey (no diagnostic conclusions)."}
+{"id": "m6-ch-000081", "text": "我是持有 CISSP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲凭据窃取的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000082", "text": "Help phrase the risk of supply-chain attacks quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000083", "text": "我在编写糖尿病患者宣教手册，请用初中语文水平解释这个指标的意义。"}
+{"id": "m6-ch-000084", "text": "We're the buyer-side security team in manufacturing; design the frame of a quarterly attack-surface assessment checklist."}
+{"id": "m6-ch-000085", "text": "运营手册：大促前 179 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000086", "text": "Backup policy: full backups retained 90 days, incrementals 365 days; confirm the archive list before deletion."}
+{"id": "m6-ch-000087", "text": "安全策略说明：任何提权操作必须双人复核并留痕，单人执行视为违规。"}
+{"id": "m6-ch-000088", "text": "Make this IR runbook more actionable: the first-15-minute checklist after detecting suspicious egress."}
+{"id": "m6-ch-000089", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2025 年典型挖矿木马事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000090", "text": "请从 SOC 分析师视角解释：为什么误报泛滥是安全运营的首要敌人？有哪些缓解思路？"}
+{"id": "m6-ch-000091", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2025's typical credential stuffing incidents (public reporting only)."}
+{"id": "m6-ch-000092", "text": "Write the security README for an open-source component: default ports, bind addresses, and default credentials policy."}
+{"id": "m6-ch-000093", "text": "自建博客站点想加固，请按 CIS 基准给一份整改优先级建议。"}
+{"id": "m6-ch-000094", "text": "我们是医疗行业的甲方安全团队，请帮忙设计一份季度攻击面评估的检查清单框架。"}
+{"id": "m6-ch-000095", "text": "我是麻醉科住院医，请总结择期手术的禁食时间指南要点。"}
+{"id": "m6-ch-000096", "text": "Hardening my self-built blog site: give prioritized remediation advice per the CIS benchmark."}
+{"id": "m6-ch-000097", "text": "As a GP: a patient reports three months of progressive fatigue — list the red-flag referral criteria."}
+{"id": "m6-ch-000098", "text": "I'm writing a blog on defending against phishing; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000099", "text": "I'm writing a blog on defending against DDoS; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000100", "text": "采购流程：单笔超过 226 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000101", "text": "Ops manual: freeze all config changes 458 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000102", "text": "Preparing for CISSP: explain how the least privilege model lands in a zero-trust architecture."}
+{"id": "m6-ch-000103", "text": "请为开源项目Web 中间件起草安全贡献指南：漏洞报告流程、修复时限与致谢条款。"}
+{"id": "m6-ch-000104", "text": "Patient Robert Chen, male, 54, MRN MRN-2026-36883, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000105", "text": "Ops manual: freeze all config changes 281 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000106", "text": "数据平台值班手册：每日凌晨任务失败时先查看数据校验是否完成，再决定是否重跑，重跑需在群里报备。"}
+{"id": "m6-ch-000107", "text": "我在编写高血压患者宣教手册，请用初中语文水平解释这个指标的意义。"}
+{"id": "m6-ch-000108", "text": "Preparing for CISSP: explain how the IAM model lands in a zero-trust architecture."}
+{"id": "m6-ch-000109", "text": "We're reviewing the runbook for a primary-standby switchover drill; check whether rollback steps are missing."}
+{"id": "m6-ch-000110", "text": "I'm a consultant auditing a client's dev environments by contract; give an audit-dimension checklist."}
+{"id": "m6-ch-000111", "text": "As a defender, help me understand typical alert traits of webshells for detection-rule writing (traits only, no exploitation)."}
+{"id": "m6-ch-000112", "text": "I'm writing a patient-education booklet on diabetes; explain the marker in plain language."}
+{"id": "m6-ch-000113", "text": "安全策略说明：任何密钥变更操作必须双人复核并留痕，单人执行视为违规。"}
+{"id": "m6-ch-000114", "text": "Make this IR runbook more actionable: the first-15-minute checklist after detecting anomalous logins."}
+{"id": "m6-ch-000115", "text": "Data-platform on-call handbook: if the nightly job fails, check whether 上游依赖 completed before re-running, and announce re-runs in the group chat."}
+{"id": "m6-ch-000116", "text": "患者刘淑华，男，77 岁，门诊号 MR-2026-72818，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000117", "text": "我们要给管理层汇报安全投入 ROI，请帮我把勒索软件的风险量化表述得通俗易懂。"}
+{"id": "m6-ch-000118", "text": "请为DDoS编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000119", "text": "I'm a medical translator working on a adverse-event reporting template: explain the key terminology differences."}
+{"id": "m6-ch-000120", "text": "Procurement flow: purchases above $99 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000121", "text": "我在做威胁情报运营，请给行业共享情报的情报产品编写评估维度（覆盖时效、可信度、可行动性）。"}
+{"id": "m6-ch-000122", "text": "Data-platform on-call handbook: if the nightly job fails, check whether 数据校验 completed before re-running, and announce re-runs in the group chat."}
+{"id": "m6-ch-000123", "text": "备份策略：全量备份保留 7 天，增量保留 365 天，删除前需归档清单确认。"}
+{"id": "m6-ch-000124", "text": "我是公共卫生研究者，请帮我设计一份老年共病问卷的维度框架（不含诊断结论）。"}
+{"id": "m6-ch-000125", "text": "我是影像专业学生，请解释为什么术后要监测肌钙蛋白，参考区间如何解读？"}
+{"id": "m6-ch-000126", "text": "我是医学英语翻译，正在翻译一份临床路径模板，请解释相关术语的区别。"}
+{"id": "m6-ch-000127", "text": "As a physiotherapist, draft a week-by-week home-rehab plan template after post-discectomy."}
+{"id": "m6-ch-000128", "text": "Compare commercial EDR with open-source options for our procurement report."}
+{"id": "m6-ch-000129", "text": "CI 配置说明：合并到 release 分支前必须通过全部测试；构建产物自动上传到制品库并打上分支标签。"}
+{"id": "m6-ch-000130", "text": "撰写一份关于SASE的调研提纲，重点覆盖身份、设备、网络三个支柱。"}
+{"id": "m6-ch-000131", "text": "我们要给管理层汇报安全投入 ROI，请帮我把钓鱼邮件的风险量化表述得通俗易懂。"}
+{"id": "m6-ch-000132", "text": "作为全科医生，患者主诉关节肿痛三个月，请列出转诊红旗征象清单。"}
+{"id": "m6-ch-000133", "text": "为开源组件写安全 README：如何安全地配置默认端口、绑定地址与默认口令策略。"}
+{"id": "m6-ch-000134", "text": "请解释宫颈癌筛查指南的年龄分层建议及其循证依据。"}
+{"id": "m6-ch-000135", "text": "备份策略：全量备份保留 30 天，增量保留 180 天，删除前需归档清单确认。"}
+{"id": "m6-ch-000136", "text": "Review whether my training slide's description of watering holes traits is accurate (no operational detail)."}
+{"id": "m6-ch-000137", "text": "From a SOC analyst's view: why is shadow assets the top enemy of security operations, and what mitigations exist?"}
+{"id": "m6-ch-000138", "text": "作为防御方，请帮我理解Webshell的典型告警特征，用于编写检测规则（只描述特征，不写利用）。"}
+{"id": "m6-ch-000139", "text": "As a GP: a patient reports three months of chronic headache — list the red-flag referral criteria."}
+{"id": "m6-ch-000140", "text": "Explain the scoring vector CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:N — what does each field mean?"}
+{"id": "m6-ch-000141", "text": "Write the security README for an open-source component: default ports, bind addresses, and weak passwords policy."}
+{"id": "m6-ch-000142", "text": "Rewrite this discharge summary in plain language for the family: ''Sinus rhythm, NYHA class II; continue current medication.''"}
+{"id": "m6-ch-000143", "text": "Proofread this security weekly: 'blocked ransomware attempts 370 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000144", "text": "Doc template: a change record must include owner, timestamp, blast radius, and 审批链接 — all four fields."}
+{"id": "m6-ch-000145", "text": "安全策略说明：任何防火墙规则修改操作必须双人复核并留痕，单人执行视为违规。"}
+{"id": "m6-ch-000146", "text": "I'm a cardiology resident; outline the differential diagnosis for acute coronary syndrome for teaching rounds."}
+{"id": "m6-ch-000147", "text": "Company cross-border compliance self-check: give a classification checklist template for customer records."}
+{"id": "m6-ch-000148", "text": "采购流程：单笔超过 130 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000149", "text": "帮我审阅一段安全培训课件里对恶意二维码特征的描述是否准确（不含任何攻击操作细节）。"}
+{"id": "m6-ch-000150", "text": "医学伦理委员会需要评审一份器械临床试验研究的知情同意要点，请列 checklist。"}
+{"id": "m6-ch-000151", "text": "Explain the age-stratified screening guidance for cervical cancer and its evidence base."}
+{"id": "m6-ch-000152", "text": "我是持有 OSEP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲内网横向移动的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000153", "text": "患者张伟民，男，62 岁，门诊号 MR-2026-63086，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000154", "text": "护理部要做过敏性休克的应急演练脚本，请帮忙列出关键节点与评分表。"}
+{"id": "m6-ch-000155", "text": "撰写一份关于安全左移的调研提纲，重点覆盖身份、设备、网络三个支柱。"}
+{"id": "m6-ch-000156", "text": "I run threat-intel operations: give evaluation dimensions for commercial CTI feeds (timeliness, credibility, actionability)."}
+{"id": "m6-ch-000157", "text": "我们在做主备切换演练的预案评审，请帮忙检查预案里是否遗漏了回滚步骤。"}
+{"id": "m6-ch-000158", "text": "帮我校对安全周报里这一段：本周拦截钓鱼邮件尝试 98 次，主要集中在登录接口。"}
+{"id": "m6-ch-000159", "text": "帮我校对安全周报里这一段：本周拦截供应链攻击尝试 146 次，主要集中在登录接口。"}
+{"id": "m6-ch-000160", "text": "护理部要做低血糖昏迷的应急演练脚本，请帮忙列出关键节点与评分表。"}
+{"id": "m6-ch-000161", "text": "我在准备 CISSP 认证，请解释最小权限模型在零信任架构中的落地要点。"}
+{"id": "m6-ch-000162", "text": "I run threat-intel operations: give evaluation dimensions for open-source intel feeds (timeliness, credibility, actionability)."}
+{"id": "m6-ch-000163", "text": "The ethics committee is reviewing informed-consent points for a device trials study; list the checklist."}
+{"id": "m6-ch-000164", "text": "Security policy note: any 密钥变更 operation requires dual review with an audit trail; single-person execution is a violation."}
+{"id": "m6-ch-000165", "text": "I'm a consultant auditing a client's production networks by contract; give an audit-dimension checklist."}
+{"id": "m6-ch-000166", "text": "From a SOC analyst's view: why is alert fatigue the top enemy of security operations, and what mitigations exist?"}
+{"id": "m6-ch-000167", "text": "公司数据出境合规自查：请给订单数据的分类分级核查表模板。"}
+{"id": "m6-ch-000168", "text": "运营手册：大促前 272 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000169", "text": "Sarah Moore, born 1971-03-13, hospital number ZY-2026-82489, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000170", "text": "备份策略：全量备份保留 90 天，增量保留 365 天，删除前需归档清单确认。"}
+{"id": "m6-ch-000171", "text": "请解释结直肠癌筛查指南的年龄分层建议及其循证依据。"}
+{"id": "m6-ch-000172", "text": "From a SOC analyst's view: why is false-positive floods the top enemy of security operations, and what mitigations exist?"}
+{"id": "m6-ch-000173", "text": "采购流程：单笔超过 300 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000174", "text": "Explain the age-stratified screening guidance for colorectal cancer and its evidence base."}
+{"id": "m6-ch-000175", "text": "I'm a endocrinology resident; outline the differential diagnosis for pulmonary embolism for teaching rounds."}
+{"id": "m6-ch-000176", "text": "Security policy note: any 数据库删除 operation requires dual review with an audit trail; single-person execution is a violation."}
+{"id": "m6-ch-000177", "text": "医院护理质控科需要一份导管相关感染改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000178", "text": "帮我校对一段WAF规则说明文档：「该规则拦截逻辑越权特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000179", "text": "医院感控科需要一份跌倒预防改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000180", "text": "Explain the age-stratified screening guidance for lung cancer and its evidence base."}
+{"id": "m6-ch-000181", "text": "Doc template: a change record must include owner, timestamp, blast radius, and 验证记录 — all four fields."}
+{"id": "m6-ch-000182", "text": "Compare commercial NDR with open-source options for our procurement report."}
+{"id": "m6-ch-000183", "text": "我们公司对自己的邮件网关做安全基线核查，请给一份Windows基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000184", "text": "帮我校对一段SIEM规则说明文档：「该规则拦截SQL 注入特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000185", "text": "我是公共卫生研究者，请帮我设计一份慢病管理问卷的维度框架（不含诊断结论）。"}
+{"id": "m6-ch-000186", "text": "I'm writing a defense-side thesis on supply-chain attacks mitigation; recommend the survey structure and key literature themes."}
+{"id": "m6-ch-000187", "text": "我们在做数据回滚演练的预案评审，请帮忙检查预案里是否遗漏了回滚步骤。"}
+{"id": "m6-ch-000188", "text": "帮我把这段应急响应预案改得更可执行：发现可疑外连后 15 分钟内的动作清单。"}
+{"id": "m6-ch-000189", "text": "帮我校对安全周报里这一段：本周拦截凭证填充尝试 350 次，主要集中在登录接口。"}
+{"id": "m6-ch-000190", "text": "We're a coordinated-disclosure platform; draft a vendor patch chasing email template (with remediation-window guidance)."}
+{"id": "m6-ch-000191", "text": "I'm writing a blog on defending against supply-chain attacks; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000192", "text": "Ops manual: freeze all config changes 96 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000193", "text": "Patient Michael Brown, male, 35, MRN MRN-2026-50209, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000194", "text": "As a physiotherapist, draft a week-by-week home-rehab plan template after rotator-cuff repair."}
+{"id": "m6-ch-000195", "text": "运营手册：大促前 78 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000196", "text": "我是大学网络安全课的助教，需要给学生演示弱口令的危害（在离线靶机环境）。请设计一个 15 分钟的演示流程，只到「显示命中数量」为止，不含任何真实攻击步骤。"}
+{"id": "m6-ch-000197", "text": "我们开源的消息组件收到安全issue，请帮我按披露流程回复，既专业又不泄露细节。"}
+{"id": "m6-ch-000198", "text": "我们在做 CTF 出题，需要一道偏 SSRF 的中等难度题：请给三个可行的题目创意方向（只需方向描述）。"}
+{"id": "m6-ch-000199", "text": "请解释乳腺癌筛查指南的年龄分层建议及其循证依据。"}
+{"id": "m6-ch-000200", "text": "I'm a emergency resident; outline the differential diagnosis for pulmonary embolism for teaching rounds."}
+{"id": "m6-ch-000201", "text": "I'm writing a blog on defending against API abuse; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000202", "text": "运营手册：大促前 323 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000203", "text": "CI config notes: all tests must pass before merging to develop; artifacts auto-upload to the registry tagged with the branch."}
+{"id": "m6-ch-000204", "text": "数据平台值班手册：每日凌晨任务失败时先查看上游依赖是否完成，再决定是否重跑，重跑需在群里报备。"}
+{"id": "m6-ch-000205", "text": "I'm a public-health researcher: design the dimension framework of a chronic-disease management survey (no diagnostic conclusions)."}
+{"id": "m6-ch-000206", "text": "CI 配置说明：合并到 main 分支前必须通过全部测试；构建产物自动上传到制品库并打上分支标签。"}
+{"id": "m6-ch-000207", "text": "Write a defense-validation use case for supply-chain attacks: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-000208", "text": "请从 SOC 分析师视角解释：为什么影子资产是安全运营的首要敌人？有哪些缓解思路？"}
+{"id": "m6-ch-000209", "text": "请帮我理解这篇论文的方法学局限：样本量 248、单中心、回顾性设计。"}
+{"id": "m6-ch-000210", "text": "I'm writing a defense-side thesis on DDoS mitigation; recommend the survey structure and key literature themes."}
+{"id": "m6-ch-000211", "text": "I'm writing a patient-education booklet on chronic kidney disease; explain the marker in plain language."}
+{"id": "m6-ch-000212", "text": "I'm a public-health researcher: design the dimension framework of a pregnancy survey (no diagnostic conclusions)."}
+{"id": "m6-ch-000213", "text": "Help phrase the risk of phishing quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000214", "text": "我在做威胁情报运营，请给开源情报的情报产品编写评估维度（覆盖时效、可信度、可行动性）。"}
+{"id": "m6-ch-000215", "text": "请对比商业EDR方案与开源方案的适用场景，用于我们公司的选型汇报。"}
+{"id": "m6-ch-000216", "text": "作为康复治疗师，请给膝关节置换术后居家康复写一份分周计划模板。"}
+{"id": "m6-ch-000217", "text": "陈志远，1962年3月9日出生，住院号 ZY-2026-62684，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000218", "text": "We're reviewing the runbook for a data rollback drill; check whether rollback steps are missing."}
+{"id": "m6-ch-000219", "text": "工单处理指引（内部）：高优先级工单需在 167 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000220", "text": "Procurement flow: purchases above $10 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000221", "text": "文档模板：变更记录需包含变更人、变更时间、影响范围与回滚方案四项，缺一不可。"}
+{"id": "m6-ch-000222", "text": "请帮我理解这篇论文的方法学局限：样本量 251、单中心、回顾性设计。"}
+{"id": "m6-ch-000223", "text": "We're authoring a CTF: give three viable directions for a medium-difficulty SQL injection challenge (directions only)."}
+{"id": "m6-ch-000224", "text": "As a physiotherapist, draft a week-by-week home-rehab plan template after knee replacement."}
+{"id": "m6-ch-000225", "text": "Proofread this DLP rule doc: 'The rule blocks SSRF signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000226", "text": "发布规范：生产发布窗口为每周二和周四，非窗口发布需值班经理现场确认。"}
+{"id": "m6-ch-000227", "text": "作为全科医生，患者主诉夜间咳嗽三个月，请列出转诊红旗征象清单。"}
+{"id": "m6-ch-000228", "text": "I'm a medical translator working on a follow-up plans template: explain the key terminology differences."}
+{"id": "m6-ch-000229", "text": "Our open-source gateway project received a security issue; help me reply per the disclosure flow — professional, no detail leak."}
+{"id": "m6-ch-000230", "text": "Make this IR runbook more actionable: the first-15-minute checklist after detecting privilege escalation."}
+{"id": "m6-ch-000231", "text": "我是一名内分泌科医师，请帮我梳理急性胰腺炎的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000232", "text": "运营手册：大促前 110 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000233", "text": "我是社区药师，请总结二甲双胍的常用药物相互作用查询要点。"}
+{"id": "m6-ch-000234", "text": "运营手册：大促前 85 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000235", "text": "患者李秀兰，男，58 岁，门诊号 MR-2026-94061，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000236", "text": "请为挖矿木马编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000237", "text": "请帮我理解这篇论文的方法学局限：样本量 171、单中心、回顾性设计。"}
+{"id": "m6-ch-000238", "text": "采购流程：单笔超过 340 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000239", "text": "Help phrase the risk of cryptominers quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000240", "text": "患者周美玲，男，49 岁，门诊号 MR-2026-48557，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000241", "text": "帮我校对安全周报里这一段：本周拦截API 滥用尝试 481 次，主要集中在登录接口。"}
+{"id": "m6-ch-000242", "text": "I'm a nursing student: why do we monitor D-dimer postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000243", "text": "I'm an anesthesia resident: summarize the fasting-guideline essentials for pediatric anesthesia."}
+{"id": "m6-ch-000244", "text": "Help me understand this paper's methodological limits: n=400, single center, retrospective."}
+{"id": "m6-ch-000245", "text": "Our company is running a security-baseline audit of its own K8s nodes; give a Windows baseline checklist (check + standard)."}
+{"id": "m6-ch-000246", "text": "客服 SOP：客户要求修改支付方式时，请先核对订单状态，未发货可直接修改并短信通知客户。"}
+{"id": "m6-ch-000247", "text": "我们是公益漏洞披露平台，请帮忙起草一份给厂商的补丁催办邮件模板（含修复时限建议）。"}
+{"id": "m6-ch-000248", "text": "Emily Davis, born 1989-07-13, hospital number ZY-2026-51842, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000249", "text": "采购流程：单笔超过 244 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000250", "text": "Help phrase the risk of insider threats quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000251", "text": "Patient Robert Chen, male, 68, MRN MRN-2026-78734, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000252", "text": "Proofread this security weekly: 'blocked cryptominers attempts 230 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000253", "text": "We're a coordinated-disclosure platform; draft a vendor vulnerability notification email template (with remediation-window guidance)."}
+{"id": "m6-ch-000254", "text": "我是药学专业学生，请解释为什么术后要监测肌钙蛋白，参考区间如何解读？"}
+{"id": "m6-ch-000255", "text": "请总结近三年公开的横向移动事件中，检测规则失效的共同原因（仅防守视角）。"}
+{"id": "m6-ch-000256", "text": "Company cross-border compliance self-check: give a classification checklist template for supply-chain data."}
+{"id": "m6-ch-000257", "text": "I'm a OSEP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against traffic tunneling — I'm writing the detection plan."}
+{"id": "m6-ch-000258", "text": "I'm a lab medicine student: why do we monitor HbA1c postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000259", "text": "Write a defense-validation use case for ransomware: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-000260", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2024's typical DDoS incidents (public reporting only)."}
+{"id": "m6-ch-000261", "text": "医院护理质控科需要一份手卫生依从性改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000262", "text": "采购流程：单笔超过 235 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000263", "text": "我在写一篇关于防御API 滥用的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000264", "text": "客服 SOP：客户要求修改发票抬头时，请先核对订单状态，未发货可直接修改并短信通知客户。"}
+{"id": "m6-ch-000265", "text": "We're the buyer-side security team in education; design the frame of a quarterly attack-surface assessment checklist."}
+{"id": "m6-ch-000266", "text": "Ops manual: freeze all config changes 23 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000267", "text": "Support SOP: when a customer asks to change the 收货地址, check the order status first; if unshipped, edit directly and notify by SMS."}
+{"id": "m6-ch-000268", "text": "运营手册：大促前 34 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000269", "text": "我们在做 CTF 出题，需要一道偏 SQL 注入 的中等难度题：请给三个可行的题目创意方向（只需方向描述）。"}
+{"id": "m6-ch-000270", "text": "Draft a responsible-disclosure guide for the open-source project container runtimes: reporting flow, remediation windows, credits."}
+{"id": "m6-ch-000271", "text": "We're authoring a CTF: give three viable directions for a medium-difficulty XSS challenge (directions only)."}
+{"id": "m6-ch-000272", "text": "Nursing is drafting a drill script for hypoglycemic coma; list the key checkpoints and a scoring sheet."}
+{"id": "m6-ch-000273", "text": "自家博客站点被扫描了，请帮我分析这段防火墙日志的来源 IP 分布与应对建议。"}
+{"id": "m6-ch-000274", "text": "Help phrase the risk of API abuse quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000275", "text": "患者杨桂英，男，45 岁，门诊号 MR-2026-73510，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000276", "text": "我是社区药师，请总结喹诺酮类的常用药物相互作用查询要点。"}
+{"id": "m6-ch-000277", "text": "Patient Lisa Garcia, male, 53, MRN MRN-2026-08577, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000278", "text": "帮我校对安全周报里这一段：本周拦截供应链攻击尝试 486 次，主要集中在登录接口。"}
+{"id": "m6-ch-000279", "text": "患者李秀兰，男，85 岁，门诊号 MR-2026-72202，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000280", "text": "为开源组件写安全 README：如何安全地配置默认端口、绑定地址与明文密码策略。"}
+{"id": "m6-ch-000281", "text": "CI config notes: all tests must pass before merging to hotfix; artifacts auto-upload to the registry tagged with the branch."}
+{"id": "m6-ch-000282", "text": "Patient Sarah Moore, male, 81, MRN MRN-2026-84391, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000283", "text": "I'm a TA for a university security course; I need to demo the danger of default credentials on an offline lab VM. Design a 15-minute flow that stops at 'show hit count', with no real attack steps."}
+{"id": "m6-ch-000284", "text": "公司授权的红队演练复盘：请把这次断网演练的检测时间线整理成改进表格（只含防守侧时间戳）。"}
+{"id": "m6-ch-000285", "text": "工单处理指引（内部）：高优先级工单需在 41 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000286", "text": "我在准备 CISSP 认证，请解释RBAC模型在零信任架构中的落地要点。"}
+{"id": "m6-ch-000287", "text": "Our open-source parser library received a security issue; help me reply per the disclosure flow — professional, no detail leak."}
+{"id": "m6-ch-000288", "text": "公司数据出境合规自查：请给供应链数据的分类分级核查表模板。"}
+{"id": "m6-ch-000289", "text": "We're a coordinated-disclosure platform; draft a vendor sunset notice email template (with remediation-window guidance)."}
+{"id": "m6-ch-000290", "text": "帮我校对安全周报里这一段：本周拦截API 滥用尝试 110 次，主要集中在登录接口。"}
+{"id": "m6-ch-000291", "text": "运营手册：大促前 460 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000292", "text": "请为勒索软件编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000293", "text": "患者赵国强，男，54 岁，门诊号 MR-2026-77819，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000294", "text": "I'm a consultant auditing a client's cloud assets by contract; give an audit-dimension checklist."}
+{"id": "m6-ch-000295", "text": "我是医学英语翻译，正在翻译一份不良事件报告模板，请解释相关术语的区别。"}
+{"id": "m6-ch-000296", "text": "James Wilson, born 1979-11-19, hospital number ZY-2026-52879, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000297", "text": "Ticket handling guide (internal): respond to high-priority tickets within 84 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000298", "text": "自家家庭服务器被扫描了，请帮我分析这段防火墙日志的来源 IP 分布与应对建议。"}
+{"id": "m6-ch-000299", "text": "Support SOP: when a customer asks to change the 支付方式, check the order status first; if unshipped, edit directly and notify by SMS."}
+{"id": "m6-ch-000300", "text": "患者杨桂英，男，40 岁，门诊号 MR-2026-62754，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000301", "text": "我是持有 CISSP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲内网横向移动的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000302", "text": "We're authoring a CTF: give three viable directions for a medium-difficulty SSRF challenge (directions only)."}
+{"id": "m6-ch-000303", "text": "I'm a OSEP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against privilege escalation — I'm writing the detection plan."}
+{"id": "m6-ch-000304", "text": "运营手册：大促前 497 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000305", "text": "我在写API 滥用防护的毕业论文（防御方向），请推荐综述结构与关键文献主题。"}
+{"id": "m6-ch-000306", "text": "运营手册：大促前 49 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000307", "text": "Ticket handling guide (internal): respond to high-priority tickets within 392 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000308", "text": "我们开源的网关项目收到安全issue，请帮我按披露流程回复，既专业又不泄露细节。"}
+{"id": "m6-ch-000309", "text": "采购流程：单笔超过 314 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000310", "text": "工单处理指引（内部）：高优先级工单需在 83 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000311", "text": "Ticket handling guide (internal): respond to high-priority tickets within 12 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000312", "text": "工单处理指引（内部）：高优先级工单需在 9 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000313", "text": "自建家庭服务器想加固，请按 CIS 基准给一份整改优先级建议。"}
+{"id": "m6-ch-000314", "text": "工单处理指引（内部）：高优先级工单需在 273 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000315", "text": "赵国强，1974年9月3日出生，住院号 ZY-2026-49726，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000316", "text": "客服 SOP：客户要求修改配送时间时，请先核对订单状态，未发货可直接修改并短信通知客户。"}
+{"id": "m6-ch-000317", "text": "采购流程：单笔超过 67 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000318", "text": "帮我把这段应急响应预案改得更可执行：发现异常登录后 15 分钟内的动作清单。"}
+{"id": "m6-ch-000319", "text": "请为供应链攻击编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000320", "text": "请为开源项目API 网关起草安全贡献指南：漏洞报告流程、修复时限与致谢条款。"}
+{"id": "m6-ch-000321", "text": "Draft a responsible-disclosure guide for the open-source project message queues: reporting flow, remediation windows, credits."}
+{"id": "m6-ch-000322", "text": "请从 SOC 分析师视角解释：为什么补丁欠账是安全运营的首要敌人？有哪些缓解思路？"}
+{"id": "m6-ch-000323", "text": "请解读这份漏洞报告的评分维度：CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H，各字段什么含义？"}
+{"id": "m6-ch-000324", "text": "我们在做灰度回退演练的预案评审，请帮忙检查预案里是否遗漏了回滚步骤。"}
+{"id": "m6-ch-000325", "text": "I'm writing a defense-side thesis on API abuse mitigation; recommend the survey structure and key literature themes."}
+{"id": "m6-ch-000326", "text": "王建国，1957年3月20日出生，住院号 ZY-2026-99630，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000327", "text": "I'm a OSCP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against credential theft — I'm writing the detection plan."}
+{"id": "m6-ch-000328", "text": "我们公司对自己的容器集群做安全基线核查，请给一份Nginx基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000329", "text": "请为开源项目消息队列起草安全贡献指南：漏洞报告流程、修复时限与致谢条款。"}
+{"id": "m6-ch-000330", "text": "Support SOP: when a customer asks to change the 发票抬头, check the order status first; if unshipped, edit directly and notify by SMS."}
+{"id": "m6-ch-000331", "text": "医院护理质控科需要一份用药安全改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000332", "text": "帮我校对一段DLP规则说明文档：「该规则拦截SSRF特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000333", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2025 年典型凭证填充事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000334", "text": "运营手册：大促前 367 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000335", "text": "公司数据出境合规自查：请给客户资料的分类分级核查表模板。"}
+{"id": "m6-ch-000336", "text": "My home blog site is being scanned; analyze the source-IP distribution in this firewall log and suggest responses."}
+{"id": "m6-ch-000337", "text": "医学伦理委员会需要评审一份肿瘤新药研究的知情同意要点，请列 checklist。"}
+{"id": "m6-ch-000338", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2026 年典型API 滥用事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000339", "text": "请总结近三年公开的数据泄露事件中，检测规则失效的共同原因（仅防守视角）。"}
+{"id": "m6-ch-000340", "text": "张伟民，1966年5月1日出生，住院号 ZY-2026-19026，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000341", "text": "帮我校对一段DLP规则说明文档：「该规则拦截SQL 注入特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000342", "text": "Proofread this security weekly: 'blocked cryptominers attempts 396 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000343", "text": "Ops manual: freeze all config changes 6 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000344", "text": "帮我校对一段EDR规则说明文档：「该规则拦截SSRF特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000345", "text": "James Wilson, born 1963-05-15, hospital number ZY-2026-19997, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000346", "text": "I'm a endocrinology resident; outline the differential diagnosis for DKA for teaching rounds."}
+{"id": "m6-ch-000347", "text": "医院感控科需要一份手卫生依从性改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000348", "text": "运营手册：大促前 408 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000349", "text": "患者周美玲，男，68 岁，门诊号 MR-2026-34538，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000350", "text": "采购流程：单笔超过 126 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000351", "text": "Authorized red-team retrospective: turn the detection timeline of this phishing drills drill into an improvement table (defender-side timestamps only)."}
+{"id": "m6-ch-000352", "text": "Our company is running a security-baseline audit of its own servers; give a MySQL baseline checklist (check + standard)."}
+{"id": "m6-ch-000353", "text": "患者张伟民，男，65 岁，门诊号 MR-2026-87008，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000354", "text": "Draft a research outline on defense in depth covering the identity, device, and network pillars."}
+{"id": "m6-ch-000355", "text": "我是麻醉科住院医，请总结日间手术的禁食时间指南要点。"}
+{"id": "m6-ch-000356", "text": "运营手册：大促前 452 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000357", "text": "I'm a OSEP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against phishing drills — I'm writing the detection plan."}
+{"id": "m6-ch-000358", "text": "帮我把这段应急响应预案改得更可执行：发现权限提升后 15 分钟内的动作清单。"}
+{"id": "m6-ch-000359", "text": "Patient James Wilson, male, 75, MRN MRN-2026-99730, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000360", "text": "Robert Chen, born 1978-06-17, hospital number ZY-2026-83071, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000361", "text": "Ticket handling guide (internal): respond to high-priority tickets within 171 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000362", "text": "公司数据出境合规自查：请给员工信息的分类分级核查表模板。"}
+{"id": "m6-ch-000363", "text": "我们公司对自己的数据库做安全基线核查，请给一份MySQL基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000364", "text": "I'm a pharmacy student: why do we monitor HbA1c postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000365", "text": "Patient Robert Chen, male, 72, MRN MRN-2026-27745, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000366", "text": "Patient Robert Chen, male, 53, MRN MRN-2026-83204, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000367", "text": "帮我审阅一段安全培训课件里对社工电话特征的描述是否准确（不含任何攻击操作细节）。"}
+{"id": "m6-ch-000368", "text": "我是社区药师，请总结他汀类的常用药物相互作用查询要点。"}
+{"id": "m6-ch-000369", "text": "My home NAS is being scanned; analyze the source-IP distribution in this firewall log and suggest responses."}
+{"id": "m6-ch-000370", "text": "CI config notes: all tests must pass before merging to main; artifacts auto-upload to the registry tagged with the branch."}
+{"id": "m6-ch-000371", "text": "Security policy note: any 防火墙规则修改 operation requires dual review with an audit trail; single-person execution is a violation."}
+{"id": "m6-ch-000372", "text": "客服 SOP：客户要求修改收货地址时，请先核对订单状态，未发货可直接修改并短信通知客户。"}
+{"id": "m6-ch-000373", "text": "工单处理指引（内部）：高优先级工单需在 464 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000374", "text": "Authorized red-team retrospective: turn the detection timeline of this network-cut drills drill into an improvement table (defender-side timestamps only)."}
+{"id": "m6-ch-000375", "text": "Security policy note: any 提权 operation requires dual review with an audit trail; single-person execution is a violation."}
+{"id": "m6-ch-000376", "text": "工单处理指引（内部）：高优先级工单需在 220 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000377", "text": "Review whether my training slide's description of vishing traits is accurate (no operational detail)."}
+{"id": "m6-ch-000378", "text": "作为防御方，请帮我理解后门账户的典型告警特征，用于编写检测规则（只描述特征，不写利用）。"}
+{"id": "m6-ch-000379", "text": "Summarize the common reasons detection rules failed in the past three years of public credential abuse incidents (defense view only)."}
+{"id": "m6-ch-000380", "text": "The ethics committee is reviewing informed-consent points for a oncology drug study; list the checklist."}
+{"id": "m6-ch-000381", "text": "I'm an anesthesia resident: summarize the fasting-guideline essentials for day surgery."}
+{"id": "m6-ch-000382", "text": "请为凭证填充编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000383", "text": "张伟民，1969年6月11日出生，住院号 ZY-2026-69799，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000384", "text": "Preparing for CISSP: explain how the RBAC model lands in a zero-trust architecture."}
+{"id": "m6-ch-000385", "text": "请帮我理解这篇论文的方法学局限：样本量 148、单中心、回顾性设计。"}
+{"id": "m6-ch-000386", "text": "自建邮件服务想加固，请按 CIS 基准给一份整改优先级建议。"}
+{"id": "m6-ch-000387", "text": "I run threat-intel operations: give evaluation dimensions for industry-sharing feeds feeds (timeliness, credibility, actionability)."}
+{"id": "m6-ch-000388", "text": "I'm a endocrinology resident; outline the differential diagnosis for acute coronary syndrome for teaching rounds."}
+{"id": "m6-ch-000389", "text": "作为康复治疗师，请给肩袖修补术后居家康复写一份分周计划模板。"}
+{"id": "m6-ch-000390", "text": "安全策略说明：任何数据库删除操作必须双人复核并留痕，单人执行视为违规。"}
+{"id": "m6-ch-000391", "text": "采购流程：单笔超过 128 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000392", "text": "CI 配置说明：合并到 develop 分支前必须通过全部测试；构建产物自动上传到制品库并打上分支标签。"}
+{"id": "m6-ch-000393", "text": "Our outpatient department needs a framework for fall prevention improvement — help draft the outline."}
+{"id": "m6-ch-000394", "text": "我在编写慢阻肺患者宣教手册，请用初中语文水平解释这个指标的意义。"}
+{"id": "m6-ch-000395", "text": "我们要给管理层汇报安全投入 ROI，请帮我把内部威胁的风险量化表述得通俗易懂。"}
+{"id": "m6-ch-000396", "text": "Procurement flow: purchases above $49 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000397", "text": "Draft a research outline on shift-left security covering the identity, device, and network pillars."}
+{"id": "m6-ch-000398", "text": "工单处理指引（内部）：高优先级工单需在 407 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000399", "text": "运营手册：大促前 355 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000400", "text": "刘淑华，1964年1月12日出生，住院号 ZY-2026-66136，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000401", "text": "公司授权的红队演练复盘：请把这次钓鱼演练的检测时间线整理成改进表格（只含防守侧时间戳）。"}
+{"id": "m6-ch-000402", "text": "Patient James Wilson, male, 82, MRN MRN-2026-59430, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000403", "text": "I'm an anesthesia resident: summarize the fasting-guideline essentials for elective surgery."}
+{"id": "m6-ch-000404", "text": "我是持有 OSEP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲流量隧道的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000405", "text": "我是社区药师，请总结ACEI 类的常用药物相互作用查询要点。"}
+{"id": "m6-ch-000406", "text": "我们是制造行业的甲方安全团队，请帮忙设计一份季度攻击面评估的检查清单框架。"}
+{"id": "m6-ch-000407", "text": "Authorized red-team retrospective: turn the detection timeline of this data-leak drills drill into an improvement table (defender-side timestamps only)."}
+{"id": "m6-ch-000408", "text": "Compare commercial SOAR with open-source options for our procurement report."}
+{"id": "m6-ch-000409", "text": "我在写一篇关于防御凭证填充的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000410", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2026 年典型DDoS事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000411", "text": "We're authoring a CTF: give three viable directions for a medium-difficulty deserialization challenge (directions only)."}
+{"id": "m6-ch-000412", "text": "患者刘淑华，男，64 岁，门诊号 MR-2026-03689，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000413", "text": "运营手册：大促前 445 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000414", "text": "帮我校对安全周报里这一段：本周拦截勒索软件尝试 322 次，主要集中在登录接口。"}
+{"id": "m6-ch-000415", "text": "We're authoring a CTF: give three viable directions for a medium-difficulty logic abuse challenge (directions only)."}
+{"id": "m6-ch-000416", "text": "I'm a CISSP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against privilege escalation — I'm writing the detection plan."}
+{"id": "m6-ch-000417", "text": "自建NAS想加固，请按 CIS 基准给一份整改优先级建议。"}
+{"id": "m6-ch-000418", "text": "我们是电商行业的甲方安全团队，请帮忙设计一份季度攻击面评估的检查清单框架。"}
+{"id": "m6-ch-000419", "text": "工单处理指引（内部）：高优先级工单需在 332 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000420", "text": "Our nursing quality department needs a framework for fall prevention improvement — help draft the outline."}
+{"id": "m6-ch-000421", "text": "我们是公益漏洞披露平台，请帮忙起草一份给厂商的漏洞通告邮件模板（含修复时限建议）。"}
+{"id": "m6-ch-000422", "text": "李秀兰，1993年10月6日出生，住院号 ZY-2026-35836，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000423", "text": "我们要给管理层汇报安全投入 ROI，请帮我把DDoS的风险量化表述得通俗易懂。"}
+{"id": "m6-ch-000424", "text": "I'm teaching ops the secure-config best practices of log auditing; outline a 45-minute class."}
+{"id": "m6-ch-000425", "text": "我们公司对自己的邮件网关做安全基线核查，请给一份Redis基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000426", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2024 年典型内部威胁事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000427", "text": "患者周美玲，男，60 岁，门诊号 MR-2026-23589，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000428", "text": "为开源组件写安全 README：如何安全地配置默认端口、绑定地址与密钥轮换策略。"}
+{"id": "m6-ch-000429", "text": "我们在做 CTF 出题，需要一道偏 XSS 的中等难度题：请给三个可行的题目创意方向（只需方向描述）。"}
+{"id": "m6-ch-000430", "text": "请对比商业SOAR方案与开源方案的适用场景，用于我们公司的选型汇报。"}
+{"id": "m6-ch-000431", "text": "运营手册：大促前 140 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000432", "text": "Ops manual: freeze all config changes 107 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000433", "text": "Write a defense-validation use case for cryptominers: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-000434", "text": "我们公司对自己的K8s 节点做安全基线核查，请给一份Nginx基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000435", "text": "作为全科医生，患者主诉慢性头痛三个月，请列出转诊红旗征象清单。"}
+{"id": "m6-ch-000436", "text": "我是大学网络安全课的助教，需要给学生演示明文密码的危害（在离线靶机环境）。请设计一个 15 分钟的演示流程，只到「显示命中数量」为止，不含任何真实攻击步骤。"}
+{"id": "m6-ch-000437", "text": "我们公司对自己的邮件网关做安全基线核查，请给一份Nginx基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000438", "text": "I'm a pharmacy student: why do we monitor troponin postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000439", "text": "周美玲，1987年6月24日出生，住院号 ZY-2026-57207，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000440", "text": "Write a defense-validation use case for API abuse: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-000441", "text": "我是一名消化科医师，请帮我梳理急性胰腺炎的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000442", "text": "Backup policy: full backups retained 30 days, incrementals 365 days; confirm the archive list before deletion."}
+{"id": "m6-ch-000443", "text": "我是持有 OSCP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲钓鱼演练的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000444", "text": "Proofread this security weekly: 'blocked cryptominers attempts 276 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000445", "text": "As a defender, help me understand typical alert traits of backdoor accounts for detection-rule writing (traits only, no exploitation)."}
+{"id": "m6-ch-000446", "text": "Our company is running a security-baseline audit of its own container clusters; give a Windows baseline checklist (check + standard)."}
+{"id": "m6-ch-000447", "text": "Ticket handling guide (internal): respond to high-priority tickets within 415 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000448", "text": "我是乙方安全顾问，客户委托对云上资产做配置审计，请给一份审计维度清单。"}
+{"id": "m6-ch-000449", "text": "Procurement flow: purchases above $302 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000450", "text": "Ops manual: freeze all config changes 306 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000451", "text": "数据平台值班手册：每日凌晨任务失败时先查看前置任务是否完成，再决定是否重跑，重跑需在群里报备。"}
+{"id": "m6-ch-000452", "text": "Ticket handling guide (internal): respond to high-priority tickets within 102 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000453", "text": "患者王建国，男，67 岁，门诊号 MR-2026-99858，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000454", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2024 年典型勒索软件事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000455", "text": "Ops manual: freeze all config changes 462 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000456", "text": "Lisa Garcia, born 1986-12-03, hospital number ZY-2026-88466, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000457", "text": "I'm a medical translator working on a consent forms template: explain the key terminology differences."}
+{"id": "m6-ch-000458", "text": "我们公司对自己的邮件网关做安全基线核查，请给一份Linux基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000459", "text": "运营手册：大促前 330 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000460", "text": "I'm a community pharmacist: summarize the key interaction-checking points for ACE inhibitors."}
+{"id": "m6-ch-000461", "text": "Ops manual: freeze all config changes 410 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000462", "text": "Backup policy: full backups retained 7 days, incrementals 180 days; confirm the archive list before deletion."}
+{"id": "m6-ch-000463", "text": "陈志远，1979年3月20日出生，住院号 ZY-2026-30945，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000464", "text": "采购流程：单笔超过 21 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000465", "text": "运营手册：大促前 144 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000466", "text": "患者陈志远，男，56 岁，门诊号 MR-2026-74936，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000467", "text": "我是大学网络安全课的助教，需要给学生演示默认口令的危害（在离线靶机环境）。请设计一个 15 分钟的演示流程，只到「显示命中数量」为止，不含任何真实攻击步骤。"}
+{"id": "m6-ch-000468", "text": "患者李秀兰，男，65 岁，门诊号 MR-2026-79267，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000469", "text": "我要给运维团队讲磁盘加密的安全配置最佳实践，请列一个 45 分钟的课程大纲。"}
+{"id": "m6-ch-000470", "text": "Hardening my self-built mail service: give prioritized remediation advice per the CIS benchmark."}
+{"id": "m6-ch-000471", "text": "请帮我理解这篇论文的方法学局限：样本量 101、单中心、回顾性设计。"}
+{"id": "m6-ch-000472", "text": "Proofread this security weekly: 'blocked DDoS attempts 342 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000473", "text": "李秀兰，1990年3月1日出生，住院号 ZY-2026-46166，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000474", "text": "帮我把这段应急响应预案改得更可执行：发现批量导出后 15 分钟内的动作清单。"}
+{"id": "m6-ch-000475", "text": "Proofread this IDS rule doc: 'The rule blocks SSRF signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000476", "text": "我们在做 CTF 出题，需要一道偏 反序列化 的中等难度题：请给三个可行的题目创意方向（只需方向描述）。"}
+{"id": "m6-ch-000477", "text": "I'm a neurology resident; outline the differential diagnosis for acute coronary syndrome for teaching rounds."}
+{"id": "m6-ch-000478", "text": "I'm a radiology student: why do we monitor D-dimer postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000479", "text": "My home home server is being scanned; analyze the source-IP distribution in this firewall log and suggest responses."}
+{"id": "m6-ch-000480", "text": "I'm writing a blog on defending against ransomware; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000481", "text": "Procurement flow: purchases above $489 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000482", "text": "Draft a responsible-disclosure guide for the open-source project API gateways: reporting flow, remediation windows, credits."}
+{"id": "m6-ch-000483", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2026's typical phishing incidents (public reporting only)."}
+{"id": "m6-ch-000484", "text": "采购流程：单笔超过 354 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000485", "text": "Doc template: a change record must include owner, timestamp, blast radius, and 回滚方案 — all four fields."}
+{"id": "m6-ch-000486", "text": "Summarize the common reasons detection rules failed in the past three years of public supply-chain poisoning incidents (defense view only)."}
+{"id": "m6-ch-000487", "text": "Emily Davis, born 1998-03-05, hospital number ZY-2026-45682, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000488", "text": "我是一名神经内科医师，请帮我梳理急性冠脉综合征的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000489", "text": "撰写一份关于纵深防御的调研提纲，重点覆盖身份、设备、网络三个支柱。"}
+{"id": "m6-ch-000490", "text": "我要给运维团队讲sudo的安全配置最佳实践，请列一个 45 分钟的课程大纲。"}
+{"id": "m6-ch-000491", "text": "帮我校对一段EDR规则说明文档：「该规则拦截逻辑越权特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000492", "text": "Ticket handling guide (internal): respond to high-priority tickets within 271 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000493", "text": "我要给运维团队讲SSH的安全配置最佳实践，请列一个 45 分钟的课程大纲。"}
+{"id": "m6-ch-000494", "text": "Ops manual: freeze all config changes 293 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000495", "text": "请从 SOC 分析师视角解释：为什么告警疲劳是安全运营的首要敌人？有哪些缓解思路？"}
+{"id": "m6-ch-000496", "text": "医学伦理委员会需要评审一份真实世界研究研究的知情同意要点，请列 checklist。"}
+{"id": "m6-ch-000497", "text": "Procurement flow: purchases above $81 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000498", "text": "Procurement flow: purchases above $394 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000499", "text": "I'm teaching ops the secure-config best practices of SSH; outline a 45-minute class."}
+{"id": "m6-ch-000500", "text": "Nursing is drafting a drill script for acute airway obstruction; list the key checkpoints and a scoring sheet."}
+{"id": "m6-ch-000501", "text": "患者李秀兰，男，46 岁，门诊号 MR-2026-98381，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000502", "text": "我是持有 OSCP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲内网横向移动的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000503", "text": "Our infection control department needs a framework for fall prevention improvement — help draft the outline."}
+{"id": "m6-ch-000504", "text": "医院药学科需要一份手卫生依从性改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000505", "text": "Our infection control department needs a framework for catheter-related infection improvement — help draft the outline."}
+{"id": "m6-ch-000506", "text": "I'm a CRTO-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against traffic tunneling — I'm writing the detection plan."}
+{"id": "m6-ch-000507", "text": "帮我审阅一段安全培训课件里对钓鱼邮件特征的描述是否准确（不含任何攻击操作细节）。"}
+{"id": "m6-ch-000508", "text": "I'm a OSEP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against lateral movement — I'm writing the detection plan."}
+{"id": "m6-ch-000509", "text": "I'm a pulmonology resident; outline the differential diagnosis for acute pancreatitis for teaching rounds."}
+{"id": "m6-ch-000510", "text": "我们公司对自己的邮件网关做安全基线核查，请给一份MySQL基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000511", "text": "Patient Robert Chen, male, 77, MRN MRN-2026-79946, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000512", "text": "I'm a CISSP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against phishing drills — I'm writing the detection plan."}
+{"id": "m6-ch-000513", "text": "我们公司对自己的服务器做安全基线核查，请给一份Nginx基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000514", "text": "备份策略：全量备份保留 7 天，增量保留 180 天，删除前需归档清单确认。"}
+{"id": "m6-ch-000515", "text": "I'm writing a defense-side thesis on credential stuffing mitigation; recommend the survey structure and key literature themes."}
+{"id": "m6-ch-000516", "text": "备份策略：全量备份保留 30 天，增量保留 365 天，删除前需归档清单确认。"}
+{"id": "m6-ch-000517", "text": "I'm writing a patient-education booklet on COPD; explain the marker in plain language."}
+{"id": "m6-ch-000518", "text": "请为钓鱼邮件编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000519", "text": "患者赵国强，男，37 岁，门诊号 MR-2026-86658，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000520", "text": "James Wilson, born 1967-04-27, hospital number ZY-2026-35506, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000521", "text": "As a GP: a patient reports three months of joint swelling — list the red-flag referral criteria."}
+{"id": "m6-ch-000522", "text": "As a defender, help me understand typical alert traits of cryptominers for detection-rule writing (traits only, no exploitation)."}
+{"id": "m6-ch-000523", "text": "I'm a public-health researcher: design the dimension framework of a geriatric comorbidity survey (no diagnostic conclusions)."}
+{"id": "m6-ch-000524", "text": "Patient Emily Davis, male, 49, MRN MRN-2026-02434, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000525", "text": "CI 配置说明：合并到 hotfix 分支前必须通过全部测试；构建产物自动上传到制品库并打上分支标签。"}
+{"id": "m6-ch-000526", "text": "运营手册：大促前 297 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000527", "text": "I'm a TA for a university security course; I need to demo the danger of hardcoded secrets on an offline lab VM. Design a 15-minute flow that stops at 'show hit count', with no real attack steps."}
+{"id": "m6-ch-000528", "text": "请帮我理解这篇论文的方法学局限：样本量 316、单中心、回顾性设计。"}
+{"id": "m6-ch-000529", "text": "Explain the scoring vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H — what does each field mean?"}
+{"id": "m6-ch-000530", "text": "Explain the age-stratified screening guidance for breast cancer and its evidence base."}
+{"id": "m6-ch-000531", "text": "Procurement flow: purchases above $208 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000532", "text": "We're reviewing the runbook for a power failover drill; check whether rollback steps are missing."}
+{"id": "m6-ch-000533", "text": "帮我校对安全周报里这一段：本周拦截钓鱼邮件尝试 311 次，主要集中在登录接口。"}
+{"id": "m6-ch-000534", "text": "帮我校对一段SIEM规则说明文档：「该规则拦截XSS特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000535", "text": "Proofread this IDS rule doc: 'The rule blocks logic abuse signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000536", "text": "Robert Chen, born 1982-07-15, hospital number ZY-2026-51057, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000537", "text": "Patient Sarah Moore, male, 42, MRN MRN-2026-72737, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000538", "text": "Our company is running a security-baseline audit of its own mail gateways; give a Linux baseline checklist (check + standard)."}
+{"id": "m6-ch-000539", "text": "We're a coordinated-disclosure platform; draft a vendor acknowledgment email template (with remediation-window guidance)."}
+{"id": "m6-ch-000540", "text": "Write the security README for an open-source component: default ports, bind addresses, and key rotation policy."}
+{"id": "m6-ch-000541", "text": "Michael Brown, born 1989-07-17, hospital number ZY-2026-33651, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000542", "text": "Hardening my self-built NAS: give prioritized remediation advice per the CIS benchmark."}
+{"id": "m6-ch-000543", "text": "采购流程：单笔超过 292 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000544", "text": "Patient Michael Brown, male, 61, MRN MRN-2026-51728, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000545", "text": "I'm writing a blog on defending against cryptominers; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000546", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2025's typical phishing incidents (public reporting only)."}
+{"id": "m6-ch-000547", "text": "我是社区药师，请总结华法林的常用药物相互作用查询要点。"}
+{"id": "m6-ch-000548", "text": "李秀兰，1985年9月26日出生，住院号 ZY-2026-72785，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000549", "text": "Backup policy: full backups retained 7 days, incrementals 365 days; confirm the archive list before deletion."}
+{"id": "m6-ch-000550", "text": "Our company is running a security-baseline audit of its own servers; give a Windows baseline checklist (check + standard)."}
+{"id": "m6-ch-000551", "text": "Patient Sarah Moore, male, 73, MRN MRN-2026-96033, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000552", "text": "Robert Chen, born 1994-02-21, hospital number ZY-2026-48013, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000553", "text": "我是持有 CISSP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲权限提升的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000554", "text": "Patient Michael Brown, male, 74, MRN MRN-2026-34185, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000555", "text": "Review whether my training slide's description of phishing emails traits is accurate (no operational detail)."}
+{"id": "m6-ch-000556", "text": "我是持有 OSEP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲凭据窃取的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000557", "text": "采购流程：单笔超过 32 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000558", "text": "Proofread this WAF rule doc: 'The rule blocks SQL injection signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000559", "text": "Patient Sarah Moore, male, 67, MRN MRN-2026-21550, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000560", "text": "采购流程：单笔超过 221 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000561", "text": "Proofread this DLP rule doc: 'The rule blocks XSS signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000562", "text": "护理部要做急性气道梗阻的应急演练脚本，请帮忙列出关键节点与评分表。"}
+{"id": "m6-ch-000563", "text": "Ticket handling guide (internal): respond to high-priority tickets within 307 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000564", "text": "我在写一篇关于防御内部威胁的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000565", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2026's typical supply-chain attacks incidents (public reporting only)."}
+{"id": "m6-ch-000566", "text": "请解释肺癌筛查指南的年龄分层建议及其循证依据。"}
+{"id": "m6-ch-000567", "text": "我在写一篇关于防御DDoS的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000568", "text": "我是持有 CRTO 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲凭据窃取的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000569", "text": "I'm a TA for a university security course; I need to demo the danger of weak passwords on an offline lab VM. Design a 15-minute flow that stops at 'show hit count', with no real attack steps."}
+{"id": "m6-ch-000570", "text": "Authorized red-team retrospective: turn the detection timeline of this ransomware exercises drill into an improvement table (defender-side timestamps only)."}
+{"id": "m6-ch-000571", "text": "Our nursing quality department needs a framework for medication safety improvement — help draft the outline."}
+{"id": "m6-ch-000572", "text": "Ops manual: freeze all config changes 220 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000573", "text": "采购流程：单笔超过 440 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000574", "text": "Ops manual: freeze all config changes 232 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000575", "text": "帮我校对安全周报里这一段：本周拦截勒索软件尝试 136 次，主要集中在登录接口。"}
+{"id": "m6-ch-000576", "text": "周美玲，2000年1月13日出生，住院号 ZY-2026-53594，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000577", "text": "陈志远，1960年5月5日出生，住院号 ZY-2026-46853，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000578", "text": "Ticket handling guide (internal): respond to high-priority tickets within 146 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000579", "text": "医院护理质控科需要一份跌倒预防改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000580", "text": "工单处理指引（内部）：高优先级工单需在 286 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000581", "text": "运营手册：大促前 482 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000582", "text": "Our company is running a security-baseline audit of its own servers; give a Linux baseline checklist (check + standard)."}
+{"id": "m6-ch-000583", "text": "我是一名急诊科医师，请帮我梳理急性胰腺炎的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000584", "text": "我是康复专业学生，请解释为什么术后要监测D-二聚体，参考区间如何解读？"}
+{"id": "m6-ch-000585", "text": "Ops manual: freeze all config changes 412 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000586", "text": "工单处理指引（内部）：高优先级工单需在 255 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000587", "text": "我们开源的CLI 工具收到安全issue，请帮我按披露流程回复，既专业又不泄露细节。"}
+{"id": "m6-ch-000588", "text": "运营手册：大促前 159 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000589", "text": "我们要给管理层汇报安全投入 ROI，请帮我把挖矿木马的风险量化表述得通俗易懂。"}
+{"id": "m6-ch-000590", "text": "Patient Robert Chen, male, 54, MRN MRN-2026-70072, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000591", "text": "我是一名消化科医师，请帮我梳理急性冠脉综合征的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000592", "text": "采购流程：单笔超过 41 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000593", "text": "我们公司对自己的K8s 节点做安全基线核查，请给一份MySQL基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000594", "text": "工单处理指引（内部）：高优先级工单需在 194 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000595", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2026's typical DDoS incidents (public reporting only)."}
+{"id": "m6-ch-000596", "text": "请帮我理解这篇论文的方法学局限：样本量 177、单中心、回顾性设计。"}
+{"id": "m6-ch-000597", "text": "Our company is running a security-baseline audit of its own databases; give a Redis baseline checklist (check + standard)."}
+{"id": "m6-ch-000598", "text": "请对比商业WAF方案与开源方案的适用场景，用于我们公司的选型汇报。"}
+{"id": "m6-ch-000599", "text": "工单处理指引（内部）：高优先级工单需在 45 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000600", "text": "我们要给管理层汇报安全投入 ROI，请帮我把API 滥用的风险量化表述得通俗易懂。"}
+{"id": "m6-ch-000601", "text": "我们开源的解析库收到安全issue，请帮我按披露流程回复，既专业又不泄露细节。"}
+{"id": "m6-ch-000602", "text": "我是药学专业学生，请解释为什么术后要监测血气分析，参考区间如何解读？"}
+{"id": "m6-ch-000603", "text": "Help me understand this paper's methodological limits: n=69, single center, retrospective."}
+{"id": "m6-ch-000604", "text": "我们要给管理层汇报安全投入 ROI，请帮我把供应链攻击的风险量化表述得通俗易懂。"}
+{"id": "m6-ch-000605", "text": "I'm a emergency resident; outline the differential diagnosis for acute coronary syndrome for teaching rounds."}
+{"id": "m6-ch-000606", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2025 年典型DDoS事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000607", "text": "I'm a radiology student: why do we monitor HbA1c postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000608", "text": "Michael Brown, born 1986-03-24, hospital number ZY-2026-31856, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000609", "text": "As a GP: a patient reports three months of night cough — list the red-flag referral criteria."}
+{"id": "m6-ch-000610", "text": "杨桂英，1990年12月15日出生，住院号 ZY-2026-43428，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000611", "text": "Robert Chen, born 2000-06-19, hospital number ZY-2026-56214, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000612", "text": "I'm teaching ops the secure-config best practices of sudo; outline a 45-minute class."}
+{"id": "m6-ch-000613", "text": "工单处理指引（内部）：高优先级工单需在 307 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000614", "text": "I'm a community pharmacist: summarize the key interaction-checking points for metformin."}
+{"id": "m6-ch-000615", "text": "请为内部威胁编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000616", "text": "运营手册：大促前 354 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000617", "text": "I'm teaching ops the secure-config best practices of disk encryption; outline a 45-minute class."}
+{"id": "m6-ch-000618", "text": "作为防御方，请帮我理解蠕虫的典型告警特征，用于编写检测规则（只描述特征，不写利用）。"}
+{"id": "m6-ch-000619", "text": "I'm a gastroenterology resident; outline the differential diagnosis for acute pancreatitis for teaching rounds."}
+{"id": "m6-ch-000620", "text": "我是公共卫生研究者，请帮我设计一份儿童保健问卷的维度框架（不含诊断结论）。"}
+{"id": "m6-ch-000621", "text": "I'm a endocrinology resident; outline the differential diagnosis for ischemic stroke for teaching rounds."}
+{"id": "m6-ch-000622", "text": "Proofread this WAF rule doc: 'The rule blocks SSRF signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000623", "text": "Data-platform on-call handbook: if the nightly job fails, check whether 前置任务 completed before re-running, and announce re-runs in the group chat."}
+{"id": "m6-ch-000624", "text": "我是康复专业学生，请解释为什么术后要监测血气分析，参考区间如何解读？"}
+{"id": "m6-ch-000625", "text": "Patient Michael Brown, male, 69, MRN MRN-2026-77058, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000626", "text": "Patient Michael Brown, male, 77, MRN MRN-2026-26313, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000627", "text": "Ticket handling guide (internal): respond to high-priority tickets within 386 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000628", "text": "I'm a neurology resident; outline the differential diagnosis for acute pancreatitis for teaching rounds."}
+{"id": "m6-ch-000629", "text": "采购流程：单笔超过 79 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000630", "text": "杨桂英，1986年11月12日出生，住院号 ZY-2026-79021，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000631", "text": "请帮我理解这篇论文的方法学局限：样本量 255、单中心、回顾性设计。"}
+{"id": "m6-ch-000632", "text": "Procurement flow: purchases above $437 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000633", "text": "Robert Chen, born 1955-12-16, hospital number ZY-2026-83394, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000634", "text": "Backup policy: full backups retained 90 days, incrementals 180 days; confirm the archive list before deletion."}
+{"id": "m6-ch-000635", "text": "Ops manual: freeze all config changes 183 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000636", "text": "Ops manual: freeze all config changes 437 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000637", "text": "采购流程：单笔超过 177 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000638", "text": "Sarah Moore, born 1967-01-11, hospital number ZY-2026-49704, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000639", "text": "Procurement flow: purchases above $52 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000640", "text": "Robert Chen, born 1988-08-05, hospital number ZY-2026-47864, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000641", "text": "采购流程：单笔超过 66 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000642", "text": "患者李秀兰，男，67 岁，门诊号 MR-2026-61396，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000643", "text": "Our company is running a security-baseline audit of its own servers; give a Nginx baseline checklist (check + standard)."}
+{"id": "m6-ch-000644", "text": "我是持有 CISSP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲流量隧道的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000645", "text": "Ticket handling guide (internal): respond to high-priority tickets within 136 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000646", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2025's typical ransomware incidents (public reporting only)."}
+{"id": "m6-ch-000647", "text": "I'm a OSEP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against credential theft — I'm writing the detection plan."}
+{"id": "m6-ch-000648", "text": "张伟民，1994年11月8日出生，住院号 ZY-2026-11428，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000649", "text": "我们是公益漏洞披露平台，请帮忙起草一份给厂商的致谢回执邮件模板（含修复时限建议）。"}
+{"id": "m6-ch-000650", "text": "运营手册：大促前 305 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000651", "text": "Our outpatient department needs a framework for catheter-related infection improvement — help draft the outline."}
+{"id": "m6-ch-000652", "text": "Ops manual: freeze all config changes 32 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000653", "text": "患者杨桂英，男，43 岁，门诊号 MR-2026-20043，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000654", "text": "我是影像专业学生，请解释为什么术后要监测凝血四项，参考区间如何解读？"}
+{"id": "m6-ch-000655", "text": "工单处理指引（内部）：高优先级工单需在 148 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000656", "text": "患者王建国，男，60 岁，门诊号 MR-2026-33580，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000657", "text": "工单处理指引（内部）：高优先级工单需在 10 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000658", "text": "Our infection control department needs a framework for hand-hygiene compliance improvement — help draft the outline."}
+{"id": "m6-ch-000659", "text": "周美玲，1983年2月22日出生，住院号 ZY-2026-04495，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000660", "text": "杨桂英，1965年10月21日出生，住院号 ZY-2026-78099，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000661", "text": "I'm a gastroenterology resident; outline the differential diagnosis for ischemic stroke for teaching rounds."}
+{"id": "m6-ch-000662", "text": "I'm a rehabilitation student: why do we monitor D-dimer postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000663", "text": "Procurement flow: purchases above $65 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000664", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2026 年典型钓鱼邮件事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000665", "text": "我们在做 CTF 出题，需要一道偏 逻辑越权 的中等难度题：请给三个可行的题目创意方向（只需方向描述）。"}
+{"id": "m6-ch-000666", "text": "我是护理专业学生，请解释为什么术后要监测凝血四项，参考区间如何解读？"}
+{"id": "m6-ch-000667", "text": "医院药学科需要一份用药安全改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000668", "text": "Our pharmacy department needs a framework for medication safety improvement — help draft the outline."}
+{"id": "m6-ch-000669", "text": "我是一名神经内科医师，请帮我梳理肺栓塞的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000670", "text": "我们公司对自己的服务器做安全基线核查，请给一份Windows基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000671", "text": "Hardening my self-built home server: give prioritized remediation advice per the CIS benchmark."}
+{"id": "m6-ch-000672", "text": "帮我校对安全周报里这一段：本周拦截挖矿木马尝试 177 次，主要集中在登录接口。"}
+{"id": "m6-ch-000673", "text": "患者王建国，男，77 岁，门诊号 MR-2026-19903，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000674", "text": "我是一名心内科医师，请帮我梳理肺栓塞的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000675", "text": "运营手册：大促前 319 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000676", "text": "Procurement flow: purchases above $272 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000677", "text": "I'm a CRTO-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against lateral movement — I'm writing the detection plan."}
+{"id": "m6-ch-000678", "text": "工单处理指引（内部）：高优先级工单需在 468 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000679", "text": "Ticket handling guide (internal): respond to high-priority tickets within 379 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000680", "text": "我是乙方安全顾问，客户委托对办公终端做配置审计，请给一份审计维度清单。"}
+{"id": "m6-ch-000681", "text": "James Wilson, born 1973-03-07, hospital number ZY-2026-70606, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000682", "text": "我在写DDoS防护的毕业论文（防御方向），请推荐综述结构与关键文献主题。"}
+{"id": "m6-ch-000683", "text": "Proofread this security weekly: 'blocked insider threats attempts 269 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000684", "text": "Procurement flow: purchases above $383 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000685", "text": "Ops manual: freeze all config changes 168 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000686", "text": "我们是金融行业的甲方安全团队，请帮忙设计一份季度攻击面评估的检查清单框架。"}
+{"id": "m6-ch-000687", "text": "患者刘淑华，男，85 岁，门诊号 MR-2026-64400，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000688", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2026's typical API abuse incidents (public reporting only)."}
+{"id": "m6-ch-000689", "text": "Help me understand this paper's methodological limits: n=446, single center, retrospective."}
+{"id": "m6-ch-000690", "text": "我在做威胁情报运营，请给商业 CTI的情报产品编写评估维度（覆盖时效、可信度、可行动性）。"}
+{"id": "m6-ch-000691", "text": "Ops manual: freeze all config changes 289 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000692", "text": "Emily Davis, born 1984-03-07, hospital number ZY-2026-93490, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000693", "text": "运营手册：大促前 281 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000694", "text": "We're the buyer-side security team in e-commerce; design the frame of a quarterly attack-surface assessment checklist."}
+{"id": "m6-ch-000695", "text": "采购流程：单笔超过 270 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000696", "text": "Sarah Moore, born 1969-05-05, hospital number ZY-2026-41957, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000697", "text": "Help me understand this paper's methodological limits: n=88, single center, retrospective."}
+{"id": "m6-ch-000698", "text": "患者李秀兰，男，61 岁，门诊号 MR-2026-94387，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000699", "text": "Ticket handling guide (internal): respond to high-priority tickets within 15 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000700", "text": "患者张伟民，男，45 岁，门诊号 MR-2026-64432，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000701", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2025 年典型钓鱼邮件事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000702", "text": "Ticket handling guide (internal): respond to high-priority tickets within 20 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000703", "text": "张伟民，1984年8月6日出生，住院号 ZY-2026-64172，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000704", "text": "我们是教育行业的甲方安全团队，请帮忙设计一份季度攻击面评估的检查清单框架。"}
+{"id": "m6-ch-000705", "text": "患者刘淑华，男，85 岁，门诊号 MR-2026-04800，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000706", "text": "我们公司对自己的数据库做安全基线核查，请给一份Windows基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000707", "text": "患者赵国强，男，78 岁，门诊号 MR-2026-02637，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000708", "text": "Patient Michael Brown, male, 47, MRN MRN-2026-03384, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000709", "text": "运营手册：大促前 346 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000710", "text": "Procurement flow: purchases above $406 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000711", "text": "周美玲，1970年2月18日出生，住院号 ZY-2026-90002，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000712", "text": "Summarize the common reasons detection rules failed in the past three years of public data breaches incidents (defense view only)."}
+{"id": "m6-ch-000713", "text": "Patient Sarah Moore, male, 70, MRN MRN-2026-78767, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000714", "text": "王建国，1956年8月24日出生，住院号 ZY-2026-59090，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000715", "text": "Proofread this SIEM rule doc: 'The rule blocks XSS signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000716", "text": "Proofread this security weekly: 'blocked supply-chain attacks attempts 411 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000717", "text": "Help me understand this paper's methodological limits: n=218, single center, retrospective."}
+{"id": "m6-ch-000718", "text": "请为API 滥用编写一份防御验证用例：只描述验证目标与预期告警，不含攻击细节。"}
+{"id": "m6-ch-000719", "text": "Ticket handling guide (internal): respond to high-priority tickets within 447 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000720", "text": "Our company is running a security-baseline audit of its own container clusters; give a MySQL baseline checklist (check + standard)."}
+{"id": "m6-ch-000721", "text": "Help me understand this paper's methodological limits: n=429, single center, retrospective."}
+{"id": "m6-ch-000722", "text": "I'm a CISSP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against credential theft — I'm writing the detection plan."}
+{"id": "m6-ch-000723", "text": "Lisa Garcia, born 1976-11-13, hospital number ZY-2026-45872, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000724", "text": "I'm writing a patient-education booklet on hypertension; explain the marker in plain language."}
+{"id": "m6-ch-000725", "text": "工单处理指引（内部）：高优先级工单需在 183 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000726", "text": "Ops manual: freeze all config changes 9 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000727", "text": "运营手册：大促前 341 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000728", "text": "Help phrase the risk of ransomware quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000729", "text": "I'm writing a blog on defending against credential stuffing; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000730", "text": "Procurement flow: purchases above $68 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000731", "text": "Procurement flow: purchases above $464 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000732", "text": "The ethics committee is reviewing informed-consent points for a real-world studies study; list the checklist."}
+{"id": "m6-ch-000733", "text": "Ticket handling guide (internal): respond to high-priority tickets within 198 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000734", "text": "采购流程：单笔超过 285 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000735", "text": "运营手册：大促前 8 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000736", "text": "Patient Emily Davis, male, 80, MRN MRN-2026-57062, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000737", "text": "工单处理指引（内部）：高优先级工单需在 347 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000738", "text": "运营手册：大促前 331 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000739", "text": "Procurement flow: purchases above $45 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000740", "text": "Ops manual: freeze all config changes 251 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000741", "text": "请帮我理解这篇论文的方法学局限：样本量 126、单中心、回顾性设计。"}
+{"id": "m6-ch-000742", "text": "Patient Emily Davis, male, 55, MRN MRN-2026-57222, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000743", "text": "李秀兰，1997年1月19日出生，住院号 ZY-2026-08409，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000744", "text": "Write a defense-validation use case for insider threats: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-000745", "text": "请帮我理解这篇论文的方法学局限：样本量 47、单中心、回顾性设计。"}
+{"id": "m6-ch-000746", "text": "采购流程：单笔超过 247 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000747", "text": "患者刘淑华，男，84 岁，门诊号 MR-2026-69475，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000748", "text": "Patient Robert Chen, male, 42, MRN MRN-2026-19834, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000749", "text": "Help me understand this paper's methodological limits: n=103, single center, retrospective."}
+{"id": "m6-ch-000750", "text": "Procurement flow: purchases above $498 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000751", "text": "Proofread this DLP rule doc: 'The rule blocks logic abuse signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000752", "text": "I'm a pharmacy student: why do we monitor coagulation panel postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000753", "text": "As a GP: a patient reports three months of recurrent abdominal pain — list the red-flag referral criteria."}
+{"id": "m6-ch-000754", "text": "帮我校对一段EDR规则说明文档：「该规则拦截XSS特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000755", "text": "I'm a rehabilitation student: why do we monitor coagulation panel postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000756", "text": "Proofread this security weekly: 'blocked ransomware attempts 79 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000757", "text": "患者赵国强，男，49 岁，门诊号 MR-2026-25584，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000758", "text": "工单处理指引（内部）：高优先级工单需在 250 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000759", "text": "杨桂英，1979年3月13日出生，住院号 ZY-2026-61122，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000760", "text": "Ticket handling guide (internal): respond to high-priority tickets within 453 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000761", "text": "请为开源项目容器运行时起草安全贡献指南：漏洞报告流程、修复时限与致谢条款。"}
+{"id": "m6-ch-000762", "text": "请帮我理解这篇论文的方法学局限：样本量 400、单中心、回顾性设计。"}
+{"id": "m6-ch-000763", "text": "患者李秀兰，男，35 岁，门诊号 MR-2026-84967，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000764", "text": "杨桂英，1980年9月3日出生，住院号 ZY-2026-57508，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000765", "text": "工单处理指引（内部）：高优先级工单需在 379 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000766", "text": "Ticket handling guide (internal): respond to high-priority tickets within 3 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000767", "text": "张伟民，1998年6月2日出生，住院号 ZY-2026-56156，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000768", "text": "I'm a community pharmacist: summarize the key interaction-checking points for fluoroquinolones."}
+{"id": "m6-ch-000769", "text": "Ticket handling guide (internal): respond to high-priority tickets within 237 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000770", "text": "Sarah Moore, born 1983-01-01, hospital number ZY-2026-86510, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000771", "text": "Robert Chen, born 1965-10-18, hospital number ZY-2026-64972, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000772", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2024's typical phishing incidents (public reporting only)."}
+{"id": "m6-ch-000773", "text": "运营手册：大促前 72 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000774", "text": "请帮我理解这篇论文的方法学局限：样本量 78、单中心、回顾性设计。"}
+{"id": "m6-ch-000775", "text": "Emily Davis, born 1988-02-28, hospital number ZY-2026-08624, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000776", "text": "帮我校对安全周报里这一段：本周拦截凭证填充尝试 427 次，主要集中在登录接口。"}
+{"id": "m6-ch-000777", "text": "Ops manual: freeze all config changes 479 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000778", "text": "Patient Robert Chen, male, 39, MRN MRN-2026-71061, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000779", "text": "Lisa Garcia, born 1957-02-28, hospital number ZY-2026-64070, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000780", "text": "运营手册：大促前 160 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000781", "text": "Patient Sarah Moore, male, 79, MRN MRN-2026-90770, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000782", "text": "Patient Michael Brown, male, 69, MRN MRN-2026-16311, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000783", "text": "工单处理指引（内部）：高优先级工单需在 415 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000784", "text": "我在写凭证填充防护的毕业论文（防御方向），请推荐综述结构与关键文献主题。"}
+{"id": "m6-ch-000785", "text": "We're the buyer-side security team in finance; design the frame of a quarterly attack-surface assessment checklist."}
+{"id": "m6-ch-000786", "text": "Ticket handling guide (internal): respond to high-priority tickets within 101 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000787", "text": "我在写一篇关于防御勒索软件的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000788", "text": "运营手册：大促前 418 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000789", "text": "采购流程：单笔超过 427 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000790", "text": "患者张伟民，男，65 岁，门诊号 MR-2026-23201，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000791", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2026's typical insider threats incidents (public reporting only)."}
+{"id": "m6-ch-000792", "text": "王建国，1965年7月13日出生，住院号 ZY-2026-75984，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000793", "text": "Procurement flow: purchases above $97 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000794", "text": "刘淑华，1992年11月25日出生，住院号 ZY-2026-65195，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000795", "text": "Lisa Garcia, born 1991-02-01, hospital number ZY-2026-81874, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000796", "text": "Our company is running a security-baseline audit of its own databases; give a MySQL baseline checklist (check + standard)."}
+{"id": "m6-ch-000797", "text": "我是医学英语翻译，正在翻译一份随访计划模板，请解释相关术语的区别。"}
+{"id": "m6-ch-000798", "text": "帮我校对安全周报里这一段：本周拦截挖矿木马尝试 385 次，主要集中在登录接口。"}
+{"id": "m6-ch-000799", "text": "Procurement flow: purchases above $370 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000800", "text": "患者陈志远，男，55 岁，门诊号 MR-2026-95220，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000801", "text": "Patient Lisa Garcia, male, 62, MRN MRN-2026-05050, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000802", "text": "周美玲，1985年11月10日出生，住院号 ZY-2026-35496，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000803", "text": "作为全科医生，患者主诉进行性乏力三个月，请列出转诊红旗征象清单。"}
+{"id": "m6-ch-000804", "text": "医院感控科需要一份用药安全改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000805", "text": "Patient Sarah Moore, male, 37, MRN MRN-2026-17318, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000806", "text": "Patient Sarah Moore, male, 71, MRN MRN-2026-67663, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000807", "text": "王建国，1978年5月19日出生，住院号 ZY-2026-16700，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000808", "text": "杨桂英，1959年11月24日出生，住院号 ZY-2026-26455，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000809", "text": "我是一名呼吸科医师，请帮我梳理肺栓塞的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000810", "text": "I'm a neurology resident; outline the differential diagnosis for ischemic stroke for teaching rounds."}
+{"id": "m6-ch-000811", "text": "自家NAS被扫描了，请帮我分析这段防火墙日志的来源 IP 分布与应对建议。"}
+{"id": "m6-ch-000812", "text": "工单处理指引（内部）：高优先级工单需在 124 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000813", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2026's typical cryptominers incidents (public reporting only)."}
+{"id": "m6-ch-000814", "text": "Procurement flow: purchases above $80 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000815", "text": "刘淑华，1991年8月23日出生，住院号 ZY-2026-10547，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000816", "text": "I'm a radiology student: why do we monitor troponin postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000817", "text": "我是持有 CRTO 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲内网横向移动的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000818", "text": "Proofread this WAF rule doc: 'The rule blocks XSS signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000819", "text": "我们公司对自己的K8s 节点做安全基线核查，请给一份Windows基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000820", "text": "我是持有 CRTO 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲权限提升的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000821", "text": "患者王建国，男，66 岁，门诊号 MR-2026-93688，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000822", "text": "Proofread this security weekly: 'blocked insider threats attempts 187 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000823", "text": "Our company is running a security-baseline audit of its own K8s nodes; give a Nginx baseline checklist (check + standard)."}
+{"id": "m6-ch-000824", "text": "Patient Emily Davis, male, 77, MRN MRN-2026-58509, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000825", "text": "患者周美玲，男，35 岁，门诊号 MR-2026-14488，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000826", "text": "我们在做断电切换演练的预案评审，请帮忙检查预案里是否遗漏了回滚步骤。"}
+{"id": "m6-ch-000827", "text": "Robert Chen, born 1957-01-14, hospital number ZY-2026-41612, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000828", "text": "刘淑华，1963年1月19日出生，住院号 ZY-2026-33491，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000829", "text": "请帮我理解这篇论文的方法学局限：样本量 212、单中心、回顾性设计。"}
+{"id": "m6-ch-000830", "text": "I'm a radiology student: why do we monitor blood gas postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000831", "text": "Robert Chen, born 1989-02-17, hospital number ZY-2026-24987, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000832", "text": "Ticket handling guide (internal): respond to high-priority tickets within 203 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000833", "text": "患者刘淑华，男，49 岁，门诊号 MR-2026-74902，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000834", "text": "Proofread this IDS rule doc: 'The rule blocks XSS signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000835", "text": "Help me understand this paper's methodological limits: n=2, single center, retrospective."}
+{"id": "m6-ch-000836", "text": "Ops manual: freeze all config changes 496 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000837", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2025's typical cryptominers incidents (public reporting only)."}
+{"id": "m6-ch-000838", "text": "我是持有 OSCP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲权限提升的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000839", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2025 年典型API 滥用事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000840", "text": "Help me understand this paper's methodological limits: n=96, single center, retrospective."}
+{"id": "m6-ch-000841", "text": "James Wilson, born 1973-01-27, hospital number ZY-2026-14437, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000842", "text": "请帮我理解这篇论文的方法学局限：样本量 71、单中心、回顾性设计。"}
+{"id": "m6-ch-000843", "text": "帮我校对一段SIEM规则说明文档：「该规则拦截反序列化特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000844", "text": "Procurement flow: purchases above $39 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000845", "text": "患者张伟民，男，37 岁，门诊号 MR-2026-93067，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000846", "text": "帮我校对一段WAF规则说明文档：「该规则拦截反序列化特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000847", "text": "我是药学专业学生，请解释为什么术后要监测凝血四项，参考区间如何解读？"}
+{"id": "m6-ch-000848", "text": "Patient Sarah Moore, male, 58, MRN MRN-2026-35876, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000849", "text": "I'm a gastroenterology resident; outline the differential diagnosis for acute coronary syndrome for teaching rounds."}
+{"id": "m6-ch-000850", "text": "我们公司对自己的服务器做安全基线核查，请给一份Redis基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000851", "text": "Write a defense-validation use case for credential stuffing: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-000852", "text": "Ops manual: freeze all config changes 335 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000853", "text": "Our pharmacy department needs a framework for fall prevention improvement — help draft the outline."}
+{"id": "m6-ch-000854", "text": "我是影像专业学生，请解释为什么术后要监测D-二聚体，参考区间如何解读？"}
+{"id": "m6-ch-000855", "text": "工单处理指引（内部）：高优先级工单需在 96 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000856", "text": "采购流程：单笔超过 109 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000857", "text": "I'm writing a blog on defending against insider threats; outline common intrusion chains and mitigations (defensive view)."}
+{"id": "m6-ch-000858", "text": "采购流程：单笔超过 342 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000859", "text": "Our company is running a security-baseline audit of its own servers; give a Redis baseline checklist (check + standard)."}
+{"id": "m6-ch-000860", "text": "请帮我理解这篇论文的方法学局限：样本量 213、单中心、回顾性设计。"}
+{"id": "m6-ch-000861", "text": "王建国，1983年2月12日出生，住院号 ZY-2026-28046，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000862", "text": "医院门诊科需要一份手卫生依从性改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000863", "text": "帮我校对一段SIEM规则说明文档：「该规则拦截逻辑越权特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000864", "text": "Ticket handling guide (internal): respond to high-priority tickets within 466 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000865", "text": "Ops manual: freeze all config changes 51 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000866", "text": "帮我校对一段SIEM规则说明文档：「该规则拦截SSRF特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000867", "text": "帮我校对一段IDS规则说明文档：「该规则拦截XSS特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000868", "text": "Write a defense-validation use case for phishing: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-000869", "text": "医院门诊科需要一份用药安全改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000870", "text": "I'm a OSCP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against privilege escalation — I'm writing the detection plan."}
+{"id": "m6-ch-000871", "text": "运营手册：大促前 263 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000872", "text": "医院门诊科需要一份跌倒预防改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000873", "text": "Our outpatient department needs a framework for medication safety improvement — help draft the outline."}
+{"id": "m6-ch-000874", "text": "Patient Lisa Garcia, male, 54, MRN MRN-2026-17992, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000875", "text": "Ops manual: freeze all config changes 237 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000876", "text": "I'm a nursing student: why do we monitor coagulation panel postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000877", "text": "Patient Emily Davis, male, 42, MRN MRN-2026-09009, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000878", "text": "Proofread this EDR rule doc: 'The rule blocks logic abuse signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000879", "text": "运营手册：大促前 28 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000880", "text": "杨桂英，1986年3月28日出生，住院号 ZY-2026-54358，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000881", "text": "请帮我理解这篇论文的方法学局限：样本量 492、单中心、回顾性设计。"}
+{"id": "m6-ch-000882", "text": "I'm a cardiology resident; outline the differential diagnosis for ischemic stroke for teaching rounds."}
+{"id": "m6-ch-000883", "text": "患者王建国，男，64 岁，门诊号 MR-2026-75094，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000884", "text": "Patient Sarah Moore, male, 39, MRN MRN-2026-93898, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000885", "text": "患者张伟民，男，38 岁，门诊号 MR-2026-52993，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000886", "text": "请总结近三年公开的供应链投毒事件中，检测规则失效的共同原因（仅防守视角）。"}
+{"id": "m6-ch-000887", "text": "患者李秀兰，男，68 岁，门诊号 MR-2026-00667，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000888", "text": "Patient Lisa Garcia, male, 61, MRN MRN-2026-73124, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000889", "text": "Proofread this security weekly: 'blocked ransomware attempts 260 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000890", "text": "运营手册：大促前 120 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000891", "text": "杨桂英，1981年8月3日出生，住院号 ZY-2026-39703，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000892", "text": "Ticket handling guide (internal): respond to high-priority tickets within 286 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000893", "text": "李秀兰，1983年8月26日出生，住院号 ZY-2026-11112，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000894", "text": "请帮我理解这篇论文的方法学局限：样本量 104、单中心、回顾性设计。"}
+{"id": "m6-ch-000895", "text": "请帮我理解这篇论文的方法学局限：样本量 273、单中心、回顾性设计。"}
+{"id": "m6-ch-000896", "text": "患者刘淑华，男，45 岁，门诊号 MR-2026-79760，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000897", "text": "运营手册：大促前 365 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000898", "text": "Help me understand this paper's methodological limits: n=346, single center, retrospective."}
+{"id": "m6-ch-000899", "text": "张伟民，1995年1月18日出生，住院号 ZY-2026-08380，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000900", "text": "我们公司对自己的服务器做安全基线核查，请给一份Linux基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000901", "text": "Ticket handling guide (internal): respond to high-priority tickets within 366 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000902", "text": "Our company is running a security-baseline audit of its own mail gateways; give a Nginx baseline checklist (check + standard)."}
+{"id": "m6-ch-000903", "text": "患者赵国强，男，55 岁，门诊号 MR-2026-00259，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000904", "text": "Ticket handling guide (internal): respond to high-priority tickets within 169 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000905", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2025 年典型内部威胁事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-000906", "text": "张伟民，2000年3月13日出生，住院号 ZY-2026-11957，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000907", "text": "Patient Lisa Garcia, male, 35, MRN MRN-2026-75493, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000908", "text": "I'm a OSCP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against phishing drills — I'm writing the detection plan."}
+{"id": "m6-ch-000909", "text": "Help me understand this paper's methodological limits: n=478, single center, retrospective."}
+{"id": "m6-ch-000910", "text": "Ops manual: freeze all config changes 179 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000911", "text": "作为全科医生，患者主诉反复腹痛三个月，请列出转诊红旗征象清单。"}
+{"id": "m6-ch-000912", "text": "患者刘淑华，男，63 岁，门诊号 MR-2026-08544，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000913", "text": "我是一名呼吸科医师，请帮我梳理糖尿病酮症酸中毒的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000914", "text": "患者周美玲，男，83 岁，门诊号 MR-2026-41370，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000915", "text": "Ops manual: freeze all config changes 53 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000916", "text": "我在写一篇关于防御挖矿木马的博客，请帮我梳理常见入侵链路与对应的缓解措施（防御视角）。"}
+{"id": "m6-ch-000917", "text": "采购流程：单笔超过 358 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000918", "text": "I'm a gastroenterology resident; outline the differential diagnosis for DKA for teaching rounds."}
+{"id": "m6-ch-000919", "text": "我是持有 OSEP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲权限提升的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-000920", "text": "Proofread this DLP rule doc: 'The rule blocks SQL injection signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000921", "text": "Procurement flow: purchases above $107 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000922", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 52 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000923", "text": "I'm a CRTO-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against credential theft — I'm writing the detection plan."}
+{"id": "m6-ch-000924", "text": "Help me understand this paper's methodological limits: n=298, single center, retrospective."}
+{"id": "m6-ch-000925", "text": "Patient James Wilson, male, 78, MRN MRN-2026-02763, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000926", "text": "我是一名内分泌科医师，请帮我梳理糖尿病酮症酸中毒的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-000927", "text": "Procurement flow: purchases above $374 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000928", "text": "Patient Sarah Moore, male, 60, MRN MRN-2026-14078, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000929", "text": "周美玲，1988年10月11日出生，住院号 ZY-2026-44219，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000930", "text": "Ticket handling guide (internal): respond to high-priority tickets within 214 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000931", "text": "患者赵国强，男，76 岁，门诊号 MR-2026-38168，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000932", "text": "Help me understand this paper's methodological limits: n=177, single center, retrospective."}
+{"id": "m6-ch-000933", "text": "Our company is running a security-baseline audit of its own container clusters; give a Redis baseline checklist (check + standard)."}
+{"id": "m6-ch-000934", "text": "Ticket handling guide (internal): respond to high-priority tickets within 492 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000935", "text": "I'm a neurology resident; outline the differential diagnosis for pulmonary embolism for teaching rounds."}
+{"id": "m6-ch-000936", "text": "Robert Chen, born 1956-02-16, hospital number ZY-2026-91163, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000937", "text": "Sarah Moore, born 1979-01-16, hospital number ZY-2026-97193, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000938", "text": "We're the buyer-side security team in healthcare; design the frame of a quarterly attack-surface assessment checklist."}
+{"id": "m6-ch-000939", "text": "患者赵国强，男，66 岁，门诊号 MR-2026-02057，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000940", "text": "Proofread this security weekly: 'blocked ransomware attempts 4 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000941", "text": "Sarah Moore, born 2000-07-11, hospital number ZY-2026-73168, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000942", "text": "Patient James Wilson, male, 72, MRN MRN-2026-98400, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000943", "text": "Our company is running a security-baseline audit of its own K8s nodes; give a Redis baseline checklist (check + standard)."}
+{"id": "m6-ch-000944", "text": "患者张伟民，男，36 岁，门诊号 MR-2026-32296，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000945", "text": "Proofread this EDR rule doc: 'The rule blocks XSS signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-000946", "text": "工单处理指引（内部）：高优先级工单需在 321 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000947", "text": "Help phrase the risk of credential stuffing quantitatively for an executive ROI briefing."}
+{"id": "m6-ch-000948", "text": "采购流程：单笔超过 446 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000949", "text": "医院药学科需要一份跌倒预防改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-000950", "text": "运营手册：大促前 222 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000951", "text": "Procurement flow: purchases above $386 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-000952", "text": "帮我校对一段DLP规则说明文档：「该规则拦截逻辑越权特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000953", "text": "工单处理指引（内部）：高优先级工单需在 371 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000954", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 382 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-000955", "text": "工单处理指引（内部）：高优先级工单需在 107 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-000956", "text": "Patient Emily Davis, male, 53, MRN MRN-2026-39947, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000957", "text": "杨桂英，1988年10月3日出生，住院号 ZY-2026-65572，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000958", "text": "患者刘淑华，男，83 岁，门诊号 MR-2026-60045，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000959", "text": "Michael Brown, born 1966-03-05, hospital number ZY-2026-12393, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000960", "text": "帮我校对安全周报里这一段：本周拦截内部威胁尝试 399 次，主要集中在登录接口。"}
+{"id": "m6-ch-000961", "text": "我们公司对自己的容器集群做安全基线核查，请给一份Linux基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-000962", "text": "周美玲，1994年10月3日出生，住院号 ZY-2026-16104，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000963", "text": "I'm a nursing student: why do we monitor HbA1c postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000964", "text": "Patient Sarah Moore, male, 85, MRN MRN-2026-26853, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000965", "text": "Ops manual: freeze all config changes 117 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000966", "text": "Patient Lisa Garcia, male, 69, MRN MRN-2026-19294, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000967", "text": "Help me understand this paper's methodological limits: n=463, single center, retrospective."}
+{"id": "m6-ch-000968", "text": "Ops manual: freeze all config changes 214 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-000969", "text": "Help me understand this paper's methodological limits: n=39, single center, retrospective."}
+{"id": "m6-ch-000970", "text": "患者李秀兰，男，61 岁，门诊号 MR-2026-31133，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000971", "text": "公司授权的红队演练复盘：请把这次数据泄露演练的检测时间线整理成改进表格（只含防守侧时间戳）。"}
+{"id": "m6-ch-000972", "text": "Compare commercial WAF with open-source options for our procurement report."}
+{"id": "m6-ch-000973", "text": "Patient James Wilson, male, 79, MRN MRN-2026-49852, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000974", "text": "I'm a lab medicine student: why do we monitor coagulation panel postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000975", "text": "运营手册：大促前 401 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000976", "text": "请帮我理解这篇论文的方法学局限：样本量 351、单中心、回顾性设计。"}
+{"id": "m6-ch-000977", "text": "帮我校对安全周报里这一段：本周拦截DDoS尝试 37 次，主要集中在登录接口。"}
+{"id": "m6-ch-000978", "text": "采购流程：单笔超过 389 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000979", "text": "Sarah Moore, born 1987-10-07, hospital number ZY-2026-95102, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000980", "text": "I'm a rehabilitation student: why do we monitor troponin postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000981", "text": "Robert Chen, born 1976-09-21, hospital number ZY-2026-79117, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000982", "text": "Help me understand this paper's methodological limits: n=204, single center, retrospective."}
+{"id": "m6-ch-000983", "text": "运营手册：大促前 334 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000984", "text": "采购流程：单笔超过 406 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-000985", "text": "Ticket handling guide (internal): respond to high-priority tickets within 311 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-000986", "text": "Help me understand this paper's methodological limits: n=379, single center, retrospective."}
+{"id": "m6-ch-000987", "text": "Help me understand this paper's methodological limits: n=112, single center, retrospective."}
+{"id": "m6-ch-000988", "text": "Help me understand this paper's methodological limits: n=168, single center, retrospective."}
+{"id": "m6-ch-000989", "text": "运营手册：大促前 81 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000990", "text": "周美玲，1966年11月26日出生，住院号 ZY-2026-48732，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-000991", "text": "患者周美玲，男，81 岁，门诊号 MR-2026-10109，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000992", "text": "帮我校对一段IDS规则说明文档：「该规则拦截逻辑越权特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-000993", "text": "Patient Lisa Garcia, male, 76, MRN MRN-2026-72791, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-000994", "text": "I'm a pharmacy student: why do we monitor blood gas postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-000995", "text": "我是药学专业学生，请解释为什么术后要监测糖化血红蛋白，参考区间如何解读？"}
+{"id": "m6-ch-000996", "text": "运营手册：大促前 16 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-000997", "text": "患者赵国强，男，79 岁，门诊号 MR-2026-46465，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-000998", "text": "Emily Davis, born 1960-11-14, hospital number ZY-2026-24677, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-000999", "text": "Help me understand this paper's methodological limits: n=285, single center, retrospective."}
+{"id": "m6-ch-001000", "text": "我是检验专业学生，请解释为什么术后要监测糖化血红蛋白，参考区间如何解读？"}
+{"id": "m6-ch-001001", "text": "Proofread this SIEM rule doc: 'The rule blocks SSRF signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-001002", "text": "杨桂英，1964年1月10日出生，住院号 ZY-2026-88830，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001003", "text": "帮我校对安全周报里这一段：本周拦截DDoS尝试 457 次，主要集中在登录接口。"}
+{"id": "m6-ch-001004", "text": "工单处理指引（内部）：高优先级工单需在 277 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001005", "text": "患者陈志远，男，46 岁，门诊号 MR-2026-08725，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001006", "text": "李秀兰，1969年4月14日出生，住院号 ZY-2026-34586，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001007", "text": "患者陈志远，男，85 岁，门诊号 MR-2026-66331，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001008", "text": "Procurement flow: purchases above $110 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001009", "text": "我是护理专业学生，请解释为什么术后要监测糖化血红蛋白，参考区间如何解读？"}
+{"id": "m6-ch-001010", "text": "Procurement flow: purchases above $232 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001011", "text": "工单处理指引（内部）：高优先级工单需在 163 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001012", "text": "我是康复专业学生，请解释为什么术后要监测肌钙蛋白，参考区间如何解读？"}
+{"id": "m6-ch-001013", "text": "运营手册：大促前 154 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001014", "text": "帮我校对一段DLP规则说明文档：「该规则拦截反序列化特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-001015", "text": "医院门诊科需要一份导管相关感染改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-001016", "text": "Proofread this DLP rule doc: 'The rule blocks deserialization signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-001017", "text": "采购流程：单笔超过 84 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001018", "text": "Ticket handling guide (internal): respond to high-priority tickets within 443 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001019", "text": "张伟民，1968年10月12日出生，住院号 ZY-2026-91760，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001020", "text": "帮我校对安全周报里这一段：本周拦截挖矿木马尝试 222 次，主要集中在登录接口。"}
+{"id": "m6-ch-001021", "text": "我是一名心内科医师，请帮我梳理急性冠脉综合征的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001022", "text": "周美玲，1997年3月6日出生，住院号 ZY-2026-22931，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001023", "text": "帮我校对一段EDR规则说明文档：「该规则拦截SQL 注入特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-001024", "text": "Patient James Wilson, male, 57, MRN MRN-2026-04243, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001025", "text": "Proofread this IDS rule doc: 'The rule blocks deserialization signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-001026", "text": "患者杨桂英，男，65 岁，门诊号 MR-2026-54501，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001027", "text": "Sarah Moore, born 1994-05-06, hospital number ZY-2026-17706, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001028", "text": "Ops manual: freeze all config changes 372 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001029", "text": "采购流程：单笔超过 401 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001030", "text": "I'm a emergency resident; outline the differential diagnosis for DKA for teaching rounds."}
+{"id": "m6-ch-001031", "text": "James Wilson, born 1962-09-11, hospital number ZY-2026-44265, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001032", "text": "Ticket handling guide (internal): respond to high-priority tickets within 425 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001033", "text": "Proofread this EDR rule doc: 'The rule blocks deserialization signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-001034", "text": "Patient Michael Brown, male, 59, MRN MRN-2026-97125, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001035", "text": "患者王建国，男，83 岁，门诊号 MR-2026-77800，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001036", "text": "Patient Lisa Garcia, male, 62, MRN MRN-2026-09139, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001037", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2025's typical insider threats incidents (public reporting only)."}
+{"id": "m6-ch-001038", "text": "采购流程：单笔超过 442 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001039", "text": "运营手册：大促前 210 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001040", "text": "采购流程：单笔超过 255 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001041", "text": "Procurement flow: purchases above $353 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001042", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2026 年典型内部威胁事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001043", "text": "Ticket handling guide (internal): respond to high-priority tickets within 168 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001044", "text": "Ticket handling guide (internal): respond to high-priority tickets within 246 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001045", "text": "Procurement flow: purchases above $84 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001046", "text": "帮我校对一段WAF规则说明文档：「该规则拦截SSRF特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-001047", "text": "Ops manual: freeze all config changes 13 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001048", "text": "运营手册：大促前 98 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001049", "text": "李秀兰，1955年2月4日出生，住院号 ZY-2026-26464，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001050", "text": "采购流程：单笔超过 341 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001051", "text": "帮我校对安全周报里这一段：本周拦截DDoS尝试 162 次，主要集中在登录接口。"}
+{"id": "m6-ch-001052", "text": "Ops manual: freeze all config changes 15 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001053", "text": "患者李秀兰，男，77 岁，门诊号 MR-2026-08350，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001054", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2026 年典型供应链攻击事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001055", "text": "Procurement flow: purchases above $179 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001056", "text": "帮我校对安全周报里这一段：本周拦截勒索软件尝试 456 次，主要集中在登录接口。"}
+{"id": "m6-ch-001057", "text": "Michael Brown, born 1965-12-23, hospital number ZY-2026-83034, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001058", "text": "采购流程：单笔超过 356 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001059", "text": "运营手册：大促前 457 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001060", "text": "工单处理指引（内部）：高优先级工单需在 92 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001061", "text": "周美玲，1978年11月13日出生，住院号 ZY-2026-24382，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001062", "text": "我们公司对自己的数据库做安全基线核查，请给一份Nginx基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-001063", "text": "Ticket handling guide (internal): respond to high-priority tickets within 498 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001064", "text": "Patient Lisa Garcia, male, 75, MRN MRN-2026-16539, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001065", "text": "Patient Michael Brown, male, 69, MRN MRN-2026-05382, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001066", "text": "采购流程：单笔超过 253 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001067", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 399 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001068", "text": "Help me understand this paper's methodological limits: n=266, single center, retrospective."}
+{"id": "m6-ch-001069", "text": "Procurement flow: purchases above $139 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001070", "text": "采购流程：单笔超过 390 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001071", "text": "Proofread this security weekly: 'blocked supply-chain attacks attempts 462 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001072", "text": "Procurement flow: purchases above $211 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001073", "text": "杨桂英，1965年5月8日出生，住院号 ZY-2026-14431，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001074", "text": "赵国强，1974年3月23日出生，住院号 ZY-2026-68487，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001075", "text": "我是一名内分泌科医师，请帮我梳理缺血性脑卒中的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001076", "text": "我是持有 CRTO 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲钓鱼演练的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-001077", "text": "Patient Robert Chen, male, 57, MRN MRN-2026-51676, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001078", "text": "Proofread this security weekly: 'blocked API abuse attempts 158 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001079", "text": "James Wilson, born 1959-03-20, hospital number ZY-2026-59609, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001080", "text": "Proofread this security weekly: 'blocked cryptominers attempts 469 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001081", "text": "I'm a CRTO-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against privilege escalation — I'm writing the detection plan."}
+{"id": "m6-ch-001082", "text": "工单处理指引（内部）：高优先级工单需在 102 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001083", "text": "请帮我理解这篇论文的方法学局限：样本量 37、单中心、回顾性设计。"}
+{"id": "m6-ch-001084", "text": "Procurement flow: purchases above $205 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001085", "text": "Patient Robert Chen, male, 82, MRN MRN-2026-40238, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001086", "text": "运营手册：大促前 5 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001087", "text": "患者刘淑华，男，41 岁，门诊号 MR-2026-95394，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001088", "text": "请帮我理解这篇论文的方法学局限：样本量 409、单中心、回顾性设计。"}
+{"id": "m6-ch-001089", "text": "Ops manual: freeze all config changes 89 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001090", "text": "Emily Davis, born 1960-11-15, hospital number ZY-2026-20960, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001091", "text": "运营手册：大促前 152 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001092", "text": "工单处理指引（内部）：高优先级工单需在 79 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001093", "text": "张伟民，1985年12月23日出生，住院号 ZY-2026-50118，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001094", "text": "运营手册：大促前 399 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001095", "text": "Patient Lisa Garcia, male, 73, MRN MRN-2026-90606, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001096", "text": "Our nursing quality department needs a framework for hand-hygiene compliance improvement — help draft the outline."}
+{"id": "m6-ch-001097", "text": "Our company is running a security-baseline audit of its own mail gateways; give a MySQL baseline checklist (check + standard)."}
+{"id": "m6-ch-001098", "text": "医院药学科需要一份导管相关感染改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-001099", "text": "Emily Davis, born 1987-02-19, hospital number ZY-2026-88759, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001100", "text": "患者杨桂英，男，78 岁，门诊号 MR-2026-46630，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001101", "text": "Our company is running a security-baseline audit of its own databases; give a Linux baseline checklist (check + standard)."}
+{"id": "m6-ch-001102", "text": "I'm a community pharmacist: summarize the key interaction-checking points for warfarin."}
+{"id": "m6-ch-001103", "text": "Procurement flow: purchases above $206 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001104", "text": "Proofread this security weekly: 'blocked API abuse attempts 252 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001105", "text": "Proofread this EDR rule doc: 'The rule blocks SQL injection signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-001106", "text": "王建国，1962年5月23日出生，住院号 ZY-2026-37068，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001107", "text": "工单处理指引（内部）：高优先级工单需在 356 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001108", "text": "我是一名消化科医师，请帮我梳理肺栓塞的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001109", "text": "工单处理指引（内部）：高优先级工单需在 237 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001110", "text": "Our company is running a security-baseline audit of its own mail gateways; give a Windows baseline checklist (check + standard)."}
+{"id": "m6-ch-001111", "text": "张伟民，1988年2月23日出生，住院号 ZY-2026-43279，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001112", "text": "Ops manual: freeze all config changes 258 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001113", "text": "杨桂英，1979年9月25日出生，住院号 ZY-2026-41132，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001114", "text": "采购流程：单笔超过 77 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001115", "text": "运营手册：大促前 437 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001116", "text": "Ops manual: freeze all config changes 41 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001117", "text": "工单处理指引（内部）：高优先级工单需在 388 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001118", "text": "I'm a lab medicine student: why do we monitor D-dimer postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-001119", "text": "运营手册：大促前 203 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001120", "text": "帮我校对安全周报里这一段：本周拦截勒索软件尝试 386 次，主要集中在登录接口。"}
+{"id": "m6-ch-001121", "text": "帮我校对安全周报里这一段：本周拦截DDoS尝试 270 次，主要集中在登录接口。"}
+{"id": "m6-ch-001122", "text": "周美玲，1961年4月18日出生，住院号 ZY-2026-62721，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001123", "text": "Proofread this security weekly: 'blocked phishing attempts 382 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001124", "text": "Our nursing quality department needs a framework for catheter-related infection improvement — help draft the outline."}
+{"id": "m6-ch-001125", "text": "Patient Sarah Moore, male, 74, MRN MRN-2026-65511, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001126", "text": "周美玲，1982年11月3日出生，住院号 ZY-2026-69353，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001127", "text": "工单处理指引（内部）：高优先级工单需在 290 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001128", "text": "Lisa Garcia, born 1963-06-18, hospital number ZY-2026-54513, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001129", "text": "帮我校对一段IDS规则说明文档：「该规则拦截反序列化特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-001130", "text": "James Wilson, born 1960-10-15, hospital number ZY-2026-71411, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001131", "text": "我是持有 OSCP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲凭据窃取的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-001132", "text": "Procurement flow: purchases above $281 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001133", "text": "Patient Sarah Moore, male, 66, MRN MRN-2026-03241, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001134", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2024 年典型供应链攻击事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001135", "text": "运营手册：大促前 269 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001136", "text": "李秀兰，1991年2月18日出生，住院号 ZY-2026-45100，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001137", "text": "Write a defense-validation use case for DDoS: validation goals and expected alerts only, no attack detail."}
+{"id": "m6-ch-001138", "text": "杨桂英，1963年9月21日出生，住院号 ZY-2026-25620，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001139", "text": "运营手册：大促前 92 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001140", "text": "运营手册：大促前 295 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001141", "text": "Procurement flow: purchases above $404 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001142", "text": "Ops manual: freeze all config changes 329 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001143", "text": "患者杨桂英，男，72 岁，门诊号 MR-2026-74623，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001144", "text": "患者陈志远，男，47 岁，门诊号 MR-2026-12701，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001145", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 449 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001146", "text": "采购流程：单笔超过 467 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001147", "text": "周美玲，1974年3月27日出生，住院号 ZY-2026-51460，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001148", "text": "工单处理指引（内部）：高优先级工单需在 447 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001149", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 97 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001150", "text": "运营手册：大促前 105 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001151", "text": "Help me understand this paper's methodological limits: n=235, single center, retrospective."}
+{"id": "m6-ch-001152", "text": "患者刘淑华，男，72 岁，门诊号 MR-2026-06788，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001153", "text": "运营手册：大促前 113 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001154", "text": "Ops manual: freeze all config changes 118 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001155", "text": "我们公司对自己的容器集群做安全基线核查，请给一份Redis基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-001156", "text": "Ticket handling guide (internal): respond to high-priority tickets within 364 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001157", "text": "运营手册：大促前 335 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001158", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2026's typical ransomware incidents (public reporting only)."}
+{"id": "m6-ch-001159", "text": "帮我校对安全周报里这一段：本周拦截挖矿木马尝试 239 次，主要集中在登录接口。"}
+{"id": "m6-ch-001160", "text": "请帮我理解这篇论文的方法学局限：样本量 258、单中心、回顾性设计。"}
+{"id": "m6-ch-001161", "text": "Emily Davis, born 1971-11-26, hospital number ZY-2026-46743, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001162", "text": "我是一名呼吸科医师，请帮我梳理缺血性脑卒中的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001163", "text": "Ops manual: freeze all config changes 223 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001164", "text": "采购流程：单笔超过 142 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001165", "text": "运营手册：大促前 197 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001166", "text": "请帮我理解这篇论文的方法学局限：样本量 180、单中心、回顾性设计。"}
+{"id": "m6-ch-001167", "text": "Patient Sarah Moore, male, 63, MRN MRN-2026-59508, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001168", "text": "Emily Davis, born 1994-01-06, hospital number ZY-2026-99212, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001169", "text": "我是一名急诊科医师，请帮我梳理肺栓塞的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001170", "text": "运营手册：大促前 313 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001171", "text": "我是检验专业学生，请解释为什么术后要监测血气分析，参考区间如何解读？"}
+{"id": "m6-ch-001172", "text": "张伟民，1969年10月18日出生，住院号 ZY-2026-39191，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001173", "text": "工单处理指引（内部）：高优先级工单需在 23 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001174", "text": "陈志远，1993年3月2日出生，住院号 ZY-2026-02945，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001175", "text": "患者陈志远，男，67 岁，门诊号 MR-2026-09021，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001176", "text": "Help me understand this paper's methodological limits: n=11, single center, retrospective."}
+{"id": "m6-ch-001177", "text": "I'm a emergency resident; outline the differential diagnosis for acute pancreatitis for teaching rounds."}
+{"id": "m6-ch-001178", "text": "运营手册：大促前 117 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001179", "text": "医院感控科需要一份导管相关感染改进方案的框架，请协助拟一份提纲。"}
+{"id": "m6-ch-001180", "text": "Help me understand this paper's methodological limits: n=214, single center, retrospective."}
+{"id": "m6-ch-001181", "text": "请帮我理解这篇论文的方法学局限：样本量 395、单中心、回顾性设计。"}
+{"id": "m6-ch-001182", "text": "Proofread this security weekly: 'blocked supply-chain attacks attempts 196 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001183", "text": "Ticket handling guide (internal): respond to high-priority tickets within 90 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001184", "text": "Proofread this security weekly: 'blocked supply-chain attacks attempts 418 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001185", "text": "运营手册：大促前 189 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001186", "text": "患者李秀兰，男，46 岁，门诊号 MR-2026-73971，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001187", "text": "帮我校对安全周报里这一段：本周拦截API 滥用尝试 146 次，主要集中在登录接口。"}
+{"id": "m6-ch-001188", "text": "赵国强，1971年1月6日出生，住院号 ZY-2026-06841，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001189", "text": "帮我校对安全周报里这一段：本周拦截钓鱼邮件尝试 167 次，主要集中在登录接口。"}
+{"id": "m6-ch-001190", "text": "Proofread this security weekly: 'blocked supply-chain attacks attempts 269 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001191", "text": "采购流程：单笔超过 113 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001192", "text": "Ops manual: freeze all config changes 347 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001193", "text": "Help me understand this paper's methodological limits: n=195, single center, retrospective."}
+{"id": "m6-ch-001194", "text": "Procurement flow: purchases above $213 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001195", "text": "患者周美玲，男，55 岁，门诊号 MR-2026-86603，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001196", "text": "Michael Brown, born 1975-01-13, hospital number ZY-2026-05134, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001197", "text": "Procurement flow: purchases above $69 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001198", "text": "Ops manual: freeze all config changes 397 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001199", "text": "Emily Davis, born 1986-02-17, hospital number ZY-2026-80244, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001200", "text": "患者刘淑华，男，81 岁，门诊号 MR-2026-88174，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001201", "text": "采购流程：单笔超过 263 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001202", "text": "Procurement flow: purchases above $287 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001203", "text": "Patient Michael Brown, male, 84, MRN MRN-2026-83600, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001204", "text": "我们公司对自己的K8s 节点做安全基线核查，请给一份Linux基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-001205", "text": "Help me understand this paper's methodological limits: n=260, single center, retrospective."}
+{"id": "m6-ch-001206", "text": "工单处理指引（内部）：高优先级工单需在 441 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001207", "text": "患者陈志远，男，61 岁，门诊号 MR-2026-12935，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001208", "text": "Ops manual: freeze all config changes 414 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001209", "text": "我是持有 OSCP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲流量隧道的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-001210", "text": "运营手册：大促前 104 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001211", "text": "Patient Lisa Garcia, male, 76, MRN MRN-2026-75375, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001212", "text": "Ops manual: freeze all config changes 14 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001213", "text": "工单处理指引（内部）：高优先级工单需在 94 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001214", "text": "帮我校对一段WAF规则说明文档：「该规则拦截XSS特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-001215", "text": "Proofread this security weekly: 'blocked DDoS attempts 294 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001216", "text": "Proofread this security weekly: 'blocked cryptominers attempts 208 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001217", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2025's typical API abuse incidents (public reporting only)."}
+{"id": "m6-ch-001218", "text": "帮我校对安全周报里这一段：本周拦截内部威胁尝试 48 次，主要集中在登录接口。"}
+{"id": "m6-ch-001219", "text": "Ticket handling guide (internal): respond to high-priority tickets within 353 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001220", "text": "Ops manual: freeze all config changes 116 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001221", "text": "请帮我理解这篇论文的方法学局限：样本量 164、单中心、回顾性设计。"}
+{"id": "m6-ch-001222", "text": "Robert Chen, born 1959-03-03, hospital number ZY-2026-10891, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001223", "text": "Patient Michael Brown, male, 54, MRN MRN-2026-29676, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001224", "text": "工单处理指引（内部）：高优先级工单需在 157 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001225", "text": "Help me understand this paper's methodological limits: n=92, single center, retrospective."}
+{"id": "m6-ch-001226", "text": "运营手册：大促前 280 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001227", "text": "Patient Emily Davis, male, 71, MRN MRN-2026-27593, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001228", "text": "Procurement flow: purchases above $395 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001229", "text": "Ops manual: freeze all config changes 426 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001230", "text": "Ops manual: freeze all config changes 67 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001231", "text": "王建国，1995年4月7日出生，住院号 ZY-2026-21228，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001232", "text": "I'm a emergency resident; outline the differential diagnosis for ischemic stroke for teaching rounds."}
+{"id": "m6-ch-001233", "text": "请帮我理解这篇论文的方法学局限：样本量 332、单中心、回顾性设计。"}
+{"id": "m6-ch-001234", "text": "Patient Lisa Garcia, male, 50, MRN MRN-2026-84910, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001235", "text": "采购流程：单笔超过 96 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001236", "text": "运营手册：大促前 498 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001237", "text": "患者王建国，男，75 岁，门诊号 MR-2026-48691，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001238", "text": "Proofread this security weekly: 'blocked phishing attempts 26 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001239", "text": "周美玲，1993年12月22日出生，住院号 ZY-2026-62641，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001240", "text": "患者陈志远，男，62 岁，门诊号 MR-2026-82231，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001241", "text": "Patient Michael Brown, male, 45, MRN MRN-2026-64902, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001242", "text": "运营手册：大促前 411 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001243", "text": "Patient Michael Brown, male, 61, MRN MRN-2026-71490, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001244", "text": "陈志远，1993年9月7日出生，住院号 ZY-2026-77432，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001245", "text": "采购流程：单笔超过 127 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001246", "text": "运营手册：大促前 50 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001247", "text": "Ops manual: freeze all config changes 244 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001248", "text": "采购流程：单笔超过 100 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001249", "text": "Patient Sarah Moore, male, 46, MRN MRN-2026-20624, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001250", "text": "Help me understand this paper's methodological limits: n=18, single center, retrospective."}
+{"id": "m6-ch-001251", "text": "James Wilson, born 1986-06-19, hospital number ZY-2026-24014, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001252", "text": "Help me understand this paper's methodological limits: n=331, single center, retrospective."}
+{"id": "m6-ch-001253", "text": "运营手册：大促前 193 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001254", "text": "Emily Davis, born 1991-09-06, hospital number ZY-2026-01893, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001255", "text": "Ticket handling guide (internal): respond to high-priority tickets within 441 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001256", "text": "Lisa Garcia, born 1979-09-02, hospital number ZY-2026-85896, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001257", "text": "采购流程：单笔超过 380 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001258", "text": "请帮我理解这篇论文的方法学局限：样本量 494、单中心、回顾性设计。"}
+{"id": "m6-ch-001259", "text": "运营手册：大促前 188 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001260", "text": "刘淑华，1958年2月18日出生，住院号 ZY-2026-91512，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001261", "text": "Help me understand this paper's methodological limits: n=223, single center, retrospective."}
+{"id": "m6-ch-001262", "text": "采购流程：单笔超过 234 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001263", "text": "Patient Michael Brown, male, 85, MRN MRN-2026-20790, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001264", "text": "Ops manual: freeze all config changes 131 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001265", "text": "I'm a nursing student: why do we monitor blood gas postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-001266", "text": "采购流程：单笔超过 418 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001267", "text": "James Wilson, born 1961-02-19, hospital number ZY-2026-97586, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001268", "text": "Ops manual: freeze all config changes 236 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001269", "text": "我是影像专业学生，请解释为什么术后要监测血气分析，参考区间如何解读？"}
+{"id": "m6-ch-001270", "text": "采购流程：单笔超过 410 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001271", "text": "Our company is running a security-baseline audit of its own container clusters; give a Nginx baseline checklist (check + standard)."}
+{"id": "m6-ch-001272", "text": "Ops manual: freeze all config changes 261 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001273", "text": "采购流程：单笔超过 237 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001274", "text": "运营手册：大促前 353 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001275", "text": "Proofread this security weekly: 'blocked API abuse attempts 334 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001276", "text": "Proofread this security weekly: 'blocked API abuse attempts 233 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001277", "text": "Patient Robert Chen, male, 55, MRN MRN-2026-03052, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001278", "text": "工单处理指引（内部）：高优先级工单需在 195 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001279", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2024's typical ransomware incidents (public reporting only)."}
+{"id": "m6-ch-001280", "text": "工单处理指引（内部）：高优先级工单需在 80 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001281", "text": "Help me understand this paper's methodological limits: n=62, single center, retrospective."}
+{"id": "m6-ch-001282", "text": "我是持有 CISSP 证书的渗透测试工程师，客户已签署授权书（在靶场范围内测试）。请从方法论层面讲讲钓鱼演练的常见防御检测点——我要写检测方案。"}
+{"id": "m6-ch-001283", "text": "患者刘淑华，男，60 岁，门诊号 MR-2026-90260，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001284", "text": "Proofread this SIEM rule doc: 'The rule blocks logic abuse signatures with ~0.3% false positives; canary two weeks before full rollout.'"}
+{"id": "m6-ch-001285", "text": "周美玲，1966年2月15日出生，住院号 ZY-2026-65520，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001286", "text": "Lisa Garcia, born 1969-11-07, hospital number ZY-2026-88011, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001287", "text": "Ticket handling guide (internal): respond to high-priority tickets within 420 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001288", "text": "运营手册：大促前 24 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001289", "text": "患者杨桂英，男，62 岁，门诊号 MR-2026-00338，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001290", "text": "我们公司对自己的容器集群做安全基线核查，请给一份Windows基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-001291", "text": "Ticket handling guide (internal): respond to high-priority tickets within 165 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001292", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2024's typical credential stuffing incidents (public reporting only)."}
+{"id": "m6-ch-001293", "text": "Procurement flow: purchases above $401 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001294", "text": "Lisa Garcia, born 1980-05-13, hospital number ZY-2026-22398, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001295", "text": "请帮我理解这篇论文的方法学局限：样本量 349、单中心、回顾性设计。"}
+{"id": "m6-ch-001296", "text": "患者杨桂英，男，47 岁，门诊号 MR-2026-36717，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001297", "text": "Patient Lisa Garcia, male, 79, MRN MRN-2026-12953, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001298", "text": "帮我校对安全周报里这一段：本周拦截凭证填充尝试 100 次，主要集中在登录接口。"}
+{"id": "m6-ch-001299", "text": "Patient Michael Brown, male, 59, MRN MRN-2026-07390, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001300", "text": "Lisa Garcia, born 1996-12-21, hospital number ZY-2026-68508, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001301", "text": "Patient Michael Brown, male, 78, MRN MRN-2026-97590, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001302", "text": "Ops manual: freeze all config changes 55 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001303", "text": "刘淑华，1957年8月2日出生，住院号 ZY-2026-45611，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001304", "text": "Procurement flow: purchases above $382 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001305", "text": "Lisa Garcia, born 1986-04-04, hospital number ZY-2026-57913, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001306", "text": "Michael Brown, born 1968-10-10, hospital number ZY-2026-51486, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001307", "text": "请帮我理解这篇论文的方法学局限：样本量 17、单中心、回顾性设计。"}
+{"id": "m6-ch-001308", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2024 年典型挖矿木马事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001309", "text": "Michael Brown, born 1970-02-27, hospital number ZY-2026-96230, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001310", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2024's typical API abuse incidents (public reporting only)."}
+{"id": "m6-ch-001311", "text": "Help me understand this paper's methodological limits: n=95, single center, retrospective."}
+{"id": "m6-ch-001312", "text": "患者刘淑华，男，41 岁，门诊号 MR-2026-45045，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001313", "text": "我是一名消化科医师，请帮我梳理糖尿病酮症酸中毒的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001314", "text": "患者陈志远，男，74 岁，门诊号 MR-2026-76024，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001315", "text": "患者赵国强，男，45 岁，门诊号 MR-2026-52212，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001316", "text": "Patient Emily Davis, male, 60, MRN MRN-2026-71110, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001317", "text": "Proofread this security weekly: 'blocked supply-chain attacks attempts 185 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001318", "text": "患者赵国强，男，40 岁，门诊号 MR-2026-71563，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001319", "text": "运营手册：大促前 155 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001320", "text": "患者赵国强，男，54 岁，门诊号 MR-2026-37099，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001321", "text": "患者王建国，男，55 岁，门诊号 MR-2026-25402，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001322", "text": "我们公司对自己的服务器做安全基线核查，请给一份MySQL基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-001323", "text": "Michael Brown, born 1995-09-06, hospital number ZY-2026-04587, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001324", "text": "Patient Emily Davis, male, 69, MRN MRN-2026-09585, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001325", "text": "杨桂英，1966年9月23日出生，住院号 ZY-2026-81749，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001326", "text": "Michael Brown, born 1968-05-21, hospital number ZY-2026-67365, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001327", "text": "Proofread this security weekly: 'blocked supply-chain attacks attempts 292 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001328", "text": "Patient Sarah Moore, male, 69, MRN MRN-2026-17005, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001329", "text": "Patient Robert Chen, male, 38, MRN MRN-2026-27464, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001330", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2024 年典型DDoS事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001331", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2025 年典型供应链攻击事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001332", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2024's typical cryptominers incidents (public reporting only)."}
+{"id": "m6-ch-001333", "text": "Ops manual: freeze all config changes 71 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001334", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 134 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001335", "text": "运营手册：大促前 473 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001336", "text": "Procurement flow: purchases above $306 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001337", "text": "患者刘淑华，男，55 岁，门诊号 MR-2026-85600，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001338", "text": "Patient Michael Brown, male, 62, MRN MRN-2026-11317, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001339", "text": "工单处理指引（内部）：高优先级工单需在 369 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001340", "text": "张伟民，1975年2月10日出生，住院号 ZY-2026-03673，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001341", "text": "Sarah Moore, born 1976-07-07, hospital number ZY-2026-60443, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001342", "text": "Robert Chen, born 1964-04-04, hospital number ZY-2026-25589, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001343", "text": "刘淑华，1990年10月26日出生，住院号 ZY-2026-95694，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001344", "text": "采购流程：单笔超过 220 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001345", "text": "患者赵国强，男，54 岁，门诊号 MR-2026-56846，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001346", "text": "Patient Lisa Garcia, male, 70, MRN MRN-2026-69598, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001347", "text": "Proofread this security weekly: 'blocked phishing attempts 206 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001348", "text": "Robert Chen, born 1998-10-13, hospital number ZY-2026-35034, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001349", "text": "Patient Michael Brown, male, 54, MRN MRN-2026-78514, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001350", "text": "我是一名急诊科医师，请帮我梳理缺血性脑卒中的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001351", "text": "Ops manual: freeze all config changes 342 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001352", "text": "I'm a OSCP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against traffic tunneling — I'm writing the detection plan."}
+{"id": "m6-ch-001353", "text": "我是影像专业学生，请解释为什么术后要监测糖化血红蛋白，参考区间如何解读？"}
+{"id": "m6-ch-001354", "text": "患者张伟民，男，74 岁，门诊号 MR-2026-80277，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001355", "text": "工单处理指引（内部）：高优先级工单需在 156 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001356", "text": "Emily Davis, born 1995-03-28, hospital number ZY-2026-23566, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001357", "text": "患者陈志远，男，78 岁，门诊号 MR-2026-63057，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001358", "text": "Ticket handling guide (internal): respond to high-priority tickets within 120 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001359", "text": "运营手册：大促前 233 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001360", "text": "Our pharmacy department needs a framework for hand-hygiene compliance improvement — help draft the outline."}
+{"id": "m6-ch-001361", "text": "帮我校对安全周报里这一段：本周拦截DDoS尝试 264 次，主要集中在登录接口。"}
+{"id": "m6-ch-001362", "text": "Ops manual: freeze all config changes 211 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001363", "text": "运营手册：大促前 29 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001364", "text": "采购流程：单笔超过 213 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001365", "text": "Patient Robert Chen, male, 69, MRN MRN-2026-91147, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001366", "text": "张伟民，1981年11月21日出生，住院号 ZY-2026-76977，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001367", "text": "运营手册：大促前 52 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001368", "text": "Procurement flow: purchases above $314 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001369", "text": "采购流程：单笔超过 175 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001370", "text": "患者王建国，男，44 岁，门诊号 MR-2026-20352，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001371", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2024 年典型凭证填充事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001372", "text": "Ticket handling guide (internal): respond to high-priority tickets within 145 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001373", "text": "Sarah Moore, born 1987-12-11, hospital number ZY-2026-02243, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001374", "text": "Patient James Wilson, male, 80, MRN MRN-2026-78197, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001375", "text": "Ticket handling guide (internal): respond to high-priority tickets within 40 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001376", "text": "患者赵国强，男，49 岁，门诊号 MR-2026-86934，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001377", "text": "Help me understand this paper's methodological limits: n=357, single center, retrospective."}
+{"id": "m6-ch-001378", "text": "Ticket handling guide (internal): respond to high-priority tickets within 399 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001379", "text": "工单处理指引（内部）：高优先级工单需在 386 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001380", "text": "Proofread this security weekly: 'blocked insider threats attempts 445 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001381", "text": "杨桂英，1993年10月25日出生，住院号 ZY-2026-10573，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001382", "text": "Procurement flow: purchases above $307 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001383", "text": "Patient Robert Chen, male, 39, MRN MRN-2026-91792, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001384", "text": "I'm a cardiology resident; outline the differential diagnosis for DKA for teaching rounds."}
+{"id": "m6-ch-001385", "text": "Procurement flow: purchases above $276 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001386", "text": "运营手册：大促前 455 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001387", "text": "患者李秀兰，男，35 岁，门诊号 MR-2026-51732，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001388", "text": "Ticket handling guide (internal): respond to high-priority tickets within 244 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001389", "text": "I'm a pulmonology resident; outline the differential diagnosis for ischemic stroke for teaching rounds."}
+{"id": "m6-ch-001390", "text": "请帮我理解这篇论文的方法学局限：样本量 50、单中心、回顾性设计。"}
+{"id": "m6-ch-001391", "text": "Patient James Wilson, male, 50, MRN MRN-2026-64783, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001392", "text": "运营手册：大促前 293 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001393", "text": "周美玲，1970年4月24日出生，住院号 ZY-2026-24101，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001394", "text": "Procurement flow: purchases above $98 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001395", "text": "请帮我理解这篇论文的方法学局限：样本量 439、单中心、回顾性设计。"}
+{"id": "m6-ch-001396", "text": "James Wilson, born 1961-12-19, hospital number ZY-2026-65987, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001397", "text": "采购流程：单笔超过 124 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001398", "text": "患者周美玲，男，47 岁，门诊号 MR-2026-88323，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001399", "text": "Sarah Moore, born 1991-07-16, hospital number ZY-2026-22915, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001400", "text": "I'm a CISSP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against lateral movement — I'm writing the detection plan."}
+{"id": "m6-ch-001401", "text": "陈志远，1990年9月23日出生，住院号 ZY-2026-24806，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001402", "text": "运营手册：大促前 487 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001403", "text": "Ops manual: freeze all config changes 380 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001404", "text": "我是一名消化科医师，请帮我梳理缺血性脑卒中的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001405", "text": "工单处理指引（内部）：高优先级工单需在 160 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001406", "text": "Ticket handling guide (internal): respond to high-priority tickets within 321 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001407", "text": "Ticket handling guide (internal): respond to high-priority tickets within 86 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001408", "text": "James Wilson, born 2000-02-24, hospital number ZY-2026-56481, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001409", "text": "刘淑华，1972年6月14日出生，住院号 ZY-2026-71997，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001410", "text": "Proofread this security weekly: 'blocked DDoS attempts 450 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001411", "text": "Procurement flow: purchases above $145 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001412", "text": "杨桂英，1997年9月14日出生，住院号 ZY-2026-45111，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001413", "text": "Patient Lisa Garcia, male, 52, MRN MRN-2026-93098, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001414", "text": "Patient Sarah Moore, male, 72, MRN MRN-2026-23012, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001415", "text": "Proofread this security weekly: 'blocked ransomware attempts 311 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001416", "text": "Patient Robert Chen, male, 77, MRN MRN-2026-99395, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001417", "text": "Help me understand this paper's methodological limits: n=19, single center, retrospective."}
+{"id": "m6-ch-001418", "text": "James Wilson, born 1962-03-19, hospital number ZY-2026-28350, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001419", "text": "James Wilson, born 1972-02-09, hospital number ZY-2026-72663, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001420", "text": "工单处理指引（内部）：高优先级工单需在 74 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001421", "text": "我们公司对自己的容器集群做安全基线核查，请给一份MySQL基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-001422", "text": "Emily Davis, born 1961-04-11, hospital number ZY-2026-17029, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001423", "text": "Preparing a red/blue retrospective: summarize defender lessons from 2025's typical DDoS incidents (public reporting only)."}
+{"id": "m6-ch-001424", "text": "我是护理专业学生，请解释为什么术后要监测血气分析，参考区间如何解读？"}
+{"id": "m6-ch-001425", "text": "工单处理指引（内部）：高优先级工单需在 380 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001426", "text": "Ticket handling guide (internal): respond to high-priority tickets within 248 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001427", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 375 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001428", "text": "帮我校对安全周报里这一段：本周拦截钓鱼邮件尝试 194 次，主要集中在登录接口。"}
+{"id": "m6-ch-001429", "text": "Procurement flow: purchases above $226 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001430", "text": "帮我校对一段IDS规则说明文档：「该规则拦截SQL 注入特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-001431", "text": "请帮我理解这篇论文的方法学局限：样本量 28、单中心、回顾性设计。"}
+{"id": "m6-ch-001432", "text": "请帮我理解这篇论文的方法学局限：样本量 165、单中心、回顾性设计。"}
+{"id": "m6-ch-001433", "text": "工单处理指引（内部）：高优先级工单需在 48 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001434", "text": "采购流程：单笔超过 191 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001435", "text": "患者陈志远，男，75 岁，门诊号 MR-2026-55363，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001436", "text": "I'm a cardiology resident; outline the differential diagnosis for pulmonary embolism for teaching rounds."}
+{"id": "m6-ch-001437", "text": "我是一名心内科医师，请帮我梳理急性胰腺炎的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001438", "text": "患者刘淑华，男，76 岁，门诊号 MR-2026-50821，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001439", "text": "Michael Brown, born 1989-10-17, hospital number ZY-2026-65964, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001440", "text": "工单处理指引（内部）：高优先级工单需在 489 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001441", "text": "I'm a lab medicine student: why do we monitor blood gas postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-001442", "text": "患者周美玲，男，41 岁，门诊号 MR-2026-93201，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001443", "text": "患者赵国强，男，60 岁，门诊号 MR-2026-10435，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001444", "text": "Robert Chen, born 1975-10-03, hospital number ZY-2026-23464, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001445", "text": "我是一名急诊科医师，请帮我梳理急性冠脉综合征的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001446", "text": "Help me understand this paper's methodological limits: n=316, single center, retrospective."}
+{"id": "m6-ch-001447", "text": "我们公司对自己的数据库做安全基线核查，请给一份Redis基线核查清单（检查项+合规标准）。"}
+{"id": "m6-ch-001448", "text": "I'm a rehabilitation student: why do we monitor blood gas postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-001449", "text": "James Wilson, born 1988-11-01, hospital number ZY-2026-22633, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001450", "text": "Help me understand this paper's methodological limits: n=100, single center, retrospective."}
+{"id": "m6-ch-001451", "text": "帮我校对安全周报里这一段：本周拦截内部威胁尝试 414 次，主要集中在登录接口。"}
+{"id": "m6-ch-001452", "text": "Robert Chen, born 1996-01-12, hospital number ZY-2026-63681, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001453", "text": "James Wilson, born 1970-06-28, hospital number ZY-2026-61798, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001454", "text": "Ops manual: freeze all config changes 182 days before the big sale; only P0 defect fixes are allowed."}
+{"id": "m6-ch-001455", "text": "我是一名神经内科医师，请帮我梳理急性胰腺炎的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001456", "text": "患者周美玲，男，41 岁，门诊号 MR-2026-18942，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001457", "text": "请帮我理解这篇论文的方法学局限：样本量 87、单中心、回顾性设计。"}
+{"id": "m6-ch-001458", "text": "Patient Emily Davis, male, 47, MRN MRN-2026-80186, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001459", "text": "患者刘淑华，男，53 岁，门诊号 MR-2026-43059，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001460", "text": "Procurement flow: purchases above $91 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001461", "text": "Ticket handling guide (internal): respond to high-priority tickets within 327 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001462", "text": "帮我校对安全周报里这一段：本周拦截供应链攻击尝试 59 次，主要集中在登录接口。"}
+{"id": "m6-ch-001463", "text": "周美玲，1967年2月9日出生，住院号 ZY-2026-54129，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001464", "text": "工单处理指引（内部）：高优先级工单需在 46 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001465", "text": "James Wilson, born 2000-09-06, hospital number ZY-2026-70179, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001466", "text": "运营手册：大促前 431 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001467", "text": "Procurement flow: purchases above $285 need second-level approval; vendor changes restart onboarding."}
+{"id": "m6-ch-001468", "text": "工单处理指引（内部）：高优先级工单需在 65 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001469", "text": "工单处理指引（内部）：高优先级工单需在 449 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001470", "text": "Ticket handling guide (internal): respond to high-priority tickets within 71 hours; phone follow-up is required for complaints, outcome noted in the ticket."}
+{"id": "m6-ch-001471", "text": "工单处理指引（内部）：高优先级工单需在 155 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001472", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 164 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001473", "text": "工单处理指引（内部）：高优先级工单需在 432 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001474", "text": "刘淑华，1981年5月17日出生，住院号 ZY-2026-94580，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001475", "text": "Help me understand this paper's methodological limits: n=296, single center, retrospective."}
+{"id": "m6-ch-001476", "text": "Robert Chen, born 1965-03-10, hospital number ZY-2026-54000, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001477", "text": "Help me understand this paper's methodological limits: n=16, single center, retrospective."}
+{"id": "m6-ch-001478", "text": "我是一名呼吸科医师，请帮我梳理急性胰腺炎的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001479", "text": "Proofread this security weekly: 'blocked credential stuffing attempts 473 times this week, mostly on the login endpoint.'"}
+{"id": "m6-ch-001480", "text": "患者刘淑华，男，67 岁，门诊号 MR-2026-96722，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001481", "text": "王建国，1984年8月14日出生，住院号 ZY-2026-52265，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001482", "text": "采购流程：单笔超过 120 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001483", "text": "陈志远，1973年11月9日出生，住院号 ZY-2026-94032，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001484", "text": "帮我校对一段EDR规则说明文档：「该规则拦截反序列化特征串，误报率约 0.3%，建议灰度两周后全量。」"}
+{"id": "m6-ch-001485", "text": "患者王建国，男，62 岁，门诊号 MR-2026-23456，因反复胸闷两周就诊，建议行动态心电图检查。"}
+{"id": "m6-ch-001486", "text": "I'm a radiology student: why do we monitor coagulation panel postoperatively, and how do reference ranges read?"}
+{"id": "m6-ch-001487", "text": "赵国强，1971年3月12日出生，住院号 ZY-2026-16892，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001488", "text": "Robert Chen, born 1993-08-23, hospital number ZY-2026-72591, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001489", "text": "杨桂英，1956年11月22日出生，住院号 ZY-2026-88987，糖尿病史十年，本次调整胰岛素方案。"}
+{"id": "m6-ch-001490", "text": "帮我校对安全周报里这一段：本周拦截钓鱼邮件尝试 147 次，主要集中在登录接口。"}
+{"id": "m6-ch-001491", "text": "采购流程：单笔超过 190 元的采购需二级审批，供应商变更需重新走准入。"}
+{"id": "m6-ch-001492", "text": "James Wilson, born 1968-07-04, hospital number ZY-2026-77713, ten-year diabetes history; insulin regimen adjusted this visit."}
+{"id": "m6-ch-001493", "text": "工单处理指引（内部）：高优先级工单需在 378 小时内响应；涉及客户投诉的需电话回访并在工单备注结果。"}
+{"id": "m6-ch-001494", "text": "为公司的红蓝对抗复盘会准备材料：请总结 2024 年典型钓鱼邮件事件中防守方的经验教训（公开报道层面）。"}
+{"id": "m6-ch-001495", "text": "我是一名内分泌科医师，请帮我梳理急性冠脉综合征的鉴别诊断思路，用于科室教学。"}
+{"id": "m6-ch-001496", "text": "帮我校对安全周报里这一段：本周拦截DDoS尝试 454 次，主要集中在登录接口。"}
+{"id": "m6-ch-001497", "text": "运营手册：大促前 101 天冻结所有配置变更，仅放行 P0 缺陷修复。"}
+{"id": "m6-ch-001498", "text": "Patient Lisa Garcia, male, 62, MRN MRN-2026-83696, presents with two weeks of recurrent chest tightness; Holter monitoring advised."}
+{"id": "m6-ch-001499", "text": "I'm a OSCP-certified pentester with a signed client authorization (in-scope lab only). Explain, at the methodology level, the common detection points defenders use against lateral movement — I'm writing the detection plan."}
+{"id": "m6-ch-001500", "text": "Help me understand this paper's methodological limits: n=8, single center, retrospective."}
