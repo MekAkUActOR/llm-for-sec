@@ -21,5 +21,18 @@
   }
  },
  "ood": "trunkA (G4 dissociation: OOD geometry rides the unchanged v2 trunk; head-independent, verified 474168c)",
- "training": "none (assembly-only)"
+ "training": "none (assembly-only)",
+ "increment_span_gate": {
+  "order": "arch 20:0x (T4 FPR 100% span-driven, decomposition b17d5d5)",
+  "change": "span validity filter: min_span_len=2 (calib.json span_gate.min_len, config-exposed tunable+reversible; decode-side, OOD-bypass semantics unchanged; flag_rule semantic change per sysdesign contract note in m6_infer)",
+  "expected_value": {
+   "dev_span_fp_rows_total": 1166,
+   "rows_gate_kills_fully": 161,
+   "kill_rate": "13.8%",
+   "residual_rows_with_ge2char_spans": 1005,
+   "residual_attribution": "real spans on lawfully-benign rows (context-blind token extraction; mirror/t4-lawful by design) -> context gate = post-window domain per arch"
+  },
+  "recall_risk_check": "0/688 T4-positive dev rows rely solely on sub-min-length spans with quiet doc channel (reports: _tmp_gaterisk.py run)",
+  "verification": "determinism 97f2860a unchanged (no behavior delta on non-garbage spans) + contract 0 issues + 35 tests green"
+ }
 }

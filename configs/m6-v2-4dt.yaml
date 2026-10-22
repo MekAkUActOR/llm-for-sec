@@ -1,4 +1,4 @@
-﻿# v2.3a config: Branch A composite (arch 18:4x ruling) -- fresh-init heads
+# v2.3a config: Branch A composite (arch 18:4x ruling) -- fresh-init heads
 # on the FROZEN v2.2-ep1 adapted trunk. The adapted feature cache is
 # pre-built by scripts/_tmp_branchA_cache.py (train/dev pooled + PII token
 # features through the v2.2 adapter); this run is the standard v1-x
@@ -13,6 +13,10 @@ base:
   model_name_or_path: checkpoints/qwen3-06b-sec-m5a-dpo-r5
   dtype: bf16
 probe:
+  span_gate:
+    # arch 20:0x order: T4 benign FPs are 100% span-driven 1-char garbage;
+    # no covered entity type has a legal 1-char instance. Tunable+reversible.
+    min_len: 2
   tapped_layers: [4, 12, 20, 24, 28]
   token_layers: [12, 28]
   heads:

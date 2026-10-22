@@ -50,6 +50,9 @@
       "strong_logit": -0.0
     }
   },
+  "span_gate": {
+    "min_len": 2
+  },
   "ood": {
     "mechanism": "mahalanobis-aux",
     "tau_ood": 3369.341838,

@@ -173,6 +173,10 @@ class M6Inferencer:
         self.ood_cfg = (calib or {}).get("ood", {})
         self.tau_ood = _read_tau_ood(self.ood_cfg, f"{hd}/calib.json") if calib \
             else 1.0
+        # span validity gate (arch 20:0x): decode-side minimum span length;
+        # default 1 = no-op (backward compatible with all prior artifacts)
+        self.min_span_len = int((calib or {}).get(
+            "span_gate", {}).get("min_len", 1)) if calib else 1
         if runpoint:
             rp = json.loads(Path(runpoint).read_text(encoding="utf-8-sig"))
             for t in TASKS:
@@ -358,6 +362,18 @@ class M6Inferencer:
             bio, tw["offsets"], msg_spans,
             lambda mi: msgs[mi] if mi < len(msgs) else (msgs[0] if msgs else ""),
             fmap)
+        # CONTRACT (sysdesign note, arch 20:0x): flag_rule semantic change --
+        # "spans nonempty" is evaluated AFTER the span validity filter.
+        # min_span_len (calib.json span_gate.min_len, default 1 = no-op for
+        # backward compat): spans shorter than the minimum are dropped from
+        # the response AND do not trigger the strong band. Rationale: T4
+        # benign FPs are 100% span-driven 1-char garbage ("向"->person,
+        # "h"->email); no covered entity type (person/email/dob/plate/
+        # medical_id) has a legal 1-char instance. OOD-bypass semantics
+        # of the span channel unchanged.
+        if self.min_span_len > 1:
+            spans = [s for s in spans
+                     if (s["end"] - s["start"]) >= self.min_span_len]
 
         # OOD on trunk features (raw distance)
         with torch.no_grad():

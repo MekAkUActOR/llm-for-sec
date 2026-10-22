@@ -1371,6 +1371,12 @@ def _finalize(model, A, D, TB, TBd, out_dir, cfg, t_start, args):
                     "owner": "deveng-m6 (initial; qa-m6 re-freezes)",
                     "calibrated_on": {"split": "dev"},
                     "thresholds": thresholds,
+                    # span validity gate (arch 20:0x order): T4 benign FPs
+                    # are 100% span-driven with 1-char garbage spans; no
+                    # covered entity type has a legal 1-char instance.
+                    # Filter is decode-side, OOD-bypass semantics unchanged.
+                    "span_gate": {"min_len": int(cfg.get("probe", {}).get(
+                        "span_gate", {}).get("min_len", 1))},
                     "ood": {"mechanism": "mahalanobis-aux",
                             "tau_ood": round(tau_ood, 6),
                             "suppression": "two-band"},
