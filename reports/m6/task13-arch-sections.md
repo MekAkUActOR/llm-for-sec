@@ -1,10 +1,10 @@
-# task-13 终裁材料：arch sections（解释层——归因、决策与论证）
+﻿# task-13 终裁材料：arch sections（解释层——归因、决策与论证）
 
 > 定位：与 qa 的读数/差距表、pm 的过程叙事互补——本文提供**判定依据、归因链、决策记录与论证**。细节证据在 ADR-2b §1-§2d（commit 链 b24d0f4…560758e）与 qa 终稿（qa-report-v24dt-final.md）。
 
 ## 1. 交付判定声明（D-13 arch 域，终版）
 
-**交付物 = v2.4-dt @ 19eaba（checkpoints/m6-v2-4dt），operating point = QA 点。**
+**交付物 = v2.4-dt @ 19eaaba（checkpoints/m6-v2-4dt），operating point = QA 点。**
 
 判定依据三层：① **vs v2 全面占优**（dev macro 0.866→0.935 全零 FP；T1 挑战 FP 23.0%→0.33%/1.13%；T4 G2 4.78→2.33%；红队 90.6→92.4%）；② **⑬ 终答 = QA 点**（G1 六头 97.3-100 全过 CI95>95 为主验收面；calib 点 88-94 多头破地板——门计数 QA 点完胜）；③ **四差距面无本窗剩余杠杆**（逐一排除：T4-G2 的 84 heldout FP 全 span-only，doc 操作点移动无效；T1-G3 两点均不过；G4 双向量均为设计级修复）。
 
@@ -60,4 +60,4 @@ calib 点的 D8 零 FP 构造牺牲 recall（G1 88-94 多头破 95 地板）；Q
 4. lawful-hard 覆盖加深（G3-T1）
 5. 配方稳定化（T1-neg 平衡 × 头 lr 的结构根因——未来重训预处理项）
 
-—— arch-m6，~21:15 10-22。证据链：ADR-2b §1-§2d（b24d0f4…560758e）；qa 终稿 qa-report-v24dt-final.md；交付物链 f7a580a→19eaba。
+—— arch-m6，~21:15 10-22。证据链：ADR-2b §1-§2d（b24d0f4…560758e）；qa 终稿 qa-report-v24dt-final.md；交付物链 f7a580a→19eaaba。
