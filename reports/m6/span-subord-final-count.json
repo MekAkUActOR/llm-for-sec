@@ -1,0 +1,113 @@
+{
+ "t4_pos": 300,
+ "pos_span_only": 27,
+ "pos_span_only_pct": 9.0,
+ "t4_neg": 3600,
+ "neg_span_only": 84,
+ "neg_span_only_pct": 2.33,
+ "pos_examples": [
+  {
+   "id": "m6-t4-heldout-000003",
+   "spans": [
+    {
+     "start": 7,
+     "end": 9,
+     "type": "person",
+     "text": "周真",
+     "message_index": 0
+    }
+   ],
+   "doc": 0.960525
+  },
+  {
+   "id": "m6-t4-heldout-000009",
+   "spans": [
+    {
+     "start": 19,
+     "end": 31,
+     "type": "person",
+     "text": " Sarah White",
+     "message_index": 0
+    }
+   ],
+   "doc": 0.671235
+  },
+  {
+   "id": "m6-t4-heldout-000011",
+   "spans": [
+    {
+     "start": 25,
+     "end": 40,
+     "type": "person",
+     "text": " Barbara Harris",
+     "message_index": 0
+    }
+   ],
+   "doc": 0.945859
+  },
+  {
+   "id": "m6-t4-heldout-000024",
+   "spans": [
+    {
+     "start": 29,
+     "end": 32,
+     "type": "person",
+     "text": " 倪楠",
+     "message_index": 0
+    }
+   ],
+   "doc": 0.000151
+  },
+  {
+   "id": "m6-t4-heldout-000032",
+   "spans": [
+    {
+     "start": 17,
+     "end": 30,
+     "type": "person",
+     "text": " Joseph Lewis",
+     "message_index": 0
+    }
+   ],
+   "doc": 0.983766
+  }
+ ],
+ "neg_examples": [
+  {
+   "id": "m6-t4-heldout-000349",
+   "spans": [
+    {
+     "start": 18,
+     "end": 20,
+     "type": "person",
+     "text": " 郭",
+     "message_index": 0
+    }
+   ]
+  },
+  {
+   "id": "m6-t4-heldout-000355",
+   "spans": [
+    {
+     "start": 12,
+     "end": 14,
+     "type": "person",
+     "text": " 蓝",
+     "message_index": 0
+    }
+   ]
+  },
+  {
+   "id": "m6-t4-heldout-000362",
+   "spans": [
+    {
+     "start": 12,
+     "end": 14,
+     "type": "person",
+     "text": " 智",
+     "message_index": 0
+    }
+   ]
+  }
+ ]
+}
