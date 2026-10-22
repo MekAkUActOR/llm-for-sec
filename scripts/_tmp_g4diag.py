@@ -13,7 +13,7 @@ rows = [json.loads(l) for l in open(
     REPO / "data/m6/ood/all.jsonl", encoding="utf-8-sig") if l.strip()]
 print(f"ood suite rows: {len(rows)}")
 
-for name in ("m6-v1-3", "m6-v2", "m6-v2-4"):
+for name in ("m6-v1-3", "m6-v2", "m6-v2-4", "_tmp_v2plane2"):
     inf = M6Inferencer(str(REPO / "checkpoints" / name))
     outs = inf.infer_records(rows)
     n_ood = sum(1 for o in outs if o["ood"]["is_ood"])
