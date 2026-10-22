@@ -71,7 +71,7 @@ v0 = m5a-r5 原样模型套六任务口径。**探针架构（冻结主干 + 多
 | 3 | **G4 三候选层**：(a) 特征重估 / (b) 学习式 OOD 判别头（mirror 代理监督——原则性首选）/ (c) flagged-OOD 联合语义 | 几何域 | 边界邻接覆盖（23x 分离恢复也只值 40.2%——需学习式边界） | 中 |
 | 4 | **span 承重结构加固**（正例池配额纪律 + doc 头长文 PII 教学） | 数据/架构域 | 降低单点依赖（防御性） | 中 |
 
-## 8. 工艺教训（十条，可迁移）
+## 8. 工艺教训（十一条，可迁移）
 
 1. **分解先于归因**——三次防错（T3 分母 / T4-FPR 定性翻转 / span 例证误导）；金标 join 是终审
 2. **init 健康性是特征相对量**（F-2）——"健康头"换特征分布即饱和陷阱
@@ -83,6 +83,7 @@ v0 = m5a-r5 原样模型套六任务口径。**探针架构（冻结主干 + 多
 8. **fallback 语义须考虑非单调轨迹**（D-13 last-fallback 单调崩塌保最差 epoch → least-bad 字典序 24b759b）
 9. **对活跃编辑中的代码库跑诊断 = 撞中途态**
 10. **投影外推须全阶段核验放大因子**（8.6x 只外推到提取未核 fwd+bwd；4.4x 提速仅评测路径）
+11. **工程产物不入 git 主链**（Lead 收口实证）——feat_cache/训练快照类可再生二进制应走 .gitignore + HF/制品库；本窗收口被 GitHub 单文件 100MB / 单推 ~2GB 硬限卡住 ~3h（116 commit 含 14.4GB 特征缓存，三次整推失败 → filter-branch 裁剪 `main-delivery` 分支[109 条哈希映射存 `reports/m6/remote-delivery-curation.md`，本地 main 完整历史不动]）
 
 ## 9. 团队与过程记录
 
@@ -91,7 +92,7 @@ v0 = m5a-r5 原样模型套六任务口径。**探针架构（冻结主干 + 多
 **关键过程纪律**：
 - **GPU 单卡 24GB 严格串行**：§9 登记制（先登记后作业；仲裁权 pm；一次 kill 先例[未登记+被取代+阻塞三要件]）；全窗口零物理撞卡
 - **乙醇纪律**：冻结套件 vs 训练 = 0 泄漏（五次证书）；阈值标定全程 dev/chirror 域
-- **时钟纪律**：38 个锚点采样；五次膨胀校正（git/机器戳为准）
+- **时钟纪律**：40 个锚点采样；五次膨胀校正（git/机器戳为准）
 - **停报纪律**：两次正确触发（不同失败模式 = 新信息）
 
 **中断与恢复**：原始窗口末全员进程死亡（~04:50）→ Lead 恢复令（"窗口约束的是报告不是工作"）→ v2 链连夜执行；Lead 侧两次 api 中断恢复（其终裁通报载明）；会话压缩多次无信息损失。
@@ -110,6 +111,7 @@ v0 = m5a-r5 原样模型套六任务口径。**探针架构（冻结主干 + 多
 | **评测/读数** | 六代读数链全档（qa-report-v12/v13/v2/v24/v24dt{,-qaop}-final.md）；per-item 预测快照 `reports/m6/preds/run-*/`（无重跑复算） |
 | **报告索引** | task13-final-adjudication.md（终裁材料）→ 本报告；ADR-2/2b（架构决策链 b24d0f4…560758e）；deveng-findings-summary.md（8511b29）；qa-task13-materials.md；task13-arch-sections.md（6098276） |
 | **复现** | 命令/种子/行集口径 = qa-task13-materials.md §③（训练 seed=42；选点网格枚举；推理 determinism 97f2860a） |
+| **远端交付** | `main-delivery` 裁剪分支（1.58GB / 最大文件 90.3MB，116 commit 信息/作者/日期/交付内容原样，仅剔除 6 个可再生缓存路径；109 条哈希映射 `reports/m6/remote-delivery-curation.md`；本地 main 完整历史不动）+ qa 终读证据收编（4 preds 目录 + h6 协议文档，d4a3a59） |
 
 **遗留问题** = §6 已知局限 + §7 路线图（post-window 执行域）。
 
@@ -117,8 +119,10 @@ v0 = m5a-r5 原样模型套六任务口径。**探针架构（冻结主干 + 多
 
 **Lead 终裁（21:17，选项 A）**：接受 v2.4-dt @ 19eaaba（QA 点）为 M6 窗口交付。依据：三通过族 + 全差距面特征化；选项 B 排除正确（无本窗杠杆 + 联合训练结构性关闭）；选项 C 排除正确（calib 点破地板）；六代 macro 弧 = 窗口方法论完整实证。**裁量权五项全部追认**：dual-trunk 组装（组装域）/ span 长度门（flag_rule 语义变更）/ 从属化 NO-GO（金标定谳）/ T1 权重变更（记录为未验证）/ 三跑框架（过程裁定）。
 
-**各角色收尾 commit**：deveng 5d2f7fc（门态一致性 + 诊断工具入库）✓；qa 乙醇声明 FINAL + 终稿链 ✓；arch sections db0a34e（hash 同步）✓；pm 本报告 + 进度文档全档 ✓；dataeng 波次 manifest ✓。**提请 Lead push + HF 上传 v2.4-dt 终版检测器（Lead 并行执行中）**。
+**各角色收尾 commit**：deveng 5d2f7fc（门态一致性 + 诊断工具入库）✓；qa 乙醇声明 FINAL + 终稿链 ✓；arch sections db0a34e（hash 同步）✓；pm 本报告 + 进度文档全档 ✓；dataeng 波次 manifest ✓。
+
+**交付双备份**：①HF 公库 `howwhenRaw/m6-security-detector-v2-4dt`（9 文件：probe-heads.pt / ood_centers.json / calib / config / head_structure / metrics / build_manifest + 模型卡）✅ ②本地完整链 + `main-delivery` 远端推送（22:54 起在途，落地即窗口终闭）。
 
 ---
 
-—— pm-m6 主笔，2026-10-22 21:3x（运行时钟，第三十八锚点系 21:17:05）。M6 窗口交付收口。
+—— pm-m6 主笔，2026-10-22 21:3x 初稿 / 22:5x 增补（教训 #11 + 远端交付 + 双备份；第四十锚点系 22:54:02）。M6 窗口交付收口。
