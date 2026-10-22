@@ -1,0 +1,101 @@
+{
+  "runpoint_id": "m6-runpoint-v6",
+  "created": "2026-10-22 19:15:00",
+  "grid": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6,
+    0.65,
+    0.7,
+    0.75,
+    0.8,
+    0.85,
+    0.9,
+    0.95,
+    0.96,
+    0.97,
+    0.98,
+    0.99,
+    0.995,
+    0.999
+  ],
+  "dev_neg_saturation_by_task": {
+    "T1": {
+      "neg_n": 6450,
+      "neg_ge_099": 3,
+      "neg_saturated_eq_1": 0
+    },
+    "T2": {
+      "neg_n": 6382,
+      "neg_ge_099": 12,
+      "neg_saturated_eq_1": 1
+    },
+    "T3": {
+      "neg_n": 6750,
+      "neg_ge_099": 11,
+      "neg_saturated_eq_1": 0
+    },
+    "T4": {
+      "neg_n": 5712,
+      "neg_ge_099": 101,
+      "neg_saturated_eq_1": 29
+    },
+    "T5": {
+      "neg_n": 6750,
+      "neg_ge_099": 0,
+      "neg_saturated_eq_1": 0
+    },
+    "T6": {
+      "neg_n": 6750,
+      "neg_ge_099": 4,
+      "neg_saturated_eq_1": 0
+    }
+  },
+  "detail": {
+    "T1": {
+      "theta": 0.8,
+      "status": "OK",
+      "dev_recall": 1.0,
+      "dev_fpr": 0.00124031007751938
+    },
+    "T2": {
+      "theta": 0.35,
+      "status": "OK",
+      "dev_recall": 0.9930313588850174,
+      "dev_fpr": 0.00266374177373864
+    },
+    "T3": {
+      "theta": 0.96,
+      "status": "OK",
+      "dev_recall": 0.9868852459016394,
+      "dev_fpr": 0.0028148148148148147
+    },
+    "T4": {
+      "theta": null,
+      "status": "NO-FEASIBLE-POINT",
+      "dev_fpr_at_max_theta": null
+    },
+    "T5": {
+      "theta": 0.99,
+      "status": "OK",
+      "dev_recall": 1.0,
+      "dev_fpr": 0.0
+    },
+    "T6": {
+      "theta": 0.999,
+      "status": "OK",
+      "dev_recall": 1.0,
+      "dev_fpr": 0.00044444444444444447
+    }
+  },
+  "notes": "饱和区（score→1.0，logit>~16.6）是 v2 改进靶（score 表示层，ADR-2 候选：分数定义改 logit/校准域）；0.995/0.999 档位在 fp32 下辨力有限（~7 位有效数字），并列取保守规则在饱和区等效于取 0.999 档"
+}
