@@ -1,9 +1,9 @@
 {
  "readings": {
-  "T1": 0.2121,
+  "T1": 0.0135,
   "T2": 0.9861,
   "T3": 0.8396,
-  "T4": 0.9651,
+  "T4": 0.8692,
   "T5": 1.0,
   "T6": 1.0
  },
@@ -12,8 +12,8 @@
    "threshold_space": "logit",
    "flag": 1.0,
    "strong": 1.0,
-   "flag_logit": 47.7,
-   "strong_logit": 48.7
+   "flag_logit": 57.1376,
+   "strong_logit": 58.1376
   },
   "T2": {
    "threshold_space": "logit",
@@ -31,10 +31,10 @@
   },
   "T4": {
    "threshold_space": "logit",
-   "flag": 0.999974,
+   "flag": 1.0,
    "strong": 1.0,
-   "flag_logit": 10.5468,
-   "strong_logit": 15.3266
+   "flag_logit": 19.8285,
+   "strong_logit": 20.8285
   },
   "T5": {
    "threshold_space": "logit",

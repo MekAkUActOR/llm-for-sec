@@ -581,6 +581,16 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
     w_tok = cfg["probe"].get("loss", {}).get("bio_weight", 2.0)
     bio_pos_w = cfg["probe"].get("loss", {}).get("bio_pos_weight", 15.0)
     bio_extra = int(tr.get("lora_bio_extra_rows", 2))
+    # v2.2 arch increment 2: T6 structural separation -- the joint LoRA loop
+    # trains T1-T5 only; the T6 head trains post-hoc on the frozen adapted
+    # trunk (3/3 T6 ep2 deaths under joint dynamics; head-only T6 has zero
+    # historical deaths). Optional healthy init from a prior checkpoint.
+    lc_cfg = tr.get("lora", {}) or {}
+    t6_sep = bool(lc_cfg.get("t6_separate", False))
+    t6_init_from = str(lc_cfg.get("t6_init_from", "") or "")
+    if t6_sep:
+        print(f"[m6_train] v2.2 T6 structural separation ON "
+              f"(init_from={t6_init_from or 'fresh'})")
     # arch §16: per-task regression guard baseline (v1-2 readings);
     # epochs where ANY task regresses >1pp are not best-epoch candidates
     baseline = {k: float(v) for k, v in
@@ -720,11 +730,12 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
                              yb[:, TASKS.index(lt)], 0),
                     dtype=torch.float32, device=device)
                 loss = loss + bce[lt](out[ht][m], yv[m])
-        m6 = torch.tensor(t6b >= 0, device=device)
-        if m6.any():
-            t6v = torch.tensor(np.where(t6b >= 0, t6b, 0),
-                               dtype=torch.long, device=device)
-            loss = loss + ce6(out["T6"][m6], t6v[m6])
+        if not t6_sep:
+            m6 = torch.tensor(t6b >= 0, device=device)
+            if m6.any():
+                t6v = torch.tensor(np.where(t6b >= 0, t6b, 0),
+                                   dtype=torch.long, device=device)
+                loss = loss + ce6(out["T6"][m6], t6v[m6])
         bio_rows = [i for i in bidx if i in bio_meta]
         extra = [i for i in rng.choice(pii_list, size=min(bio_extra, len(pii_list)),
                                        replace=False).tolist()
@@ -843,7 +854,8 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
             .cpu().numpy()
         entry = {"epoch": ep, "tasks": {}}
         rs = []
-        for lt in list(LABEL_TO_HEAD.keys()) + ["T6"]:
+        guard_tasks = list(LABEL_TO_HEAD.keys()) + ([] if t6_sep else ["T6"])
+        for lt in guard_tasks:
             s = lg["T4doc" if lt == "T4" else lt]
             g = Ydv[:, TASKS.index(lt)]
             m = g >= 0
@@ -933,6 +945,89 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
                                    layers, "mean+last", tok_layers)
             Xdv[chunk] = f.numpy()
             pos += len(chunk)
+    if t6_sep:
+        # ---- v2.2 T6 structural separation: head-only stage ------------- #
+        # The T6 head trains NOW on the frozen adapted trunk (joint loop
+        # never touched it). Optional init from a prior healthy checkpoint
+        # (arch: v2's T6 head, 0.952/1.0). Selection by dev T6 zero-FP
+        # recall in log-P (guard-consistent domain), on the RESTORED best
+        # state's dev features (Xdv, just extracted above).
+        if t6_init_from:
+            sd6 = torch.load(t6_init_from, map_location="cpu",
+                             weights_only=False)
+            sd6 = sd6.get("state", sd6)
+            t6_sd = {k.split("heads.T6.", 1)[1]: v for k, v in sd6.items()
+                     if k.startswith("heads.T6.")}
+            if t6_sd:
+                model.heads["T6"].load_state_dict(t6_sd)
+                print(f"[m6_train] T6 head init from {t6_init_from}")
+            else:
+                print(f"[m6_train] WARN: no heads.T6.* keys in "
+                      f"{t6_init_from}; fresh init")
+        lab_tr = np.where(t6c >= 0)[0]
+        print(f"[m6_train] T6 stage: extracting {len(lab_tr)} T6-labeled "
+              f"train rows through adapted trunk")
+        X6 = np.zeros((len(lab_tr), in_dim), dtype=np.float32)
+        pos = 0
+        with torch.no_grad():
+            while pos < len(lab_tr):
+                chunk = lab_tr[pos:pos + 32].tolist()
+                ids, attn = _pad_batch(
+                    [tokinfo_tr[i]["tw"]["input_ids"] for i in chunk],
+                    pad_id, device)
+                f, _ = forward_extract(pmodel.get_base_model(), ids, attn,
+                                       layers, "mean+last", tok_layers)
+                X6[pos:pos + len(chunk)] = f.numpy()
+                pos += len(chunk)
+        y6 = torch.tensor(t6c[lab_tr], dtype=torch.long, device=device)
+        X6_t = torch.tensor(X6, device=device)
+        for p_ in model.parameters():
+            p_.requires_grad_(False)
+        for p_ in model.heads["T6"].parameters():
+            p_.requires_grad_(True)
+        opt6 = torch.optim.AdamW(model.heads["T6"].parameters(),
+                                 lr=float(tr.get("learning_rate", 1e-3)),
+                                 weight_decay=wd)
+        rng6 = np.random.default_rng(123)
+        m6d_np = t6dv >= 0
+        best_r6, best_sd6, bad6 = -1.0, None, 0
+        n6 = len(X6_t)
+        Xdv_t = torch.tensor(Xdv, device=device)
+        for ep6 in range(30):
+            model.heads["T6"].train()
+            perm = rng6.permutation(n6)
+            for s6 in range(0, n6, 4096):
+                bidx6 = torch.tensor(perm[s6:s6 + 4096], device=device)
+                loss6 = torch.nn.functional.cross_entropy(
+                    model(X6_t[bidx6])["T6"], y6[bidx6])
+                opt6.zero_grad()
+                loss6.backward()
+                opt6.step()
+            # dev selection: zero-FP recall in log-P domain
+            model.eval()
+            with torch.no_grad():
+                o6 = model(Xdv_t)["T6"]
+                lp6 = torch.log_softmax(o6.double(), dim=-1)[:, 0] \
+                    .cpu().numpy()
+            ps6 = lp6[m6d_np & (t6dv == 1)]
+            ns6 = lp6[m6d_np & neg_dv]
+            r6 = round(float((ps6 > float(ns6.max())).mean()), 4) \
+                if len(ps6) and len(ns6) else None
+            print(f"[m6_train] T6 stage ep{ep6} dev recall@zeroFP={r6}")
+            if r6 is not None and r6 > best_r6:
+                best_r6, bad6 = r6, 0
+                best_sd6 = {k: v.detach().cpu().clone() for k, v in
+                            model.heads["T6"].state_dict().items()}
+            else:
+                bad6 += 1
+                if bad6 >= 3:
+                    break
+        if best_sd6:
+            model.heads["T6"].load_state_dict(best_sd6)
+        for p_ in model.parameters():
+            p_.requires_grad_(True)
+        print(f"[m6_train] T6 stage done (best dev recall@zeroFP="
+              f"{best_r6})")
     neg_idx = np.where(neg_all)[0]
     A = {"pooled": Xdv, "Y": Ydv, "t6c": t6dv, "neg_all": neg_dv,
          "mirror": mirror_dv}

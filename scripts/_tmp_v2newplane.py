@@ -20,14 +20,18 @@ from m6_render import normalize_input, render, tokenize_windowed  # noqa: E402
 from m6_train import (calibrate, derive_labels, load_config,  # noqa: E402
                       rows_for_split)
 
-cfg = load_config(REPO / "configs/m6-v2-1.yaml")  # new-plane data
+cfg = load_config(REPO / sys.argv[1] if len(sys.argv) > 1
+                  else "configs/m6-v2-1.yaml")
+CKPT_DIR = sys.argv[2] if len(sys.argv) > 2 else "checkpoints/m6-v2"
+cfgp = sys.argv[1] if len(sys.argv) > 1 else "configs/m6-v2-1.yaml"
+print(f"# plane remeasure: {CKPT_DIR} on {cfgp} data plane")
 rows = rows_for_split(cfg, "dev")
 n = len(rows)
 out = derive_labels(rows)
 Y, t6c, neg_all, mirror = out[0], out[1], out[2], out[3]
 print(f"new-plane dev rows: {n}")
 
-inf = M6Inferencer(str(REPO / "checkpoints" / "m6-v2"))
+inf = M6Inferencer(str(REPO / CKPT_DIR))
 model = inf.model
 model.eval()
 
