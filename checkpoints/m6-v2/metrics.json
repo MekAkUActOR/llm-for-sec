@@ -1,0 +1,85 @@
+{
+  "bio_token": {},
+  "tau_ood": 4944.0454,
+  "tasks": {
+    "T1": {
+      "recall": 0.6263,
+      "fp_dev_neg": 0,
+      "n_neg": 6012,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 1.0,
+        "strong": 1.0,
+        "flag_logit": 35.76,
+        "strong_logit": 36.76
+      }
+    },
+    "T2": {
+      "recall": 0.9483,
+      "fp_dev_neg": 0,
+      "n_neg": 5644,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 1.0,
+        "strong": 1.0,
+        "flag_logit": 16.0048,
+        "strong_logit": 20.7861
+      }
+    },
+    "T3": {
+      "recall": 0.7713,
+      "fp_dev_neg": 0,
+      "n_neg": 5708,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 1.0,
+        "strong": 1.0,
+        "flag_logit": 15.2014,
+        "strong_logit": 16.2014
+      }
+    },
+    "T4": {
+      "recall": 0.9491,
+      "fp_dev_neg": 0,
+      "n_neg": 5412,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.999975,
+        "strong": 1.0,
+        "flag_logit": 10.6117,
+        "strong_logit": 15.3697
+      }
+    },
+    "T5": {
+      "recall": 0.948,
+      "fp_dev_neg": 0,
+      "n_neg": 6012,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.999982,
+        "strong": 0.999996,
+        "flag_logit": 10.932,
+        "strong_logit": 12.4209
+      }
+    },
+    "T6": {
+      "recall": 0.952,
+      "fp_dev_neg": 0,
+      "n_neg": 6012,
+      "thresholds": {
+        "threshold_space": "logit",
+        "flag": 0.99999984,
+        "strong": 1.0,
+        "flag_logit": -1.6e-07,
+        "strong_logit": -0.0
+      }
+    }
+  },
+  "benign_saturated_display_16.6": {
+    "T1": 163,
+    "T2": 2,
+    "T3": 0,
+    "T4": 0,
+    "T5": 0
+  }
+}
