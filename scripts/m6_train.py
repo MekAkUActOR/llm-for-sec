@@ -826,12 +826,19 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
                 Xdv[chunk] = f.numpy()
                 pos += len(chunk)
             out_d = model(torch.tensor(Xdv).to(device))
-        scores = {t: torch.sigmoid(out_d[t]).cpu().numpy() for t in
-                  ("T1", "T2", "T3", "T4doc", "T5")}
+        # LOGIT-SPACE per-epoch readings (D-16 family, 4th occurrence fixed:
+        # fp32 sigmoid saturates to exactly 1.0 at logit>~16.6 -- under LoRA
+        # benign rows saturate, score-space pos>neg_max becomes 1.0>1.0
+        # ties -> recall artifacts of 0.0 (v2 ep1/ep2 T1/T2 were artifacts;
+        # true ep2 T1 = 0.626 from the logit-space final calibrate).
+        # NOTE: guard measures the 5 sigmoid heads (LABEL_TO_HEAD); T6 is
+        # guarded indirectly via the final calibrate (3-class log-P domain).
+        lg = {t: out_d[t].cpu().numpy() for t in
+              ("T1", "T2", "T3", "T4doc", "T5")}
         entry = {"epoch": ep, "tasks": {}}
         rs = []
         for lt, ht in LABEL_TO_HEAD.items():
-            s = scores[ht]
+            s = lg[ht]
             g = Ydv[:, TASKS.index(lt)]
             m = g >= 0
             pos_s, neg_s = s[m & (g == 1)], s[m & neg_dv]
