@@ -412,7 +412,7 @@ def main():
 
     st = "data/m6/_staging"
     task_files = {
-        "T1": ["t1-legacy.jsonl", "t1-topup.jsonl"],
+        "T1": ["t1-legacy.jsonl", "t1-topup.jsonl", "t1-lawful.jsonl"],
         "T2": ["t2-legacy.jsonl", "t2-jailbreak.jsonl", "t2-jbvar.jsonl"],
         "T3": ["t3-legacy.jsonl", "t3-multiturn.jsonl", "t3-longctx.jsonl",
                "doc-t3.jsonl"],
@@ -423,7 +423,7 @@ def main():
                "t6-toolout.jsonl"],
     }
     quotas = {
-        "T1": {"pos": (3600, 250, 300), "neg": (3600, 600, 1200)},
+        "T1": {"pos": (3600, 250, 300), "neg": (3600, 300, 0)},
         "T2": {"pos": (2400, 250, 300), "neg": (2400, 232, 0)},
         "T3": {"pos": (2600, 250, 300), "neg": (2600, 600, 1200)},
         "T4": {"pos": (2400, 250, 300), "neg": (2400, 600, 1200)},
@@ -728,6 +728,67 @@ def main():
                 if det is not None:
                     r["labels"][tk]["label_detail"] = det
             n_proj += 1
+
+    # ---- D-g: T1-neg cross-view projection (arch v2.1 work order) ----
+    # Whitelisted families whose NEG rows carry a constructively determined
+    # T1-neg (benign content by construct, NOT guessed polarity):
+    #   - synth-* families: benign-context hard negatives (near-miss /
+    #     placeholder-PII / benign-multiturn / benign-indirect constructs)
+    #   - m4-capfix carrier_clean_overrefusal: chosen-VERDICT authorized
+    #     (action=answer, verdict in {allow,benign}) — same authority as the
+    #     cvalues fix. Conditional rows (m4_verdict=conditional) are EXCLUDED
+    #     — their T1 polarity carries the conditional tension.
+    # pos rows never project (§6.14 discipline). Gate: each row's own-task
+    # extractor is exempt (its own-task key already settles that construct);
+    # the other extractor still runs.
+    _T1PROJ_FAMS = {
+        "synth-jailbreak-v1": ("T2",),
+        "synth-pii-v1": ("T4",),
+        "synth-multiturn-v1": ("T3",),
+        "synth-indirect-v1": ("T5",),
+        "m4-capfix": ("T5", "T6"),
+    }
+    t1_gate_blocked = []
+    t1_gate_scope = collections.Counter()
+    n_t1proj = 0
+    for r in pool_rows:
+        if r["split"] != "train" or "T1" in r["labels"]:
+            continue
+        fam = (r.get("source") or {}).get("family")
+        own = r["task"]
+        if fam not in _T1PROJ_FAMS or own not in _T1PROJ_FAMS[fam]:
+            continue
+        g = r["labels"][own]
+        if g["label"] != "neg":
+            continue
+        if (g.get("label_detail") or {}).get("m4_verdict") == "conditional":
+            continue  # conditional tension: not projected
+        t = _input_text(r)
+        pii_m = _PROJ_GATE_PII.search(t) if own != "T4" else None
+        inj_m = _PROJ_GATE_INJ.search(t) if own != "T5" else None
+        if pii_m or inj_m:
+            t1_gate_blocked.append((r["id"], fam,
+                                    pii_m.group(0) if pii_m else None,
+                                    inj_m.group(0) if inj_m else None))
+            continue
+        r["labels"]["T1"] = {"label": "neg"}
+        n_t1proj += 1
+        t1_gate_scope[fam] += 1
+    if t1_gate_blocked:
+        print("t1 projection gate: %d rows withheld (pattern hits, kept own-key):"
+              % len(t1_gate_blocked))
+        for g in t1_gate_blocked[:10]:
+            print("  -", g)
+    t1_leak = []
+    _by_id = {rr["id"]: rr for rr in pool_rows}
+    for g in t1_gate_blocked:
+        rr = _by_id.get(g[0])
+        if rr is not None and "T1" in rr["labels"]:
+            t1_leak.append(g)
+    if t1_leak:
+        print("T1 PROJECTION GATE FAIL: %d withheld rows still projected" % len(t1_leak))
+        raise SystemExit(3)
+    print("T1-neg cross-view projection (D-g whitelist, gate-passed): %d rows" % n_t1proj)
     # hard assertion: any projected row with a gate hit is a build failure
     # (same discipline as the cvalues purity assertion)
     leaked = [g for g in gate_hits
@@ -757,6 +818,16 @@ def main():
         "context_released": len(gate_released),  # hits auto-released by lawful-context rule (logged)
         "assert": "PASS" if not leaked else "FAIL",
         "scope": {"classes_gated": dict(gate_scope)},
+        "t1_projection": {
+            "projected": n_t1proj,
+            "withheld": len(t1_gate_blocked),
+            "by_family": dict(t1_gate_scope),
+            "whitelist": {k: list(v) for k, v in _T1PROJ_FAMS.items()},
+            "note": "D-g: construct-determined T1-neg (synth benign-context "
+                    "negs + m4-capfix carrier_clean_overrefusal VERDICT negs; "
+                    "conditional rows excluded); pos rows never project; "
+                    "own-task extractor exempt, other gate still applies",
+        },
         "note": "gate: person-shaped entity regex (role/service locals exempt) + "
                 "injection markers; conditional/safe hits auto-release to neg "
                 "(constructively verified lawful context); others stay "

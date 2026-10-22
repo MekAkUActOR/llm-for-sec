@@ -20,49 +20,49 @@
  "files": [
   {
    "path": "t1-moderation/train.jsonl",
-   "n": 11688,
-   "rows": 11688,
-   "file_rows": 11688,
-   "unique_ids": 11688,
+   "n": 12807,
+   "rows": 12807,
+   "file_rows": 12807,
+   "unique_ids": 12807,
    "split": "train",
    "task": "T1",
-   "sha256": "c578722ac2f388f70ec30c32d20db78379ab111efde06f7b6705e51a76f39f0d",
+   "sha256": "f642db59f607a77940f7b46b445efa13f58aed35282c4d15b67dca61db3efbc6",
    "label_counts": {
     "T1": {
      "pos": 8663,
-     "neg": 3025
+     "neg": 4144
     }
    }
   },
   {
    "path": "t1-moderation/dev.jsonl",
-   "n": 1497,
-   "rows": 1497,
-   "file_rows": 1497,
-   "unique_ids": 1497,
+   "n": 1197,
+   "rows": 1197,
+   "file_rows": 1197,
+   "unique_ids": 1197,
    "split": "dev",
    "task": "T1",
-   "sha256": "a340fc90f94a6e9e051d83b0b3c757acd693f46463130b8577ec139b2861609a",
+   "sha256": "fe582c5a2a3ccf68695cfbf6528a405435c95ab0d7fda42a564829bec518dab2",
    "label_counts": {
     "T1": {
      "pos": 297,
-     "neg": 1200
+     "neg": 900
     }
    }
   },
   {
    "path": "t1-moderation/heldout.jsonl",
-   "n": 1563,
-   "rows": 1563,
-   "file_rows": 1563,
-   "unique_ids": 1563,
+   "n": 1444,
+   "rows": 1444,
+   "file_rows": 1444,
+   "unique_ids": 1444,
    "split": "heldout",
    "task": "T1",
-   "sha256": "75acc6b5c2fd1ac3890f6f6a8b1f817c9e928fd837fac855334732a4f71b83df",
+   "sha256": "1f984f3031c0b738eb1225ccf917093ed7a3b52fba96e6998f998c3be5fb6947",
    "label_counts": {
     "T1": {
      "pos": 300,
-     "neg": 1263
+     "neg": 1144
     }
    }
   },
@@ -74,7 +74,7 @@
    "unique_ids": 4859,
    "split": "train",
    "task": "T2",
-   "sha256": "04d7b49058c69bd9354692ec4f0da5137c0ab0d4b35ae95c792841d628d3d8e7",
+   "sha256": "723dfa3e897998c3d1bbd0598830878ded2250d8ef214a3aa8131d400c55ce88",
    "label_counts": {
     "T2": {
      "pos": 2270,
@@ -90,7 +90,7 @@
    "unique_ids": 1082,
    "split": "dev",
    "task": "T2",
-   "sha256": "cd6be65e17cc36c9093d97818bac979d1a372e022cc5b4e76d8d0cf434e43625",
+   "sha256": "bce79e8789ea52bac65d14a3d2318bbae9bb7ad3f3872e001e6bd9a3e8a09e09",
    "label_counts": {
     "T2": {
      "pos": 250,
@@ -106,7 +106,7 @@
    "unique_ids": 1300,
    "split": "heldout",
    "task": "T2",
-   "sha256": "799077cd849880614c8350737147bfd8b29430c0e316d7d090c2f9a3f2474e11",
+   "sha256": "0de23eeb9adccf608e868450cffeac6effde2e1a6610e31e24a7213403320eac",
    "label_counts": {
     "T2": {
      "pos": 300,
@@ -122,7 +122,7 @@
    "unique_ids": 8411,
    "split": "train",
    "task": "T3",
-   "sha256": "41738dd56f4cbfb5271d823ea77ef796b36d7208c571334f306ddc8c4259af53",
+   "sha256": "2c2add8312d95854507a70df6998e170ff0ee6fd6a89ff5528e70cf8d02bd37c",
    "label_counts": {
     "T3": {
      "pos": 3477,
@@ -138,7 +138,7 @@
    "unique_ids": 1810,
    "split": "dev",
    "task": "T3",
-   "sha256": "453f536f5c6c8e87cffce9c3f967fbc33c4f9d15500e3fe80784f87735ade8f2",
+   "sha256": "318d7a0284eb4a7838256a09e79d81f9e1270c61917aa559729e96d4017bceb8",
    "label_counts": {
     "T3": {
      "pos": 610,
@@ -154,7 +154,7 @@
    "unique_ids": 2500,
    "split": "heldout",
    "task": "T3",
-   "sha256": "ff1dfa67b76b9fe888a2317a43908240887fdd4f1e94628e13eade3bce497d4c",
+   "sha256": "2dec5ad35baecd133435efb064abab43a060f0c9a47d9510bc0dfac7a0869613",
    "label_counts": {
     "T3": {
      "pos": 300,
@@ -170,7 +170,7 @@
    "unique_ids": 18081,
    "split": "train",
    "task": "T5",
-   "sha256": "724c1a577e3897f7695a7718b422e2f815aea68e4ffff23c2511179e8bb09aa7",
+   "sha256": "69c6c129d557496d15954112fb9f0bcbe3232f3b70d2d9946183486546491c0f",
    "label_counts": {
     "T5": {
      "pos": 11074,
@@ -186,7 +186,7 @@
    "unique_ids": 1450,
    "split": "dev",
    "task": "T5",
-   "sha256": "0d1143751e7ff82b1a1830b0764844340a499b3d104d3855fdb4834db21e3fdb",
+   "sha256": "245b3a9a2c3a1d1e3491b33d0ca6296bcb02408f762c096affb31776a312bf46",
    "label_counts": {
     "T5": {
      "pos": 250,
@@ -202,7 +202,7 @@
    "unique_ids": 2500,
    "split": "heldout",
    "task": "T5",
-   "sha256": "f9500c9cba48633e83ab81d2d870a09642f6828bcf2f0416112fe68ae9b51c0e",
+   "sha256": "f390eba06569aca70dae3d1afcce9c4dbfc7347c3ef7286ee08af6130b9bdebe",
    "label_counts": {
     "T5": {
      "pos": 300,
@@ -218,14 +218,14 @@
    "unique_ids": 9444,
    "split": "train",
    "task": "T6",
-   "sha256": "57d05fa559e481fa13d8f94fb9569e8e667aaf22f43be85f8f5e47db40ecc4aa",
+   "sha256": "3ca27d0362eb4044a8cd9a54272125224098b07997c532d33df78f4d29666d68",
    "label_counts": {
     "T6": {
      "pos": 4050,
      "neg": 5394
     },
     "T2": {
-     "pos": 718,
+     "pos": 704,
      "neg": 0
     }
    }
@@ -238,14 +238,14 @@
    "unique_ids": 1450,
    "split": "dev",
    "task": "T6",
-   "sha256": "93731a9556891a7c9eceda6bdff3942d0dae25289bdaf83440b840e5498e0ac7",
+   "sha256": "03cb72c361fe6b2948c0256204b26adba0600c6109828f99d5e81f094fb28d68",
    "label_counts": {
     "T6": {
      "pos": 250,
      "neg": 1200
     },
     "T2": {
-     "pos": 40,
+     "pos": 37,
      "neg": 0
     }
    }
@@ -258,14 +258,14 @@
    "unique_ids": 2500,
    "split": "heldout",
    "task": "T6",
-   "sha256": "04b49b0b76ac3d374e2e70648367104010263a22bed01668993173e56faa38e0",
+   "sha256": "ced089139285750cb06b58309623cafa2c065979d9708634ee276d88616a63e3",
    "label_counts": {
     "T6": {
      "pos": 300,
      "neg": 2200
     },
     "T2": {
-     "pos": 42,
+     "pos": 59,
      "neg": 0
     }
    }
@@ -278,7 +278,7 @@
    "unique_ids": 7100,
    "split": "train",
    "task": "T4",
-   "sha256": "168c6a6314ed63036873987e1a1d9bd43381ef3d79221ff18605c6104ed5e540",
+   "sha256": "f5364b5445d5d6d9f4334c4c88c1ac4cef1dc7f59aae317b3aac85533bc23184",
    "label_counts": {
     "T4": {
      "pos": 2600,
@@ -310,7 +310,7 @@
    "unique_ids": 1400,
    "split": "heldout",
    "task": "T4",
-   "sha256": "f84ca1b83581b903a193e8220239b5387101a97622d09ce42bb5b9591c007b8a",
+   "sha256": "3010a4534c9eeec939ce584ad76b206560aef55daccc41d9d676d8c4546f2fb6",
    "label_counts": {
     "T4": {
      "pos": 300,
@@ -428,29 +428,29 @@
   },
   {
    "path": "pool/train.jsonl",
-   "n": 49470,
-   "rows": 49470,
-   "file_rows": 49470,
-   "unique_ids": 49470,
+   "n": 50589,
+   "rows": 50589,
+   "file_rows": 50589,
+   "unique_ids": 50589,
    "split": "train",
    "task": "pool",
-   "sha256": "3890cc3b777dce6e64abc1c0f6079621fa6e9ebc0d0dc15021a5371e95f5151d",
+   "sha256": "6280881b12855df1185a281ded79d5837e3e91ffef0197c7f743052d539be6f4",
    "label_counts": {
     "T1": {
      "pos": 8496,
-     "neg": 7375
+     "neg": 15751
     },
     "T2": {
-     "pos": 2988,
-     "neg": 7104
+     "pos": 2974,
+     "neg": 7091
     },
     "T3": {
      "pos": 3266,
-     "neg": 8879
+     "neg": 8866
     },
     "T5": {
      "pos": 10051,
-     "neg": 10545
+     "neg": 10532
     },
     "T6": {
      "pos": 4050,
@@ -458,26 +458,26 @@
     },
     "T4": {
      "pos": 2600,
-     "neg": 11115
+     "neg": 11102
     }
    }
   },
   {
    "path": "pool/dev.jsonl",
-   "n": 10077,
-   "rows": 10077,
-   "file_rows": 10077,
-   "unique_ids": 10077,
+   "n": 9777,
+   "rows": 9777,
+   "file_rows": 9777,
+   "unique_ids": 9777,
    "split": "dev",
    "task": "pool",
-   "sha256": "7b1ef1bfa4862435555ebd409259eb28722dfcd71835985f7d2686da47ae813c",
+   "sha256": "71e43da6e4a4b1504604bedb83d552bec6e47dea404d8125f57fcc96a112b6d1",
    "label_counts": {
     "T1": {
      "pos": 272,
-     "neg": 5822
+     "neg": 5522
     },
     "T2": {
-     "pos": 290,
+     "pos": 287,
      "neg": 5482
     },
     "T3": {
@@ -564,7 +564,7 @@
   "leak_audit": "reports/m6/leak-audit.md (body-level zero overlap; 14 B1 hits attributed to shared policy-pack template ancestry)"
  },
  "projection_gate": {
-  "checked": 3115,
+  "checked": 3102,
   "t4_hits": 0,
   "t5_hits": 0,
   "revoked_to_pos": 0,
@@ -573,21 +573,51 @@
   "assert": "PASS",
   "scope": {
    "classes_gated": {
-    "conditional": 1612,
-    "safe": 1503
+    "conditional": 1610,
+    "safe": 1492
    }
+  },
+  "t1_projection": {
+   "projected": 7852,
+   "withheld": 159,
+   "by_family": {
+    "synth-jailbreak-v1": 489,
+    "synth-multiturn-v1": 705,
+    "m4-capfix": 1058,
+    "synth-indirect-v1": 1900,
+    "synth-pii-v1": 3700
+   },
+   "whitelist": {
+    "synth-jailbreak-v1": [
+     "T2"
+    ],
+    "synth-pii-v1": [
+     "T4"
+    ],
+    "synth-multiturn-v1": [
+     "T3"
+    ],
+    "synth-indirect-v1": [
+     "T5"
+    ],
+    "m4-capfix": [
+     "T5",
+     "T6"
+    ]
+   },
+   "note": "D-g: construct-determined T1-neg (synth benign-context negs + m4-capfix carrier_clean_overrefusal VERDICT negs; conditional rows excluded); pos rows never project; own-task extractor exempt, other gate still applies"
   },
   "note": "gate: person-shaped entity regex (role/service locals exempt) + injection markers; conditional/safe hits auto-release to neg (constructively verified lawful context); others stay single-key for manual ruling"
  },
  "disjointness": {
-  "train_rows": 109053,
-  "eval_rows": 15763,
+  "train_rows": 111291,
+  "eval_rows": 15644,
   "exact_overlap": 0,
   "content_overlap_qa_l1": 0,
   "mirror_eval_overlap": 0,
   "ood_t4_pos_rows": 0,
   "t4_entity_overlap": 0,
-  "t4_heldout_entities_checked": 645,
+  "t4_heldout_entities_checked": 644,
   "assert": "PASS",
   "protocol": {
    "exact": "norm_text = NFKC -> lowercase -> whitespace-collapse; sha256[:16] of full input text (system + content, carrier body fallback); train side (t*/train + pool/train) vs eval side (t*/heldout, challenge/, ood/)",
