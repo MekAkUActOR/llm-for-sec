@@ -237,3 +237,15 @@ challenge 1,500（四族：sec-research 294/medical-legit 611/dualuse 186/inj-sh
 **T4 预备令 staging（16dc228，未接 build）**：t4-lawful-v2 1,300（实体配平 mrn/person/dob/plate）+ mirror 300——v2.1 读数后决策部署。
 
 **终态**：train_rows 111,291 · isolation 全 0 · 泄漏 exact 0/B2 0 · schema 11 目录 invalid=0 · arch 抽验绿（pos 零混入实证 + t1-lawful 0 内容重合）。
+
+---
+
+# v5. v2.2 第三增量（T4 部署，commit df6df6a，17:00 前后）
+
+arch 16:37 四增量裁定 ③：v2.1 读数 gap 实测 9.5-16x > 3x → 执行令即发，deveng 发射阻塞项。
+
+**部署**：task_files["T4"] += t4-lawful-v2.jsonl → build：t4-lawful-v2 1,300 全 train（T4 train neg 5,800，v1 800 + v2 1,300 = lawful 合计 2,100）；mirror 300 进 dev-mirror/challenge-mirror.jsonl（1,250→1,550，六族）+ pool/dev 同步；train_rows 113,891。
+
+**审计**：isolation 全 0 · 泄漏 PASS · schema 11 目录 0 · arch 预抽验（内容级独立 0 重合）即本波独立证据。
+
+发射序列：deveng loader 复验 + 基线重测 → 发射 ~4h → ~21:15-21:45 读数（T4 gap 收敛验证：G2 4.78%→门 / G3 1.65%→门）。
