@@ -832,14 +832,19 @@ def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
         # benign rows saturate, score-space pos>neg_max becomes 1.0>1.0
         # ties -> recall artifacts of 0.0 (v2 ep1/ep2 T1/T2 were artifacts;
         # true ep2 T1 = 0.626 from the logit-space final calibrate).
-        # NOTE: guard measures the 5 sigmoid heads (LABEL_TO_HEAD); T6 is
-        # guarded indirectly via the final calibrate (3-class log-P domain).
+        # T6 measured too (v2.1 attempt-2 lesson: the T6 head degenerated
+        # at ep2 to all-high-risk saturation [benign P0~1.0, tau pushed
+        # above the physical ceiling, recall 0.0] -- a structural guard
+        # blind spot; T6 was NEVER per-epoch measured in any version).
+        # T6 domain = log-P class-0 (fp64 log_softmax, same as calibrate).
         lg = {t: out_d[t].cpu().numpy() for t in
               ("T1", "T2", "T3", "T4doc", "T5")}
+        lg["T6"] = torch.log_softmax(out_d["T6"].double(), dim=-1)[:, 0] \
+            .cpu().numpy()
         entry = {"epoch": ep, "tasks": {}}
         rs = []
-        for lt, ht in LABEL_TO_HEAD.items():
-            s = lg[ht]
+        for lt in list(LABEL_TO_HEAD.keys()) + ["T6"]:
+            s = lg["T4doc" if lt == "T4" else lt]
             g = Ydv[:, TASKS.index(lt)]
             m = g >= 0
             pos_s, neg_s = s[m & (g == 1)], s[m & neg_dv]
