@@ -676,71 +676,140 @@ def train_stage_b_lora(cfg, out_dir, device):
     logf = open(out_dir / "train_log.jsonl", "w", encoding="utf-8")
     best_key, best_state, best_lora, best_ep, bad = -1.0, None, None, -1, 0
     step = 0
+    snap_path = out_dir / "_snapshot.pt"
+    resume_at = None
+    if getattr(args, "lora_resume", False) and snap_path.is_file():
+        snap = torch.load(snap_path, map_location=device, weights_only=False)
+        model.load_state_dict(snap["heads"])
+        try:
+            from peft import set_peft_model_state_dict
+            set_peft_model_state_dict(pmodel, snap["lora"])
+        except Exception as e:  # pragma: no cover - resume best-effort
+            print(f"[m6_train] lora-resume adapter load issue: {e}")
+        opt.load_state_dict(snap["opt"])
+        if sched is not None and snap.get("sched"):
+            sched.load_state_dict(snap["sched"])
+        resume_at = (snap["ep"], snap["step_in_ep"])
+        step = int(snap["step"])
+        print(f"[m6_train] lora-resume: ep{snap['ep']} step_in_ep="
+              f"{snap['step_in_ep']} global_step={snap['step']} loaded")
+    oom_splits = 0
+    def run_batch(bidx, scale=1.0):
+        """Forward+loss+backward for one batch (no optimizer step).
+
+        Split-retry on CUDA OOM lives in batch_with_oom_retry: the doc-long
+        tail produces 16x~4k-token batches near the 24GB ceiling; on OOM the
+        batch splits in halves with gradient accumulation (loss scaled by
+        sub-batch share), so one oversized batch cannot kill a multi-hour
+        run (v2 first attempt died at ep1 94% exactly there).
+        """
+        ids, attn = _pad_batch(
+            [tokinfo_tr[i]["tw"]["input_ids"] for i in bidx], pad_id, device)
+        pooled, tokf = forward_extract_grad(
+            pmodel, ids, attn, layers, "mean+last", tok_layers)
+        out = model(pooled)
+        loss = 0.0
+        yb = Y[bidx]
+        t6b = t6c[bidx]
+        for lt, ht in LABEL_TO_HEAD.items():
+            m = torch.tensor(yb[:, TASKS.index(lt)] >= 0, device=device)
+            if m.any():
+                yv = torch.tensor(
+                    np.where(yb[:, TASKS.index(lt)] >= 0,
+                             yb[:, TASKS.index(lt)], 0),
+                    dtype=torch.float32, device=device)
+                loss = loss + bce[lt](out[ht][m], yv[m])
+        m6 = torch.tensor(t6b >= 0, device=device)
+        if m6.any():
+            t6v = torch.tensor(np.where(t6b >= 0, t6b, 0),
+                               dtype=torch.long, device=device)
+            loss = loss + ce6(out["T6"][m6], t6v[m6])
+        bio_rows = [i for i in bidx if i in bio_meta]
+        extra = [i for i in rng.choice(pii_list, size=min(bio_extra, len(pii_list)),
+                                       replace=False).tolist()
+                 if i not in bio_rows] if pii_list else []
+        if bio_rows or extra:
+            xt, xb = [], []
+            for i in bio_rows + extra:
+                L = len(bio_meta[i])
+                rpos = bidx.index(i) if i in bio_rows else -1
+                if rpos >= 0:
+                    xt.append(tokf[rpos, :L])
+                    xb.append(torch.tensor(bio_meta[i], device=device))
+                else:
+                    ids1, attn1 = _pad_batch(
+                        [tokinfo_tr[i]["tw"]["input_ids"]], pad_id, device)
+                    _, tf1 = forward_extract_grad(
+                        pmodel, ids1, attn1, layers, "mean+last", tok_layers)
+                    xt.append(tf1[0, :L])
+                    xb.append(torch.tensor(bio_meta[i], device=device))
+            xt = torch.nn.utils.rnn.pad_sequence(xt, batch_first=True)
+            xb = torch.nn.utils.rnn.pad_sequence(xb, batch_first=True,
+                                                 padding_value=-100)
+            logits = model.forward_bio(xt)
+            loss = loss + w_tok * cebio(
+                logits.reshape(-1, nbio), xb.reshape(-1))
+        (loss * scale).backward()
+        return float(loss)
+
+    def batch_with_oom_retry(bidx):
+        """run_batch with recursive split on CUDA OOM (grad accumulation)."""
+        nonlocal oom_splits
+        try:
+            return run_batch(bidx)
+        except torch.cuda.OutOfMemoryError:
+            opt.zero_grad(set_to_none=True)
+            torch.cuda.empty_cache()
+            if len(bidx) == 1:
+                print(f"[m6_train] OOM on single row {bidx[0]} "
+                      f"(len={len(tokinfo_tr[bidx[0]]['tw']['input_ids'])}) "
+                      "-- SKIPPED")
+                return None
+            mid = len(bidx) // 2
+            oom_splits += 1
+            print(f"[m6_train] OOM split x{oom_splits}: batch {len(bidx)} -> "
+                  f"{mid}+{len(bidx) - mid}")
+            l1 = batch_with_oom_retry(bidx[:mid])
+            l2 = batch_with_oom_retry(bidx[mid:])
+            return None if (l1 is None or l2 is None) else \
+                (l1 * mid + l2 * (len(bidx) - mid)) / len(bidx)
+
     for ep in range(1, epochs + 1):
+        if resume_at and ep < resume_at[0]:
+            continue
         model.train()
         pmodel.train()
         rng = np.random.default_rng(cfg["train"].get("seed", 42) + ep)
         rng.shuffle(batches)
+        step_in_ep = 0
         for bidx in batches:
-            ids, attn = _pad_batch([tokinfo_tr[i]["tw"]["input_ids"] for i in bidx],
-                                   pad_id, device)
-            pooled, tokf = forward_extract_grad(
-                pmodel, ids, attn, layers, "mean+last", tok_layers)
-            out = model(pooled)
-            loss = 0.0
-            yb = Y[bidx]
-            t6b = t6c[bidx]
-            for lt, ht in LABEL_TO_HEAD.items():
-                m = torch.tensor(yb[:, TASKS.index(lt)] >= 0, device=device)
-                if m.any():
-                    yv = torch.tensor(
-                        np.where(yb[:, TASKS.index(lt)] >= 0,
-                                 yb[:, TASKS.index(lt)], 0),
-                        dtype=torch.float32, device=device)
-                    loss = loss + bce[lt](out[ht][m], yv[m])
-            m6 = torch.tensor(t6b >= 0, device=device)
-            if m6.any():
-                t6v = torch.tensor(np.where(t6b >= 0, t6b, 0),
-                                   dtype=torch.long, device=device)
-                loss = loss + ce6(out["T6"][m6], t6v[m6])
-            # BIO: in-batch PII rows + a few random extras (gradient density)
-            bio_rows = [i for i in bidx if i in bio_meta]
-            extra = [i for i in rng.choice(pii_list, size=min(bio_extra, len(pii_list)),
-                                           replace=False).tolist()
-                     if i not in bio_rows] if pii_list else []
-            if bio_rows or extra:
-                xt, xb = [], []
-                for i in bio_rows + extra:
-                    L = len(bio_meta[i])
-                    rpos = bidx.index(i) if i in bio_rows else -1
-                    if rpos >= 0:
-                        xt.append(tokf[rpos, :L])
-                        xb.append(torch.tensor(bio_meta[i], device=device))
-                    else:
-                        ids1, attn1 = _pad_batch(
-                            [tokinfo_tr[i]["tw"]["input_ids"]], pad_id, device)
-                        _, tf1 = forward_extract_grad(
-                            pmodel, ids1, attn1, layers, "mean+last", tok_layers)
-                        xt.append(tf1[0, :L])
-                        xb.append(torch.tensor(bio_meta[i], device=device))
-                xt = torch.nn.utils.rnn.pad_sequence(xt, batch_first=True)
-                xb = torch.nn.utils.rnn.pad_sequence(xb, batch_first=True,
-                                                     padding_value=-100)
-                logits = model.forward_bio(xt)
-                loss = loss + w_tok * cebio(
-                    logits.reshape(-1, nbio), xb.reshape(-1))
+            if resume_at and ep == resume_at[0] and step_in_ep < resume_at[1]:
+                step_in_ep += 1
+                step += 1
+                continue
             opt.zero_grad()
-            loss.backward()
+            last_loss = batch_with_oom_retry(bidx)
             torch.nn.utils.clip_grad_norm_(
                 list(lora_params) + list(head_params), 1.0)
             opt.step()
             if sched is not None:
                 sched.step()
             step += 1
+            step_in_ep += 1
+            if step % 1000 == 0:
+                tmp = snap_path.with_suffix(".tmp")
+                torch.save({"heads": model.state_dict(),
+                            "lora": {k: v for k, v in pmodel.state_dict().items()
+                                     if "lora_" in k},
+                            "opt": opt.state_dict(),
+                            "sched": sched.state_dict() if sched else None,
+                            "ep": ep, "step_in_ep": step_in_ep, "step": step},
+                           tmp)
+                tmp.replace(snap_path)
             if step % 200 == 0:
                 print(f"[m6_train] v2 ep{ep} step {step}/{total_steps} "
-                      f"loss={float(loss):.4f} ({time.time() - t0:.0f}s)")
-
+                      f"loss={last_loss if last_loss is not None else 'oom-skip'} "
+                      f"oom_splits={oom_splits} ({time.time() - t0:.0f}s)")
         # dev eval (inference forward over dev rows, pooled only)
         model.eval()
         pmodel.eval()
@@ -1014,6 +1083,10 @@ def main():
     ap.add_argument("--refresh-labels", action="store_true",
                     help="rewrite label arrays in feat_cache from current "
                          "data (label-only hot-fix; features untouched)")
+    ap.add_argument("--lora-resume", action="store_true",
+                    help="LoRA mode: resume from out_dir/_snapshot.pt "
+                         "(heads+adapter+optimizer+scheduler; epoch batch "
+                         "order restarts within the resumed epoch)")
     args = ap.parse_args()
 
     cfg = load_config(args.config)
