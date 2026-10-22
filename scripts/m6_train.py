@@ -553,7 +553,7 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
 # --------------------------------------------------------------------------- #
 # stage B (v2): LoRA joint training -- backbone adapted on the fly
 # --------------------------------------------------------------------------- #
-def train_stage_b_lora(cfg, out_dir, device):
+def train_stage_b_lora(cfg, out_dir, device, lora_resume=False):
     """ADR-1 §16 v2 path: LoRA (r16, q/k/v/o, L14-28) + heads trained jointly.
 
     No feature cache (LoRA changes features from L14 on). Length-bucketed
@@ -678,7 +678,7 @@ def train_stage_b_lora(cfg, out_dir, device):
     step = 0
     snap_path = out_dir / "_snapshot.pt"
     resume_at = None
-    if getattr(args, "lora_resume", False) and snap_path.is_file():
+    if lora_resume and snap_path.is_file():
         snap = torch.load(snap_path, map_location=device, weights_only=False)
         model.load_state_dict(snap["heads"])
         try:
@@ -1107,7 +1107,9 @@ def main():
         if args.device.startswith("cuda"):
             os_report = torch.cuda.is_available()
             print(f"[m6_train] GPU check (cuda={os_report})")
-        model, A, D, TB, TBd = train_stage_b_lora(cfg, out_dir, args.device)
+        model, A, D, TB, TBd = train_stage_b_lora(
+            cfg, out_dir, args.device,
+            lora_resume=getattr(args, "lora_resume", False))
         return _finalize(model, A, D, TB, TBd, out_dir, cfg, t_start, args)
 
     have_cache = (cache_dir / "feats_train.npz").is_file() and \
