@@ -404,6 +404,11 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
     patience = tr.get("early_stop_patience", 1)
     w_tok = cfg["probe"].get("loss", {}).get("bio_weight", 2.0)
     bio_pos_w = cfg["probe"].get("loss", {}).get("bio_pos_weight", 15.0)
+    # regression guard baseline (D-13/D-14, ported from the lora path)
+    baseline = {k: float(v) for k, v in
+                (tr.get("baseline_readings") or {}).items()} or None
+    if baseline:
+        print(f"[m6_train] regression-guard baseline: {baseline}")
 
     A = np.load(cache_dir / "feats_train.npz", allow_pickle=True)
     D = np.load(cache_dir / "feats_dev.npz", allow_pickle=True)
@@ -463,6 +468,7 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
 
     logf = open(out_dir / "train_log.jsonl", "w", encoding="utf-8")
     best_key, best_state, best_ep, bad = -1.0, None, -1, 0
+    lb_state2, lb_best2, lb_ep2 = None, None, -1
     step = 0
     for ep in range(1, epochs + 1):
         model.train()
@@ -498,16 +504,22 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
             step += 1
 
         # dev metrics (zero-FP operating point per task, on neg_all set)
+        # LOGIT-SPACE (D-16 family systematic cleanup): score-space ties at
+        # fp32-saturated 1.0 are measurement artifacts; adapted-feature runs
+        # (branch A composites) CAN saturate benigns. T6 = log-P recall
+        # (guard-consistent), replacing the old argmax acc.
         model.eval()
         with torch.no_grad():
             out_d = model(Xdv_t)
-        scores = {t: torch.sigmoid(out_d[t]).cpu().numpy() for t in
-                  ("T1", "T2", "T3", "T4doc", "T5")}
+        lg = {t: out_d[t].cpu().numpy() for t in
+              ("T1", "T2", "T3", "T4doc", "T5")}
+        lg["T6"] = torch.log_softmax(out_d["T6"].double(), dim=-1)[:, 0] \
+            .cpu().numpy()
         neg = D["neg_all"]
         entry = {"epoch": ep, "tasks": {}}
         rs = []
-        for lt, ht in LABEL_TO_HEAD.items():
-            s = scores[ht]
+        for lt in list(LABEL_TO_HEAD.keys()) + ["T6"]:
+            s = lg["T4doc" if lt == "T4" else lt]
             g = Ydv[:, COL[lt]]
             m = g >= 0
             pos_s, neg_s = s[m & (g == 1)], s[m & neg]
@@ -518,31 +530,47 @@ def train_stage_b(cfg, cache_dir, out_dir, device):
                 rs.append(r)
             entry["tasks"][lt] = {"recall@zeroFP": r,
                                   "n_pos": int(len(pos_s)), "n_neg": int(len(neg_s))}
-        if (Ydv[:, 5] >= 0).any():
-            pred6 = out_d["T6"].argmax(-1).cpu().numpy()
-            gold6 = t6dv.copy()
-            m6 = gold6 >= 0
-            entry["tasks"]["T6"] = {
-                "acc3": round(float((pred6[m6] == gold6[m6]).mean()), 4),
-                "recall_highrisk@argmax": round(float(
-                    (pred6[m6 & (gold6 == 0)] == 0).mean()), 4)
-                if (m6 & (gold6 == 0)).any() else None}
         entry["macro_recall_zeroFP"] = round(sum(rs) / max(1, len(rs)), 4)
+        # regression guard + least-bad (D-13/D-14, ported from the lora path)
+        regress = {}
+        if baseline:
+            for lt in entry["tasks"]:
+                r_now = entry["tasks"][lt].get("recall@zeroFP")
+                r_base = baseline.get(lt)
+                if r_now is not None and r_base is not None:
+                    if r_now < r_base - 0.01:
+                        regress[lt] = round(r_base - r_now, 4)
+        entry["regression_vs_baseline"] = regress
         logf.write(json.dumps(entry, ensure_ascii=False) + "\n")
         logf.flush()
         star = ""
-        if entry["macro_recall_zeroFP"] > best_key:
+        if entry["macro_recall_zeroFP"] > best_key and not regress:
             best_key, best_ep, bad = entry["macro_recall_zeroFP"], ep, 0
             best_state = {k: v.detach().cpu().clone()
                           for k, v in model.state_dict().items()}
             star = " *best*"
         else:
             bad += 1
-        print(f"[m6_train] ep{ep} macroR@zeroFP={entry['macro_recall_zeroFP']:.4f}{star}")
+        lb_key2 = (len(regress), -entry["macro_recall_zeroFP"])
+        if lb_state2 is None or lb_key2 < lb_best2:
+            lb_best2 = lb_key2
+            lb_ep2 = ep
+            lb_state2 = {k: v.detach().cpu().clone()
+                         for k, v in model.state_dict().items()}
+        reg_note = f" REGRESSION={regress}" if regress else ""
+        print(f"[m6_train] ep{ep} macroR@zeroFP="
+              f"{entry['macro_recall_zeroFP']:.4f}{star}{reg_note}")
         if bad >= patience:
             print(f"[m6_train] early stop (patience {patience})")
             break
     logf.close()
+    if best_state is None:
+        best_state = lb_state2
+        best_ep = -lb_ep2
+        best_key = -lb_best2[1]
+        print(f"[m6_train] WARN: no epoch passed the regression guard; "
+              f"keeping LEAST-BAD epoch {lb_ep2} ({lb_best2[0]} regressed "
+              f"tasks, macroR {-lb_best2[1]:.4f})")
     if best_state is not None:
         model.load_state_dict(best_state)
     model.eval()
