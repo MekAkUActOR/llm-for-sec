@@ -1,0 +1,106 @@
+{
+ "run": "m6-v2-4",
+ "metrics": {
+  "T1": {
+   "recall": 0.899,
+   "fp_dev_neg": 0,
+   "n_neg": 6012,
+   "thresholds": {
+    "threshold_space": "logit",
+    "flag": 0.999798,
+    "strong": 0.999925,
+    "flag_logit": 8.5045,
+    "strong_logit": 9.5045
+   }
+  },
+  "T2": {
+   "recall": 0.9477,
+   "fp_dev_neg": 0,
+   "n_neg": 5944,
+   "thresholds": {
+    "threshold_space": "logit",
+    "flag": 1.0,
+    "strong": 1.0,
+    "flag_logit": 18.965,
+    "strong_logit": 21.562
+   }
+  },
+  "T3": {
+   "recall": 0.9113,
+   "fp_dev_neg": 0,
+   "n_neg": 6008,
+   "thresholds": {
+    "threshold_space": "logit",
+    "flag": 0.999993,
+    "strong": 0.999997,
+    "flag_logit": 11.8878,
+    "strong_logit": 12.8878
+   }
+  },
+  "T4": {
+   "recall": 0.7965,
+   "fp_dev_neg": 0,
+   "n_neg": 5712,
+   "thresholds": {
+    "threshold_space": "logit",
+    "flag": 1.0,
+    "strong": 1.0,
+    "flag_logit": 19.8285,
+    "strong_logit": 20.8285
+   }
+  },
+  "T5": {
+   "recall": 0.948,
+   "fp_dev_neg": 0,
+   "n_neg": 6312,
+   "thresholds": {
+    "threshold_space": "logit",
+    "flag": 0.999983,
+    "strong": 0.999997,
+    "flag_logit": 10.9795,
+    "strong_logit": 12.6278
+   }
+  },
+  "T6": {
+   "recall": 0.956,
+   "fp_dev_neg": 0,
+   "n_neg": 6312,
+   "thresholds": {
+    "threshold_space": "logit",
+    "flag": 0.99999996,
+    "strong": 1.0,
+    "flag_logit": -4e-08,
+    "strong_logit": -0.0
+   }
+  }
+ },
+ "train_log": [],
+ "assembly": {
+  "pattern": "surgical composite (no epoch loop): v2 full probe (trunk-MLP + T2/T4/T5/T6 heads) + fresh T1/T3 retrained on frozen v2 trunk-MLP",
+  "trunk": "m6-v2 (e2a758c, unchanged - G4 dissociation)",
+  "adapter": "m6-v2 (junction)",
+  "retrained_heads": [
+   "T1",
+   "T3"
+  ],
+  "kept_heads": [
+   "T2",
+   "T4",
+   "T5",
+   "T6"
+  ],
+  "selection": "margin-aware per-epoch (calibrate-consistent) on dev; best ep22/24 T1 0.9495 / T3 0.9249",
+  "feats": "m6-v2-3b feat_cache (v2-adapter, current plane 64,070/12,768)"
+ },
+ "ood_telemetry": {
+  "tau_ood": 3369.3,
+  "tau_ref_v2": 4944.0,
+  "q95_over_tau": 0.998,
+  "q95_over_tau_ref_v2": 0.87,
+  "is_ood_rate": 0.046,
+  "is_ood_ref_v2": 0.022,
+  "dist_median": 1911.0,
+  "dist_q95": 3361.0
+ },
+ "benign_saturated": null
+}
