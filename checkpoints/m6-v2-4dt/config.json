@@ -6,6 +6,9 @@
       "dtype": "bf16"
     },
     "probe": {
+      "span_gate": {
+        "min_len": 2
+      },
       "tapped_layers": [
         4,
         12,
