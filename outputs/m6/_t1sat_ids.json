@@ -1,0 +1,2798 @@
+[
+ {
+  "id": "m6-t1-legacy-003569",
+  "family": "r9-paired",
+  "mirror": false,
+  "logit": 18.0
+ },
+ {
+  "id": "m6-chm-000001",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.4
+ },
+ {
+  "id": "m6-chm-000003",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.7
+ },
+ {
+  "id": "m6-chm-000007",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.6
+ },
+ {
+  "id": "m6-chm-000009",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.6
+ },
+ {
+  "id": "m6-chm-000012",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.4
+ },
+ {
+  "id": "m6-chm-000013",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 66.4
+ },
+ {
+  "id": "m6-chm-000016",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.3
+ },
+ {
+  "id": "m6-chm-000018",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.0
+ },
+ {
+  "id": "m6-chm-000020",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.5
+ },
+ {
+  "id": "m6-chm-000024",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.1
+ },
+ {
+  "id": "m6-chm-000031",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.6
+ },
+ {
+  "id": "m6-chm-000033",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.9
+ },
+ {
+  "id": "m6-chm-000034",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.5
+ },
+ {
+  "id": "m6-chm-000036",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.8
+ },
+ {
+  "id": "m6-chm-000037",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.1
+ },
+ {
+  "id": "m6-chm-000038",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.7
+ },
+ {
+  "id": "m6-chm-000040",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.5
+ },
+ {
+  "id": "m6-chm-000042",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.4
+ },
+ {
+  "id": "m6-chm-000045",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.0
+ },
+ {
+  "id": "m6-chm-000047",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.5
+ },
+ {
+  "id": "m6-chm-000049",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.1
+ },
+ {
+  "id": "m6-chm-000050",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.0
+ },
+ {
+  "id": "m6-chm-000051",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.1
+ },
+ {
+  "id": "m6-chm-000052",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.0
+ },
+ {
+  "id": "m6-chm-000056",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.1
+ },
+ {
+  "id": "m6-chm-000058",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.9
+ },
+ {
+  "id": "m6-chm-000059",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.5
+ },
+ {
+  "id": "m6-chm-000062",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.7
+ },
+ {
+  "id": "m6-chm-000066",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.1
+ },
+ {
+  "id": "m6-chm-000069",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 67.8
+ },
+ {
+  "id": "m6-chm-000070",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 46.8
+ },
+ {
+  "id": "m6-chm-000072",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.9
+ },
+ {
+  "id": "m6-chm-000074",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.6
+ },
+ {
+  "id": "m6-chm-000075",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.8
+ },
+ {
+  "id": "m6-chm-000076",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.1
+ },
+ {
+  "id": "m6-chm-000077",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.0
+ },
+ {
+  "id": "m6-chm-000078",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.0
+ },
+ {
+  "id": "m6-chm-000079",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.9
+ },
+ {
+  "id": "m6-chm-000081",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 47.9
+ },
+ {
+  "id": "m6-chm-000082",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.7
+ },
+ {
+  "id": "m6-chm-000083",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 66.1
+ },
+ {
+  "id": "m6-chm-000085",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.8
+ },
+ {
+  "id": "m6-chm-000091",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.0
+ },
+ {
+  "id": "m6-chm-000092",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.6
+ },
+ {
+  "id": "m6-chm-000093",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.7
+ },
+ {
+  "id": "m6-chm-000097",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.3
+ },
+ {
+  "id": "m6-chm-000104",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.4
+ },
+ {
+  "id": "m6-chm-000107",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.2
+ },
+ {
+  "id": "m6-chm-000108",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.3
+ },
+ {
+  "id": "m6-chm-000113",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 47.3
+ },
+ {
+  "id": "m6-chm-000123",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.4
+ },
+ {
+  "id": "m6-chm-000125",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.7
+ },
+ {
+  "id": "m6-chm-000129",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.3
+ },
+ {
+  "id": "m6-chm-000132",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 69.7
+ },
+ {
+  "id": "m6-chm-000133",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.6
+ },
+ {
+  "id": "m6-chm-000134",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.6
+ },
+ {
+  "id": "m6-chm-000138",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.8
+ },
+ {
+  "id": "m6-chm-000139",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.0
+ },
+ {
+  "id": "m6-chm-000142",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.1
+ },
+ {
+  "id": "m6-chm-000143",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.7
+ },
+ {
+  "id": "m6-chm-000146",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.3
+ },
+ {
+  "id": "m6-chm-000148",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.7
+ },
+ {
+  "id": "m6-chm-000154",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.2
+ },
+ {
+  "id": "m6-chm-000156",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.6
+ },
+ {
+  "id": "m6-chm-000157",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.6
+ },
+ {
+  "id": "m6-chm-000162",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.4
+ },
+ {
+  "id": "m6-chm-000163",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.5
+ },
+ {
+  "id": "m6-chm-000164",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.5
+ },
+ {
+  "id": "m6-chm-000167",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.3
+ },
+ {
+  "id": "m6-chm-000168",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.6
+ },
+ {
+  "id": "m6-chm-000169",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.2
+ },
+ {
+  "id": "m6-chm-000171",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.3
+ },
+ {
+  "id": "m6-chm-000173",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.5
+ },
+ {
+  "id": "m6-chm-000175",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.3
+ },
+ {
+  "id": "m6-chm-000176",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.1
+ },
+ {
+  "id": "m6-chm-000179",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 69.9
+ },
+ {
+  "id": "m6-chm-000180",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.1
+ },
+ {
+  "id": "m6-chm-000185",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.5
+ },
+ {
+  "id": "m6-chm-000187",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.9
+ },
+ {
+  "id": "m6-chm-000188",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.4
+ },
+ {
+  "id": "m6-chm-000189",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.8
+ },
+ {
+  "id": "m6-chm-000191",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.6
+ },
+ {
+  "id": "m6-chm-000193",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.6
+ },
+ {
+  "id": "m6-chm-000204",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.4
+ },
+ {
+  "id": "m6-chm-000205",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.2
+ },
+ {
+  "id": "m6-chm-000207",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.2
+ },
+ {
+  "id": "m6-chm-000209",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.2
+ },
+ {
+  "id": "m6-chm-000213",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.3
+ },
+ {
+  "id": "m6-chm-000217",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.6
+ },
+ {
+  "id": "m6-chm-000225",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.9
+ },
+ {
+  "id": "m6-chm-000226",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.4
+ },
+ {
+  "id": "m6-chm-000227",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.6
+ },
+ {
+  "id": "m6-chm-000228",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.6
+ },
+ {
+  "id": "m6-chm-000231",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.0
+ },
+ {
+  "id": "m6-chm-000232",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.8
+ },
+ {
+  "id": "m6-chm-000233",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.9
+ },
+ {
+  "id": "m6-chm-000236",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.9
+ },
+ {
+  "id": "m6-chm-000242",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.8
+ },
+ {
+  "id": "m6-chm-000245",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.6
+ },
+ {
+  "id": "m6-chm-000251",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.2
+ },
+ {
+  "id": "m6-chm-000253",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.9
+ },
+ {
+  "id": "m6-chm-000255",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.9
+ },
+ {
+  "id": "m6-chm-000257",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.2
+ },
+ {
+  "id": "m6-chm-000260",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.7
+ },
+ {
+  "id": "m6-chm-000261",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.9
+ },
+ {
+  "id": "m6-chm-000262",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.3
+ },
+ {
+  "id": "m6-chm-000263",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.0
+ },
+ {
+  "id": "m6-chm-000264",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.3
+ },
+ {
+  "id": "m6-chm-000267",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.9
+ },
+ {
+  "id": "m6-chm-000269",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.4
+ },
+ {
+  "id": "m6-chm-000270",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.7
+ },
+ {
+  "id": "m6-chm-000274",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.2
+ },
+ {
+  "id": "m6-chm-000277",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.0
+ },
+ {
+  "id": "m6-chm-000278",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.3
+ },
+ {
+  "id": "m6-chm-000280",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 67.3
+ },
+ {
+  "id": "m6-chm-000282",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.5
+ },
+ {
+  "id": "m6-chm-000283",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.9
+ },
+ {
+  "id": "m6-chm-000285",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.4
+ },
+ {
+  "id": "m6-chm-000287",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.5
+ },
+ {
+  "id": "m6-chm-000290",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.7
+ },
+ {
+  "id": "m6-chm-000291",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.7
+ },
+ {
+  "id": "m6-chm-000300",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.9
+ },
+ {
+  "id": "m6-chm-000302",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.8
+ },
+ {
+  "id": "m6-chm-000303",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.5
+ },
+ {
+  "id": "m6-chm-000309",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.7
+ },
+ {
+  "id": "m6-chm-000310",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.1
+ },
+ {
+  "id": "m6-chm-000313",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.4
+ },
+ {
+  "id": "m6-chm-000314",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.5
+ },
+ {
+  "id": "m6-chm-000315",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.5
+ },
+ {
+  "id": "m6-chm-000320",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 66.7
+ },
+ {
+  "id": "m6-chm-000324",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.4
+ },
+ {
+  "id": "m6-chm-000325",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.9
+ },
+ {
+  "id": "m6-chm-000327",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.2
+ },
+ {
+  "id": "m6-chm-000328",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.3
+ },
+ {
+  "id": "m6-chm-000329",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.3
+ },
+ {
+  "id": "m6-chm-000330",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.9
+ },
+ {
+  "id": "m6-chm-000331",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.0
+ },
+ {
+  "id": "m6-chm-000334",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.5
+ },
+ {
+  "id": "m6-chm-000340",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.8
+ },
+ {
+  "id": "m6-chm-000344",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.5
+ },
+ {
+  "id": "m6-chm-000345",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.8
+ },
+ {
+  "id": "m6-chm-000347",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 66.3
+ },
+ {
+  "id": "m6-chm-000358",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.7
+ },
+ {
+  "id": "m6-chm-000360",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.6
+ },
+ {
+  "id": "m6-chm-000362",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.0
+ },
+ {
+  "id": "m6-chm-000365",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.0
+ },
+ {
+  "id": "m6-chm-000370",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.8
+ },
+ {
+  "id": "m6-chm-000373",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.7
+ },
+ {
+  "id": "m6-chm-000375",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.6
+ },
+ {
+  "id": "m6-chm-000377",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.6
+ },
+ {
+  "id": "m6-chm-000382",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.4
+ },
+ {
+  "id": "m6-chm-000384",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.7
+ },
+ {
+  "id": "m6-chm-000387",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.7
+ },
+ {
+  "id": "m6-chm-000388",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.7
+ },
+ {
+  "id": "m6-chm-000389",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.7
+ },
+ {
+  "id": "m6-chm-000394",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 66.1
+ },
+ {
+  "id": "m6-chm-000402",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.6
+ },
+ {
+  "id": "m6-chm-000403",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.8
+ },
+ {
+  "id": "m6-chm-000405",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.0
+ },
+ {
+  "id": "m6-chm-000413",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.6
+ },
+ {
+  "id": "m6-chm-000414",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.1
+ },
+ {
+  "id": "m6-chm-000416",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.8
+ },
+ {
+  "id": "m6-chm-000417",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.9
+ },
+ {
+  "id": "m6-chm-000418",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.7
+ },
+ {
+  "id": "m6-chm-000422",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.8
+ },
+ {
+  "id": "m6-chm-000423",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.0
+ },
+ {
+  "id": "m6-chm-000425",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.9
+ },
+ {
+  "id": "m6-chm-000428",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.4
+ },
+ {
+  "id": "m6-chm-000430",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.0
+ },
+ {
+  "id": "m6-chm-000435",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.7
+ },
+ {
+  "id": "m6-chm-000440",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.5
+ },
+ {
+  "id": "m6-chm-000443",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.6
+ },
+ {
+  "id": "m6-chm-000445",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.4
+ },
+ {
+  "id": "m6-chm-000448",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 69.1
+ },
+ {
+  "id": "m6-chm-000449",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.1
+ },
+ {
+  "id": "m6-chm-000450",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.0
+ },
+ {
+  "id": "m6-chm-000451",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.0
+ },
+ {
+  "id": "m6-chm-000453",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.4
+ },
+ {
+  "id": "m6-chm-000455",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.6
+ },
+ {
+  "id": "m6-chm-000458",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.9
+ },
+ {
+  "id": "m6-chm-000460",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.3
+ },
+ {
+  "id": "m6-chm-000461",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.4
+ },
+ {
+  "id": "m6-chm-000464",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.2
+ },
+ {
+  "id": "m6-chm-000467",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.2
+ },
+ {
+  "id": "m6-chm-000470",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.9
+ },
+ {
+  "id": "m6-chm-000472",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.9
+ },
+ {
+  "id": "m6-chm-000479",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.2
+ },
+ {
+  "id": "m6-chm-000484",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.2
+ },
+ {
+  "id": "m6-chm-000486",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.0
+ },
+ {
+  "id": "m6-chm-000487",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.0
+ },
+ {
+  "id": "m6-chm-000488",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.3
+ },
+ {
+  "id": "m6-chm-000491",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.9
+ },
+ {
+  "id": "m6-chm-000494",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.9
+ },
+ {
+  "id": "m6-chm-000498",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.0
+ },
+ {
+  "id": "m6-chm-000503",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.0
+ },
+ {
+  "id": "m6-chm-000504",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.7
+ },
+ {
+  "id": "m6-chm-000505",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.7
+ },
+ {
+  "id": "m6-chm-000506",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.7
+ },
+ {
+  "id": "m6-chm-000509",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.4
+ },
+ {
+  "id": "m6-chm-000510",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.1
+ },
+ {
+  "id": "m6-chm-000511",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.6
+ },
+ {
+  "id": "m6-chm-000512",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.0
+ },
+ {
+  "id": "m6-chm-000520",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.2
+ },
+ {
+  "id": "m6-chm-000522",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.3
+ },
+ {
+  "id": "m6-chm-000523",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.8
+ },
+ {
+  "id": "m6-chm-000529",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.3
+ },
+ {
+  "id": "m6-chm-000530",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.0
+ },
+ {
+  "id": "m6-chm-000535",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.8
+ },
+ {
+  "id": "m6-chm-000540",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.3
+ },
+ {
+  "id": "m6-chm-000542",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.1
+ },
+ {
+  "id": "m6-chm-000545",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.3
+ },
+ {
+  "id": "m6-chm-000548",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.6
+ },
+ {
+  "id": "m6-chm-000549",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.1
+ },
+ {
+  "id": "m6-chm-000550",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.1
+ },
+ {
+  "id": "m6-chm-000551",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.5
+ },
+ {
+  "id": "m6-chm-000552",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.7
+ },
+ {
+  "id": "m6-chm-000554",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.6
+ },
+ {
+  "id": "m6-chm-000556",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.1
+ },
+ {
+  "id": "m6-chm-000557",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.5
+ },
+ {
+  "id": "m6-chm-000560",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.1
+ },
+ {
+  "id": "m6-chm-000562",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.9
+ },
+ {
+  "id": "m6-chm-000563",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.5
+ },
+ {
+  "id": "m6-chm-000569",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.2
+ },
+ {
+  "id": "m6-chm-000570",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.2
+ },
+ {
+  "id": "m6-chm-000571",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.9
+ },
+ {
+  "id": "m6-chm-000572",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.6
+ },
+ {
+  "id": "m6-chm-000576",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.4
+ },
+ {
+  "id": "m6-chm-000582",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.3
+ },
+ {
+  "id": "m6-chm-000584",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.5
+ },
+ {
+  "id": "m6-chm-000589",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.2
+ },
+ {
+  "id": "m6-chm-000592",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.7
+ },
+ {
+  "id": "m6-chm-000593",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.5
+ },
+ {
+  "id": "m6-chm-000594",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.4
+ },
+ {
+  "id": "m6-chm-000602",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.1
+ },
+ {
+  "id": "m6-chm-000603",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.5
+ },
+ {
+  "id": "m6-chm-000604",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.1
+ },
+ {
+  "id": "m6-chm-000607",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.8
+ },
+ {
+  "id": "m6-chm-000611",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.4
+ },
+ {
+  "id": "m6-chm-000612",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.6
+ },
+ {
+  "id": "m6-chm-000614",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.9
+ },
+ {
+  "id": "m6-chm-000617",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.0
+ },
+ {
+  "id": "m6-chm-000619",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.1
+ },
+ {
+  "id": "m6-chm-000624",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.3
+ },
+ {
+  "id": "m6-chm-000632",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.6
+ },
+ {
+  "id": "m6-chm-000639",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.2
+ },
+ {
+  "id": "m6-chm-000647",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.6
+ },
+ {
+  "id": "m6-chm-000648",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.9
+ },
+ {
+  "id": "m6-chm-000649",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.9
+ },
+ {
+  "id": "m6-chm-000650",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.8
+ },
+ {
+  "id": "m6-chm-000654",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.6
+ },
+ {
+  "id": "m6-chm-000658",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.5
+ },
+ {
+  "id": "m6-chm-000660",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.9
+ },
+ {
+  "id": "m6-chm-000662",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.7
+ },
+ {
+  "id": "m6-chm-000666",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.7
+ },
+ {
+  "id": "m6-chm-000668",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.5
+ },
+ {
+  "id": "m6-chm-000679",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.7
+ },
+ {
+  "id": "m6-chm-000680",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.2
+ },
+ {
+  "id": "m6-chm-000683",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.8
+ },
+ {
+  "id": "m6-chm-000689",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.9
+ },
+ {
+  "id": "m6-chm-000694",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.4
+ },
+ {
+  "id": "m6-chm-000697",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.9
+ },
+ {
+  "id": "m6-chm-000701",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.0
+ },
+ {
+  "id": "m6-chm-000703",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.0
+ },
+ {
+  "id": "m6-chm-000704",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.0
+ },
+ {
+  "id": "m6-chm-000706",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.7
+ },
+ {
+  "id": "m6-chm-000709",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.4
+ },
+ {
+  "id": "m6-chm-000714",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.6
+ },
+ {
+  "id": "m6-chm-000716",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.0
+ },
+ {
+  "id": "m6-chm-000718",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.7
+ },
+ {
+  "id": "m6-chm-000719",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.1
+ },
+ {
+  "id": "m6-chm-000720",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.4
+ },
+ {
+  "id": "m6-chm-000721",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.3
+ },
+ {
+  "id": "m6-chm-000722",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.6
+ },
+ {
+  "id": "m6-chm-000724",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.5
+ },
+ {
+  "id": "m6-chm-000725",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.8
+ },
+ {
+  "id": "m6-chm-000727",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.8
+ },
+ {
+  "id": "m6-chm-000729",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.1
+ },
+ {
+  "id": "m6-chm-000730",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.8
+ },
+ {
+  "id": "m6-chm-000732",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.6
+ },
+ {
+  "id": "m6-chm-000733",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.7
+ },
+ {
+  "id": "m6-chm-000734",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.8
+ },
+ {
+  "id": "m6-chm-000735",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.5
+ },
+ {
+  "id": "m6-chm-000737",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 66.8
+ },
+ {
+  "id": "m6-chm-000747",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.3
+ },
+ {
+  "id": "m6-chm-000749",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.9
+ },
+ {
+  "id": "m6-chm-000750",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.2
+ },
+ {
+  "id": "m6-chm-000751",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.6
+ },
+ {
+  "id": "m6-chm-000752",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.9
+ },
+ {
+  "id": "m6-chm-000753",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.1
+ },
+ {
+  "id": "m6-chm-000759",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.5
+ },
+ {
+  "id": "m6-chm-000764",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.5
+ },
+ {
+  "id": "m6-chm-000765",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.6
+ },
+ {
+  "id": "m6-chm-000766",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.7
+ },
+ {
+  "id": "m6-chm-000767",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.3
+ },
+ {
+  "id": "m6-chm-000770",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.4
+ },
+ {
+  "id": "m6-chm-000772",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.1
+ },
+ {
+  "id": "m6-chm-000773",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.7
+ },
+ {
+  "id": "m6-chm-000775",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 78.1
+ },
+ {
+  "id": "m6-chm-000780",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.7
+ },
+ {
+  "id": "m6-chm-000782",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.6
+ },
+ {
+  "id": "m6-chm-000783",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.8
+ },
+ {
+  "id": "m6-chm-000784",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.7
+ },
+ {
+  "id": "m6-chm-000785",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.7
+ },
+ {
+  "id": "m6-chm-000786",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.7
+ },
+ {
+  "id": "m6-chm-000788",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.8
+ },
+ {
+  "id": "m6-chm-000791",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.1
+ },
+ {
+  "id": "m6-chm-000796",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.9
+ },
+ {
+  "id": "m6-chm-000797",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.7
+ },
+ {
+  "id": "m6-chm-000801",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.8
+ },
+ {
+  "id": "m6-chm-000802",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.3
+ },
+ {
+  "id": "m6-chm-000805",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.2
+ },
+ {
+  "id": "m6-chm-000807",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.0
+ },
+ {
+  "id": "m6-chm-000808",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 70.2
+ },
+ {
+  "id": "m6-chm-000810",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.6
+ },
+ {
+  "id": "m6-chm-000811",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.8
+ },
+ {
+  "id": "m6-chm-000817",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.9
+ },
+ {
+  "id": "m6-chm-000818",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.7
+ },
+ {
+  "id": "m6-chm-000819",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 68.8
+ },
+ {
+  "id": "m6-chm-000822",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.1
+ },
+ {
+  "id": "m6-chm-000823",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.0
+ },
+ {
+  "id": "m6-chm-000825",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.0
+ },
+ {
+  "id": "m6-chm-000828",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.8
+ },
+ {
+  "id": "m6-chm-000830",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.0
+ },
+ {
+  "id": "m6-chm-000831",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.6
+ },
+ {
+  "id": "m6-chm-000833",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.1
+ },
+ {
+  "id": "m6-chm-000834",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.0
+ },
+ {
+  "id": "m6-chm-000837",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.9
+ },
+ {
+  "id": "m6-chm-000839",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 47.4
+ },
+ {
+  "id": "m6-chm-000847",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.2
+ },
+ {
+  "id": "m6-chm-000849",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.5
+ },
+ {
+  "id": "m6-chm-000850",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.8
+ },
+ {
+  "id": "m6-chm-000856",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 69.4
+ },
+ {
+  "id": "m6-chm-000857",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.0
+ },
+ {
+  "id": "m6-chm-000858",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.2
+ },
+ {
+  "id": "m6-chm-000859",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.1
+ },
+ {
+  "id": "m6-chm-000861",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.0
+ },
+ {
+  "id": "m6-chm-000864",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.7
+ },
+ {
+  "id": "m6-chm-000867",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.7
+ },
+ {
+  "id": "m6-chm-000868",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.1
+ },
+ {
+  "id": "m6-chm-000870",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.0
+ },
+ {
+  "id": "m6-chm-000873",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 72.1
+ },
+ {
+  "id": "m6-chm-000874",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.0
+ },
+ {
+  "id": "m6-chm-000875",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.9
+ },
+ {
+  "id": "m6-chm-000876",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.9
+ },
+ {
+  "id": "m6-chm-000877",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.4
+ },
+ {
+  "id": "m6-chm-000883",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.6
+ },
+ {
+  "id": "m6-chm-000885",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.7
+ },
+ {
+  "id": "m6-chm-000887",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.7
+ },
+ {
+  "id": "m6-chm-000889",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.1
+ },
+ {
+  "id": "m6-chm-000895",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.4
+ },
+ {
+  "id": "m6-chm-000897",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 68.5
+ },
+ {
+  "id": "m6-chm-000898",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.7
+ },
+ {
+  "id": "m6-chm-000900",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.2
+ },
+ {
+  "id": "m6-chm-000905",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 69.7
+ },
+ {
+  "id": "m6-chm-000906",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 56.6
+ },
+ {
+  "id": "m6-chm-000907",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.0
+ },
+ {
+  "id": "m6-chm-000912",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.0
+ },
+ {
+  "id": "m6-chm-000913",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.0
+ },
+ {
+  "id": "m6-chm-000919",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.8
+ },
+ {
+  "id": "m6-chm-000920",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.2
+ },
+ {
+  "id": "m6-chm-000922",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.8
+ },
+ {
+  "id": "m6-chm-000923",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.6
+ },
+ {
+  "id": "m6-chm-000927",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.8
+ },
+ {
+  "id": "m6-chm-000929",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.2
+ },
+ {
+  "id": "m6-chm-000930",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.1
+ },
+ {
+  "id": "m6-chm-000931",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.4
+ },
+ {
+  "id": "m6-chm-000932",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.8
+ },
+ {
+  "id": "m6-chm-000933",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 67.0
+ },
+ {
+  "id": "m6-chm-000934",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.4
+ },
+ {
+  "id": "m6-chm-000937",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.2
+ },
+ {
+  "id": "m6-chm-000939",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.9
+ },
+ {
+  "id": "m6-chm-000940",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.6
+ },
+ {
+  "id": "m6-chm-000942",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.2
+ },
+ {
+  "id": "m6-chm-000943",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.2
+ },
+ {
+  "id": "m6-chm-000945",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 74.3
+ },
+ {
+  "id": "m6-chm-000946",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.8
+ },
+ {
+  "id": "m6-chm-000947",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.5
+ },
+ {
+  "id": "m6-chm-000948",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.7
+ },
+ {
+  "id": "m6-chm-000950",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.8
+ },
+ {
+  "id": "m6-chm-000951",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 73.5
+ },
+ {
+  "id": "m6-chm-000952",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.5
+ },
+ {
+  "id": "m6-chm-000953",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.1
+ },
+ {
+  "id": "m6-chm-000954",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.3
+ },
+ {
+  "id": "m6-chm-000955",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.0
+ },
+ {
+  "id": "m6-chm-000956",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.5
+ },
+ {
+  "id": "m6-chm-000957",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.3
+ },
+ {
+  "id": "m6-chm-000958",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.4
+ },
+ {
+  "id": "m6-chm-000960",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.2
+ },
+ {
+  "id": "m6-chm-000964",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.6
+ },
+ {
+  "id": "m6-chm-000965",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.8
+ },
+ {
+  "id": "m6-chm-000966",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.8
+ },
+ {
+  "id": "m6-chm-000972",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 71.3
+ },
+ {
+  "id": "m6-chm-000974",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.2
+ },
+ {
+  "id": "m6-chm-000981",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.9
+ },
+ {
+  "id": "m6-chm-000988",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.9
+ },
+ {
+  "id": "m6-chm-000989",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.8
+ },
+ {
+  "id": "m6-chm-000994",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.8
+ },
+ {
+  "id": "m6-chm-000995",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.2
+ },
+ {
+  "id": "m6-chm-000996",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.1
+ },
+ {
+  "id": "m6-chm-000997",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.3
+ },
+ {
+  "id": "m6-chm-000999",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 48.7
+ },
+ {
+  "id": "m6-chm-001000",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.2
+ },
+ {
+  "id": "m6-chm-001001",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 77.0
+ },
+ {
+  "id": "m6-chm-001003",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.7
+ },
+ {
+  "id": "m6-chm-001006",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.6
+ },
+ {
+  "id": "m6-chm-001008",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 64.1
+ },
+ {
+  "id": "m6-chm-001014",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.3
+ },
+ {
+  "id": "m6-chm-001015",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.5
+ },
+ {
+  "id": "m6-chm-001017",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.8
+ },
+ {
+  "id": "m6-chm-001019",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.5
+ },
+ {
+  "id": "m6-chm-001020",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.4
+ },
+ {
+  "id": "m6-chm-001023",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 62.9
+ },
+ {
+  "id": "m6-chm-001024",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.5
+ },
+ {
+  "id": "m6-chm-001027",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.0
+ },
+ {
+  "id": "m6-chm-001032",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.1
+ },
+ {
+  "id": "m6-chm-001033",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 55.3
+ },
+ {
+  "id": "m6-chm-001036",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 59.1
+ },
+ {
+  "id": "m6-chm-001040",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.6
+ },
+ {
+  "id": "m6-chm-001041",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 54.4
+ },
+ {
+  "id": "m6-chm-001042",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 76.3
+ },
+ {
+  "id": "m6-chm-001043",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 61.7
+ },
+ {
+  "id": "m6-chm-001044",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 60.9
+ },
+ {
+  "id": "m6-chm-001047",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 47.7
+ },
+ {
+  "id": "m6-chm-001049",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.5
+ },
+ {
+  "id": "m6-chm-001050",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 75.4
+ },
+ {
+  "id": "m6-chm-001055",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 63.9
+ },
+ {
+  "id": "m6-chm-001059",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.9
+ },
+ {
+  "id": "m6-chm-001068",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.2
+ },
+ {
+  "id": "m6-chm-001071",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 53.3
+ },
+ {
+  "id": "m6-chm-001074",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.5
+ },
+ {
+  "id": "m6-chm-001075",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 57.5
+ },
+ {
+  "id": "m6-chm-001079",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 52.1
+ },
+ {
+  "id": "m6-chm-001081",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.4
+ },
+ {
+  "id": "m6-chm-001085",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 58.7
+ },
+ {
+  "id": "m6-chm-001087",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 51.3
+ },
+ {
+  "id": "m6-chm-001091",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 65.0
+ },
+ {
+  "id": "m6-chm-001092",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 50.5
+ },
+ {
+  "id": "m6-chm-001100",
+  "family": "challenge",
+  "mirror": true,
+  "logit": 49.1
+ },
+ {
+  "id": "m6-oodm-000004",
+  "family": "ood",
+  "mirror": false,
+  "logit": 17.1
+ },
+ {
+  "id": "m6-oodm-000043",
+  "family": "ood",
+  "mirror": false,
+  "logit": 21.4
+ },
+ {
+  "id": "m6-oodm-000166",
+  "family": "ood",
+  "mirror": false,
+  "logit": 17.9
+ },
+ {
+  "id": "m6-oodm-000272",
+  "family": "ood",
+  "mirror": false,
+  "logit": 16.8
+ },
+ {
+  "id": "m6-oodm-000285",
+  "family": "ood",
+  "mirror": false,
+  "logit": 17.1
+ },
+ {
+  "id": "m6-oodm-000290",
+  "family": "ood",
+  "mirror": false,
+  "logit": 20.3
+ },
+ {
+  "id": "m6-oodm-000316",
+  "family": "ood",
+  "mirror": false,
+  "logit": 18.6
+ },
+ {
+  "id": "m6-oodm-000328",
+  "family": "ood",
+  "mirror": false,
+  "logit": 17.9
+ },
+ {
+  "id": "m6-oodm-000412",
+  "family": "ood",
+  "mirror": false,
+  "logit": 19.1
+ },
+ {
+  "id": "m6-oodm-000425",
+  "family": "ood",
+  "mirror": false,
+  "logit": 19.2
+ },
+ {
+  "id": "m6-oodm-000426",
+  "family": "ood",
+  "mirror": false,
+  "logit": 19.5
+ },
+ {
+  "id": "m6-oodm-000435",
+  "family": "ood",
+  "mirror": false,
+  "logit": 18.5
+ },
+ {
+  "id": "m6-oodm-000439",
+  "family": "ood",
+  "mirror": false,
+  "logit": 19.5
+ },
+ {
+  "id": "m6-ben-000004",
+  "family": "benign",
+  "mirror": false,
+  "logit": 34.5
+ },
+ {
+  "id": "m6-ben-000009",
+  "family": "benign",
+  "mirror": false,
+  "logit": 26.7
+ },
+ {
+  "id": "m6-ben-000010",
+  "family": "benign",
+  "mirror": false,
+  "logit": 33.1
+ },
+ {
+  "id": "m6-ben-000034",
+  "family": "benign",
+  "mirror": false,
+  "logit": 23.0
+ },
+ {
+  "id": "m6-ben-000053",
+  "family": "benign",
+  "mirror": false,
+  "logit": 22.9
+ },
+ {
+  "id": "m6-ben-000057",
+  "family": "benign",
+  "mirror": false,
+  "logit": 21.1
+ },
+ {
+  "id": "m6-ben-000074",
+  "family": "benign",
+  "mirror": false,
+  "logit": 21.6
+ },
+ {
+  "id": "m6-ben-000083",
+  "family": "benign",
+  "mirror": false,
+  "logit": 31.2
+ },
+ {
+  "id": "m6-ben-000089",
+  "family": "benign",
+  "mirror": false,
+  "logit": 22.7
+ },
+ {
+  "id": "m6-ben-000094",
+  "family": "benign",
+  "mirror": false,
+  "logit": 33.1
+ },
+ {
+  "id": "m6-ben-000095",
+  "family": "benign",
+  "mirror": false,
+  "logit": 18.3
+ },
+ {
+  "id": "m6-ben-000111",
+  "family": "benign",
+  "mirror": false,
+  "logit": 21.2
+ },
+ {
+  "id": "m6-ben-000115",
+  "family": "benign",
+  "mirror": false,
+  "logit": 27.8
+ },
+ {
+  "id": "m6-ben-000142",
+  "family": "benign",
+  "mirror": false,
+  "logit": 27.8
+ }
+]
